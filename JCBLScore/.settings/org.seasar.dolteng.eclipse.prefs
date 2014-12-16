@@ -1,0 +1,9 @@
+#Tue Dec 09 16:47:43 JST 2014
+DaoType=S2JDBC
+DefaultResourcePath=/JCBLScore/src/main/resources
+DefaultRootPackage=cx.myhome.ckoshien
+DefaultSrcPath=/JCBLScore/src/main/java
+ServletPath=JCBLScore
+ViewType=SA-Struts
+WebContentsRoot=src/main/webapp
+eclipse.preferences.version=1
