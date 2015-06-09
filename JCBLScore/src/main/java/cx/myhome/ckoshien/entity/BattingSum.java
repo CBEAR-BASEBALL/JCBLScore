@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2014/12/09 16:58:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/09 15:33:30")
 public class BattingSum implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +66,14 @@ public class BattingSum implements Serializable {
     @Column(precision = 10, nullable = false, unique = false)
     public Integer homerun;
 
+    /** myteamIdプロパティ */
+    @Column(precision = 10, nullable = false, unique = false)
+    public Integer myteamId;
+
+    /** teamIdプロパティ */
+    @Column(precision = 10, nullable = false, unique = false)
+    public Integer teamId;
+
     /** player関連プロパティ */
     @ManyToOne
     public Player player;
@@ -74,4 +82,14 @@ public class BattingSum implements Serializable {
     @ManyToOne
     @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
     public Game game;
+
+    /** myTeam関連プロパティ */
+    @ManyToOne
+    @JoinColumn(name = "MYTEAM_ID", referencedColumnName = "TEAM_ID")
+    public Team myTeam;
+
+    /** team関連プロパティ */
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
+    public Team team;
 }

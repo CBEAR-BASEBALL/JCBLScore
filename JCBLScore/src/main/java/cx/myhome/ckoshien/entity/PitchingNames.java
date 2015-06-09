@@ -9,7 +9,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Pitching}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/12/09 16:58:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/09 15:33:32")
 public class PitchingNames {
 
     /**
@@ -44,8 +44,8 @@ public class PitchingNames {
      * 
      * @return inningのプロパティ名
      */
-    public static PropertyName<Integer> inning() {
-        return new PropertyName<Integer>("inning");
+    public static PropertyName<Double> inning() {
+        return new PropertyName<Double>("inning");
     }
 
     /**
@@ -212,8 +212,8 @@ public class PitchingNames {
          *
          * @return inningのプロパティ名
          */
-        public PropertyName<Integer> inning() {
-            return new PropertyName<Integer>(this, "inning");
+        public PropertyName<Double> inning() {
+            return new PropertyName<Double>(this, "inning");
         }
 
         /**

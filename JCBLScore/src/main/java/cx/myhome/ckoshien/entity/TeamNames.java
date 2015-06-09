@@ -1,6 +1,7 @@
 package cx.myhome.ckoshien.entity;
 
 import cx.myhome.ckoshien.entity.BattingDetailNames._BattingDetailNames;
+import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.GameNames._GameNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
 import javax.annotation.Generated;
@@ -10,7 +11,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Team}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/12/09 16:58:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/09 15:33:32")
 public class TeamNames {
 
     /**
@@ -47,6 +48,24 @@ public class TeamNames {
      */
     public static _BattingDetailNames battingDetailList2() {
         return new _BattingDetailNames("battingDetailList2");
+    }
+
+    /**
+     * battingSumListのプロパティ名を返します。
+     * 
+     * @return battingSumListのプロパティ名
+     */
+    public static _BattingSumNames battingSumList() {
+        return new _BattingSumNames("battingSumList");
+    }
+
+    /**
+     * battingSumList2のプロパティ名を返します。
+     * 
+     * @return battingSumList2のプロパティ名
+     */
+    public static _BattingSumNames battingSumList2() {
+        return new _BattingSumNames("battingSumList2");
     }
 
     /**
@@ -143,6 +162,24 @@ public class TeamNames {
          */
         public _BattingDetailNames battingDetailList2() {
             return new _BattingDetailNames(this, "battingDetailList2");
+        }
+
+        /**
+         * battingSumListのプロパティ名を返します。
+         * 
+         * @return battingSumListのプロパティ名
+         */
+        public _BattingSumNames battingSumList() {
+            return new _BattingSumNames(this, "battingSumList");
+        }
+
+        /**
+         * battingSumList2のプロパティ名を返します。
+         * 
+         * @return battingSumList2のプロパティ名
+         */
+        public _BattingSumNames battingSumList2() {
+            return new _BattingSumNames(this, "battingSumList2");
         }
 
         /**

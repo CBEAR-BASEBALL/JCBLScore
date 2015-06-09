@@ -12,7 +12,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Game}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/12/09 16:58:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/09 15:33:32")
 public class GameNames {
 
     /**
@@ -76,6 +76,96 @@ public class GameNames {
      */
     public static PropertyName<Integer> lastRun() {
         return new PropertyName<Integer>("lastRun");
+    }
+
+    /**
+     * top1stのプロパティ名を返します。
+     * 
+     * @return top1stのプロパティ名
+     */
+    public static PropertyName<Integer> top1st() {
+        return new PropertyName<Integer>("top1st");
+    }
+
+    /**
+     * bottom1stのプロパティ名を返します。
+     * 
+     * @return bottom1stのプロパティ名
+     */
+    public static PropertyName<Integer> bottom1st() {
+        return new PropertyName<Integer>("bottom1st");
+    }
+
+    /**
+     * top2ndのプロパティ名を返します。
+     * 
+     * @return top2ndのプロパティ名
+     */
+    public static PropertyName<Integer> top2nd() {
+        return new PropertyName<Integer>("top2nd");
+    }
+
+    /**
+     * bottom2ndのプロパティ名を返します。
+     * 
+     * @return bottom2ndのプロパティ名
+     */
+    public static PropertyName<Integer> bottom2nd() {
+        return new PropertyName<Integer>("bottom2nd");
+    }
+
+    /**
+     * top3rdのプロパティ名を返します。
+     * 
+     * @return top3rdのプロパティ名
+     */
+    public static PropertyName<Integer> top3rd() {
+        return new PropertyName<Integer>("top3rd");
+    }
+
+    /**
+     * bottom3rdのプロパティ名を返します。
+     * 
+     * @return bottom3rdのプロパティ名
+     */
+    public static PropertyName<Integer> bottom3rd() {
+        return new PropertyName<Integer>("bottom3rd");
+    }
+
+    /**
+     * top4thのプロパティ名を返します。
+     * 
+     * @return top4thのプロパティ名
+     */
+    public static PropertyName<Integer> top4th() {
+        return new PropertyName<Integer>("top4th");
+    }
+
+    /**
+     * bottom4thのプロパティ名を返します。
+     * 
+     * @return bottom4thのプロパティ名
+     */
+    public static PropertyName<Integer> bottom4th() {
+        return new PropertyName<Integer>("bottom4th");
+    }
+
+    /**
+     * top5thのプロパティ名を返します。
+     * 
+     * @return top5thのプロパティ名
+     */
+    public static PropertyName<Integer> top5th() {
+        return new PropertyName<Integer>("top5th");
+    }
+
+    /**
+     * bottom5thのプロパティ名を返します。
+     * 
+     * @return bottom5thのプロパティ名
+     */
+    public static PropertyName<Integer> bottom5th() {
+        return new PropertyName<Integer>("bottom5th");
     }
 
     /**
@@ -217,6 +307,96 @@ public class GameNames {
          */
         public PropertyName<Integer> lastRun() {
             return new PropertyName<Integer>(this, "lastRun");
+        }
+
+        /**
+         * top1stのプロパティ名を返します。
+         *
+         * @return top1stのプロパティ名
+         */
+        public PropertyName<Integer> top1st() {
+            return new PropertyName<Integer>(this, "top1st");
+        }
+
+        /**
+         * bottom1stのプロパティ名を返します。
+         *
+         * @return bottom1stのプロパティ名
+         */
+        public PropertyName<Integer> bottom1st() {
+            return new PropertyName<Integer>(this, "bottom1st");
+        }
+
+        /**
+         * top2ndのプロパティ名を返します。
+         *
+         * @return top2ndのプロパティ名
+         */
+        public PropertyName<Integer> top2nd() {
+            return new PropertyName<Integer>(this, "top2nd");
+        }
+
+        /**
+         * bottom2ndのプロパティ名を返します。
+         *
+         * @return bottom2ndのプロパティ名
+         */
+        public PropertyName<Integer> bottom2nd() {
+            return new PropertyName<Integer>(this, "bottom2nd");
+        }
+
+        /**
+         * top3rdのプロパティ名を返します。
+         *
+         * @return top3rdのプロパティ名
+         */
+        public PropertyName<Integer> top3rd() {
+            return new PropertyName<Integer>(this, "top3rd");
+        }
+
+        /**
+         * bottom3rdのプロパティ名を返します。
+         *
+         * @return bottom3rdのプロパティ名
+         */
+        public PropertyName<Integer> bottom3rd() {
+            return new PropertyName<Integer>(this, "bottom3rd");
+        }
+
+        /**
+         * top4thのプロパティ名を返します。
+         *
+         * @return top4thのプロパティ名
+         */
+        public PropertyName<Integer> top4th() {
+            return new PropertyName<Integer>(this, "top4th");
+        }
+
+        /**
+         * bottom4thのプロパティ名を返します。
+         *
+         * @return bottom4thのプロパティ名
+         */
+        public PropertyName<Integer> bottom4th() {
+            return new PropertyName<Integer>(this, "bottom4th");
+        }
+
+        /**
+         * top5thのプロパティ名を返します。
+         *
+         * @return top5thのプロパティ名
+         */
+        public PropertyName<Integer> top5th() {
+            return new PropertyName<Integer>(this, "top5th");
+        }
+
+        /**
+         * bottom5thのプロパティ名を返します。
+         *
+         * @return bottom5thのプロパティ名
+         */
+        public PropertyName<Integer> bottom5th() {
+            return new PropertyName<Integer>(this, "bottom5th");
         }
 
         /**

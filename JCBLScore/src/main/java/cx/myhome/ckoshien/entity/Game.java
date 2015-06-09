@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2014/12/09 16:58:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/09 15:33:30")
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,6 +52,46 @@ public class Game implements Serializable {
     /** lastRunプロパティ */
     @Column(precision = 10, nullable = false, unique = false)
     public Integer lastRun;
+
+    /** top1stプロパティ */
+    @Column(name = "TOP_1st", precision = 10, nullable = true, unique = false)
+    public Integer top1st;
+
+    /** bottom1stプロパティ */
+    @Column(name = "BOTTOM_1st", precision = 10, nullable = true, unique = false)
+    public Integer bottom1st;
+
+    /** top2ndプロパティ */
+    @Column(name = "TOP_2nd", precision = 10, nullable = true, unique = false)
+    public Integer top2nd;
+
+    /** bottom2ndプロパティ */
+    @Column(name = "BOTTOM_2nd", precision = 10, nullable = true, unique = false)
+    public Integer bottom2nd;
+
+    /** top3rdプロパティ */
+    @Column(name = "TOP_3rd", precision = 10, nullable = true, unique = false)
+    public Integer top3rd;
+
+    /** bottom3rdプロパティ */
+    @Column(name = "BOTTOM_3rd", precision = 10, nullable = true, unique = false)
+    public Integer bottom3rd;
+
+    /** top4thプロパティ */
+    @Column(name = "TOP_4th", precision = 10, nullable = true, unique = false)
+    public Integer top4th;
+
+    /** bottom4thプロパティ */
+    @Column(name = "BOTTOM_4th", precision = 10, nullable = true, unique = false)
+    public Integer bottom4th;
+
+    /** top5thプロパティ */
+    @Column(name = "TOP_5th", precision = 10, nullable = true, unique = false)
+    public Integer top5th;
+
+    /** bottom5thプロパティ */
+    @Column(name = "BOTTOM_5th", precision = 10, nullable = true, unique = false)
+    public Integer bottom5th;
 
     /** battingDetailList関連プロパティ */
     @OneToMany(mappedBy = "game")
