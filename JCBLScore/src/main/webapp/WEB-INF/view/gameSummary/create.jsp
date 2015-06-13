@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
 <body>
+<html:errors/>
 <s:form>
 <html:select property="gameYear">
 	<c:forEach var="i" begin="2003" end="2016">
@@ -84,7 +85,7 @@
 			</c:forEach>
 			</html:select></td>
 		<td>
-			<html:select property="top2nd">
+			<html:select property="firstRun">
 			<c:forEach var="i" begin="0" end="30">
 				<html:option value="${i}">${i}</html:option>
 			</c:forEach>
@@ -137,13 +138,186 @@
 			</c:forEach>
 			</html:select></td>
 		<td>
-			<html:select property="top2nd">
+			<html:select property="lastRun">
 			<c:forEach var="i" begin="0" end="30">
 				<html:option value="${i}">${i}</html:option>
 			</c:forEach>
 			</html:select></td>
 	</tr>
 </table>
+<hr>
+<h2>先攻打者成績</h2>
+<table border=1>
+	<tr>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>本塁打</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+	</tr>
+	<c:forEach var="i" begin="1" end="10">
+	<tr>
+		<td>
+			<html:select property="playerId">
+			<html:option value=""></html:option>
+			<c:forEach var="playerList" items="${playerList}">
+				<html:option value="${playerList.id}">${playerList.name}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="tpa">
+			<html:option value=""></html:option>
+			<c:forEach var="j" begin="1" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="atBats">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="hit">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="homerun">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="rbi">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="fourBall">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="strikeOut">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="twoBase">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+			<html:hidden property="myTeamId" value="0"/>
+		</td>
+	</tr>
+	</c:forEach>
+</table>
+<hr>
+<h2>後攻打者成績</h2>
+<table border=1>
+	<tr>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>本塁打</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+	</tr>
+	<c:forEach var="i" begin="1" end="10">
+	<tr>
+		<td>
+			<html:select property="playerId">
+			<html:option value=""></html:option>
+			<c:forEach var="playerList" items="${playerList}">
+				<html:option value="${playerList.id}">${playerList.name}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="tpa">
+			<html:option value=""></html:option>
+			<c:forEach var="j" begin="1" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="atBats">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="hit">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="homerun">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="rbi">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="fourBall">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="strikeOut">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="twoBase">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+			<html:hidden property="myTeamId" value="1"/>
+		</td>
+	</tr>
+	</c:forEach>
+</table>
+<hr>
+<s:submit property="createComplete" value="登録"/>
+<input type="button" value="戻る" onClick="history.back()">
 </s:form>
 </body>
 </html>
