@@ -7,6 +7,7 @@ import org.seasar.struts.annotation.Required;
 public class GameSummaryForm {
 
 	//試合結果関連
+	public String id;
 	@Required
 	public String gameYear;
 	@Required
