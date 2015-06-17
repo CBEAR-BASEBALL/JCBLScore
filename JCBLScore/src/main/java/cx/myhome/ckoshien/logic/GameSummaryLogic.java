@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
+import cx.myhome.ckoshien.entity.Pitching;
 import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.form.BattingSumForm;
 import cx.myhome.ckoshien.form.GameForm;
@@ -19,11 +20,12 @@ public class GameSummaryLogic {
 	public GameSummaryForm gameSummaryForm;
 
 	public int gameId;
+	public static final String WIN ="1";
+	public static final String LOSE="2";
+	public static final String SAVE="3";
 
-	public GameSummaryForm convert2GameSummary(Game game,List<BattingSum> firstBattingSumList,List<BattingSum> lastBattingSumList,GameSummaryForm gameSummaryForm){
+	public GameSummaryForm convert2GameSummary(Game game,List<BattingSum> firstBattingSumList,List<BattingSum> lastBattingSumList,GameSummaryForm gameSummaryForm,List<Pitching> firstPitchingList,List<Pitching> lastPitchingList){
 		gameId=Integer.parseInt(gameSummaryForm.id);
-		//firstBattingSumList=battingSumService.findByGameId(gameId,game.firstTeam);
-		//lastBattingSumList=battingSumService.findByGameId(gameId,game.lastTeam);
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(game.gameDate);
 		gameSummaryForm.gameYear=String.valueOf(cal.get(Calendar.YEAR));
@@ -44,6 +46,7 @@ public class GameSummaryLogic {
 		gameSummaryForm.bottom4th=String.valueOf(game.bottom4th);
 		gameSummaryForm.top5th=String.valueOf(game.top5th);
 		gameSummaryForm.bottom5th=String.valueOf(game.bottom5th);
+
 		gameSummaryForm.playerId=new ArrayList<String>();
 		gameSummaryForm.tpa=new ArrayList<String>();
 		gameSummaryForm.atBats=new ArrayList<String>();
@@ -56,70 +59,111 @@ public class GameSummaryLogic {
 		gameSummaryForm.myTeamId=new ArrayList<String>();
 		gameSummaryForm.teamId=new ArrayList<String>();
 		gameSummaryForm.gameId=new ArrayList<String>();
-		for (int i=0;i<10;i++){
-			if(i<firstBattingSumList.size()){
-				gameSummaryForm.playerId.add(String.valueOf(firstBattingSumList.get(i).playerId));
-				gameSummaryForm.tpa.add(String.valueOf(firstBattingSumList.get(i).tpa));
-				gameSummaryForm.atBats.add(String.valueOf(firstBattingSumList.get(i).atBats));
-				gameSummaryForm.hit.add(String.valueOf(firstBattingSumList.get(i).hit));
-				gameSummaryForm.rbi.add(String.valueOf(firstBattingSumList.get(i).rbi));
-				gameSummaryForm.fourBall.add(String.valueOf(firstBattingSumList.get(i).fourBall));
-				gameSummaryForm.strikeOut.add(String.valueOf(firstBattingSumList.get(i).strikeOut));
-				gameSummaryForm.twoBase.add(String.valueOf(firstBattingSumList.get(i).twobase));
-				gameSummaryForm.homerun.add(String.valueOf(firstBattingSumList.get(i).homerun));
-				gameSummaryForm.myTeamId.add(String.valueOf(firstBattingSumList.get(i).myteamId));
-				gameSummaryForm.teamId.add(String.valueOf(firstBattingSumList.get(i).teamId));
-				gameSummaryForm.gameId.add(String.valueOf(game.gameId));
-			}else{
-				gameSummaryForm.playerId.add(" ");
-				gameSummaryForm.tpa.add("");
-				gameSummaryForm.atBats.add("");
-				gameSummaryForm.hit.add("");
-				gameSummaryForm.rbi.add("");
-				gameSummaryForm.fourBall.add("");
-				gameSummaryForm.strikeOut.add("");
-				gameSummaryForm.twoBase.add("");
-				gameSummaryForm.homerun.add("");
-				gameSummaryForm.myTeamId.add("");
-				gameSummaryForm.teamId.add("");
-				gameSummaryForm.gameId.add("");
-			}
-		}
-		for (int i=0;i<10;i++){
-			if(i<lastBattingSumList.size()){
-				gameSummaryForm.playerId.add(String.valueOf(lastBattingSumList.get(i).playerId));
-				gameSummaryForm.tpa.add(String.valueOf(lastBattingSumList.get(i).tpa));
-				gameSummaryForm.atBats.add(String.valueOf(lastBattingSumList.get(i).atBats));
-				gameSummaryForm.hit.add(String.valueOf(lastBattingSumList.get(i).hit));
-				gameSummaryForm.rbi.add(String.valueOf(lastBattingSumList.get(i).rbi));
-				gameSummaryForm.fourBall.add(String.valueOf(lastBattingSumList.get(i).fourBall));
-				gameSummaryForm.strikeOut.add(String.valueOf(lastBattingSumList.get(i).strikeOut));
-				gameSummaryForm.twoBase.add(String.valueOf(lastBattingSumList.get(i).twobase));
-				gameSummaryForm.homerun.add(String.valueOf(lastBattingSumList.get(i).homerun));
-				gameSummaryForm.myTeamId.add(String.valueOf(lastBattingSumList.get(i).myteamId));
-				gameSummaryForm.teamId.add(String.valueOf(lastBattingSumList.get(i).teamId));
-				gameSummaryForm.gameId.add(String.valueOf(game.gameId));
-			}else{
-				gameSummaryForm.playerId.add(" ");
-				gameSummaryForm.tpa.add("");
-				gameSummaryForm.atBats.add("");
-				gameSummaryForm.hit.add("");
-				gameSummaryForm.rbi.add("");
-				gameSummaryForm.fourBall.add("");
-				gameSummaryForm.strikeOut.add("");
-				gameSummaryForm.twoBase.add("");
-				gameSummaryForm.homerun.add("");
-				gameSummaryForm.myTeamId.add("");
-				gameSummaryForm.teamId.add("");
-				gameSummaryForm.gameId.add("");
-			}
-		}
+		gameSummaryForm.playerRecordId=new ArrayList<String>();
+		addBattingSumList(gameSummaryForm,firstBattingSumList, game);
+		addBattingSumList(gameSummaryForm,lastBattingSumList, game);
+
+		gameSummaryForm.complete=new ArrayList<String>();
+		gameSummaryForm.inning1=new ArrayList<String>();
+		gameSummaryForm.inning2=new ArrayList<String>();
+		gameSummaryForm.p_fourBall=new ArrayList<String>();
+		gameSummaryForm.p_hit=new ArrayList<String>();
+		gameSummaryForm.p_homerun=new ArrayList<String>();
+		gameSummaryForm.p_myTeamId=new ArrayList<String>();
+		gameSummaryForm.p_playerId=new ArrayList<String>();
+		gameSummaryForm.p_strikeOut=new ArrayList<String>();
+		gameSummaryForm.pa=new ArrayList<String>();
+		gameSummaryForm.result=new ArrayList<String>();
+		gameSummaryForm.runs=new ArrayList<String>();
+		gameSummaryForm.shutout=new ArrayList<String>();
+		addPitchingList(gameSummaryForm,firstPitchingList);
+		addPitchingList(gameSummaryForm,lastPitchingList);
 		return gameSummaryForm;
+	}
+
+	public void addBattingSumList(GameSummaryForm gameSummaryForm,List<BattingSum> list,Game game){
+		for (int i=0;i<10;i++){
+			if(i<list.size()){
+				gameSummaryForm.playerId.add(String.valueOf(list.get(i).playerId));
+				gameSummaryForm.tpa.add(String.valueOf(list.get(i).tpa));
+				gameSummaryForm.atBats.add(String.valueOf(list.get(i).atBats));
+				gameSummaryForm.hit.add(String.valueOf(list.get(i).hit));
+				gameSummaryForm.rbi.add(String.valueOf(list.get(i).rbi));
+				gameSummaryForm.fourBall.add(String.valueOf(list.get(i).fourBall));
+				gameSummaryForm.strikeOut.add(String.valueOf(list.get(i).strikeOut));
+				gameSummaryForm.twoBase.add(String.valueOf(list.get(i).twobase));
+				gameSummaryForm.homerun.add(String.valueOf(list.get(i).homerun));
+				gameSummaryForm.myTeamId.add(String.valueOf(list.get(i).myteamId));
+				gameSummaryForm.teamId.add(String.valueOf(list.get(i).teamId));
+				gameSummaryForm.gameId.add(String.valueOf(game.gameId));
+				gameSummaryForm.playerRecordId.add(String.valueOf(list.get(i).id));
+			}else{
+				gameSummaryForm.playerId.add(" ");
+				gameSummaryForm.tpa.add("");
+				gameSummaryForm.atBats.add("");
+				gameSummaryForm.hit.add("");
+				gameSummaryForm.rbi.add("");
+				gameSummaryForm.fourBall.add("");
+				gameSummaryForm.strikeOut.add("");
+				gameSummaryForm.twoBase.add("");
+				gameSummaryForm.homerun.add("");
+				gameSummaryForm.myTeamId.add("");
+				gameSummaryForm.teamId.add("");
+				gameSummaryForm.gameId.add("");
+				gameSummaryForm.playerRecordId.add("");
+			}
+		}
+	}
+
+	public void addPitchingList(GameSummaryForm gameSummaryForm,List<Pitching> list){
+		for(int i=0;i<4;i++){
+			if (i<list.size()){
+				Double d = new Double(list.get(i).inning);
+				Integer j = new Integer(d.intValue());
+				Double d2 = new Double(j.doubleValue());
+				int inningParts=(int)Math.round((d.doubleValue() - d2.doubleValue())*3);
+				gameSummaryForm.complete.add(String.valueOf(list.get(i).complete));
+				gameSummaryForm.inning1.add(String.valueOf(j));
+				gameSummaryForm.inning2.add(String.valueOf(inningParts));
+				gameSummaryForm.p_fourBall.add(String.valueOf(list.get(i).fourBall));
+				gameSummaryForm.p_hit.add(String.valueOf(list.get(i).hit));
+				gameSummaryForm.p_homerun.add(String.valueOf(list.get(i).homerun));
+				gameSummaryForm.p_myTeamId.add(String.valueOf(list.get(i).myteamId));
+				gameSummaryForm.p_playerId.add(String.valueOf(list.get(i).playerId));
+				gameSummaryForm.p_strikeOut.add(String.valueOf(list.get(i).strikeOut));
+				gameSummaryForm.pa.add(String.valueOf(list.get(i).pa));
+				if (list.get(i).win==1){
+					gameSummaryForm.result.add("1");
+				}else if(list.get(i).lose==1){
+					gameSummaryForm.result.add("2");
+				}else if(list.get(i).save==1){
+					gameSummaryForm.result.add("3");
+				}else{
+					gameSummaryForm.result.add("");
+				}
+				gameSummaryForm.runs.add(String.valueOf(list.get(i).runs));
+				gameSummaryForm.shutout.add(String.valueOf(list.get(i).shutout));
+			}else{
+				gameSummaryForm.complete.add("");
+				gameSummaryForm.inning1.add("");
+				gameSummaryForm.inning2.add("");
+				gameSummaryForm.p_fourBall.add("");
+				gameSummaryForm.p_hit.add("");
+				gameSummaryForm.p_homerun.add("");
+				gameSummaryForm.p_myTeamId.add("");
+				gameSummaryForm.p_playerId.add("");
+				gameSummaryForm.p_strikeOut.add("");
+				gameSummaryForm.pa.add("");
+				gameSummaryForm.result.add("");
+				gameSummaryForm.runs.add("");
+				gameSummaryForm.shutout.add("");
+			}
+		}
 	}
 
 	public BattingSum convert2BattingSum(BattingSumForm battingSumForm,BattingSum battingSum,List<Player> playerList,int i){
 		battingSum.playerId=Integer.parseInt(battingSumForm.playerId.get(i));
-		//battingSum.gameId=game.gameId;
+
 		battingSum.tpa=Integer.parseInt(battingSumForm.tpa.get(i));
 		battingSum.atBats=Integer.parseInt(battingSumForm.atBats.get(i));
 		battingSum.hit=Integer.parseInt(battingSumForm.hit.get(i));
@@ -130,15 +174,50 @@ public class GameSummaryLogic {
 		battingSum.homerun=Integer.parseInt(battingSumForm.homerun.get(i));
 		//所属チームIDの検索と代入
 		for(int j=0;j<playerList.size();j++){
-			System.out.println(playerList.get(j).id);
-			System.out.println(battingSum.playerId);
 			if(playerList.get(j).id.equals(battingSum.playerId)){
 				battingSum.teamId=playerList.get(j).teamId;
 				break;
 			}
 		}
-
 		return battingSum;
+	}
+
+
+
+	public Pitching convert2Pitching(GameSummaryForm gameSummaryForm,Pitching pitching,int i){
+		pitching.playerId=Integer.parseInt(gameSummaryForm.p_playerId.get(i));
+		if(gameSummaryForm.result.get(i).equals(WIN)){
+			pitching.win=1;
+			pitching.lose=0;
+			pitching.save=0;
+		}else if(gameSummaryForm.result.get(i).equals(LOSE)){
+			pitching.win=0;
+			pitching.save=0;
+			pitching.lose=1;
+		}else if(gameSummaryForm.result.get(i).equals(SAVE)){
+			pitching.save=1;
+			pitching.win=0;
+			pitching.lose=0;
+		}else{
+			pitching.save=0;
+			pitching.win=0;
+			pitching.lose=0;
+		}
+		pitching.inning=Double.valueOf(gameSummaryForm.inning1.get(i))+Double.valueOf(gameSummaryForm.inning2.get(i))/3;
+		pitching.pa=Integer.parseInt(gameSummaryForm.pa.get(i));
+		pitching.hit=Integer.parseInt(gameSummaryForm.p_hit.get(i));
+		pitching.homerun=Integer.parseInt(gameSummaryForm.p_homerun.get(i));
+		pitching.fourBall=Integer.parseInt(gameSummaryForm.p_fourBall.get(i));
+		pitching.strikeOut=Integer.parseInt(gameSummaryForm.p_strikeOut.get(i));
+		pitching.runs=Integer.parseInt(gameSummaryForm.runs.get(i));
+		pitching.complete=Integer.parseInt(gameSummaryForm.complete.get(i));
+		pitching.shutout=Integer.parseInt(gameSummaryForm.shutout.get(i));
+		if(gameSummaryForm.p_myTeamId.get(i).equals("0")){
+			pitching.myteamId=Integer.parseInt(gameSummaryForm.firstTeam);
+		}else if(gameSummaryForm.p_myTeamId.get(i).equals("1")){
+			pitching.myteamId=Integer.parseInt(gameSummaryForm.lastTeam);
+		}
+		return pitching;
 	}
 
 }

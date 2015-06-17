@@ -3,6 +3,7 @@ package cx.myhome.ckoshien.entity;
 import cx.myhome.ckoshien.entity.BattingDetailNames._BattingDetailNames;
 import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.GameNames._GameNames;
+import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
@@ -11,7 +12,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Team}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/09 15:33:32")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/16 18:24:05")
 public class TeamNames {
 
     /**
@@ -84,6 +85,24 @@ public class TeamNames {
      */
     public static _GameNames gameList2() {
         return new _GameNames("gameList2");
+    }
+
+    /**
+     * pitchingListのプロパティ名を返します。
+     * 
+     * @return pitchingListのプロパティ名
+     */
+    public static _PitchingNames pitchingList() {
+        return new _PitchingNames("pitchingList");
+    }
+
+    /**
+     * pitchingList2のプロパティ名を返します。
+     * 
+     * @return pitchingList2のプロパティ名
+     */
+    public static _PitchingNames pitchingList2() {
+        return new _PitchingNames("pitchingList2");
     }
 
     /**
@@ -198,6 +217,24 @@ public class TeamNames {
          */
         public _GameNames gameList2() {
             return new _GameNames(this, "gameList2");
+        }
+
+        /**
+         * pitchingListのプロパティ名を返します。
+         * 
+         * @return pitchingListのプロパティ名
+         */
+        public _PitchingNames pitchingList() {
+            return new _PitchingNames(this, "pitchingList");
+        }
+
+        /**
+         * pitchingList2のプロパティ名を返します。
+         * 
+         * @return pitchingList2のプロパティ名
+         */
+        public _PitchingNames pitchingList2() {
+            return new _PitchingNames(this, "pitchingList2");
         }
 
         /**

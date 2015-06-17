@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.entity;
 
 import cx.myhome.ckoshien.entity.GameNames._GameNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
+import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 
@@ -9,7 +10,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Pitching}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/09 15:33:32")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/16 18:24:05")
 public class PitchingNames {
 
     /**
@@ -121,12 +122,48 @@ public class PitchingNames {
     }
 
     /**
-     * resultのプロパティ名を返します。
+     * winのプロパティ名を返します。
      * 
-     * @return resultのプロパティ名
+     * @return winのプロパティ名
      */
-    public static PropertyName<Integer> result() {
-        return new PropertyName<Integer>("result");
+    public static PropertyName<Integer> win() {
+        return new PropertyName<Integer>("win");
+    }
+
+    /**
+     * loseのプロパティ名を返します。
+     * 
+     * @return loseのプロパティ名
+     */
+    public static PropertyName<Integer> lose() {
+        return new PropertyName<Integer>("lose");
+    }
+
+    /**
+     * saveのプロパティ名を返します。
+     * 
+     * @return saveのプロパティ名
+     */
+    public static PropertyName<Integer> save() {
+        return new PropertyName<Integer>("save");
+    }
+
+    /**
+     * myteamIdのプロパティ名を返します。
+     * 
+     * @return myteamIdのプロパティ名
+     */
+    public static PropertyName<Integer> myteamId() {
+        return new PropertyName<Integer>("myteamId");
+    }
+
+    /**
+     * teamIdのプロパティ名を返します。
+     * 
+     * @return teamIdのプロパティ名
+     */
+    public static PropertyName<Integer> teamId() {
+        return new PropertyName<Integer>("teamId");
     }
 
     /**
@@ -145,6 +182,24 @@ public class PitchingNames {
      */
     public static _GameNames game() {
         return new _GameNames("game");
+    }
+
+    /**
+     * myTeamのプロパティ名を返します。
+     * 
+     * @return myTeamのプロパティ名
+     */
+    public static _TeamNames myTeam() {
+        return new _TeamNames("myTeam");
+    }
+
+    /**
+     * teamのプロパティ名を返します。
+     * 
+     * @return teamのプロパティ名
+     */
+    public static _TeamNames team() {
+        return new _TeamNames("team");
     }
 
     /**
@@ -289,12 +344,48 @@ public class PitchingNames {
         }
 
         /**
-         * resultのプロパティ名を返します。
+         * winのプロパティ名を返します。
          *
-         * @return resultのプロパティ名
+         * @return winのプロパティ名
          */
-        public PropertyName<Integer> result() {
-            return new PropertyName<Integer>(this, "result");
+        public PropertyName<Integer> win() {
+            return new PropertyName<Integer>(this, "win");
+        }
+
+        /**
+         * loseのプロパティ名を返します。
+         *
+         * @return loseのプロパティ名
+         */
+        public PropertyName<Integer> lose() {
+            return new PropertyName<Integer>(this, "lose");
+        }
+
+        /**
+         * saveのプロパティ名を返します。
+         *
+         * @return saveのプロパティ名
+         */
+        public PropertyName<Integer> save() {
+            return new PropertyName<Integer>(this, "save");
+        }
+
+        /**
+         * myteamIdのプロパティ名を返します。
+         *
+         * @return myteamIdのプロパティ名
+         */
+        public PropertyName<Integer> myteamId() {
+            return new PropertyName<Integer>(this, "myteamId");
+        }
+
+        /**
+         * teamIdのプロパティ名を返します。
+         *
+         * @return teamIdのプロパティ名
+         */
+        public PropertyName<Integer> teamId() {
+            return new PropertyName<Integer>(this, "teamId");
         }
 
         /**
@@ -313,6 +404,24 @@ public class PitchingNames {
          */
         public _GameNames game() {
             return new _GameNames(this, "game");
+        }
+
+        /**
+         * myTeamのプロパティ名を返します。
+         * 
+         * @return myTeamのプロパティ名
+         */
+        public _TeamNames myTeam() {
+            return new _TeamNames(this, "myTeam");
+        }
+
+        /**
+         * teamのプロパティ名を返します。
+         * 
+         * @return teamのプロパティ名
+         */
+        public _TeamNames team() {
+            return new _TeamNames(this, "team");
         }
     }
 }

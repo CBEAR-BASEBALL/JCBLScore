@@ -27,6 +27,7 @@ public class PlayerAction {
 	public PlayerForm playerForm;
 
 	public List<Team> teamList;
+	public List<Player> playerList;
 	public Player player;
 
 	@Execute(validator = false)
@@ -38,6 +39,7 @@ public class PlayerAction {
 	@Execute(validator = false)
 	public String create(){
 		teamList=teamService.findAllOrderById();
+		playerList=playerService.findAllOrderById();
         return "create.jsp";
 	}
 

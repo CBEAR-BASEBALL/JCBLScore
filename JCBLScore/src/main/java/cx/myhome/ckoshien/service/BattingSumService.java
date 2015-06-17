@@ -39,4 +39,8 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		list=select().where("gameId=? AND myTeamId=?",gameId,myTeamId).orderBy(asc(id())).getResultList();
 		return list;
 	}
+	public List<BattingSum> findByGameIdAll(Integer gameId) {
+		list=select().where("gameId=?",gameId).orderBy(asc(id())).getResultList();
+		return list;
+	}
 }

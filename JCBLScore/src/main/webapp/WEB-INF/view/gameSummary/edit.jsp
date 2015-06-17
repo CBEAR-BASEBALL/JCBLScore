@@ -226,8 +226,115 @@
 			</c:forEach>
 			</html:select>
 			<html:hidden property="myTeamId[${i-1}]" value="0"/>
+			<html:hidden property="playerRecordId[${i-1}]" value="${playerRecordId[i-1] }"/>
 		</td>
 	</tr>
+	</c:forEach>
+</table>
+<hr>
+<h2>先攻投手成績</h2>
+<table border=1>
+	<tr>
+		<th>勝敗S</th>
+		<th>選手名</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>投球人数</th>
+		<th>被本</th>
+		<th>完投</th>
+		<th>完封</th>
+	</tr>
+	<c:forEach var="i" begin="1" end="4">
+	<tr>
+		<td>
+			<html:select property="result[${i-1}]">
+				<html:option value=""></html:option>
+				<html:option value="1">○</html:option>
+				<html:option value="2">●</html:option>
+				<html:option value="3">S</html:option>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_playerId[${i-1}]">
+			<html:option value=""></html:option>
+			<c:forEach var="playerList" items="${playerList}">
+				<html:option value="${playerList.id}">${playerList.name}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="inning1[${i-1}]">
+			<c:forEach var="j" begin="0" end="5">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+			回
+			<html:select property="inning2[${i-1}]">
+			<c:forEach var="j" begin="0" end="2">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+			/3
+		</td>
+		<td>
+			<html:select property="p_hit[${i-1}]">
+			<c:forEach var="j" begin="0" end="30">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_strikeOut[${i-1}]">
+			<c:forEach var="j" begin="0" end="15">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_fourBall[${i-1}]">
+			<c:forEach var="j" begin="0" end="15">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="runs[${i-1}]">
+			<c:forEach var="j" begin="0" end="30">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="pa[${i-1}]">
+			<c:forEach var="j" begin="1" end="40">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_homerun[${i-1}]">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="complete[${i-1}]">
+				<html:option value="0">0</html:option>
+				<html:option value="1">1</html:option>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="shutout[${i-1}]">
+				<html:option value="0">0</html:option>
+				<html:option value="1">1</html:option>
+			</html:select>
+		</td>
+	</tr>
+	<html:hidden property="p_myTeamId[${i-1}]" value="0"/>
 	</c:forEach>
 </table>
 <hr>
@@ -311,12 +418,120 @@
 			</c:forEach>
 			</html:select>
 			<html:hidden property="myTeamId[${i-1}]" value="1"/>
+			<html:hidden property="playerRecordId[${i-1}]" value="${playerRecordId[i-1] }"/>
 		</td>
 	</tr>
 	</c:forEach>
 </table>
 <hr>
+<h2>後攻投手成績</h2>
+<table border=1>
+	<tr>
+		<th>勝敗S</th>
+		<th>選手名</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>投球人数</th>
+		<th>被本</th>
+		<th>完投</th>
+		<th>完封</th>
+	</tr>
+	<c:forEach var="i" begin="5" end="8">
+	<tr>
+		<td>
+			<html:select property="result[${i-1}]">
+				<html:option value=""></html:option>
+				<html:option value="1">○</html:option>
+				<html:option value="2">●</html:option>
+				<html:option value="3">S</html:option>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_playerId[${i-1}]">
+			<html:option value=""></html:option>
+			<c:forEach var="playerList" items="${playerList}">
+				<html:option value="${playerList.id}">${playerList.name}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="inning1[${i-1}]">
+			<c:forEach var="j" begin="0" end="5">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+			回
+			<html:select property="inning2[${i-1}]">
+			<c:forEach var="j" begin="0" end="2">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+			/3
+		</td>
+		<td>
+			<html:select property="p_hit[${i-1}]">
+			<c:forEach var="j" begin="0" end="30">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_strikeOut[${i-1}]">
+			<c:forEach var="j" begin="0" end="15">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_fourBall[${i-1}]">
+			<c:forEach var="j" begin="0" end="15">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="runs[${i-1}]">
+			<c:forEach var="j" begin="0" end="30">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="pa[${i-1}]">
+			<c:forEach var="j" begin="1" end="40">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="p_homerun[${i-1}]">
+			<c:forEach var="j" begin="0" end="8">
+				<html:option value="${j}">${j}</html:option>
+			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="complete[${i-1}]">
+				<html:option value="0">0</html:option>
+				<html:option value="1">1</html:option>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="shutout[${i-1}]">
+				<html:option value="0">0</html:option>
+				<html:option value="1">1</html:option>
+			</html:select>
+		</td>
+	</tr>
+	<html:hidden property="p_myTeamId[${i-1}]" value="1"/>
+	</c:forEach>
+</table>
+
 <html:hidden property="id" value="${id}"/>
+<hr>
 <s:submit property="updateComplete" value="更新"/>
 <input type="button" value="戻る" onClick="history.back()">
 </s:form>

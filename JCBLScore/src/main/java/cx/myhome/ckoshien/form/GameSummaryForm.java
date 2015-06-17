@@ -40,6 +40,7 @@ public class GameSummaryForm {
 
 
 	//打撃成績関連
+	public List<String> playerRecordId;
 	public List<String> playerId;
 	//打席数
 	public List<String> tpa;
@@ -57,4 +58,20 @@ public class GameSummaryForm {
 	public List<String> myTeamId;
 	public List<String> teamId;
 	public List<String> gameId;
+
+	//投球成績関連
+	public List<String> p_playerId;
+	public List<String> inning1;
+	public List<String> inning2;
+	public List<String> pa;
+	public List<String> p_hit;
+	public List<String> p_homerun;
+	public List<String> p_fourBall;
+	public List<String> p_strikeOut;
+	public List<String> runs;
+	public List<String> complete;
+	public List<String> shutout;
+	public List<String> result;
+	public List<String> p_myTeamId;
+
 }
