@@ -12,7 +12,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Game}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/16 18:24:05")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/18 22:37:12")
 public class GameNames {
 
     /**
@@ -166,6 +166,15 @@ public class GameNames {
      */
     public static PropertyName<Integer> bottom5th() {
         return new PropertyName<Integer>("bottom5th");
+    }
+
+    /**
+     * leagueIdのプロパティ名を返します。
+     * 
+     * @return leagueIdのプロパティ名
+     */
+    public static PropertyName<Integer> leagueId() {
+        return new PropertyName<Integer>("leagueId");
     }
 
     /**
@@ -397,6 +406,15 @@ public class GameNames {
          */
         public PropertyName<Integer> bottom5th() {
             return new PropertyName<Integer>(this, "bottom5th");
+        }
+
+        /**
+         * leagueIdのプロパティ名を返します。
+         *
+         * @return leagueIdのプロパティ名
+         */
+        public PropertyName<Integer> leagueId() {
+            return new PropertyName<Integer>(this, "leagueId");
         }
 
         /**

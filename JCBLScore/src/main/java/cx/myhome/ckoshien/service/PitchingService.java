@@ -1,11 +1,19 @@
 package cx.myhome.ckoshien.service;
 
+import cx.myhome.ckoshien.dto.PitchingResultDto;
 import cx.myhome.ckoshien.entity.Pitching;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Generated;
 
 import static cx.myhome.ckoshien.entity.PitchingNames.*;
 import static org.seasar.extension.jdbc.operation.Operations.*;
+import static org.seasar.extension.jdbc.parameter.Parameter.date;
 
 /**
  * {@link Pitching}のサービスクラスです。
@@ -15,6 +23,7 @@ import static org.seasar.extension.jdbc.operation.Operations.*;
 public class PitchingService extends AbstractService<Pitching> {
 
 	public List<Pitching> list;
+	public List<PitchingResultDto> pitchingResultDtos;
 
     /**
      * 識別子でエンティティを検索します。
@@ -44,4 +53,13 @@ public class PitchingService extends AbstractService<Pitching> {
     	list=select().where("gameId=?",gameId).orderBy(asc(id())).getResultList();
         return list;
     }
+
+    public List<PitchingResultDto> findByPeriod(Date date,Date date2){
+		pitchingResultDtos=new ArrayList<PitchingResultDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("beginDate", date(date));
+		param.put("endDate", date(date2));
+		pitchingResultDtos=jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.PitchingResult.sql", param).getResultList();
+		return pitchingResultDtos;
+	}
 }

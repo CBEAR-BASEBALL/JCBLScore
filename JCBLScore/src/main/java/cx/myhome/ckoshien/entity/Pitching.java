@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/16 18:24:02")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/18 16:43:19")
 public class Pitching implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class Pitching implements Serializable {
     public Integer gameId;
 
     /** inningプロパティ */
-    @Column(precision = 3, scale = 3, nullable = false, unique = false)
+    @Column(precision = 4, scale = 3, nullable = false, unique = false)
     public Double inning;
 
     /** paプロパティ */
@@ -71,15 +71,15 @@ public class Pitching implements Serializable {
     public Integer shutout;
 
     /** winプロパティ */
-    @Column(precision = 10, nullable = true, unique = false)
+    @Column(precision = 10, nullable = false, unique = false)
     public Integer win;
 
     /** loseプロパティ */
-    @Column(precision = 10, nullable = true, unique = false)
+    @Column(precision = 10, nullable = false, unique = false)
     public Integer lose;
 
     /** saveプロパティ */
-    @Column(precision = 10, nullable = true, unique = false)
+    @Column(precision = 10, nullable = false, unique = false)
     public Integer save;
 
     /** myteamIdプロパティ */

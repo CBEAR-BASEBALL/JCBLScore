@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/16 18:24:02")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/18 16:43:19")
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -92,6 +92,10 @@ public class Game implements Serializable {
     /** bottom5thプロパティ */
     @Column(name = "BOTTOM_5th", precision = 10, nullable = true, unique = false)
     public Integer bottom5th;
+
+    /** leagueIdプロパティ */
+    @Column(precision = 10, nullable = false, unique = false)
+    public Integer leagueId;
 
     /** battingDetailList関連プロパティ */
     @OneToMany(mappedBy = "game")

@@ -1,5 +1,7 @@
 package cx.myhome.ckoshien.action;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -12,6 +14,7 @@ import org.seasar.struts.annotation.Execute;
 
 import sun.org.mozilla.javascript.internal.regexp.SubString;
 
+import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.Pitching;
@@ -58,11 +61,14 @@ public List<Pitching> firstPitchingList;
 public List<Pitching> lastPitchingList;
 public List<Pitching> pitchingList;
 public List<BattingSum> battingSumList;
+public List<BattingResultDto> battingResultList;
 
 
 	@Execute(validator = false)
-	public String index(){
+	public String index() throws ParseException{
 		gameList=gameService.findAllOrderByDate();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		battingResultList=battingSumService.findByPeriod(format.parse("2015-01-01"), format.parse("2015-06-30"));
 		return "index.jsp";
 	}
 	@Execute(validator = false)
