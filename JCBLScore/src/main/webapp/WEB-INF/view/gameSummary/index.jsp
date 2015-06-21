@@ -2,9 +2,7 @@
 <html>
 <body>
 <c:forEach var="gameList" items="${gameList}">
-	${gameList.gameDate}
-	<br>${gameList.team.teamName} ${gameList.firstRun}-${gameList.lastRun} ${gameList.team2.teamName}
-	(<a href="edit/${gameList.gameId}">編集</a>)
+	<br><a href="date/${gameList.gameId}">試合結果 ${gameList.gameDate}</a>
 </c:forEach>
 </body>
 </html>

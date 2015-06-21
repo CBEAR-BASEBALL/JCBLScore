@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/18 16:43:19")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/06/19 22:14:13")
 public class BattingSum implements Serializable {
 
     private static final long serialVersionUID = 1L;

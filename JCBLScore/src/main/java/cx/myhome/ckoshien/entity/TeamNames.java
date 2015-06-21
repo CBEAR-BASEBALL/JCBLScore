@@ -5,6 +5,7 @@ import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.GameNames._GameNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
+import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 
@@ -12,7 +13,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Team}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/18 22:37:12")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/19 22:14:16")
 public class TeamNames {
 
     /**
@@ -31,6 +32,15 @@ public class TeamNames {
      */
     public static PropertyName<String> teamName() {
         return new PropertyName<String>("teamName");
+    }
+
+    /**
+     * shortNameのプロパティ名を返します。
+     * 
+     * @return shortNameのプロパティ名
+     */
+    public static PropertyName<String> shortName() {
+        return new PropertyName<String>("shortName");
     }
 
     /**
@@ -115,6 +125,24 @@ public class TeamNames {
     }
 
     /**
+     * resultListのプロパティ名を返します。
+     * 
+     * @return resultListのプロパティ名
+     */
+    public static _ResultNames resultList() {
+        return new _ResultNames("resultList");
+    }
+
+    /**
+     * resultList2のプロパティ名を返します。
+     * 
+     * @return resultList2のプロパティ名
+     */
+    public static _ResultNames resultList2() {
+        return new _ResultNames("resultList2");
+    }
+
+    /**
      * @author S2JDBC-Gen
      */
     public static class _TeamNames extends PropertyName<Team> {
@@ -163,6 +191,15 @@ public class TeamNames {
          */
         public PropertyName<String> teamName() {
             return new PropertyName<String>(this, "teamName");
+        }
+
+        /**
+         * shortNameのプロパティ名を返します。
+         *
+         * @return shortNameのプロパティ名
+         */
+        public PropertyName<String> shortName() {
+            return new PropertyName<String>(this, "shortName");
         }
 
         /**
@@ -244,6 +281,24 @@ public class TeamNames {
          */
         public _PlayerNames playerList() {
             return new _PlayerNames(this, "playerList");
+        }
+
+        /**
+         * resultListのプロパティ名を返します。
+         * 
+         * @return resultListのプロパティ名
+         */
+        public _ResultNames resultList() {
+            return new _ResultNames(this, "resultList");
+        }
+
+        /**
+         * resultList2のプロパティ名を返します。
+         * 
+         * @return resultList2のプロパティ名
+         */
+        public _ResultNames resultList2() {
+            return new _ResultNames(this, "resultList2");
         }
     }
 }

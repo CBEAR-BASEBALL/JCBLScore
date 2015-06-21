@@ -322,13 +322,13 @@
 		</td>
 		<td>
 			<html:select property="complete">
-				<html:option value=""></html:option>
+				<html:option value="0"></html:option>
 				<html:option value="1">○</html:option>
 			</html:select>
 		</td>
 		<td>
 			<html:select property="shutout">
-				<html:option value=""></html:option>
+				<html:option value="0"></html:option>
 				<html:option value="1">○</html:option>
 			</html:select>
 		</td>

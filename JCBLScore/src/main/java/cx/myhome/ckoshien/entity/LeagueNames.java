@@ -1,5 +1,6 @@
 package cx.myhome.ckoshien.entity;
 
+import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import java.sql.Date;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
@@ -8,7 +9,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link League}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/18 22:37:12")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/19 22:14:16")
 public class LeagueNames {
 
     /**
@@ -54,6 +55,15 @@ public class LeagueNames {
      */
     public static PropertyName<Integer> totalFlg() {
         return new PropertyName<Integer>("totalFlg");
+    }
+
+    /**
+     * resultListのプロパティ名を返します。
+     * 
+     * @return resultListのプロパティ名
+     */
+    public static _ResultNames resultList() {
+        return new _ResultNames("resultList");
     }
 
     /**
@@ -132,6 +142,15 @@ public class LeagueNames {
          */
         public PropertyName<Integer> totalFlg() {
             return new PropertyName<Integer>(this, "totalFlg");
+        }
+
+        /**
+         * resultListのプロパティ名を返します。
+         * 
+         * @return resultListのプロパティ名
+         */
+        public _ResultNames resultList() {
+            return new _ResultNames(this, "resultList");
         }
     }
 }

@@ -39,8 +39,12 @@ public List<PitchingResultDto> pitchingResultList;
 
 	@Execute(urlPattern="season/{id}",validator = false)
 	public String season(){
-		league=leagueService.findById(Integer.parseInt(resultForm.id));
-		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate);
+		try{
+			league=leagueService.findById(Integer.parseInt(resultForm.id));
+		}catch(NumberFormatException e){
+			return "index&redirect=true";
+		}
+			battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate);
 		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate);
 		return "stats.jsp";
 	}

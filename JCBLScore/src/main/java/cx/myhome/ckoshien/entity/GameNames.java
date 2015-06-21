@@ -3,6 +3,7 @@ package cx.myhome.ckoshien.entity;
 import cx.myhome.ckoshien.entity.BattingDetailNames._BattingDetailNames;
 import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
+import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
 import java.sql.Date;
 import javax.annotation.Generated;
@@ -12,7 +13,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Game}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/18 22:37:12")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/19 22:14:16")
 public class GameNames {
 
     /**
@@ -178,6 +179,15 @@ public class GameNames {
     }
 
     /**
+     * commentのプロパティ名を返します。
+     * 
+     * @return commentのプロパティ名
+     */
+    public static PropertyName<String> comment() {
+        return new PropertyName<String>("comment");
+    }
+
+    /**
      * battingDetailListのプロパティ名を返します。
      * 
      * @return battingDetailListのプロパティ名
@@ -220,6 +230,15 @@ public class GameNames {
      */
     public static _PitchingNames pitchingList() {
         return new _PitchingNames("pitchingList");
+    }
+
+    /**
+     * resultListのプロパティ名を返します。
+     * 
+     * @return resultListのプロパティ名
+     */
+    public static _ResultNames resultList() {
+        return new _ResultNames("resultList");
     }
 
     /**
@@ -418,6 +437,15 @@ public class GameNames {
         }
 
         /**
+         * commentのプロパティ名を返します。
+         *
+         * @return commentのプロパティ名
+         */
+        public PropertyName<String> comment() {
+            return new PropertyName<String>(this, "comment");
+        }
+
+        /**
          * battingDetailListのプロパティ名を返します。
          * 
          * @return battingDetailListのプロパティ名
@@ -460,6 +488,15 @@ public class GameNames {
          */
         public _PitchingNames pitchingList() {
             return new _PitchingNames(this, "pitchingList");
+        }
+
+        /**
+         * resultListのプロパティ名を返します。
+         * 
+         * @return resultListのプロパティ名
+         */
+        public _ResultNames resultList() {
+            return new _ResultNames(this, "resultList");
         }
     }
 }

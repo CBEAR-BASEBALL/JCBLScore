@@ -6,6 +6,7 @@ import cx.myhome.ckoshien.entity.GameNames._GameNames;
 import cx.myhome.ckoshien.entity.LeagueNames._LeagueNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
+import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
 import javax.annotation.Generated;
 
@@ -13,7 +14,7 @@ import javax.annotation.Generated;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2015/06/18 22:37:12")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2015/06/19 22:14:16")
 public class Names {
 
     /**
@@ -68,6 +69,15 @@ public class Names {
      */
     public static _PlayerNames player() {
         return new _PlayerNames();
+    }
+
+    /**
+     * {@link Result}の名前クラスを返します。
+     * 
+     * @return Resultの名前クラス
+     */
+    public static _ResultNames result() {
+        return new _ResultNames();
     }
 
     /**

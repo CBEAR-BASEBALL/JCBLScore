@@ -10,7 +10,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link BattingSum}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/18 22:37:12")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/19 22:14:16")
 public class BattingSumNames {
 
     /**

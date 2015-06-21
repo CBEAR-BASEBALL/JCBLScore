@@ -10,6 +10,9 @@
 		          $("#battingAll").tablesorter(
 		        		   {widgets: ['zebra']}
 		           );
+		          $("#pitchingAll").tablesorter(
+		        		   {widgets: ['zebra']}
+		           );
 		       }
 		   );
 
@@ -75,9 +78,9 @@
 		<th>完投</th>
 		<th>完封</th>
 		<th>被本</th>
-		<th>勝</th>
-		<th>敗</th>
-		<th>S</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>Ｓ</th>
 		<th>防御率</th>
 		<th>WHIP</th>
 		<th>奪三振率</th>

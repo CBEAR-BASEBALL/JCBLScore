@@ -17,8 +17,10 @@ import sun.org.mozilla.javascript.internal.regexp.SubString;
 import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
+import cx.myhome.ckoshien.entity.League;
 import cx.myhome.ckoshien.entity.Pitching;
 import cx.myhome.ckoshien.entity.Player;
+import cx.myhome.ckoshien.entity.Result;
 import cx.myhome.ckoshien.entity.Team;
 import cx.myhome.ckoshien.form.BattingSumForm;
 import cx.myhome.ckoshien.form.GameSummaryForm;
@@ -26,8 +28,10 @@ import cx.myhome.ckoshien.form.PlayerForm;
 import cx.myhome.ckoshien.logic.GameSummaryLogic;
 import cx.myhome.ckoshien.service.BattingSumService;
 import cx.myhome.ckoshien.service.GameService;
+import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
+import cx.myhome.ckoshien.service.ResultService;
 import cx.myhome.ckoshien.service.TeamService;
 
 public class GameSummaryAction {
@@ -62,13 +66,18 @@ public List<Pitching> lastPitchingList;
 public List<Pitching> pitchingList;
 public List<BattingSum> battingSumList;
 public List<BattingResultDto> battingResultList;
-
+@Resource
+public ResultService resultService;
+public Result result;
+public Result result2;
+@Resource
+public LeagueService leagueService;
+public List<League> leagueList;
+public Date gameDate;
 
 	@Execute(validator = false)
-	public String index() throws ParseException{
-		gameList=gameService.findAllOrderByDate();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		battingResultList=battingSumService.findByPeriod(format.parse("2015-01-01"), format.parse("2015-06-30"));
+	public String index(){
+		gameList=gameService.findAllGroupByGameDate();
 		return "index.jsp";
 	}
 	@Execute(validator = false)
@@ -90,6 +99,16 @@ public List<BattingResultDto> battingResultList;
 		sb.append(gameSummaryForm.gameDay);
 		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
+		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		//リーグID検索
+		for (int i=0;i<leagueList.size();i++){
+			int j=game.gameDate.compareTo(leagueList.get(i).beginDate);
+			int k=game.gameDate.compareTo(leagueList.get(i).endDate);
+			if(j>=0 && k<=0){
+				game.leagueId=leagueList.get(i).id;
+				break;
+			}
+		}
 		gameService.insert(game);
 		battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
 		for(int i=0;i<battingSumForm.atBats.size();i++){
@@ -125,13 +144,48 @@ public List<BattingResultDto> battingResultList;
 						break;
 					}
 				}
+				pitching.gameId=game.gameId;
 				pitchingService.insert(pitching);
 			}
 		}
-		return "createComplete.jsp";
+		//resultテーブルinsert
+		result=new Result();
+		result2=new Result();
+		result.gameId=game.gameId;
+		result2.gameId=game.gameId;
+		result.teamId=game.firstTeam;
+		result2.teamId=game.lastTeam;
+		result.opponent=game.lastTeam;
+		result2.opponent=game.firstTeam;
+		if(Integer.parseInt(gameSummaryForm.firstRun)>Integer.parseInt(gameSummaryForm.lastRun)){
+			result.win=1;
+			result.lose=0;
+			result.draw=0;
+			result2.win=0;
+			result2.lose=1;
+			result2.draw=0;
+		}else if(Integer.parseInt(gameSummaryForm.firstRun)<Integer.parseInt(gameSummaryForm.lastRun)){
+			result.win=0;
+			result.lose=1;
+			result.draw=0;
+			result2.win=1;
+			result2.lose=0;
+			result2.draw=0;
+		}else if(Integer.parseInt(gameSummaryForm.firstRun)==Integer.parseInt(gameSummaryForm.lastRun)){
+			result.win=0;
+			result.lose=0;
+			result.draw=1;
+			result2.win=0;
+			result2.lose=0;
+			result2.draw=1;
+		}
+		result.leagueId=game.leagueId;
+		result2.leagueId=game.leagueId;
+		resultService.insert(result);
+		resultService.insert(result2);
+		return "index&redirect=true";
 	}
 
-	@SuppressWarnings("static-access")
 	@Execute(urlPattern="edit/{id}",validator=false)
 	public String edit(){
 		gameId=Integer.parseInt(gameSummaryForm.id);
@@ -159,6 +213,16 @@ public List<BattingResultDto> battingResultList;
 		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		game.gameId=Integer.parseInt(gameSummaryForm.id);
+		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		//リーグID検索
+		for (int i=0;i<leagueList.size();i++){
+			int j=game.gameDate.compareTo(leagueList.get(i).beginDate);
+			int k=game.gameDate.compareTo(leagueList.get(i).endDate);
+			if(j>=0 && k<=0){
+				game.leagueId=leagueList.get(i).id;
+				break;
+			}
+		}
 		gameService.update(game);
 		playerList=playerService.findAllOrderById();
 		battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
@@ -204,6 +268,51 @@ public List<BattingResultDto> battingResultList;
 				pitchingService.insert(pitching);
 			}
 		}
+		//resultテーブルupdate
+		result=new Result();
+		result2=new Result();
+		result.id=resultService.findById(game.firstTeam,game.gameId).id;
+		result2.id=resultService.findById(game.lastTeam,game.gameId).id;
+		result.gameId=game.gameId;
+		result2.gameId=game.gameId;
+		result.teamId=game.firstTeam;
+		result2.teamId=game.lastTeam;
+		result.opponent=game.lastTeam;
+		result2.opponent=game.firstTeam;
+		if(Integer.parseInt(gameSummaryForm.firstRun)>Integer.parseInt(gameSummaryForm.lastRun)){
+			result.win=1;
+			result.lose=0;
+			result.draw=0;
+			result2.win=0;
+			result2.lose=1;
+			result2.draw=0;
+		}else if(Integer.parseInt(gameSummaryForm.firstRun)<Integer.parseInt(gameSummaryForm.lastRun)){
+			result.win=0;
+			result.lose=1;
+			result.draw=0;
+			result2.win=1;
+			result2.lose=0;
+			result2.draw=0;
+		}else if(Integer.parseInt(gameSummaryForm.firstRun)==Integer.parseInt(gameSummaryForm.lastRun)){
+			result.win=0;
+			result.lose=0;
+			result.draw=1;
+			result2.win=0;
+			result2.lose=0;
+			result2.draw=1;
+		}
+		result.leagueId=game.leagueId;
+		result2.leagueId=game.leagueId;
+		resultService.update(result);
+		resultService.update(result2);
 		return "";
+	}
+
+	@Execute(urlPattern="date/{id}",validator=false)
+	public String date(){
+		gameId=Integer.parseInt(gameSummaryForm.id);
+		gameDate=gameService.findById(gameId).gameDate;
+		gameList=gameService.findByDateOrderByDate(gameDate);
+		return "index2.jsp";
 	}
 }

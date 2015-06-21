@@ -1,6 +1,8 @@
 package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.entity.Game;
+
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Generated;
 
@@ -22,7 +24,6 @@ public class GameService extends AbstractService<Game> {
      * @return エンティティ
      */
     public Game findById(Integer gameId) {
-    	System.out.println(gameId);
         return select().id(gameId).getSingleResult();
     }
 
@@ -35,7 +36,13 @@ public class GameService extends AbstractService<Game> {
         return select().orderBy(asc(gameId())).getResultList();
     }
 
-    public List<Game> findAllOrderByDate() {
-        return select().innerJoin(team()).innerJoin(team2()).orderBy(asc(gameDate())).getResultList();
+    public List<Game> findByDateOrderByDate(Date gameDate) {
+        return select().where("gameDate=?",gameDate).innerJoin(team()).innerJoin(team2()).orderBy(asc(gameNumber())).getResultList();
+    }
+
+    public List<Game> findAllGroupByGameDate() {
+    	return jdbcManager
+    	.selectBySqlFile(Game.class, "cx.myhome.ckoshien.sql.GameDate.sql")
+    	.getResultList();
     }
 }
