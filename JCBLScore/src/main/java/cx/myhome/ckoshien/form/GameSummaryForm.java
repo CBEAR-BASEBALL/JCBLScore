@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.form;
 
 import java.util.List;
 
+import org.seasar.struts.annotation.IntRange;
 import org.seasar.struts.annotation.Required;
 
 public class GameSummaryForm {

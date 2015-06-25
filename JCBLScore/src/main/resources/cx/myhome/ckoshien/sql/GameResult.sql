@@ -1,6 +1,7 @@
 SELECT
   r.team_id,
   team_name,
+  short_name,
   sum(win)+sum(lose)+sum(draw) as game_count,
   sum(win) as win,
   sum(lose)as lose,

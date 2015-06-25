@@ -1,9 +1,5 @@
 package cx.myhome.ckoshien.action;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.sql.Date;
 import javax.annotation.Resource;
@@ -11,8 +7,6 @@ import javax.annotation.Resource;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-
-import sun.org.mozilla.javascript.internal.regexp.SubString;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.entity.BattingSum;
@@ -24,7 +18,6 @@ import cx.myhome.ckoshien.entity.Result;
 import cx.myhome.ckoshien.entity.Team;
 import cx.myhome.ckoshien.form.BattingSumForm;
 import cx.myhome.ckoshien.form.GameSummaryForm;
-import cx.myhome.ckoshien.form.PlayerForm;
 import cx.myhome.ckoshien.logic.GameSummaryLogic;
 import cx.myhome.ckoshien.service.BattingSumService;
 import cx.myhome.ckoshien.service.GameService;
@@ -108,7 +101,9 @@ public Date gameDate;
 				game.leagueId=leagueList.get(i).id;
 				break;
 			}
+
 		}
+
 		gameService.insert(game);
 		battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
 		for(int i=0;i<battingSumForm.atBats.size();i++){

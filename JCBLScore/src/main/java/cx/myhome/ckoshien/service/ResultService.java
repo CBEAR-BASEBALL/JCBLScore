@@ -60,4 +60,15 @@ public class ResultService extends AbstractService<Result> {
     		.getResultList();
     	return resultList;
     }
+
+    public List<GameResultDto> findOpponentResult(Integer leagueId){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("leagueId", leagueId);
+    	resultList=
+    		jdbcManager
+    		.selectBySqlFile(GameResultDto.class, "cx.myhome.ckoshien.sql.Opponent.sql", param)
+    		.getResultList();
+    	return resultList;
+    }
+
 }

@@ -13,6 +13,9 @@
 		          $("#pitchingAll").tablesorter(
 		        		   {widgets: ['zebra']}
 		           );
+		          $("#leagueAll").tablesorter(
+		        		   {widgets: ['zebra']}
+		           );
 		       }
 		   );
 
@@ -20,6 +23,47 @@
 
 </head>
 <body>
+<h2>チーム成績</h2>
+<table border=1 id="leagueAll" class="tablesorter">
+	<thead>
+	<tr>
+		<th>チーム名</th>
+		<th>試合</th>
+		<th>勝利</th>
+		<th>敗北</th>
+		<th>引き分け</th>
+		<th>勝率</th>
+		<th>勝ち点</th>
+		<c:forEach var="resultList" items="${resultList}" begin="0" end="${length}">
+		<th>対${resultList.shortName}</th>
+		</c:forEach>
+	</tr>
+	</thead>
+	<tbody>
+	<c:forEach var="resultList" items="${resultList}">
+	<tr>
+		<td>${resultList.teamName}</td>
+		<td>${resultList.gameCount}</td>
+		<td>${resultList.win}</td>
+		<td>${resultList.lose}</td>
+		<td>${resultList.draw}</td>
+		<td><fmt:formatNumber value="${resultList.percentage}" pattern="0.000" /></td>
+		<td>${resultList.points}</td>
+		<c:forEach var="resultList2" items="${resultList2}" begin="0" end="${length}">
+			<td>
+			<c:forEach var="opponentList" items="${opponentList}">
+				<c:choose>
+					<c:when test="${resultList.teamId==opponentList.teamId &&resultList2.teamId==opponentList.opponent}">
+						${opponentList.win}-${opponentList.lose}(${opponentList.draw})
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			</td>
+		</c:forEach>
+	</tr>
+	</c:forEach>
+	</tbody>
+</table>
 <hr>
 <h2>打者成績</h2>
 <table border=1 id="battingAll" class="tablesorter">
