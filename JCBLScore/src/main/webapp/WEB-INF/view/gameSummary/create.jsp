@@ -1,5 +1,8 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
+<head>
+	<link rel="stylesheet" href="${f:url('/css/error.css') }" type="text/css" media="print, projection, screen"/>
+</head>
 <body>
 <html:errors/>
 <s:form>
@@ -47,49 +50,23 @@
 			</html:select>
 		</td>
 		<td>
-			<html:select property="top1st">
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="top1st" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="top2nd">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="top2nd" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="top3rd">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="top3rd" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="top4th">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="top4th" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="top5th">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select></td>
+			<html:text property="top1st" value="" size="2" maxlength="2" errorStyleClass="err" />
+		</td>
 		<td>
-			<html:select property="firstRun">
-			<c:forEach var="i" begin="0" end="30">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select></td>
+			<html:text property="firstRun" value="0" size="2" maxlength="2" errorStyleClass="err" />
+		</td>
 	</tr>
 	<tr>
 		<td>
@@ -100,49 +77,23 @@
 			</html:select>
 		</td>
 		<td>
-			<html:select property="bottom1st">
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="bottom1st" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="bottom2nd">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="bottom2nd" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="bottom3rd">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="bottom3rd" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="bottom4th">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="bottom4th" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="bottom5th">
-			<html:option value=""></html:option>
-			<c:forEach var="i" begin="0" end="10">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select></td>
+			<html:text property="bottom5th" value="" size="2" maxlength="2" errorStyleClass="err" />
+		</td>
 		<td>
-			<html:select property="lastRun">
-			<c:forEach var="i" begin="0" end="30">
-				<html:option value="${i}">${i}</html:option>
-			</c:forEach>
-			</html:select></td>
+			<html:text property="lastRun" value="0" size="2" maxlength="2" errorStyleClass="err" />
+		</td>
 	</tr>
 </table>
 <hr>
@@ -170,61 +121,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:select property="tpa">
-			<html:option value=""></html:option>
-			<c:forEach var="j" begin="1" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="tpa" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="atBats">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="atBats" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="hit">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="homerun">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="rbi">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="rbi" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="fourBall">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="strikeOut">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="strikeOut" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="twoBase">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="twoBase" value="0" size="2" maxlength="2" errorStyleClass="err" />
 			<html:hidden property="myTeamId" value="0"/>
 		</td>
 	</tr>
@@ -265,60 +183,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:select property="inning1">
-			<c:forEach var="j" begin="0" end="5">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="inning1" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			回
-			<html:select property="inning2">
-			<c:forEach var="j" begin="0" end="2">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="inning2" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
-			<html:select property="p_hit">
-			<c:forEach var="j" begin="0" end="30">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="p_strikeOut">
-			<c:forEach var="j" begin="0" end="15">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_strikeout" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="p_fourBall">
-			<c:forEach var="j" begin="0" end="15">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="runs">
-			<c:forEach var="j" begin="0" end="30">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="runs" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="pa">
-			<c:forEach var="j" begin="1" end="40">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="pa" value="1" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="p_homerun">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:select property="complete">
@@ -361,61 +247,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:select property="tpa">
-			<html:option value=""></html:option>
-			<c:forEach var="j" begin="1" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="tpa" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="atBats">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="atBats" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="hit">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="homerun">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="rbi">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="rbi" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="fourBall">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="strikeOut">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="strikeOut" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="twoBase">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="twoBase" value="0" size="2" maxlength="2" errorStyleClass="err" />
 			<html:hidden property="myTeamId" value="1"/>
 		</td>
 	</tr>
@@ -456,60 +309,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:select property="inning1">
-			<c:forEach var="j" begin="0" end="5">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="inning1" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			回
-			<html:select property="inning2">
-			<c:forEach var="j" begin="0" end="2">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="inning2" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
-			<html:select property="p_hit">
-			<c:forEach var="j" begin="0" end="30">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="p_strikeOut">
-			<c:forEach var="j" begin="0" end="15">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_strikeOut" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="p_fourBall">
-			<c:forEach var="j" begin="0" end="15">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="runs">
-			<c:forEach var="j" begin="0" end="30">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="runs" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="pa">
-			<c:forEach var="j" begin="1" end="40">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="pa" value="1" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="p_homerun">
-			<c:forEach var="j" begin="0" end="8">
-				<html:option value="${j}">${j}</html:option>
-			</c:forEach>
-			</html:select>
+			<html:text property="p_homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:select property="complete">
