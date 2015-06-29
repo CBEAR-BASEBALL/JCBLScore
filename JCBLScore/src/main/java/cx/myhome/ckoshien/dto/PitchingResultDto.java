@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.dto;
 
 public class PitchingResultDto {
 	public Integer playerId;
+	public Integer rank;
 	public String name;
 	public Integer gameCount;
 	public Double era;

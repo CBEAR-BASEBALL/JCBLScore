@@ -11,6 +11,7 @@ public class BattingResultDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Integer playerId;
+	public Integer rank;
 	public String name;
 
 	public Double average;
