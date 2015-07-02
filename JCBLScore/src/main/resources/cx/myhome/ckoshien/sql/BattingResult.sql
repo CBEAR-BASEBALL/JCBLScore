@@ -15,23 +15,9 @@ SELECT
 	sum(strike_out) as strike_out,
 	sum(twobase) as twobase,
 	sum(homerun) as homerun
- FROM
-	 (SELECT
-     player_id,
-     hit,
-     at_bats,
-     twobase,
-     homerun,
-     game_date,
-     four_ball,
-     tpa,
-     strike_out,
-     rbi,
-     name
-   FROM batting_sum b
+ FROM batting_sum b
   INNER JOIN GAME g on b.game_id=g.game_id
   INNER JOIN PLAYER p on b.player_id=p.id
   WHERE game_date>=/*beginDate*/ and game_date<=/*endDate*/
- ) as batting_result
 group by player_id
-order by average desc;
+order by /*$order*/;

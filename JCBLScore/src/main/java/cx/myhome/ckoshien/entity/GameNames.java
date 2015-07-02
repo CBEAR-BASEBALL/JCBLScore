@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.entity;
 
 import cx.myhome.ckoshien.entity.BattingDetailNames._BattingDetailNames;
 import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
+import cx.myhome.ckoshien.entity.LeagueNames._LeagueNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
@@ -13,7 +14,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Game}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/06/19 22:14:16")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/02 23:44:49")
 public class GameNames {
 
     /**
@@ -203,6 +204,15 @@ public class GameNames {
      */
     public static _BattingSumNames battingSumList() {
         return new _BattingSumNames("battingSumList");
+    }
+
+    /**
+     * leagueのプロパティ名を返します。
+     * 
+     * @return leagueのプロパティ名
+     */
+    public static _LeagueNames league() {
+        return new _LeagueNames("league");
     }
 
     /**
@@ -461,6 +471,15 @@ public class GameNames {
          */
         public _BattingSumNames battingSumList() {
             return new _BattingSumNames(this, "battingSumList");
+        }
+
+        /**
+         * leagueのプロパティ名を返します。
+         * 
+         * @return leagueのプロパティ名
+         */
+        public _LeagueNames league() {
+            return new _LeagueNames(this, "league");
         }
 
         /**

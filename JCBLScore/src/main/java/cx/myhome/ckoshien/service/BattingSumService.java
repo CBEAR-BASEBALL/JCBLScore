@@ -53,11 +53,12 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		list=select().where("gameId=?",gameId).orderBy(asc(id())).getResultList();
 		return list;
 	}
-	public List<BattingResultDto> findByPeriod(Date date,Date date2){
+	public List<BattingResultDto> findByPeriod(Date date,Date date2,String order){
 		battingResultDtos=new ArrayList<BattingResultDto>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("beginDate", date(date));
 		param.put("endDate", date(date2));
+		param.put("order", order);
 		battingResultDtos=jdbcManager.selectBySqlFile(BattingResultDto.class, "cx.myhome.ckoshien.sql.BattingResult.sql",param).getResultList();
 		return battingResultDtos;
 	}

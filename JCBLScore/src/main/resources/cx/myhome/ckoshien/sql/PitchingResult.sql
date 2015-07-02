@@ -17,27 +17,10 @@ SELECT
   sum(win) as win,
   sum(lose) as lose,
   sum(save) as save
- FROM (
-  select
-    player_id,
-    pl.name,
-    runs,
-    inning,
-    hit,
-    four_ball,
-    strike_out,
-    pa,
-    homerun,
-    complete,
-    shutout,
-    win,
-    save,
-    lose
-   from
+ FROM
  pitching p
   inner join GAME g on g.game_id=p.game_id
   inner join PLAYER pl on p.player_id=pl.id
   WHERE game_date>=/*beginDate*/ and game_date<=/*endDate*/
- ) as pitchig_result
   group by player_id
- order by era;
+ order by /*$order*/;

@@ -54,11 +54,12 @@ public class PitchingService extends AbstractService<Pitching> {
         return list;
     }
 
-    public List<PitchingResultDto> findByPeriod(Date date,Date date2){
+    public List<PitchingResultDto> findByPeriod(Date date,Date date2,String order){
 		pitchingResultDtos=new ArrayList<PitchingResultDto>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("beginDate", date(date));
 		param.put("endDate", date(date2));
+		param.put("order", order);
 		pitchingResultDtos=jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.PitchingResult.sql", param).getResultList();
 		return pitchingResultDtos;
 	}
