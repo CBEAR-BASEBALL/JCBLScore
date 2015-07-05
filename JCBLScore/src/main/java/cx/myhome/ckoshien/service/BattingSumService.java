@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.SqlFiles;
 import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class BattingSumService extends AbstractService<BattingSum> {
 
 	public List<BattingSum> list;
 	public List<BattingResultDto> battingResultDtos;
+	public List<TeamBattingResultDto> teamBattingResultDtos;
     /**
      * 識別子でエンティティを検索します。
      *
@@ -61,5 +63,15 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		param.put("order", order);
 		battingResultDtos=jdbcManager.selectBySqlFile(BattingResultDto.class, "cx.myhome.ckoshien.sql.BattingResult.sql",param).getResultList();
 		return battingResultDtos;
+	}
+
+	public List<TeamBattingResultDto> findTBRByPeriod(Date date,Date date2,Integer teamId){
+		battingResultDtos=new ArrayList<BattingResultDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("beginDate", date(date));
+		param.put("endDate", date(date2));
+		param.put("teamId", teamId);
+		teamBattingResultDtos=jdbcManager.selectBySqlFile(TeamBattingResultDto.class, "cx.myhome.ckoshien.sql.TeamBattingResult.sql",param).getResultList();
+		return teamBattingResultDtos;
 	}
 }

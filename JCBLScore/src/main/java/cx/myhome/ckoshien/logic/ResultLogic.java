@@ -273,13 +273,13 @@ public class ResultLogic {
 		return opsTop10;
 	}
 
-	public List<BattingResultDto> returnNsoTop10(List<BattingResultDto> battingResultList){
+	public List<BattingResultDto> returnNsoTop10(List<BattingResultDto> battingResultList,int regAtBats){
 		int j=0;
 		int k=0;
 		nsoTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
-			if(battingResultList.get(i).notStrikeOut>0){
+			if(battingResultList.get(i).tpa>=regAtBats &&battingResultList.get(i).notStrikeOut>0){
 				j++;
 				if (i==0){
 					battingResultDto.rank=1;

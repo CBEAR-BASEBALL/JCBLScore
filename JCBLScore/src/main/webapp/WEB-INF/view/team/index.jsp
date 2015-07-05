@@ -6,6 +6,8 @@
 	<c:forEach var="team" items="${teamList}">
 	<tr>
 		<td>${team.teamName}</td>
+		<td><a href="./batting/${team.teamId}/${teamForm.leagueId}">打撃成績</a></td>
+		<td>投球成績</td>
 	</tr>
 	</c:forEach>
 </table>

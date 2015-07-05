@@ -39,4 +39,8 @@ public class LeagueService extends AbstractService<League> {
     public List<League> findAllOrderByIdExceptTotal() {
         return select().where("totalFlg=0").orderBy(desc(id())).getResultList();
     }
+
+    public List<League> findTotal() {
+        return select().where("totalFlg=1").orderBy(desc(beginDate())).getResultList();
+    }
 }
