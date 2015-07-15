@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/07/02 23:44:46")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/07/10 16:39:33")
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -109,10 +109,6 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game")
     public List<BattingSum> battingSumList;
 
-    /** league関連プロパティ */
-    @ManyToOne
-    public League league;
-
     /** team関連プロパティ */
     @ManyToOne
     @JoinColumn(name = "FIRST_TEAM", referencedColumnName = "TEAM_ID")
@@ -122,6 +118,10 @@ public class Game implements Serializable {
     @ManyToOne
     @JoinColumn(name = "LAST_TEAM", referencedColumnName = "TEAM_ID")
     public Team team2;
+
+    /** league関連プロパティ */
+    @ManyToOne
+    public League league;
 
     /** pitchingList関連プロパティ */
     @OneToMany(mappedBy = "game")

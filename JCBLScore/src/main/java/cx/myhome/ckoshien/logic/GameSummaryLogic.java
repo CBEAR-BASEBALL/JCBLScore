@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import cx.myhome.ckoshien.dto.GameListDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.Pitching;
@@ -20,6 +21,11 @@ public class GameSummaryLogic {
 	public GameSummaryForm gameSummaryForm;
 
 	public int gameId;
+
+	public List<GameListDto> gameList;
+
+	public GameListDto gameListDto;
+
 	public static final String WIN ="1";
 	public static final String LOSE="2";
 	public static final String SAVE="3";
@@ -38,14 +44,30 @@ public class GameSummaryLogic {
 		gameSummaryForm.lastRun=String.valueOf(game.lastRun);
 		gameSummaryForm.top1st=String.valueOf(game.top1st);
 		gameSummaryForm.bottom1st=String.valueOf(game.bottom1st);
-		gameSummaryForm.top2nd=String.valueOf(game.top2nd);
-		gameSummaryForm.bottom2nd=String.valueOf(game.bottom2nd);
-		gameSummaryForm.top3rd=String.valueOf(game.top3rd);
-		gameSummaryForm.bottom3rd=String.valueOf(game.bottom3rd);
-		gameSummaryForm.top4th=String.valueOf(game.top4th);
-		gameSummaryForm.bottom4th=String.valueOf(game.bottom4th);
-		gameSummaryForm.top5th=String.valueOf(game.top5th);
-		gameSummaryForm.bottom5th=String.valueOf(game.bottom5th);
+		if(game.top2nd!=null){
+			gameSummaryForm.top2nd=String.valueOf(game.top2nd);
+		}
+		if(game.bottom2nd!=null){
+			gameSummaryForm.bottom2nd=String.valueOf(game.bottom2nd);
+		}
+		if(game.top3rd!=null){
+			gameSummaryForm.top3rd=String.valueOf(game.top3rd);
+		}
+		if(game.bottom3rd!=null){
+			gameSummaryForm.bottom3rd=String.valueOf(game.bottom3rd);
+		}
+		if(game.top4th!=null){
+			gameSummaryForm.top4th=String.valueOf(game.top4th);
+		}
+		if(game.bottom4th!=null){
+			gameSummaryForm.bottom4th=String.valueOf(game.bottom4th);
+		}
+		if(game.top5th!=null){
+			gameSummaryForm.top5th=String.valueOf(game.top5th);
+		}
+		if(game.bottom5th!=null){
+			gameSummaryForm.bottom5th=String.valueOf(game.bottom5th);
+		}
 
 		gameSummaryForm.playerId=new ArrayList<String>();
 		gameSummaryForm.tpa=new ArrayList<String>();
@@ -163,15 +185,47 @@ public class GameSummaryLogic {
 
 	public BattingSum convert2BattingSum(BattingSumForm battingSumForm,BattingSum battingSum,List<Player> playerList,int i){
 		battingSum.playerId=Integer.parseInt(battingSumForm.playerId.get(i));
-
-		battingSum.tpa=Integer.parseInt(battingSumForm.tpa.get(i));
-		battingSum.atBats=Integer.parseInt(battingSumForm.atBats.get(i));
-		battingSum.hit=Integer.parseInt(battingSumForm.hit.get(i));
-		battingSum.rbi=Integer.parseInt(battingSumForm.rbi.get(i));
-		battingSum.fourBall=Integer.parseInt(battingSumForm.fourBall.get(i));
-		battingSum.strikeOut=Integer.parseInt(battingSumForm.strikeOut.get(i));
-		battingSum.twobase=Integer.parseInt(battingSumForm.twoBase.get(i));
-		battingSum.homerun=Integer.parseInt(battingSumForm.homerun.get(i));
+		//空文字の場合0と解釈
+		if(battingSumForm.tpa.get(i)==""){
+			battingSum.tpa=0;
+		}else {
+			battingSum.tpa=Integer.parseInt(battingSumForm.tpa.get(i));
+		}
+		if(battingSumForm.atBats.get(i)==""){
+			battingSum.atBats=0;
+		}else{
+			battingSum.atBats=Integer.parseInt(battingSumForm.atBats.get(i));
+		}
+		if(battingSumForm.hit.get(i)==""){
+			battingSum.hit=0;
+		}else{
+			battingSum.hit=Integer.parseInt(battingSumForm.hit.get(i));
+		}
+		if(battingSumForm.rbi.get(i)==""){
+			battingSum.rbi=0;
+		}else{
+			battingSum.rbi=Integer.parseInt(battingSumForm.rbi.get(i));
+		}
+		if(battingSumForm.fourBall.get(i)==""){
+			battingSum.fourBall=0;
+		}else{
+			battingSum.fourBall=Integer.parseInt(battingSumForm.fourBall.get(i));
+		}
+		if(battingSumForm.strikeOut.get(i)==""){
+			battingSum.strikeOut=0;
+		}else{
+			battingSum.strikeOut=Integer.parseInt(battingSumForm.strikeOut.get(i));
+		}
+		if(battingSumForm.twoBase.get(i)==""){
+			battingSum.twobase=0;
+		}else{
+			battingSum.twobase=Integer.parseInt(battingSumForm.twoBase.get(i));
+		}
+		if(battingSumForm.homerun.get(i)==""){
+			battingSum.homerun=0;
+		}else{
+			battingSum.homerun=Integer.parseInt(battingSumForm.homerun.get(i));
+		}
 		//所属チームIDの検索と代入
 		for(int j=0;j<playerList.size();j++){
 			if(playerList.get(j).id.equals(battingSum.playerId)){
@@ -218,6 +272,25 @@ public class GameSummaryLogic {
 			pitching.myteamId=Integer.parseInt(gameSummaryForm.lastTeam);
 		}
 		return pitching;
+	}
+
+	public List<GameListDto> convert2GameList(List<GameListDto> list){
+		gameList=new ArrayList<GameListDto>();
+		for(int i=0;i<list.size();i++){
+			gameListDto=new GameListDto();
+			gameListDto.gameId=list.get(i).gameId;
+			gameListDto.gameDate=list.get(i).gameDate;
+			if(i==0){
+				gameListDto.title=list.get(i).title;
+			}
+			if(i>0 && !list.get(i-1).leagueId.equals(list.get(i).leagueId)){
+				gameListDto.title=list.get(i).title;
+				System.out.println(list.get(i-1).leagueId+","+list.get(i).leagueId);
+			}
+			gameList.add(gameListDto);
+		}
+		return gameList;
+
 	}
 
 }

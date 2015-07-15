@@ -14,7 +14,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Game}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/02 23:44:49")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/10 16:39:37")
 public class GameNames {
 
     /**
@@ -207,15 +207,6 @@ public class GameNames {
     }
 
     /**
-     * leagueのプロパティ名を返します。
-     * 
-     * @return leagueのプロパティ名
-     */
-    public static _LeagueNames league() {
-        return new _LeagueNames("league");
-    }
-
-    /**
      * teamのプロパティ名を返します。
      * 
      * @return teamのプロパティ名
@@ -231,6 +222,15 @@ public class GameNames {
      */
     public static _TeamNames team2() {
         return new _TeamNames("team2");
+    }
+
+    /**
+     * leagueのプロパティ名を返します。
+     * 
+     * @return leagueのプロパティ名
+     */
+    public static _LeagueNames league() {
+        return new _LeagueNames("league");
     }
 
     /**
@@ -474,15 +474,6 @@ public class GameNames {
         }
 
         /**
-         * leagueのプロパティ名を返します。
-         * 
-         * @return leagueのプロパティ名
-         */
-        public _LeagueNames league() {
-            return new _LeagueNames(this, "league");
-        }
-
-        /**
          * teamのプロパティ名を返します。
          * 
          * @return teamのプロパティ名
@@ -498,6 +489,15 @@ public class GameNames {
          */
         public _TeamNames team2() {
             return new _TeamNames(this, "team2");
+        }
+
+        /**
+         * leagueのプロパティ名を返します。
+         * 
+         * @return leagueのプロパティ名
+         */
+        public _LeagueNames league() {
+            return new _LeagueNames(this, "league");
         }
 
         /**

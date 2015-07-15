@@ -62,7 +62,7 @@
 			<html:text property="top4th" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="top1st" value="" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="top5th" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:text property="firstRun" value="0" size="2" maxlength="2" errorStyleClass="err" />
@@ -219,7 +219,7 @@
 			</html:select>
 		</td>
 	</tr>
-	<html:hidden property="p_myTeamId" value="0"/>
+	<html:hidden property="p_myTeamId" value="0" />
 	</c:forEach>
 </table>
 <hr>

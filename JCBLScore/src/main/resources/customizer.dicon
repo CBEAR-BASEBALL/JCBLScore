@@ -48,6 +48,9 @@
     <initMethod name="addAspectCustomizer">
       <arg>"actionMessagesThrowsInterceptor"</arg>
     </initMethod>
+    <initMethod name="addAspectCustomizer">
+      <arg>"JCBLThrowsInterceptor"</arg>
+    </initMethod>
     <initMethod name="addCustomizer">
       <arg>traceCustomizer</arg>
     </initMethod>

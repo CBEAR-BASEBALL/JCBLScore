@@ -9,4 +9,9 @@ public class PlayerForm {
 	public String name;
 	/*チームID*/
 	public String teamId;
+
+	/*ログインID*/
+	public String loginId;
+	/*パスワード*/
+	public String password;
 }

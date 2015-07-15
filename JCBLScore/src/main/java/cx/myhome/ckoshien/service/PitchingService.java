@@ -1,6 +1,8 @@
 package cx.myhome.ckoshien.service;
 
+import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.PitchingResultDto;
+import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.entity.Pitching;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class PitchingService extends AbstractService<Pitching> {
 
 	public List<Pitching> list;
 	public List<PitchingResultDto> pitchingResultDtos;
+	public List<TeamPitchingResultDto> teamPitchingResultDtos;
 
     /**
      * 識別子でエンティティを検索します。
@@ -62,5 +65,14 @@ public class PitchingService extends AbstractService<Pitching> {
 		param.put("order", order);
 		pitchingResultDtos=jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.PitchingResult.sql", param).getResultList();
 		return pitchingResultDtos;
+	}
+
+    public List<TeamPitchingResultDto> findTPRByPeriod(Date date,Date date2,Integer teamId){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("beginDate", date(date));
+		param.put("endDate", date(date2));
+		param.put("teamId", teamId);
+		teamPitchingResultDtos=jdbcManager.selectBySqlFile(TeamPitchingResultDto.class, "cx.myhome.ckoshien.sql.TeamPitchingResult.sql",param).getResultList();
+		return teamPitchingResultDtos;
 	}
 }

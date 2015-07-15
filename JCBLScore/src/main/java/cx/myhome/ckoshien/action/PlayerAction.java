@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.seasar.framework.beans.util.Beans;
+import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -36,6 +37,7 @@ public class PlayerAction {
         return "index.jsp";
 	}
 
+	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = false)
 	public String create(){
 		teamList=teamService.findAllOrderById();
@@ -43,6 +45,7 @@ public class PlayerAction {
         return "create.jsp";
 	}
 
+	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = true,input="create?redirect=true")
 	public String createComplete(){
 		player = Beans.createAndCopy(Player.class, playerForm).execute();

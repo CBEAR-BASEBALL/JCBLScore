@@ -11,7 +11,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Player}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/02 23:44:49")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/10 16:39:37")
 public class PlayerNames {
 
     /**
@@ -39,6 +39,33 @@ public class PlayerNames {
      */
     public static PropertyName<Integer> teamId() {
         return new PropertyName<Integer>("teamId");
+    }
+
+    /**
+     * loginIdのプロパティ名を返します。
+     * 
+     * @return loginIdのプロパティ名
+     */
+    public static PropertyName<String> loginId() {
+        return new PropertyName<String>("loginId");
+    }
+
+    /**
+     * passwordのプロパティ名を返します。
+     * 
+     * @return passwordのプロパティ名
+     */
+    public static PropertyName<String> password() {
+        return new PropertyName<String>("password");
+    }
+
+    /**
+     * authorityのプロパティ名を返します。
+     * 
+     * @return authorityのプロパティ名
+     */
+    public static PropertyName<Integer> authority() {
+        return new PropertyName<Integer>("authority");
     }
 
     /**
@@ -144,6 +171,33 @@ public class PlayerNames {
          */
         public PropertyName<Integer> teamId() {
             return new PropertyName<Integer>(this, "teamId");
+        }
+
+        /**
+         * loginIdのプロパティ名を返します。
+         *
+         * @return loginIdのプロパティ名
+         */
+        public PropertyName<String> loginId() {
+            return new PropertyName<String>(this, "loginId");
+        }
+
+        /**
+         * passwordのプロパティ名を返します。
+         *
+         * @return passwordのプロパティ名
+         */
+        public PropertyName<String> password() {
+            return new PropertyName<String>(this, "password");
+        }
+
+        /**
+         * authorityのプロパティ名を返します。
+         *
+         * @return authorityのプロパティ名
+         */
+        public PropertyName<Integer> authority() {
+            return new PropertyName<Integer>(this, "authority");
         }
 
         /**

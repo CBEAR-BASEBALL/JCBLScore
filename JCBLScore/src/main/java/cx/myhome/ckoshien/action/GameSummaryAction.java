@@ -4,11 +4,17 @@ import java.util.List;
 import java.sql.Date;
 import javax.annotation.Resource;
 
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.beans.util.Beans;
+import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.enums.SaveType;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.GameListDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.League;
@@ -67,12 +73,19 @@ public Result result2;
 public LeagueService leagueService;
 public List<League> leagueList;
 public Date gameDate;
+public List<GameListDto> gameListDtos;
+public Integer leagueId;
+public League league;
 
 	@Execute(validator = false)
 	public String index(){
-		gameList=gameService.findAllGroupByGameDate();
+		gameListDtos=gameService.findAllGroupByGameDate();
+		logic=new GameSummaryLogic();
+		gameListDtos=logic.convert2GameList(gameListDtos);
 		return "index.jsp";
 	}
+
+	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = false)
 	public String create(){
 		teamList=teamService.findAllOrderById();
@@ -80,7 +93,13 @@ public Date gameDate;
 		return "create.jsp";
 	}
 
-	@Execute(validator = true,input="create?redirect=true")
+	@Aspect(value="loginConfInterceptor")
+	//@Execute(validator = true,input="create?redirect=true")
+	@Execute(validator = true,input="create?redirect=true",
+			stopOnValidationError=false,
+			saveErrors=SaveType.SESSION,
+			validate="dateValidate",
+			removeActionForm=true)
 	public String createComplete(){
 		playerList=playerService.findAllOrderById();
 		StringBuilder sb = new StringBuilder();
@@ -181,7 +200,13 @@ public Date gameDate;
 		return "index&redirect=true";
 	}
 
-	@Execute(urlPattern="edit/{id}",validator=false)
+	@Aspect(value="loginConfInterceptor")
+	@Execute(urlPattern="edit/{id}",
+			validator = true,input="edit/{id}?redirect=true",
+			stopOnValidationError=false,
+			saveErrors=SaveType.SESSION,
+			validate="dateValidate",
+			removeActionForm=true)
 	public String edit(){
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		game=gameService.findById(gameId);
@@ -196,7 +221,8 @@ public Date gameDate;
 		return "edit.jsp";
 	}
 
-	@Execute(validator=false)
+	@Aspect(value="loginConfInterceptor")
+	@Execute(validator=true,input="edit.jsp")
 	public String updateComplete(){
 		StringBuilder sb = new StringBuilder();
 		//日付を連結
@@ -309,5 +335,23 @@ public Date gameDate;
 		gameDate=gameService.findById(gameId).gameDate;
 		gameList=gameService.findByDateOrderByDate(gameDate);
 		return "index2.jsp";
+	}
+
+	public ActionMessages dateValidate(){
+		StringBuilder sb = new StringBuilder();
+		//日付を連結
+		sb.append(gameSummaryForm.gameYear);
+		sb.append("/");
+		sb.append(gameSummaryForm.gameMonth);
+		sb.append("/");
+		sb.append(gameSummaryForm.gameDay);
+		gameSummaryForm.gameDate=new String(sb);
+		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
+		league=leagueService.findIdByDate(game.gameDate);
+		ActionMessages errors = new ActionMessages();
+		if(league==null){
+			errors.add("gameDate", new ActionMessage("試合日付がリーグ戦期間外です", false));
+		}
+		return errors;
 	}
 }

@@ -66,7 +66,7 @@ public class BattingSumService extends AbstractService<BattingSum> {
 	}
 
 	public List<TeamBattingResultDto> findTBRByPeriod(Date date,Date date2,Integer teamId){
-		battingResultDtos=new ArrayList<BattingResultDto>();
+		//battingResultDtos=new ArrayList<BattingResultDto>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("beginDate", date(date));
 		param.put("endDate", date(date2));

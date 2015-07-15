@@ -10,7 +10,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link League}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/02 23:44:49")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/10 16:39:37")
 public class LeagueNames {
 
     /**
@@ -56,6 +56,15 @@ public class LeagueNames {
      */
     public static PropertyName<Integer> totalFlg() {
         return new PropertyName<Integer>("totalFlg");
+    }
+
+    /**
+     * shortTitleのプロパティ名を返します。
+     * 
+     * @return shortTitleのプロパティ名
+     */
+    public static PropertyName<String> shortTitle() {
+        return new PropertyName<String>("shortTitle");
     }
 
     /**
@@ -152,6 +161,15 @@ public class LeagueNames {
          */
         public PropertyName<Integer> totalFlg() {
             return new PropertyName<Integer>(this, "totalFlg");
+        }
+
+        /**
+         * shortTitleのプロパティ名を返します。
+         *
+         * @return shortTitleのプロパティ名
+         */
+        public PropertyName<String> shortTitle() {
+            return new PropertyName<String>(this, "shortTitle");
         }
 
         /**

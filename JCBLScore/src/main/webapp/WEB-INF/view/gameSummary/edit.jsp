@@ -62,7 +62,7 @@
 			<html:text property="top4th" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="top5th" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="top5th" size="2" maxlength="2" errorStyleClass="err"/>
 		</td>
 		<td>
 			<html:text property="firstRun" size="2" maxlength="2" errorStyleClass="err" />

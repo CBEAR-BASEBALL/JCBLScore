@@ -1,6 +1,8 @@
 package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.entity.League;
+
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Generated;
 
@@ -23,6 +25,9 @@ public class LeagueService extends AbstractService<League> {
      */
     public League findById(Integer id) {
         return select().id(id).getSingleResult();
+    }
+    public League findIdByDate(Date date) {
+        return select().where("totalFlg=0 and beginDate<=? and endDate>=?", date,date).getSingleResult();
     }
 
     /**

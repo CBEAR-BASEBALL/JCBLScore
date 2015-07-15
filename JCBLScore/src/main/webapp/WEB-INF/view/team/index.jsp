@@ -7,7 +7,7 @@
 	<tr>
 		<td>${team.teamName}</td>
 		<td><a href="./batting/${team.teamId}/${teamForm.leagueId}">打撃成績</a></td>
-		<td>投球成績</td>
+		<td><a href="./pitching/${team.teamId}/${teamForm.leagueId}">投球成績</a></td>
 	</tr>
 	</c:forEach>
 </table>

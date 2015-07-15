@@ -14,8 +14,8 @@
 <!-- ================================= Global Exception Definitions -->
 
     <global-exceptions>
-       <exception path="/WEB-INF/view/systemErr.jsp" key="errors.system"
-                type="java.lang.Exception"/>
+       <!-- <exception path="/WEB-INF/view/systemErr.jsp" key="errors.system"
+                type="java.lang.Exception"/> -->
     </global-exceptions>
 
 <!-- =================================== Global Forward Definitions -->

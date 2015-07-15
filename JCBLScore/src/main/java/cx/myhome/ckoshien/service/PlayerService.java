@@ -33,4 +33,8 @@ public class PlayerService extends AbstractService<Player> {
     public List<Player> findAllOrderById() {
         return select().orderBy(asc(teamId())).getResultList();
     }
+
+	public Player findByLoginId(String loginId) {
+		return select().where("loginId=?", loginId).getSingleResult();
+	}
 }

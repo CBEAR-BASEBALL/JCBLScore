@@ -2,16 +2,13 @@ package cx.myhome.ckoshien.dto;
 
 import java.util.Date;
 
-public class TeamBattingResultDto extends BattingResultDto {
-
-	private static final long serialVersionUID = 1L;
+public class TeamPitchingResultDto extends PitchingResultDto{
 	public Integer teamId;
 	public String opponentName;
 	public Date gameDate;
-	public Integer gameNumber;
 	public Integer gameId;
+	public Integer gameNumber;
 	public Integer myteamId;
 	public Integer leagueId;
 	public String title;
-
 }
