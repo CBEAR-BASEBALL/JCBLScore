@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.action;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.beans.util.Beans;
@@ -25,6 +26,8 @@ public class LoginAction {
 	protected PlayerService playerService;
 
 	public Player player;
+
+	static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
 	public String index() {
@@ -55,15 +58,19 @@ public class LoginAction {
 
 		//パスワード照合エラー
 		player = playerService.findByLoginId(playerForm.loginId);
+		logger.info("ログインID:"+playerForm.loginId);
+		logger.info("パスワード:"+playerForm.password);
 		if (player!=null){
 			if (!player.password.equals(playerForm.password)) {
 				errors.add("login", new ActionMessage("errors.login"));
+				logger.warn("一致しないパスワード:"+playerForm.password);
 			}
 			if (player.authority!=1) {
 				errors.add("login", new ActionMessage("errors.login"));
 			}
 		}else{
 			errors.add("login", new ActionMessage("errors.login"));
+			logger.warn("存在しないログインID:"+playerForm.loginId);
 		}
 
 		return errors;

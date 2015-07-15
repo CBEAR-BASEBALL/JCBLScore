@@ -31,7 +31,7 @@ public class PlayerService extends AbstractService<Player> {
      * @return エンティティのリスト
      */
     public List<Player> findAllOrderById() {
-        return select().orderBy(asc(teamId())).getResultList();
+        return select().innerJoin(team()).orderBy(asc(teamId())).getResultList();
     }
 
 	public Player findByLoginId(String loginId) {

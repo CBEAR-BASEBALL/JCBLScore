@@ -3,15 +3,20 @@ package cx.myhome.ckoshien.action;
 import java.util.List;
 import java.sql.Date;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.framework.container.annotation.tiger.Aspect;
+import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.enums.SaveType;
+import org.seasar.struts.util.RequestUtil;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.GameListDto;
@@ -76,6 +81,8 @@ public Date gameDate;
 public List<GameListDto> gameListDtos;
 public Integer leagueId;
 public League league;
+public Team firstTeam;
+public Team lastTeam;
 
 	@Execute(validator = false)
 	public String index(){
@@ -88,6 +95,13 @@ public League league;
 	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = false)
 	public String create(){
+//		HttpSession session =
+//            (HttpSession) SingletonS2ContainerFactory
+//                .getContainer()
+//                .getExternalContext()
+//                .getSession();
+		//session.removeAttribute("gameSummaryForm");
+
 		teamList=teamService.findAllOrderById();
 		playerList=playerService.findAllOrderById();
 		return "create.jsp";
@@ -95,9 +109,8 @@ public League league;
 
 	@Aspect(value="loginConfInterceptor")
 	//@Execute(validator = true,input="create?redirect=true")
-	@Execute(validator = true,input="create?redirect=true",
+	@Execute(validator = true,input="create",
 			stopOnValidationError=false,
-			saveErrors=SaveType.SESSION,
 			validate="dateValidate",
 			removeActionForm=true)
 	public String createComplete(){
@@ -200,13 +213,25 @@ public League league;
 		return "index&redirect=true";
 	}
 
+	@Execute(urlPattern="show/{id}",validator = false)
+	public String show(){
+		gameId=Integer.parseInt(gameSummaryForm.id);
+		game=gameService.findById(gameId);
+		//playerList=playerService.findAllOrderById();
+		firstTeam=teamService.findById(game.firstTeam);
+		lastTeam=teamService.findById(game.lastTeam);
+		//teamList=teamService.findAllOrderById();
+		firstPitchingList=pitchingService.findByGameId(gameId,game.firstTeam);
+		lastPitchingList=pitchingService.findByGameId(gameId,game.lastTeam);
+		firstBattingSumList=battingSumService.findByGameId(gameId,game.firstTeam);
+		lastBattingSumList=battingSumService.findByGameId(gameId,game.lastTeam);
+		//logic= new GameSummaryLogic();
+		//gameSummaryForm=logic.convert2GameSummary(game,firstBattingSumList,lastBattingSumList,gameSummaryForm,firstPitchingList,lastPitchingList);
+		return "show.jsp";
+	}
+
 	@Aspect(value="loginConfInterceptor")
-	@Execute(urlPattern="edit/{id}",
-			validator = true,input="edit/{id}?redirect=true",
-			stopOnValidationError=false,
-			saveErrors=SaveType.SESSION,
-			validate="dateValidate",
-			removeActionForm=true)
+	@Execute(urlPattern="edit/{id}",validator = false)
 	public String edit(){
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		game=gameService.findById(gameId);
@@ -222,7 +247,10 @@ public League league;
 	}
 
 	@Aspect(value="loginConfInterceptor")
-	@Execute(validator=true,input="edit.jsp")
+	@Execute(validator=true,input="edit/{id}",
+			stopOnValidationError=false,
+			validate="dateValidate",
+			removeActionForm=true)
 	public String updateComplete(){
 		StringBuilder sb = new StringBuilder();
 		//日付を連結

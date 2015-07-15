@@ -116,34 +116,34 @@
 			<html:select property="playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
 		<td>
-			<html:text property="tpa" value="" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="tpa[${i-1}]" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="atBats" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="atBats[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="hit[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="homerun[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="rbi" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="rbi[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="fourBall[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="strikeOut" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="strikeOut[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="twoBase" value="0" size="2" maxlength="2" errorStyleClass="err" />
-			<html:hidden property="myTeamId" value="0"/>
+			<html:text property="twoBase[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:hidden property="myTeamId[${i-1}]" value="0"/>
 		</td>
 	</tr>
 	</c:forEach>
@@ -178,33 +178,33 @@
 			<html:select property="p_playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
 		<td>
-			<html:text property="inning1" value="0" size="1" maxlength="1" errorStyleClass="err" />
+			<html:text property="inning1[${i-1}]" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			回
-			<html:text property="inning2" value="0" size="1" maxlength="1" errorStyleClass="err" />
+			<html:text property="inning2[${i-1}]" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
-			<html:text property="p_hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_hit[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_strikeout" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_strikeout[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_fourBall[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="runs" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="runs[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="pa" value="1" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="pa[${i-1}]" value="1" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_homerun[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:select property="complete">
@@ -219,7 +219,7 @@
 			</html:select>
 		</td>
 	</tr>
-	<html:hidden property="p_myTeamId" value="0" />
+	<html:hidden property="p_myTeamId[${i-1}]" value="0" />
 	</c:forEach>
 </table>
 <hr>
@@ -236,40 +236,40 @@
 		<th>三振</th>
 		<th>二塁打</th>
 	</tr>
-	<c:forEach var="i" begin="1" end="10">
+	<c:forEach var="i" begin="11" end="20">
 	<tr>
 		<td>
 			<html:select property="playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
 		<td>
-			<html:text property="tpa" value="" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="tpa[${i-1}]" value="" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="atBats" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="atBats[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="hit[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="homerun[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="rbi" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="rbi[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="fourBall[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="strikeOut" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="strikeOut[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="twoBase" value="0" size="2" maxlength="2" errorStyleClass="err" />
-			<html:hidden property="myTeamId" value="1"/>
+			<html:text property="twoBase[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:hidden property="myTeamId[${i-1}]" value="1"/>
 		</td>
 	</tr>
 	</c:forEach>
@@ -290,7 +290,7 @@
 		<th>完投</th>
 		<th>完封</th>
 	</tr>
-	<c:forEach var="i" begin="1" end="4">
+	<c:forEach var="i" begin="5" end="8">
 	<tr>
 		<td>
 			<html:select property="result">
@@ -304,33 +304,33 @@
 			<html:select property="p_playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
 		<td>
-			<html:text property="inning1" value="0" size="1" maxlength="1" errorStyleClass="err" />
+			<html:text property="inning1[${i-1}]" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			回
-			<html:text property="inning2" value="0" size="1" maxlength="1" errorStyleClass="err" />
+			<html:text property="inning2[${i-1}]" value="0" size="1" maxlength="1" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
-			<html:text property="p_hit" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_hit[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_strikeOut" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_strikeOut[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_fourBall" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_fourBall[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="runs" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="runs[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="pa" value="1" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="pa[${i-1}]" value="1" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_homerun" value="0" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_homerun[${i-1}]" value="0" size="2" maxlength="2" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:select property="complete">
@@ -345,7 +345,7 @@
 			</html:select>
 		</td>
 	</tr>
-	<html:hidden property="p_myTeamId" value="1"/>
+	<html:hidden property="p_myTeamId[${i-1}]" value="1"/>
 	</c:forEach>
 </table>
 

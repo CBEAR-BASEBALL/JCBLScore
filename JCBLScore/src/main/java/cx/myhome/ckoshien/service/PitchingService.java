@@ -49,7 +49,7 @@ public class PitchingService extends AbstractService<Pitching> {
     }
 
     public List<Pitching> findByGameId(Integer gameId,Integer myTeamId) {
-    	list=select().where("gameId=? AND myTeamId=?",gameId,myTeamId).orderBy(asc(id())).getResultList();
+    	list=select().innerJoin(player()).where("gameId=? AND myTeamId=?",gameId,myTeamId).orderBy(asc(id())).getResultList();
         return list;
     }
     public List<Pitching> findByGameIdAll(Integer gameId) {
