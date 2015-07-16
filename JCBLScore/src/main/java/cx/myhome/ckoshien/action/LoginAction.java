@@ -1,6 +1,8 @@
 package cx.myhome.ckoshien.action;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
@@ -16,6 +18,11 @@ import cx.myhome.ckoshien.service.PlayerService;
 
 public class LoginAction {
 	@Resource
+	public HttpServletRequest request;
+	@Resource
+	public HttpServletResponse response;
+
+	@Resource
 	@ActionForm
 	public PlayerForm playerForm;
 
@@ -26,6 +33,7 @@ public class LoginAction {
 	protected PlayerService playerService;
 
 	public Player player;
+
 
 	static Logger logger = Logger.getLogger("rootLogger");
 
@@ -58,6 +66,9 @@ public class LoginAction {
 
 		//パスワード照合エラー
 		player = playerService.findByLoginId(playerForm.loginId);
+		logger.info("IP:"+request.getRemoteAddr());
+		logger.info("ポート:"+request.getRemotePort());
+		logger.info(request.getRemoteHost());
 		logger.info("ログインID:"+playerForm.loginId);
 		logger.info("パスワード:"+playerForm.password);
 		if (player!=null){
