@@ -10,7 +10,8 @@
 			<html:option value="${teamList.teamId}">${teamList.teamName}</html:option>
 		</c:forEach>
 	</html:select>
-<s:submit property="createComplete" value="登録"/>
+	<html:hidden property="id" value="${id}"/>
+<s:submit property="updateComplete" value="更新"/>
 <input type="button" value="戻る" onClick="history.back()">
 </s:form>
 <table border=1>

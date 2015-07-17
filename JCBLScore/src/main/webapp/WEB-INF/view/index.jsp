@@ -11,7 +11,7 @@
 <c:choose>
 	<c:when test="${!empty loginUserDto.authority}">
 		<br>・<a href="./gameSummary/create">新規試合入力</a>
-		<br>・<a href="./player/create">新規選手入力</a>
+		<br>・<a href="./player/">選手新規入力・更新</a>
 		<br><b>(${loginUserDto.name}さんログイン中)</b>
 	</c:when>
 	<c:otherwise>

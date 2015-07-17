@@ -14,4 +14,6 @@ public class PlayerForm {
 	public String loginId;
 	/*パスワード*/
 	public String password;
+
+	public String id;
 }

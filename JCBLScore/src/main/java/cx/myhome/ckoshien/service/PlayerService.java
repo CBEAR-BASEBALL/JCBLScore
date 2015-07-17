@@ -37,4 +37,8 @@ public class PlayerService extends AbstractService<Player> {
 	public Player findByLoginId(String loginId) {
 		return select().where("loginId=?", loginId).getSingleResult();
 	}
+
+	public Player findByNameAndTeamId(String name,Integer teamId) {
+		return select().where("name=? and teamId=?", name,teamId).getSingleResult();
+	}
 }
