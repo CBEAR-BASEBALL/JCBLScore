@@ -29,6 +29,6 @@ inner join team t
 on r.opponent=t.team_id
 inner join league l
 on g.league_id=l.id
-where p.team_id=/*teamId*/ and game_date>=/*beginDate*/ and game_date<=/*endDate*/
+where b.team_id=/*teamId*/ and game_date>=/*beginDate*/ and game_date<=/*endDate*/
 group by player_id,league_id,game_date,game_number with rollup
 ;
