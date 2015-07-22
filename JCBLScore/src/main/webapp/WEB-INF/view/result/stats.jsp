@@ -92,7 +92,7 @@
 		<c:forEach var="averageTop10" items="${averageTop10}">
 		<tr>
 			<td align="right">${averageTop10.rank}</td>
-			<td align="right">${averageTop10.name}</td>
+			<td>${averageTop10.name}</td>
 			<td align="right">${averageTop10.tpa}</td>
 			<td align="right">${averageTop10.atBats}</td>
 			<td align="right">${averageTop10.hit}</td>
@@ -136,7 +136,7 @@
 		<c:forEach var="homerunTop10" items="${homerunTop10}">
 		<tr>
 			<td align="right">${homerunTop10.rank}</td>
-			<td align="right">${homerunTop10.name}</td>
+			<td>${homerunTop10.name}</td>
 			<td align="right">${homerunTop10.tpa}</td>
 			<td align="right">${homerunTop10.atBats}</td>
 			<td align="right">${homerunTop10.hit}</td>
@@ -180,7 +180,7 @@
 		<c:forEach var="rbiTop10" items="${rbiTop10}">
 		<tr>
 			<td align="right">${rbiTop10.rank}</td>
-			<td align="right">${rbiTop10.name}</td>
+			<td>${rbiTop10.name}</td>
 			<td align="right">${rbiTop10.tpa}</td>
 			<td align="right">${rbiTop10.atBats}</td>
 			<td align="right">${rbiTop10.hit}</td>
@@ -224,7 +224,7 @@
 		<c:forEach var="hitTop10" items="${hitTop10}">
 		<tr>
 			<td align="right">${hitTop10.rank}</td>
-			<td align="right">${hitTop10.name}</td>
+			<td>${hitTop10.name}</td>
 			<td align="right">${hitTop10.tpa}</td>
 			<td align="right">${hitTop10.atBats}</td>
 			<td align="right" bgcolor="#FC9898">${hitTop10.hit}</td>
@@ -270,7 +270,7 @@
 		<c:forEach var="eraTop10" items="${eraTop10}">
 		<tr>
 			<td align="right">${eraTop10.rank}</td>
-			<td align="right">${eraTop10.name}</td>
+			<td>${eraTop10.name}</td>
 			<td align="right">${eraTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${eraTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${eraTop10.hit}</td>
@@ -319,7 +319,7 @@
 		<c:forEach var="winTop10" items="${winTop10}">
 		<tr>
 			<td align="right">${winTop10.rank}</td>
-			<td align="right">${winTop10.name}</td>
+			<td>${winTop10.name}</td>
 			<td align="right">${winTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${winTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${winTop10.hit}</td>
@@ -368,7 +368,7 @@
 		<c:forEach var="saveTop10" items="${saveTop10}">
 		<tr>
 			<td align="right">${saveTop10.rank}</td>
-			<td align="right">${saveTop10.name}</td>
+			<td>${saveTop10.name}</td>
 			<td align="right">${saveTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${saveTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${saveTop10.hit}</td>
@@ -417,7 +417,7 @@
 		<c:forEach var="strikeOutTop10" items="${strikeOutTop10}">
 		<tr>
 			<td align="right">${strikeOutTop10.rank}</td>
-			<td align="right">${strikeOutTop10.name}</td>
+			<td>${strikeOutTop10.name}</td>
 			<td align="right">${strikeOutTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${strikeOutTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${strikeOutTop10.hit}</td>
@@ -446,22 +446,22 @@
 			<table border=1>
 				<tr>
 					<td bgcolor="#006400"></td>
-					<td bgcolor="#006400"><font color="#EEEEEE">出塁率</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">出塁率(OBP)</font></td>
 					<td bgcolor="#006400"><font color="#EEEEEE">最多二塁打</font></td>
-					<td bgcolor="#006400"><font color="#EEEEEE">長打率</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">長打率(SLG)</font></td>
 					<td bgcolor="#006400"><font color="#EEEEEE">最多四球</font></td>
 					<td bgcolor="#006400"><font color="#EEEEEE">OPS</font></td>
-					<td bgcolor="#006400"><font color="#EEEEEE">三振率</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></td>
 				</tr>
 				<c:forEach var="i" begin="0" end="9">
 				<tr>
 					<td>${i+1 }</td>
 					<c:choose>
 						<c:when test="${obpTop10[i].rank==1}">
-							<td bgcolor="#FC9898">${obpTop10[i].name}/<fmt:formatNumber value="${obpTop10[i].obp}" pattern="0.000" /></td>
+							<td bgcolor="#FC9898">${obpTop10[i].name}/<fmt:formatNumber value="${obpTop10[i].obp}" pattern="0.0000" /></td>
 						</c:when>
 						<c:otherwise>
-							<td>${obpTop10[i].name}/<fmt:formatNumber value="${obpTop10[i].obp}" pattern="0.000" /></td>
+							<td>${obpTop10[i].name}/<fmt:formatNumber value="${obpTop10[i].obp}" pattern="0.0000" /></td>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -474,10 +474,10 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${slgTop10[i].rank==1 }">
-							<td bgcolor="#FC9898">${slgTop10[i].name}/<fmt:formatNumber value="${slgTop10[i].slg}" pattern="0.000" /></td>
+							<td bgcolor="#FC9898">${slgTop10[i].name}/<fmt:formatNumber value="${slgTop10[i].slg}" pattern="0.0000" /></td>
 						</c:when>
 						<c:otherwise>
-							<td>${slgTop10[i].name}/<fmt:formatNumber value="${slgTop10[i].slg}" pattern="0.000" /></td>
+							<td>${slgTop10[i].name}/<fmt:formatNumber value="${slgTop10[i].slg}" pattern="0.0000" /></td>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -490,18 +490,18 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${opsTop10[i].rank==1}">
-							<td bgcolor="#FC9898">${opsTop10[i].name}/<fmt:formatNumber value="${opsTop10[i].ops}" pattern="0.000" /></td>
+							<td bgcolor="#FC9898">${opsTop10[i].name}/<fmt:formatNumber value="${opsTop10[i].ops}" pattern="0.0000" /></td>
 						</c:when>
 						<c:otherwise>
-							<td>${opsTop10[i].name}/<fmt:formatNumber value="${opsTop10[i].ops}" pattern="0.000" /></td>
+							<td>${opsTop10[i].name}/<fmt:formatNumber value="${opsTop10[i].ops}" pattern="0.0000" /></td>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
 						<c:when test="${nsoTop10[i].rank==1 }">
-							<td bgcolor="#FC9898">${nsoTop10[i].name}/<fmt:formatNumber value="${nsoTop10[i].notStrikeOut}" pattern="0.000" /></td>
+							<td bgcolor="#FC9898">${nsoTop10[i].name}/<fmt:formatNumber value="${nsoTop10[i].notStrikeOut}" pattern="#0.00" /></td>
 						</c:when>
 						<c:otherwise>
-							<td>${nsoTop10[i].name}/<fmt:formatNumber value="${nsoTop10[i].notStrikeOut}" pattern="0.000" /></td>
+							<td>${nsoTop10[i].name}/<fmt:formatNumber value="${nsoTop10[i].notStrikeOut}" pattern="#0.00" /></td>
 						</c:otherwise>
 					</c:choose>
 				</tr>
@@ -536,7 +536,7 @@
 	<tbody>
 	<c:forEach var="battingResultList" items="${battingResultList}">
 	<tr>
-		<td align="right">${battingResultList.name}</td>
+		<td>${battingResultList.name}</td>
 		<td align="right">${battingResultList.tpa}</td>
 		<td align="right">${battingResultList.atBats}</td>
 		<td align="right">${battingResultList.hit}</td>
@@ -549,7 +549,7 @@
 		<td><fmt:formatNumber value="${battingResultList.slg}" pattern="0.0000" /></td>
 		<td><fmt:formatNumber value="${battingResultList.ops}" pattern="0.0000" /></td>
 		<td><fmt:formatNumber value="${battingResultList.obp}" pattern="0.0000" /></td>
-		<td><fmt:formatNumber value="${battingResultList.notStrikeOut}" pattern="0.0000" /></td>
+		<td><fmt:formatNumber value="${battingResultList.notStrikeOut}" pattern="#0.00" /></td>
 	</tr>
 	</c:forEach>
 	</tbody>
@@ -581,7 +581,7 @@
 	<tbody>
 	<c:forEach var="pitchingResultList" items="${pitchingResultList}">
 	<tr>
-		<td align="right">${pitchingResultList.name}</td>
+		<td>${pitchingResultList.name}</td>
 		<td align="right">${pitchingResultList.gameCount}</td>
 		<td align="right"><fmt:formatNumber value="${pitchingResultList.inning}" pattern="#0.##" /></td>
 		<td align="right">${pitchingResultList.hit}</td>

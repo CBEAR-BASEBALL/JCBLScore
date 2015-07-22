@@ -154,8 +154,8 @@ public List<Game> gameList;
 		//OPS TOP10
 		opsTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"ops desc");
 		opsTop10=resultLogic.returnOpsTop10(opsTop10,regAtBats);
-		//最多四球TOP10
-		nsoTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"not_strike_out asc");
+		//三振率TOP10
+		nsoTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"not_strike_out desc");
 		nsoTop10=resultLogic.returnNsoTop10(nsoTop10,regAtBats);
 		return "stats.jsp";
 	}

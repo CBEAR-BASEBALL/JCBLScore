@@ -6,7 +6,10 @@ SELECT
 	((sum(hit)+sum(twobase)*1+sum(homerun)*2)/sum(at_bats)) as SLG,
 	((sum(hit)+sum(four_ball))/sum(tpa))+((sum(hit)+sum(twobase)*1+sum(homerun)*2)/sum(at_bats)) as OPS,
 	(sum(hit)+sum(four_ball))/sum(tpa) as OBP,
-	sum(strike_out)/sum(at_bats) as not_strike_out,
+	CASE
+    WHEN sum(at_bats)/sum(strike_out) is null THEN 0
+    WHEN sum(at_bats)/sum(strike_out) is not null THEN sum(at_bats)/sum(strike_out)
+  	END as not_strike_out,
   	sum(tpa) as tpa,
 	sum(at_bats) as at_bats,
 	sum(hit) as hit,
