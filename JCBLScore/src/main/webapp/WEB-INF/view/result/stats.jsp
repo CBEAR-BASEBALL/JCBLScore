@@ -27,6 +27,7 @@
 <table border=1 id="leagueAll" class="tablesorter">
 	<thead>
 	<tr>
+		<th></th>
 		<th>チーム名</th>
 		<th>試合</th>
 		<th>勝利</th>
@@ -40,8 +41,9 @@
 	</tr>
 	</thead>
 	<tbody>
-	<c:forEach var="resultList" items="${resultList}">
+	<c:forEach var="resultList" items="${resultList}" varStatus="i">
 	<tr>
+		<th>${i.index+1}</th>
 		<td>${resultList.teamName}</td>
 		<td>${resultList.gameCount}</td>
 		<td>${resultList.win}</td>

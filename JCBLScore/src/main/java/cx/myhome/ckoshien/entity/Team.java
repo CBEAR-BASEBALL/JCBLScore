@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/07/10 16:39:34")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2015/07/22 16:23:17")
 public class Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,6 +33,10 @@ public class Team implements Serializable {
     /** shortNameプロパティ */
     @Column(length = 20, nullable = true, unique = false)
     public String shortName;
+
+    /** jcblFlgプロパティ */
+    @Column(precision = 10, nullable = false, unique = false)
+    public Integer jcblFlg;
 
     /** battingDetailList関連プロパティ */
     @OneToMany(mappedBy = "myTeam")

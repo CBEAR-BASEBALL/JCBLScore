@@ -67,6 +67,8 @@ public Game game;
 public int regAtBats;
 public int regAtPitch;
 public List<Game> gameList;
+public double regGameCount;
+public List<GameResultDto> tmpResultList;
 
 
 	@Execute(validator = false)
@@ -83,15 +85,13 @@ public List<Game> gameList;
 			return "index&redirect=true";
 		}
 		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-		resultList=resultService.findGameResult(Integer.parseInt(resultForm.id));
-		resultList2=resultList;
-		length=resultList.size();
 		opponentList=resultService.findOpponentResult(Integer.parseInt(resultForm.id));
 		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
 		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
 		gameList=gameService.findByPeriod(league.beginDate, league.endDate);
 		regAtBats=0;
 		regAtPitch=0;
+		regGameCount=0;
 		if (gameList.size()>0){
 			game=gameList.get(0);
 			//最新の試合日付がリーグ戦期間内だった場合
@@ -104,6 +104,8 @@ public List<Game> gameList;
 				int leagueMonth = cal2.get(Calendar.MONTH)+1;
 				regAtBats=(gameMonth-leagueMonth+1)*7;
 				regAtPitch=(gameMonth-leagueMonth+1)*3;
+				regGameCount=(gameMonth-leagueMonth+1)*4/3;
+
 			}else{
 			//リーグ戦期間外だった場合
 				Calendar cal=Calendar.getInstance();
@@ -114,8 +116,21 @@ public List<Game> gameList;
 				int endMonth = cal2.get(Calendar.MONTH)+1;
 				regAtBats=(endMonth-beginMonth+1)*7;
 				regAtPitch=(endMonth-beginMonth+1)*3;
+				regGameCount=(endMonth-beginMonth+1)*4/3;
 			}
 		}
+		resultList=resultService.findGameResult(Integer.parseInt(resultForm.id),regGameCount);
+		tmpResultList=resultService.findGameResultByPoints(Integer.parseInt(resultForm.id),regGameCount);
+		for(int i=0;i<tmpResultList.size();i++){
+			resultList.add(tmpResultList.get(i));
+		}
+		tmpResultList=new ArrayList<GameResultDto>();
+		tmpResultList=resultService.findGameResultByJCBL(Integer.parseInt(resultForm.id));
+		for(int i=0;i<tmpResultList.size();i++){
+			resultList.add(tmpResultList.get(i));
+		}
+		resultList2=resultList;
+		length=resultList.size();
 		resultLogic=new ResultLogic();
 		//打率TOP10
 		averageTop10=resultLogic.returnAverageTop10(battingResultList,regAtBats);

@@ -51,12 +51,32 @@ public class ResultService extends AbstractService<Result> {
         return result;
     }
 
-    public List<GameResultDto> findGameResult(Integer leagueId){
+    public List<GameResultDto> findGameResult(Integer leagueId,Double regGameCount){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("leagueId", leagueId);
+		param.put("regGameCount", regGameCount);
+    	resultList=
+    		jdbcManager
+    		.selectBySqlFile(GameResultDto.class, "cx.myhome.ckoshien.sql.GameResult.sql", param)
+    		.getResultList();
+    	return resultList;
+    }
+    public List<GameResultDto> findGameResultByPoints(Integer leagueId,Double regGameCount){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("leagueId", leagueId);
+		param.put("regGameCount", regGameCount);
+    	resultList=
+    		jdbcManager
+    		.selectBySqlFile(GameResultDto.class, "cx.myhome.ckoshien.sql.GameResultByPoints.sql", param)
+    		.getResultList();
+    	return resultList;
+    }
+    public List<GameResultDto> findGameResultByJCBL(Integer leagueId){
     	Map<String, Object> param = new HashMap<String, Object>();
 		param.put("leagueId", leagueId);
     	resultList=
     		jdbcManager
-    		.selectBySqlFile(GameResultDto.class, "cx.myhome.ckoshien.sql.GameResult.sql", param)
+    		.selectBySqlFile(GameResultDto.class, "cx.myhome.ckoshien.sql.GameResultJCBL.sql", param)
     		.getResultList();
     	return resultList;
     }

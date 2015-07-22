@@ -13,5 +13,5 @@ SELECT
  inner join TEAM t on t.team_id=r.team_id
  WHERE league_id=/*leagueId*/ and jcbl_flg=0
  group by team_id
- having game_count>=/*regGameCount*/
- order by percentage desc,points desc;
+ having game_count</*regGameCount*/
+ order by points desc;
