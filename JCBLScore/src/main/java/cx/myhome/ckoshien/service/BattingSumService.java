@@ -74,4 +74,12 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		teamBattingResultDtos=jdbcManager.selectBySqlFile(TeamBattingResultDto.class, "cx.myhome.ckoshien.sql.TeamBattingResult.sql",param).getResultList();
 		return teamBattingResultDtos;
 	}
+
+	public List<TeamBattingResultDto> findPBRById(Integer playerId){
+		teamBattingResultDtos=new ArrayList<TeamBattingResultDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("playerId", playerId);
+		teamBattingResultDtos=jdbcManager.selectBySqlFile(TeamBattingResultDto.class, "cx.myhome.ckoshien.sql.PersonalBattingResult.sql",param).getResultList();
+		return teamBattingResultDtos;
+	}
 }

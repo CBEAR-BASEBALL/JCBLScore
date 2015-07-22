@@ -11,9 +11,14 @@ import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.TeamBattingResultDto;
+import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.entity.Team;
 import cx.myhome.ckoshien.form.PlayerForm;
+import cx.myhome.ckoshien.service.BattingSumService;
+import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TeamService;
 
@@ -32,6 +37,12 @@ public class PlayerAction {
 	public List<Team> teamList;
 	public List<Player> playerList;
 	public Player player;
+	@Resource
+	public BattingSumService battingSumService;
+	public List<TeamBattingResultDto> pbrList;
+	@Resource
+	public PitchingService pitchingService;
+	public List<TeamPitchingResultDto> pprList;
 
 	@Execute(validator = false)
 	public String index() {
@@ -75,6 +86,13 @@ public class PlayerAction {
 		player.teamId=Integer.parseInt(playerForm.teamId);
 		playerService.update(player);
         return "index&redirect=true";
+	}
+
+	@Execute(urlPattern="show/{id}",validator = false)
+	public String show(){
+		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
+        pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
+		return "result.jsp";
 	}
 
 	public ActionMessages createValidate(){

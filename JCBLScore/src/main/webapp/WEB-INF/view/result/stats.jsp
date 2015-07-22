@@ -538,7 +538,7 @@
 	<tbody>
 	<c:forEach var="battingResultList" items="${battingResultList}">
 	<tr>
-		<td>${battingResultList.name}</td>
+		<td><a href="${f:url('/player/show/') }${battingResultList.playerId}">${battingResultList.name}</a></td>
 		<td align="right">${battingResultList.tpa}</td>
 		<td align="right">${battingResultList.atBats}</td>
 		<td align="right">${battingResultList.hit}</td>
@@ -583,7 +583,7 @@
 	<tbody>
 	<c:forEach var="pitchingResultList" items="${pitchingResultList}">
 	<tr>
-		<td>${pitchingResultList.name}</td>
+		<td><a href="${f:url('/player/show/') }${pitchingResultList.playerId}">${pitchingResultList.name}</a></td>
 		<td align="right">${pitchingResultList.gameCount}</td>
 		<td align="right"><fmt:formatNumber value="${pitchingResultList.inning}" pattern="#0.##" /></td>
 		<td align="right">${pitchingResultList.hit}</td>

@@ -79,7 +79,7 @@
 							<c:when test="${empty tbrDtos.gameNumber}"></c:when>
 							<c:otherwise>
 								<tr>
-									<td>${tbrDtos.name}</td>
+									<td><a href="${f:url('/player/show/') }${tbrDtos.playerId}">${tbrDtos.name}</a></td>
 									<td>
 										<fmt:formatDate value="${tbrDtos.gameDate}" pattern="MM/dd" />
 										-${tbrDtos.gameNumber}対${tbrDtos.opponentName}
