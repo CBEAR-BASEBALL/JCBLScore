@@ -257,6 +257,13 @@ public class GameSummaryLogic {
 			pitching.win=0;
 			pitching.lose=0;
 		}
+		//フォーム空欄時のエラー回避
+		if(gameSummaryForm.inning1.get(i).equals("")){
+			gameSummaryForm.inning1.add(i,"0");
+		}
+		if(gameSummaryForm.inning2.get(i).equals("")){
+			gameSummaryForm.inning2.add(i,"0");
+		}
 		pitching.inning=Double.valueOf(gameSummaryForm.inning1.get(i))+Double.valueOf(gameSummaryForm.inning2.get(i))/3;
 		pitching.pa=Integer.parseInt(gameSummaryForm.pa.get(i));
 		pitching.hit=Integer.parseInt(gameSummaryForm.p_hit.get(i));
