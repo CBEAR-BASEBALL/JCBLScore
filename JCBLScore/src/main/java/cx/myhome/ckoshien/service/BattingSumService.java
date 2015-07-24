@@ -37,6 +37,9 @@ public class BattingSumService extends AbstractService<BattingSum> {
     public BattingSum findById(Integer id) {
         return select().id(id).getSingleResult();
     }
+    public BattingSum findByPlayerIdAndGameId(Integer playerId,Integer gameId) {
+        return select().where("playerId=? and gameId=?",playerId,gameId).getSingleResult();
+    }
 
     /**
      * 識別子の昇順ですべてのエンティティを検索します。
@@ -62,6 +65,17 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		param.put("endDate", date(date2));
 		param.put("order", order);
 		battingResultDtos=jdbcManager.selectBySqlFile(BattingResultDto.class, "cx.myhome.ckoshien.sql.BattingResult.sql",param).getResultList();
+		return battingResultDtos;
+	}
+
+	public List<BattingResultDto> findHomerun(Date beginDate,Date todayDate,Integer gameId,Integer gameNumber){
+		battingResultDtos=new ArrayList<BattingResultDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("beginDate", beginDate);
+		param.put("todayDate", todayDate);
+		param.put("gameId", gameId);
+		param.put("gameNumber", gameNumber);
+		battingResultDtos=jdbcManager.selectBySqlFile(BattingResultDto.class, "cx.myhome.ckoshien.sql.Homerun.sql",param).getResultList();
 		return battingResultDtos;
 	}
 

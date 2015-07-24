@@ -1,7 +1,9 @@
-#Fri Jul 10 17:18:24 JST 2015
+#Thu Jul 23 17:57:08 JST 2015
 eclipse.preferences.version=1
 encoding//src/main/resources/application_ja.properties=UTF-8
 encoding//src/main/resources/cx/myhome/ckoshien/sql/BattingResult.sql=UTF-8
 encoding//src/main/resources/cx/myhome/ckoshien/sql/PitchingResult.sql=UTF-8
+encoding//src/main/webapp/WEB-INF/view/common/header.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/common/menu.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/index.jsp=UTF-8
 encoding/<project>=UTF-8

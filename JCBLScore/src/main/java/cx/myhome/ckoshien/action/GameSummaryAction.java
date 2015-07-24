@@ -1,5 +1,6 @@
 package cx.myhome.ckoshien.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 import javax.annotation.Resource;
@@ -83,6 +84,10 @@ public Integer leagueId;
 public League league;
 public Team firstTeam;
 public Team lastTeam;
+public GameListDto gameListDto;
+public Integer winnerId;
+public Integer loserId;
+public Integer saverId;
 
 	@Execute(validator = false)
 	public String index(){
@@ -362,6 +367,46 @@ public Team lastTeam;
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		gameDate=gameService.findById(gameId).gameDate;
 		gameList=gameService.findByDateOrderByDate(gameDate);
+		league=leagueService.findIdByDate(gameDate);
+		gameListDtos=new ArrayList<GameListDto>();
+		for(int i=0;i<gameList.size();i++){
+			gameListDto=new GameListDto();
+			game=gameList.get(i);
+			gameListDto = Beans.createAndCopy(GameListDto.class, game).execute();
+			//通算本塁打数
+			gameListDto.homerun=battingSumService.findHomerun(league.beginDate, game.gameDate, game.gameId, game.gameNumber);
+			//その試合の本数を算出
+			for(int k=0;k<gameListDto.homerun.size();k++){
+				battingSum=battingSumService.findByPlayerIdAndGameId(gameListDto.homerun.get(k).playerId, game.gameId);
+				gameListDto.homerun.get(k).homerunCount=battingSum.homerun;
+			}
+			//引き分けの場合勝敗なし
+			if(game.firstRun!=game.lastRun){
+				pitchingList=pitchingService.findByGameIdAll(game.gameId);
+				winnerId=null;
+				loserId=null;
+				saverId=null;
+				for(int j=0;j<pitchingList.size();j++){
+					if(pitchingList.get(j).win==1){
+						winnerId=pitchingList.get(j).playerId;
+					}else if(pitchingList.get(j).lose==1){
+						loserId=pitchingList.get(j).playerId;
+					}else if(pitchingList.get(j).save==1){
+						saverId=pitchingList.get(j).playerId;
+					}
+				}
+				if(null!=winnerId){
+					gameListDto.win=pitchingService.findByIdAndDate(winnerId, league.beginDate, game.gameDate, game.gameNumber);
+				}
+				if(null!=loserId){
+					gameListDto.lose=pitchingService.findByIdAndDate(loserId, league.beginDate, game.gameDate, game.gameNumber);
+				}
+				if(null!=saverId){
+					gameListDto.save=pitchingService.findByIdAndDate(saverId, league.beginDate, game.gameDate, game.gameNumber);
+				}
+			}
+			gameListDtos.add(gameListDto);
+		}
 		return "index2.jsp";
 	}
 

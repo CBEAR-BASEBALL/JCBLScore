@@ -1,6 +1,5 @@
 package cx.myhome.ckoshien.service;
 
-import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.PitchingResultDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.entity.Pitching;
@@ -27,6 +26,7 @@ public class PitchingService extends AbstractService<Pitching> {
 	public List<Pitching> list;
 	public List<PitchingResultDto> pitchingResultDtos;
 	public List<TeamPitchingResultDto> teamPitchingResultDtos;
+	public PitchingResultDto pitchingResultDto;
 
     /**
      * 識別子でエンティティを検索します。
@@ -81,5 +81,15 @@ public class PitchingService extends AbstractService<Pitching> {
 		param.put("playerId", playerId);
 		teamPitchingResultDtos=jdbcManager.selectBySqlFile(TeamPitchingResultDto.class, "cx.myhome.ckoshien.sql.PersonalPitchingResult.sql",param).getResultList();
 		return teamPitchingResultDtos;
+	}
+
+    public PitchingResultDto findByIdAndDate(Integer playerId,Date beginDate,Date todayDate,Integer gameNumber){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("playerId", playerId);
+		param.put("beginDate", beginDate);
+		param.put("todayDate", todayDate);
+		param.put("gameNumber", gameNumber);
+		pitchingResultDto=jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.GamePitchingResult.sql",param).getSingleResult();
+		return pitchingResultDto;
 	}
 }

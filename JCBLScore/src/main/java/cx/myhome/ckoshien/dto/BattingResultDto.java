@@ -41,5 +41,6 @@ public class BattingResultDto implements Serializable {
 	public Integer twobase;
 
 	public Integer homerun;
+	public Integer homerunCount;
 
 }

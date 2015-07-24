@@ -1,20 +1,59 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
 <body>
-<c:forEach var="gameList" items="${gameList}">
+<c:forEach var="gameList" items="${gameListDtos}">
 	<br>第${gameList.gameNumber}試合
-	<br><b>${gameList.team2.teamName}</b>
-		<b> <a href="../show/${gameList.gameId}">${gameList.lastRun}-${gameList.firstRun}</a></b>
-		<b> ${gameList.team.teamName}</b>
-	<c:choose>
-		<c:when test="${!empty loginUserDto.id}">
-		(<a href="../edit/${gameList.gameId}">編集</a>)
-		</c:when>
-	</c:choose>
-	<br>
 	<table border=0 width="600">
 		<tr>
-			<td bgcolor="#ffe4e1"><b>${gameList.comment}</b></td>
+		<td>
+			<b>${gameList.team2.teamName}</b>
+			<b> <a href="../show/${gameList.gameId}">
+			${gameList.lastRun}-${gameList.firstRun}</a></b>
+			<b> ${gameList.team.teamName}</b>
+			<c:choose>
+				<c:when test="${!empty loginUserDto.id}">
+					(<a href="../edit/${gameList.gameId}">編集</a>)
+				</c:when>
+			</c:choose>
+		</td>
+		</tr>
+		<tr>
+			<td>
+				<c:if test="${gameList.firstRun!=gameList.lastRun}">
+					勝　${gameList.win.name}
+					<c:if test="${gameList.win.win!=0}">${gameList.win.win}勝</c:if>
+					<c:if test="${gameList.win.lose!=0}">${gameList.win.lose}敗</c:if>
+					<c:if test="${gameList.win.save!=0}">${gameList.win.save}S</c:if>
+					<br>
+					<c:if test="${!empty gameList.save.save}">
+						Ｓ　${gameList.save.name}
+						<c:if test="${gameList.save.win!=0}">${gameList.save.win}勝</c:if>
+						<c:if test="${gameList.save.lose!=0}">${gameList.save.lose}敗</c:if>
+						<c:if test="${gameList.save.save!=0}">${gameList.save.save}S</c:if>
+						<br>
+					</c:if>
+					敗　${gameList.lose.name}
+					<c:if test="${gameList.lose.win!=0}">${gameList.lose.win}勝</c:if>
+					<c:if test="${gameList.lose.lose!=0}">${gameList.lose.lose}敗</c:if>
+					<c:if test="${gameList.lose.save!=0}">${gameList.lose.save}S</c:if>
+					<br>
+				</c:if>
+				<c:if test="${!empty gameList.homerun}">
+				HR　
+				<c:forEach var="homerun" items="${gameList.homerun}">
+					${homerun.name}
+					<c:forEach var="i" begin="1" end="${homerun.homerunCount}" >
+					${homerun.homerun-homerun.homerunCount+i}
+					<c:if test="${i<homerun.homerunCount}">,</c:if>
+					</c:forEach>
+					号
+
+				</c:forEach>
+				</c:if>
+			</td>
+		</tr>
+		<tr>
+			<td bgcolor="#ffe4e1"><b>寸評:${f:br(f:h(gameList.comment))}</b></td>
 		</tr>
 	</table>
 </c:forEach>
