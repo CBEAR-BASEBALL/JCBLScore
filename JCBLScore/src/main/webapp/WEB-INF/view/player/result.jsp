@@ -24,19 +24,30 @@
 		</c:forEach>
 		]);
 		var data2 = google.visualization.arrayToDataTable([
-				['シーズン','防御率','WHIP','奪三振率'],
+				['シーズン','防御率','WHIP'],
 				<c:forEach var="pprDtos" items="${pprList}">
 					<c:choose>
 						<c:when test="${empty pprDtos.leagueId}"></c:when>
 						<c:otherwise>
-							['${pprDtos.title}',${pprDtos.era},${pprDtos.whip},${pprDtos.strikeAvg}],
+							['${pprDtos.title}',${pprDtos.era},${pprDtos.whip}],
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				]);
 		// グラフのオプションを設定
-		var options = { title: '打撃成績推移' };
-		var options2 = { title: '投球成績推移' };
+		var options = {
+				title: '打撃成績推移',
+				'pointSize':6
+				};
+		var options2 = {
+				title: '投球成績推移',
+				'pointSize':6,
+				'vAxis': {
+			        'direction': -1
+
+			    }
+
+				};
 		// LineChart のオブジェクトの作成
 		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 		var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
@@ -153,7 +164,7 @@
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td>${tprDtos.name}</td>
+					<td>${tprDtos.name}(${tprDtos.title})</td>
 					<td>${tprDtos.gameCount}</td>
 					<td><fmt:formatNumber value="${tprDtos.inning}" pattern="#0.##" /></td>
 					<td>${tprDtos.hit}</td>
