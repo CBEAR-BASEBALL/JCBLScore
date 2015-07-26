@@ -2,6 +2,39 @@
 <html>
 <head>
 	<link rel="stylesheet" href="${f:url('/css/error.css') }" type="text/css" media="print, projection, screen"/>
+	<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		$('input').keyup(function(){
+			var top = new Array();
+			var last= new Array();
+			var topSum=0;
+			var lastSum=0;
+			top[0] = parseInt($('input[name=top1st]').val());
+			top[1] = parseInt($('input[name=top2nd]').val());
+			top[2] = parseInt($('input[name=top3rd]').val());
+			top[3] = parseInt($('input[name=top4th]').val());
+			top[4] = parseInt($('input[name=top5th]').val());
+			last[0] = parseInt($('input[name=bottom1st]').val());
+			last[1] = parseInt($('input[name=bottom2nd]').val());
+			last[2] = parseInt($('input[name=bottom3rd]').val());
+			last[3] = parseInt($('input[name=bottom4th]').val());
+			last[4] = parseInt($('input[name=bottom5th]').val());
+			for(var i=0;i<5;i++){
+				if(isNaN(top[i])){
+					top[i]=0;
+				}
+				if(isNaN(last[i])){
+					last[i]=0;
+				}
+				topSum=topSum+top[i];
+				lastSum=lastSum+last[i];
+			}
+			$('input[name=firstRun]').val(topSum);
+			$('input[name=lastRun]').val(lastSum);
+		});
+	});
+	</script>
 </head>
 <body>
 <html:errors/>

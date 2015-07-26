@@ -6,7 +6,7 @@
 <fmt:formatDate value="${game.gameDate}"pattern="yyyy年MM月dd日"/>
 第${game.gameNumber}試合
 <hr>
-<table border=1>
+<table border=1 width="50%">
 	<tr>
 		<th>チーム名</th>
 		<th>1</th>
@@ -31,7 +31,21 @@
 		<td>${game.bottom2nd}</td>
 		<td>${game.bottom3rd}</td>
 		<td>${game.bottom4th}</td>
-		<td>${game.bottom5th}</td>
+		<td>
+			<c:choose>
+				<%--サヨナラの場合 --%>
+				<c:when test="${game.lastRun>game.firstRun && !empty game.bottom5th}">
+					${game.bottom5th}x
+				</c:when>
+				<%--Xのとき --%>
+				<c:when test="${game.lastRun>game.firstRun && empty game.bottom5th}">
+					X
+				</c:when>
+				<c:otherwise>
+					${game.bottom5th}
+				</c:otherwise>
+			</c:choose>
+		</td>
 		<td>${game.lastRun}</td>
 	</tr>
 
