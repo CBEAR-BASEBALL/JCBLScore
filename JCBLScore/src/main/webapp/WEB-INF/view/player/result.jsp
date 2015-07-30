@@ -3,6 +3,7 @@
 <head>
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
 	<!-- AJAX API のロード -->
+	<%--
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript">
 	// Visualization API と折れ線グラフ用のパッケージのロード
@@ -55,6 +56,193 @@
 		chart.draw(data, options);
 		chart2.draw(data2, options2);
 	}
+	</script>
+	--%>
+	<!--highcharts  -->
+	<script type="text/javascript" src="${f:url('/js/jquery-latest.js') }"></script>
+	<script type="text/javascript" src="${f:url('/js/highcharts.src.js') }"></script>
+	<script type="text/javascript" src="${f:url('/js/highcharts-more.src.js') }"></script>
+	<script>
+		$(function(){
+			$('#chart_div').highcharts({
+				chart: {
+					type: 'line',
+				},
+				title: {
+					text: "打撃成績推移"
+				},
+				xAxis: {
+					categories: [
+						<c:forEach var="pbrDtos" items="${pbrList}">
+							<c:choose>
+								<c:when test="${empty pbrDtos.leagueId}"></c:when>
+								<c:otherwise>
+									"${pbrDtos.title}",
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						],
+					labels: {
+						style: {
+							color: '#000000'
+						}
+					}
+				},
+				yAxis: {
+					title: {
+						text: null
+					},
+						labels: {
+							style: {
+								color: '#000000'
+							}
+						},
+						ceiling: 1,
+						floor: 0,
+						allowDecimals:true,
+						startOnTick: false
+				},
+				plotOptions: {
+					line: {
+						events: {
+							legendItemClick: function () {
+								return false;
+							}
+						}
+					}
+				},
+				tooltip: {
+					shared: true,
+					pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>',
+					backgroundColor: '#FFFFFF',
+					style: {
+						color: '#000000'
+					}
+				},
+				series: [{
+					name: '打率',
+					data: [
+						<c:forEach var="pbrDtos" items="${pbrList}">
+							<c:choose>
+								<c:when test="${empty pbrDtos.leagueId}"></c:when>
+								<c:otherwise>
+									${pbrDtos.average},
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					]
+					}, {
+					name: '長打率',
+					data: [
+						<c:forEach var="pbrDtos" items="${pbrList}">
+							<c:choose>
+								<c:when test="${empty pbrDtos.leagueId}"></c:when>
+								<c:otherwise>
+									${pbrDtos.slg},
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+				]
+					}, {
+					name: '出塁率',
+					data: [
+						<c:forEach var="pbrDtos" items="${pbrList}">
+							<c:choose>
+								<c:when test="${empty pbrDtos.leagueId}"></c:when>
+								<c:otherwise>
+									${pbrDtos.obp},
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					]
+				    }]
+			});
+			$('#chart_div2').highcharts({
+				chart: {
+					type: 'line',
+				},
+				title: {
+					text: "投球成績推移"
+				},
+				xAxis: {
+					categories: [
+						<c:forEach var="pbrDtos" items="${pbrList}">
+							<c:choose>
+								<c:when test="${empty pbrDtos.leagueId}"></c:when>
+								<c:otherwise>
+									"${pbrDtos.title}",
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						],
+					labels: {
+						style: {
+							color: '#000000'
+						}
+					}
+				},
+				yAxis: {
+					title: {
+						text: null
+					},
+					reversed:true,
+						labels: {
+							style: {
+								color: '#000000'
+							}
+						},
+
+						<%--
+						ceiling: 0,
+						floor: 0,
+						--%>
+						allowDecimals:true,
+						startOnTick: false
+				},
+				plotOptions: {
+					line: {
+						events: {
+							legendItemClick: function () {
+								return false;
+							}
+						}
+					}
+				},
+				tooltip: {
+					shared: true,
+					pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>',
+					backgroundColor: '#FFFFFF',
+					style: {
+						color: '#000000'
+					}
+				},
+				series: [{
+					name: '防御率',
+					data: [
+						<c:forEach var="pprDtos" items="${pprList}">
+							<c:choose>
+								<c:when test="${empty pprDtos.leagueId}"></c:when>
+								<c:otherwise>
+									${pprDtos.era},
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					]
+					}, {
+					name: 'WHIP',
+					data: [
+						<c:forEach var="pprDtos" items="${pprList}">
+							<c:choose>
+								<c:when test="${empty pprDtos.leagueId}"></c:when>
+								<c:otherwise>
+									${pprDtos.whip},
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+				]
+					}]
+			});
+		});
 	</script>
 
 </head>
@@ -184,7 +372,7 @@
 		</c:choose>
 	</c:forEach>
 </table>
-<div id="chart_div" style="width: 80%; height: 400px;"></div>
-<div id="chart_div2" style="width: 80%; height: 400px;"></div>
+<div id="chart_div" style="width: 80%; height: 300px;"></div>
+<div id="chart_div2" style="width: 80%; height: 300px;"></div>
 </body>
 </html>
