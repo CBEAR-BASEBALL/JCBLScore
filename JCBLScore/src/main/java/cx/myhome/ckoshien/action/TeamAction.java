@@ -62,6 +62,7 @@ public class TeamAction {
 	@Execute(validator = true,input="create.jsp")
 	public String createComplete(){
 		team = Beans.createAndCopy(Team.class, teamForm).execute();
+		team.jcblFlg=0;
 		teamService.insert(team);
         return "createComplete.jsp";
 	}
