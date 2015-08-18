@@ -43,6 +43,7 @@ public class PlayerAction {
 	@Resource
 	public PitchingService pitchingService;
 	public List<TeamPitchingResultDto> pprList;
+	public List<TeamBattingResultDto> pbrgoList;
 
 	@Execute(validator = false)
 	public String index() {
@@ -91,6 +92,7 @@ public class PlayerAction {
 	@Execute(urlPattern="show/{id}",validator = false)
 	public String show(){
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
+		pbrgoList=battingSumService.findPBRGOById(Integer.parseInt(playerForm.id));
         pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
 		return "result.jsp";
 	}

@@ -2,62 +2,6 @@
 <html>
 <head>
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
-	<!-- AJAX API のロード -->
-	<%--
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript">
-	// Visualization API と折れ線グラフ用のパッケージのロード
-	google.load("visualization", "1", {packages:["corechart"]});
-	// Google Visualization API ロード時のコールバック関数の設定
-	google.setOnLoadCallback(drawChart);
-	// グラフ作成用のコールバック関数
-	function drawChart() {
-		// データテーブルの作成
-		var data = google.visualization.arrayToDataTable([
-			['シーズン','打率','長打率','出塁率'],
-		<c:forEach var="pbrDtos" items="${pbrList}">
-			<c:choose>
-				<c:when test="${empty pbrDtos.leagueId}"></c:when>
-				<c:otherwise>
-					['${pbrDtos.title}',${pbrDtos.average},${pbrDtos.slg},${pbrDtos.obp}],
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		]);
-		var data2 = google.visualization.arrayToDataTable([
-				['シーズン','防御率','WHIP'],
-				<c:forEach var="pprDtos" items="${pprList}">
-					<c:choose>
-						<c:when test="${empty pprDtos.leagueId}"></c:when>
-						<c:otherwise>
-							['${pprDtos.title}',${pprDtos.era},${pprDtos.whip}],
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				]);
-		// グラフのオプションを設定
-		var options = {
-				title: '打撃成績推移',
-				'pointSize':6
-				};
-		var options2 = {
-				title: '投球成績推移',
-				'pointSize':6,
-				'vAxis': {
-			        'direction': -1
-
-			    }
-
-				};
-		// LineChart のオブジェクトの作成
-		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-		var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
-		// データテーブルとオプションを渡して、グラフを描画
-		chart.draw(data, options);
-		chart2.draw(data2, options2);
-	}
-	</script>
-	--%>
 	<!--highcharts  -->
 	<script type="text/javascript" src="${f:url('/js/jquery-latest.js') }"></script>
 	<script type="text/javascript" src="${f:url('/js/highcharts.src.js') }"></script>
@@ -248,7 +192,7 @@
 </head>
 <body>
 <hr>
-<h2>個人成績</h2>
+<h2>打撃成績</h2>
 <table border=1 class="tablesorter">
 	<thead>
 	<tr>
@@ -309,6 +253,47 @@
 		</c:choose>
 	</c:forEach>
 </table>
+<h2>対球団別打撃成績</h2>
+<table border=1 class="tablesorter">
+	<thead>
+	<tr>
+		<th>名前</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>HR</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+		<th>打率</th>
+		<th>長打率</th>
+		<th>OPS</th>
+		<th>出塁率</th>
+		<th>三振率</th>
+	</tr>
+	</thead>
+	<c:forEach var="pbrDtos" items="${pbrgoList}">
+		<tr>
+			<td>v.s.${pbrDtos.opponentName}</td>
+			<td>${pbrDtos.tpa}</td>
+			<td>${pbrDtos.atBats}</td>
+			<td>${pbrDtos.hit}</td>
+			<td>${pbrDtos.homerun}</td>
+			<td>${pbrDtos.rbi}</td>
+			<td>${pbrDtos.fourBall}</td>
+			<td>${pbrDtos.strikeOut}</td>
+			<td>${pbrDtos.twobase}</td>
+			<td><fmt:formatNumber value="${pbrDtos.average}" pattern="0.0000" /></td>
+			<td><fmt:formatNumber value="${pbrDtos.slg}" pattern="0.0000" /></td>
+			<td><fmt:formatNumber value="${pbrDtos.ops}" pattern="0.0000" /></td>
+			<td><fmt:formatNumber value="${pbrDtos.obp}" pattern="0.0000" /></td>
+			<td><fmt:formatNumber value="${pbrDtos.notStrikeOut}" pattern="#0.00" /></td>
+		</tr>
+	</c:forEach>
+
+</table>
+<h2>投球成績</h2>
 <table border=1 class="tablesorter">
 	<thead>
 	<tr>
