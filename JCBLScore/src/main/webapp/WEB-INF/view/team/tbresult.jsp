@@ -81,11 +81,13 @@
 								<tr>
 									<td><a href="${f:url('/player/show/') }${tbrDtos.playerId}">${tbrDtos.name}</a></td>
 									<td>
+										<a href="${f:url('/gameSummary/show/')}${tbrDtos.gameId}">
 										<fmt:formatDate value="${tbrDtos.gameDate}" pattern="MM/dd" />
 										-${tbrDtos.gameNumber}対${tbrDtos.opponentName}
 										<c:choose>
 										<c:when test="${tbrDtos.teamId!=tbrDtos.myteamId}">(助)</c:when>
 										</c:choose>
+										</a>
 										</td>
 									<td>${tbrDtos.tpa}</td>
 									<td>${tbrDtos.atBats}</td>
