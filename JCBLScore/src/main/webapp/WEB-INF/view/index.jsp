@@ -28,6 +28,12 @@
 	</c:otherwise>
 </c:choose>
 <hr>
+ご意見・ご要望・ご質問
+<!--ninja_style_mailform-->
+<script type="text/javascript" src="http://mf1.shinobi.jp/call/646aed85cc6881f51be70c5e0ba98e15/default.js" charset="utf-8"></script>
+<!--ninja_style_mailform-->
+
+<hr>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"

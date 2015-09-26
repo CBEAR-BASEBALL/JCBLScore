@@ -30,5 +30,14 @@
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<!--shinobi1-->
+<script type="text/javascript" src="http://x6.karakasa.com/ufo/05087790l"></script>
+<noscript><a href="http://x6.karakasa.com/bin/gg?05087790l" target="_blank">
+<img src="http://x6.karakasa.com/bin/ll?05087790l" border="0"></a>
+<br><span style="font-size:9px">
+<img style="margin:0;vertical-align:text-bottom;" src="http://img.shinobi.jp/tadaima/fj.gif" width="19" height="11">
+</span>
+</noscript>
+<!--shinobi2-->
 </body>
 </html>
