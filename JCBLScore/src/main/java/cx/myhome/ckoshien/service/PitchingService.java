@@ -92,4 +92,11 @@ public class PitchingService extends AbstractService<Pitching> {
 		pitchingResultDto=jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.GamePitchingResult.sql",param).getSingleResult();
 		return pitchingResultDto;
 	}
+
+    public List<TeamPitchingResultDto> findPPRGOById(Integer playerId){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("playerId", playerId);
+		teamPitchingResultDtos=jdbcManager.selectBySqlFile(TeamPitchingResultDto.class, "cx.myhome.ckoshien.sql.PersonalPitchingResultGroupByOpponent.sql",param).getResultList();
+		return teamPitchingResultDtos;
+	}
 }

@@ -44,6 +44,7 @@ public class PlayerAction {
 	public PitchingService pitchingService;
 	public List<TeamPitchingResultDto> pprList;
 	public List<TeamBattingResultDto> pbrgoList;
+	public List<TeamPitchingResultDto> pprgoList;
 
 	@Execute(validator = false)
 	public String index() {
@@ -94,6 +95,7 @@ public class PlayerAction {
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
 		pbrgoList=battingSumService.findPBRGOById(Integer.parseInt(playerForm.id));
         pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
+        pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));
 		return "result.jsp";
 	}
 

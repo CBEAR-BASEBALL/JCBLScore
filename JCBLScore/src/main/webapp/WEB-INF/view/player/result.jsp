@@ -6,6 +6,20 @@
 	<script type="text/javascript" src="${f:url('/js/jquery-latest.js') }"></script>
 	<script type="text/javascript" src="${f:url('/js/highcharts.src.js') }"></script>
 	<script type="text/javascript" src="${f:url('/js/highcharts-more.src.js') }"></script>
+	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function()
+		       {
+		          $("#battingAll").tablesorter(
+		        		   {widgets: ['zebra']}
+		           );
+		          $("#pitchingAll").tablesorter(
+		        		   {widgets: ['zebra']}
+		           );
+		       }
+		   );
+
+	</script>
 	<script>
 		$(function(){
 			$('#chart_div').highcharts({
@@ -254,7 +268,7 @@
 	</c:forEach>
 </table>
 <h2>対球団別打撃成績</h2>
-<table border=1 class="tablesorter">
+<table border=1 class="tablesorter" id="battingAll">
 	<thead>
 	<tr>
 		<th>名前</th>
@@ -357,6 +371,49 @@
 		</c:choose>
 	</c:forEach>
 </table>
+<h2>対球団別投球成績</h2>
+<table border=1 class="tablesorter" id="pitchingAll">
+	<thead>
+	<tr>
+		<th>名前</th>
+		<th>登板数</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>完投</th>
+		<th>完封</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>S</th>
+		<th>防御率</th>
+		<th>WHIP</th>
+		<th>奪三振率</th>
+	</tr>
+	</thead>
+	<c:forEach var="pprDtos" items="${pprgoList}">
+		<tr>
+			<td>v.s.${pprDtos.opponentName}</td>
+			<td>${pprDtos.gameCount}</td>
+			<td><fmt:formatNumber value="${pprDtos.inning}" pattern="0.000" /></td>
+			<td>${pprDtos.hit}</td>
+			<td>${pprDtos.strikeOut}</td>
+			<td>${pprDtos.fourBall}</td>
+			<td>${pprDtos.runs}</td>
+			<td>${pprDtos.complete}</td>
+			<td>${pprDtos.shutout}</td>
+			<td>${pprDtos.win}</td>
+			<td>${pprDtos.lose}</td>
+			<td>${pprDtos.save}</td>
+			<td><fmt:formatNumber value="${pprDtos.era}" pattern="0.00" /></td>
+			<td><fmt:formatNumber value="${pprDtos.whip}" pattern="0.00" /></td>
+			<td><fmt:formatNumber value="${pprDtos.strikeAvg}" pattern="0.00" /></td>
+		</tr>
+	</c:forEach>
+
+</table>
+
 <div id="chart_div" style="width: 80%; height: 300px;"></div>
 <div id="chart_div2" style="width: 80%; height: 300px;"></div>
 <!--shinobi1-->
