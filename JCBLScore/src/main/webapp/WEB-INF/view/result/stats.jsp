@@ -455,7 +455,7 @@
 					<td bgcolor="#006400"><font color="#EEEEEE">OPS</font></td>
 					<td bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></td>
 				</tr>
-				<c:forEach var="i" begin="0" end="9">
+				<c:forEach var="i" begin="0" end="${listSize-1}">
 				<tr>
 					<td>${i+1 }</td>
 					<c:choose>
