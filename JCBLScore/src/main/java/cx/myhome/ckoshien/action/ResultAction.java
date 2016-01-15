@@ -173,10 +173,14 @@ public List<GameResultDto> tmpResultList;
 		//三振率TOP10
 		nsoTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"not_strike_out desc");
 		nsoTop10=resultLogic.returnNsoTop10(nsoTop10,regAtBats);
+		//ノンタイトルの行数を決定
 		if(twobaseTop10.size()>=fourBallTop10.size()){
 			listSize=twobaseTop10.size();
 		}else{
 			listSize=fourBallTop10.size();
+		}
+		if(listSize<=10){
+			listSize=10;
 		}
 		return "stats.jsp";
 	}
