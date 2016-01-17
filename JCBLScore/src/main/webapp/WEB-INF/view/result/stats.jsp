@@ -611,7 +611,8 @@
 </table>
 <hr>
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
-<br><a href="http://jcbldata.fc2web.com/cbl_index.html">HOME</a>
+<br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
+<br><br><br><br><br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"
