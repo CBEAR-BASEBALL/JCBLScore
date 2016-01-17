@@ -23,7 +23,11 @@
 
 </head>
 <body>
-<h2>チーム成績</h2>
+<table border=1>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">チーム成績</font></td>
+</tr>
+<tr><td>
 <table border=1 id="leagueAll" class="tablesorter">
 	<thead>
 	<tr>
@@ -65,6 +69,8 @@
 	</tr>
 	</c:forEach>
 	</tbody>
+</table>
+</td></tr>
 </table>
 <hr>
 
@@ -604,6 +610,8 @@
 	</tbody>
 </table>
 <hr>
+<br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
+<br><a href="http://jcbldata.fc2web.com/cbl_index.html">HOME</a>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"
