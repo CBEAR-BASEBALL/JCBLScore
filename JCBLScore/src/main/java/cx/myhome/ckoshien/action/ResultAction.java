@@ -3,6 +3,7 @@ package cx.myhome.ckoshien.action;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -93,19 +94,21 @@ public List<GameResultDto> tmpResultList;
 		regAtBats=0;
 		regAtPitch=0;
 		regGameCount=0;
+		Date today = new Date();
 		if (gameList.size()>0){
 			game=gameList.get(0);
 			//最新の試合日付がリーグ戦期間内だった場合
-			if(game.gameDate.compareTo(league.beginDate)>=0&&game.gameDate.compareTo(league.endDate)<=0){
+			if(today.compareTo(league.beginDate)>=0&&today.compareTo(league.endDate)<=0){
 				Calendar cal=Calendar.getInstance();
 				Calendar cal2=Calendar.getInstance();
 				cal.setTime(game.gameDate);
 				cal2.setTime(league.beginDate);
 				int gameMonth = cal.get(Calendar.MONTH)+1;
 				int leagueMonth = cal2.get(Calendar.MONTH)+1;
-				regAtBats=(gameMonth-leagueMonth+1)*7;
-				regAtPitch=(gameMonth-leagueMonth+1)*3;
-				regGameCount=(gameMonth-leagueMonth+1)*4/3;
+				regAtBats=(gameMonth-leagueMonth)*7;
+				regAtPitch=(gameMonth-leagueMonth)*3;
+				//regGameCount=(gameMonth-leagueMonth)*4/3;
+				regGameCount=1.0;
 
 			}else{
 			//リーグ戦期間外だった場合
@@ -118,6 +121,7 @@ public List<GameResultDto> tmpResultList;
 				regAtBats=(endMonth-beginMonth+1)*7;
 				regAtPitch=(endMonth-beginMonth+1)*3;
 				regGameCount=(endMonth-beginMonth+1)*4/3;
+				System.out.println("リーグ戦期間外");
 			}
 		}
 		resultList=resultService.findGameResult(Integer.parseInt(resultForm.id),regGameCount);
