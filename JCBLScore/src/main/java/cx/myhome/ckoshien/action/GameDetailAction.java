@@ -25,8 +25,8 @@ public class GameDetailAction {
 	List<BattingDetail> LastAttackList;
 
 	@Execute(validator = false)
-	public String edit(int teamId, int gameId){
-		firstAttackList=battingDetailService.findGameDetail(teamId, gameId);
+	public String edit(){
+
         return "edit.jsp";
 	}
 	@Execute(validator = false)
