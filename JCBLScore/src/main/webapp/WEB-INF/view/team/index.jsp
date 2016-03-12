@@ -12,13 +12,17 @@
 	</c:forEach>
 </table>
 <br>
-<s:form action="">
-		<input type="button" value="戻る" onClick="history.back()">
-		<s:submit property="create" value="新規チーム登録"/>
-</s:form>
-<s:form action="/player/">
-		<s:submit property="create" value="新規メンバー登録"/>
-</s:form>
+<c:choose>
+	<c:when test="${!empty loginUserDto.id}">
+		<s:form action="">
+			<input type="button" value="戻る" onClick="history.back()">
+			<s:submit property="create" value="新規チーム登録"/>
+		</s:form>
+		<s:form action="/player/">
+			<s:submit property="create" value="新規メンバー登録"/>
+		</s:form>
+	</c:when>
+</c:choose>
 <hr>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->

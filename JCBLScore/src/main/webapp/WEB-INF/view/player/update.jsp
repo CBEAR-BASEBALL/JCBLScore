@@ -3,13 +3,15 @@
 <body>
 
 <s:form>
-<html:errors/>
+<html:errors property="name"/>
 選手名：<html:text property="name"/>
 <html:select property="teamId">
 		<c:forEach var="teamList" items="${teamList}" varStatus="status">
 			<html:option value="${teamList.teamId}">${teamList.teamName}</html:option>
 		</c:forEach>
-	</html:select>
+</html:select>
+	<br>
+	<html:textarea property="comment" cols="100" rows="10"/>
 	<html:hidden property="id" value="${id}"/>
 <s:submit property="updateComplete" value="更新"/>
 <input type="button" value="戻る" onClick="history.back()">

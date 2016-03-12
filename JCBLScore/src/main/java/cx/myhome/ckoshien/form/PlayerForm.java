@@ -1,5 +1,6 @@
 package cx.myhome.ckoshien.form;
 
+import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Required;
 
 public class PlayerForm {
@@ -16,4 +17,7 @@ public class PlayerForm {
 	public String password;
 
 	public String id;
+
+	@Maxlength(maxlength=1000)
+	public String comment;
 }

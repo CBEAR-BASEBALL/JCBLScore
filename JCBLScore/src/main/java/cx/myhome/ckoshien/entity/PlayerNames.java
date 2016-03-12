@@ -11,7 +11,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Player}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/07/22 16:23:20")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2016/03/12 23:42:26")
 public class PlayerNames {
 
     /**
@@ -66,6 +66,15 @@ public class PlayerNames {
      */
     public static PropertyName<Integer> authority() {
         return new PropertyName<Integer>("authority");
+    }
+
+    /**
+     * commentのプロパティ名を返します。
+     * 
+     * @return commentのプロパティ名
+     */
+    public static PropertyName<String> comment() {
+        return new PropertyName<String>("comment");
     }
 
     /**
@@ -198,6 +207,15 @@ public class PlayerNames {
          */
         public PropertyName<Integer> authority() {
             return new PropertyName<Integer>(this, "authority");
+        }
+
+        /**
+         * commentのプロパティ名を返します。
+         *
+         * @return commentのプロパティ名
+         */
+        public PropertyName<String> comment() {
+            return new PropertyName<String>(this, "comment");
         }
 
         /**

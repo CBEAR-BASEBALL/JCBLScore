@@ -3,7 +3,7 @@
 <body>
 <h2>スタッツ</h2>
 <c:forEach var="leagueList" items="${leagueList}">
-<a href="./season/${leagueList.id}">${leagueList.title}<br></a>
+	<a href="./season/${leagueList.id}">${leagueList.title}<br></a>
 </c:forEach>
 <hr>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

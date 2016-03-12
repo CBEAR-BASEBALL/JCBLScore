@@ -206,6 +206,13 @@
 </head>
 <body>
 <hr>
+<h2>選手紹介</h2>
+<table border=1>
+	<tr>
+		<td>${player.name}</td>
+		<td>${f:br(player.comment)}</td>
+	</tr>
+</table>
 <h2>打撃成績</h2>
 <table border=1 class="tablesorter">
 	<thead>

@@ -80,18 +80,20 @@ public class PlayerAction {
 	}
 
 	@Aspect(value="loginConfInterceptor")
-	@Execute(validator = true,input="update",stopOnValidationError=false,validate="createValidate")
+	@Execute(validator = true,input="update/{id}",stopOnValidationError=true,validate="createValidate")
 	public String updateComplete(){
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		player.id=Integer.parseInt(playerForm.id);
 		player.name=playerForm.name;
 		player.teamId=Integer.parseInt(playerForm.teamId);
+		player.comment=playerForm.comment;
 		playerService.update(player);
         return "index&redirect=true";
 	}
 
 	@Execute(urlPattern="show/{id}",validator = false)
 	public String show(){
+		player=playerService.findById(Integer.parseInt(playerForm.id));
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
 		pbrgoList=battingSumService.findPBRGOById(Integer.parseInt(playerForm.id));
         pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
@@ -103,7 +105,10 @@ public class PlayerAction {
 		ActionMessages errors = new ActionMessages();
 		player=playerService.findByNameAndTeamId(playerForm.name, Integer.parseInt(playerForm.teamId));
 		if(player!=null){
-			errors.add("name", new ActionMessage("既に登録されています", false));
+			if(player.comment.equals(playerForm.comment)){
+				errors.add("name", new ActionMessage("既に登録されています", false));
+			}
+
 		}
 		return errors;
 	}
