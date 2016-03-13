@@ -547,6 +547,7 @@
 		<th>OPS</th>
 		<th>出塁率</th>
 		<th>三振率</th>
+		<th>RC27</th>
 
 	</tr>
 	</thead>
@@ -567,6 +568,7 @@
 		<td><fmt:formatNumber value="${battingResultList.ops}" pattern="0.0000" /></td>
 		<td><fmt:formatNumber value="${battingResultList.obp}" pattern="0.0000" /></td>
 		<td><fmt:formatNumber value="${battingResultList.notStrikeOut}" pattern="#0.00" /></td>
+		<td><fmt:formatNumber value="${battingResultList.rc27}" pattern="#0.00" /></td>
 	</tr>
 	</c:forEach>
 	</tbody>
