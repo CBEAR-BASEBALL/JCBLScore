@@ -80,7 +80,7 @@ public class PlayerAction {
 	}
 
 	@Aspect(value="loginConfInterceptor")
-	@Execute(validator = true,input="update/{id}",stopOnValidationError=true,validate="createValidate")
+	@Execute(validator = true,input="update/{id}",stopOnValidationError=false,validate="createValidate")
 	public String updateComplete(){
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		player.id=Integer.parseInt(playerForm.id);
@@ -104,11 +104,11 @@ public class PlayerAction {
 	public ActionMessages createValidate(){
 		ActionMessages errors = new ActionMessages();
 		player=playerService.findByNameAndTeamId(playerForm.name, Integer.parseInt(playerForm.teamId));
-		if(player!=null){
-			if(player.comment.equals(playerForm.comment)){
-				errors.add("name", new ActionMessage("既に登録されています", false));
-			}
-
+		if(player!=null && playerForm.comment.equals(player.comment)){
+			/* 既に選手リストに登録されていて、
+			 * DBのコメントとフォームのコメントが同じ場合エラー
+			 */
+			errors.add("name", new ActionMessage("既に登録されています", false));
 		}
 		return errors;
 	}
