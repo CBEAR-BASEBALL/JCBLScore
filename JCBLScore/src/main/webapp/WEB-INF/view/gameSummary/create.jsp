@@ -149,7 +149,7 @@
 			<html:select property="playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
@@ -211,7 +211,7 @@
 			<html:select property="p_playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
@@ -275,7 +275,7 @@
 			<html:select property="playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>
@@ -337,7 +337,7 @@
 			<html:select property="p_playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}(${playerList.team.shortName})</html:option>
+				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
 			</html:select>
 		</td>

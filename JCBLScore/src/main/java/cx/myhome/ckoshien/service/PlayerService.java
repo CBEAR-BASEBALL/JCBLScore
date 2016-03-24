@@ -1,11 +1,20 @@
 package cx.myhome.ckoshien.service;
 
+import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Generated;
 
 import static cx.myhome.ckoshien.entity.PlayerNames.*;
 import static org.seasar.extension.jdbc.operation.Operations.*;
+import static org.seasar.extension.jdbc.parameter.Parameter.date;
 
 /**
  * {@link Player}のサービスクラスです。
@@ -14,7 +23,9 @@ import static org.seasar.extension.jdbc.operation.Operations.*;
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2014/12/09 16:58:09")
 public class PlayerService extends AbstractService<Player> {
 
-    /**
+    public List<PlayerDto> playerList;
+
+	/**
      * 識別子でエンティティを検索します。
      *
      * @param id
@@ -30,9 +41,14 @@ public class PlayerService extends AbstractService<Player> {
      *
      * @return エンティティのリスト
      */
-    public List<Player> findAllOrderById() {
-        return select().innerJoin(team()).orderBy(asc(teamId())).getResultList();
-    }
+//    public List<Player> findAllOrderById() {
+//        return select().innerJoin(team()).orderBy(asc(teamId())).getResultList();
+//    }
+    public List<PlayerDto> findAllOrderById(){
+		playerList=new ArrayList<PlayerDto>();
+		playerList=jdbcManager.selectBySqlFile(PlayerDto.class, "cx.myhome.ckoshien.sql.TeamDate.sql").getResultList();
+		return playerList;
+	}
 
 	public Player findByLoginId(String loginId) {
 		return select().where("loginId=?", loginId).getSingleResult();

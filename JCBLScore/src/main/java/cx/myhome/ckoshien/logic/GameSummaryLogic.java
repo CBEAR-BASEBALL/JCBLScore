@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import cx.myhome.ckoshien.dto.GameListDto;
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.Pitching;
@@ -183,7 +184,7 @@ public class GameSummaryLogic {
 		}
 	}
 
-	public BattingSum convert2BattingSum(BattingSumForm battingSumForm,BattingSum battingSum,List<Player> playerList,int i){
+	public BattingSum convert2BattingSum(BattingSumForm battingSumForm,BattingSum battingSum,List<PlayerDto> playerList,int i){
 		battingSum.playerId=Integer.parseInt(battingSumForm.playerId.get(i));
 		//空文字の場合0と解釈
 		if(battingSumForm.tpa.get(i)==""){

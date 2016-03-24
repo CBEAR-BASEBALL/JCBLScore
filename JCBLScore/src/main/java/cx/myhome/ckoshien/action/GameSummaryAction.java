@@ -21,6 +21,7 @@ import org.seasar.struts.util.RequestUtil;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.GameListDto;
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.League;
@@ -49,7 +50,7 @@ public TeamService teamService;
 @Resource
 public PlayerService playerService;
 public List<Team> teamList;
-public List<Player> playerList;
+public List<PlayerDto> playerList;
 @Resource
 public GameService gameService;
 public Game game;

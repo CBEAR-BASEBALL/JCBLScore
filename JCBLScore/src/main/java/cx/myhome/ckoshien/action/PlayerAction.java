@@ -12,6 +12,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.entity.Player;
@@ -35,7 +36,7 @@ public class PlayerAction {
 	public PlayerForm playerForm;
 
 	public List<Team> teamList;
-	public List<Player> playerList;
+	public List<PlayerDto> playerList;
 	public Player player;
 	@Resource
 	public BattingSumService battingSumService;
