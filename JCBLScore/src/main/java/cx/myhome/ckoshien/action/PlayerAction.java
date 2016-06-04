@@ -52,6 +52,7 @@ public class PlayerAction {
 	public List<TeamPitchingResultDto> pprgoList;
 	public List<TeamBattingResultDto> tbrDtos;
 	public List<League> leagueList;
+	public List<TeamBattingResultDto> pbrlList;
 
 	@Execute(validator = false)
 	public String index() {
@@ -102,6 +103,7 @@ public class PlayerAction {
 	public String show(){
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
+		pbrlList=battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
 		pbrgoList=battingSumService.findPBRGOById(Integer.parseInt(playerForm.id));
         pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
         pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));

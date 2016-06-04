@@ -284,7 +284,7 @@
 <h2>期毎打撃成績</h2>
 <div id="tab">
     <ul>
-	<c:forEach var="pbrDtos" items="${pbrList}">
+	<c:forEach var="pbrDtos" items="${pbrlList}">
 		<c:choose>
 		<c:when test="${!empty pbrDtos.leagueId}">
 			<li><a href="#t-${pbrDtos.leagueId}">${pbrDtos.title}</a></li>
@@ -292,7 +292,7 @@
 		</c:choose>
     </c:forEach>
     </ul>
-    <c:forEach var="pbrDtos" items="${pbrList}">
+    <c:forEach var="pbrDtos" items="${pbrlList}">
     	<c:choose>
     	<c:when test="${!empty pbrDtos.leagueId}">
 		<div id="t-${pbrDtos.leagueId}">
