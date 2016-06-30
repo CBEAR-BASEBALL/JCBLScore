@@ -142,11 +142,11 @@ public class ResultLogic {
 				if (i==0){
 					battingResultDto.rank=1;
 				}
-				if (i>=1 && (!battingResultList.get(i-1).obp.equals(battingResultList.get(i).obp))){
+				if (i>=1 && (battingResultList.get(i-1).obp!=battingResultList.get(i).obp)){
 					battingResultDto.rank=j;
 					k=j;
 				}
-				if (i>=1 && (battingResultList.get(i-1).obp.equals(battingResultList.get(i).obp))){
+				if (i>=1 && (battingResultList.get(i-1).obp==battingResultList.get(i).obp)){
 					battingResultDto.rank=k;
 				}
 				convert2BattingResultDto(battingResultList,i);
@@ -202,11 +202,11 @@ public class ResultLogic {
 				if (i==0){
 					battingResultDto.rank=1;
 				}
-				if (i>=1 && (!battingResultList.get(i-1).slg.equals(battingResultList.get(i).slg))){
+				if (i>=1 && (battingResultList.get(i-1).slg!=battingResultList.get(i).slg)){
 					battingResultDto.rank=j;
 					k=j;
 				}
-				if (i>=1 && (battingResultList.get(i-1).slg.equals(battingResultList.get(i).slg))){
+				if (i>=1 && (battingResultList.get(i-1).slg==battingResultList.get(i).slg)){
 					battingResultDto.rank=k;
 				}
 				convert2BattingResultDto(battingResultList,i);
@@ -263,11 +263,11 @@ public class ResultLogic {
 				if (i==0){
 					battingResultDto.rank=1;
 				}
-				if (i>=1 && (!battingResultList.get(i-1).ops.equals(battingResultList.get(i).ops))){
+				if (i>=1 && (battingResultList.get(i-1).ops!=battingResultList.get(i).ops)){
 					battingResultDto.rank=j;
 					k=j;
 				}
-				if (i>=1 && (battingResultList.get(i-1).ops.equals(battingResultList.get(i).ops))){
+				if (i>=1 && (battingResultList.get(i-1).ops==battingResultList.get(i).ops)){
 					battingResultDto.rank=k;
 				}
 				convert2BattingResultDto(battingResultList,i);
@@ -293,11 +293,11 @@ public class ResultLogic {
 				if (i==0){
 					battingResultDto.rank=1;
 				}
-				if (i>=1 && (!battingResultList.get(i-1).notStrikeOut.equals(battingResultList.get(i).notStrikeOut))){
+				if (i>=1 && (battingResultList.get(i-1).notStrikeOut!=battingResultList.get(i).notStrikeOut)){
 					battingResultDto.rank=j;
 					k=j;
 				}
-				if (i>=1 && (battingResultList.get(i-1).notStrikeOut.equals(battingResultList.get(i).notStrikeOut))){
+				if (i>=1 && (battingResultList.get(i-1).notStrikeOut==battingResultList.get(i).notStrikeOut)){
 					battingResultDto.rank=k;
 				}
 				convert2BattingResultDto(battingResultList,i);
