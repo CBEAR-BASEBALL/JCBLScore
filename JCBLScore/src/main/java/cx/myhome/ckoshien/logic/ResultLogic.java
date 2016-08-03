@@ -32,6 +32,9 @@ public class ResultLogic {
 			battingResultDto=new BattingResultDto();
 			if(battingResultList.get(i).tpa>=regAtBats){
 				j++;
+				if (i==0){
+					battingResultDto.rank=1;
+				}
 				if (i>=1&&!(battingResultList.get(i-1).average==battingResultList.get(i).average)){
 					battingResultDto.rank=j;
 					k=j;
