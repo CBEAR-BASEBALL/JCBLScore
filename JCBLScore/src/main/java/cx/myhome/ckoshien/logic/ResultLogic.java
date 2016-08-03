@@ -296,12 +296,16 @@ public class ResultLogic {
 				if (i==0){
 					battingResultDto.rank=1;
 				}
-				if (i>=1 && (battingResultList.get(i-1).notStrikeOut!=battingResultList.get(i).notStrikeOut)){
+				if (i>=1 && (!battingResultList.get(i-1).notStrikeOut.equals(battingResultList.get(i).notStrikeOut))){
 					battingResultDto.rank=j;
 					k=j;
 				}
-				if (i>=1 && (battingResultList.get(i-1).notStrikeOut==battingResultList.get(i).notStrikeOut)){
+				if (i>=1 && (battingResultList.get(i-1).notStrikeOut.equals(battingResultList.get(i).notStrikeOut))){
 					battingResultDto.rank=k;
+					//バグ修正。rank=0となる場合は1位タイなので1を代入。
+					if(k==0){
+						battingResultDto.rank=1;
+					}
 				}
 				convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
