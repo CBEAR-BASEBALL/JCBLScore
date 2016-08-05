@@ -40,7 +40,7 @@
 <html:errors/>
 <s:form>
 <html:select property="gameYear">
-	<c:forEach var="i" begin="2003" end="2016">
+	<c:forEach var="i" begin="2003" end="2025">
 		<html:option value="${i}">${i}</html:option>
 	</c:forEach>
 </html:select>

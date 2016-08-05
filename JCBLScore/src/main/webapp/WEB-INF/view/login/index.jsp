@@ -6,7 +6,7 @@
 ログインID:<html:text property="loginId" size="20" maxlength="20"/>
 <br>
 パスワード:<html:password property="password" size="20" maxlength="20"/>
-<s:submit property="login" value="送信"/>
+<s:submit property="login" value="ログイン"/>
 </s:form>
 <hr>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
