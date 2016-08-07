@@ -33,6 +33,26 @@
 			$('input[name=firstRun]').val(topSum);
 			$('input[name=lastRun]').val(lastSum);
 		});
+		$('form[name=gameSummaryActionForm]').submit(function(){
+			var tpa= new Array();
+			var atBats= new Array();
+			var fourBall= new Array();
+			for(var i=0;i<20;i++){
+				tpaStr="input[name=\"tpa["+i+"]\"]";
+				atBatsStr="input[name=\"atBats["+i+"]\"]";
+				fourBallStr="input[name=\"fourBall["+i+"]\"]";
+				tpa[i]=$(tpaStr).val();
+				atBats[i]=$(atBatsStr).val();
+				fourBall[i]=$(fourBallStr).val();
+				if(tpa[i]-atBats[i]!=fourBall[i]){
+					//str="input[name=\"playerId["+i+"]\"] option:selected";
+					//var obj=$(str);
+					alert(i+1+"行目のデータが不正です");
+					return false;
+				}
+			}
+			return true;
+		});
 	});
 	</script>
 </head>
