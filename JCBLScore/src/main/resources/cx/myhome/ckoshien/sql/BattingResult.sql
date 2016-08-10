@@ -2,6 +2,8 @@ SELECT
 	count(*) as game_count,
 	player_id,
 	name,
+	p.team_id as team_id,
+	team_name,
 	(sum(hit)/sum(at_bats)) as average,
 	((sum(hit)+sum(twobase)*1+sum(homerun)*2)/sum(at_bats)) as SLG,
 	((sum(hit)+sum(four_ball))/sum(tpa))+((sum(hit)+sum(twobase)*1+sum(homerun)*2)/sum(at_bats)) as OPS,
@@ -22,6 +24,7 @@ SELECT
  FROM batting_sum b
   INNER JOIN GAME g on b.game_id=g.game_id
   INNER JOIN PLAYER p on b.player_id=p.id
+  INNER JOIN TEAM t on t.team_id=p.team_id
   WHERE game_date>=/*beginDate*/ and game_date<=/*endDate*/
 group by player_id
 order by /*$order*/;

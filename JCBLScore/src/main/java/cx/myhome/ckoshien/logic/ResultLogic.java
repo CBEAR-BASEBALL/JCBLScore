@@ -1,7 +1,11 @@
 package cx.myhome.ckoshien.logic;
 
+import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.seasar.framework.beans.util.BeanUtil;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.PitchingResultDto;
@@ -30,6 +34,8 @@ public class ResultLogic {
 		averageTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).tpa>=regAtBats){
 				j++;
 				if (i==0){
@@ -39,7 +45,8 @@ public class ResultLogic {
 					battingResultDto.rank=j;
 					k=j;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
+
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -57,6 +64,8 @@ public class ResultLogic {
 		homerunTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).homerun>0){
 				j++;
 				if (i==0){
@@ -66,7 +75,7 @@ public class ResultLogic {
 					battingResultDto.rank=j;
 					k=j;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -85,6 +94,8 @@ public class ResultLogic {
 		rbiTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).rbi>0){
 				j++;
 				if (i==0){
@@ -94,7 +105,7 @@ public class ResultLogic {
 					battingResultDto.rank=j;
 					k=j;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -113,6 +124,8 @@ public class ResultLogic {
 		hitTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).hit>0){
 				j++;
 				if (i==0){
@@ -122,7 +135,7 @@ public class ResultLogic {
 					battingResultDto.rank=j;
 					k=j;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -140,6 +153,8 @@ public class ResultLogic {
 		obpTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).tpa>=regAtBats){
 				j++;
 				if (i==0){
@@ -152,7 +167,7 @@ public class ResultLogic {
 				if (i>=1 && (battingResultList.get(i-1).obp==battingResultList.get(i).obp)){
 					battingResultDto.rank=k;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -170,6 +185,8 @@ public class ResultLogic {
 		twobaseTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).twobase>0){
 				j++;
 				if (i==0){
@@ -183,7 +200,7 @@ public class ResultLogic {
 				if (i>=1 && (battingResultList.get(i-1).twobase.equals(battingResultList.get(i).twobase))){
 					battingResultDto.rank=k;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -200,6 +217,8 @@ public class ResultLogic {
 		slgTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).tpa>=regAtBats){
 				j++;
 				if (i==0){
@@ -212,7 +231,7 @@ public class ResultLogic {
 				if (i>=1 && (battingResultList.get(i-1).slg==battingResultList.get(i).slg)){
 					battingResultDto.rank=k;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -230,6 +249,8 @@ public class ResultLogic {
 		fourBallTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).fourBall>0){
 				j++;
 				if (i==0){
@@ -243,7 +264,7 @@ public class ResultLogic {
 				if (i>=1 && (battingResultList.get(i-1).fourBall.equals(battingResultList.get(i).fourBall))){
 					battingResultDto.rank=k;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -261,6 +282,8 @@ public class ResultLogic {
 		opsTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).tpa>=regAtBats){
 				j++;
 				if (i==0){
@@ -273,7 +296,7 @@ public class ResultLogic {
 				if (i>=1 && (battingResultList.get(i-1).ops==battingResultList.get(i).ops)){
 					battingResultDto.rank=k;
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -291,6 +314,8 @@ public class ResultLogic {
 		nsoTop10=new ArrayList<BattingResultDto>();
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
 			if(battingResultList.get(i).tpa>=regAtBats &&battingResultList.get(i).notStrikeOut>0){
 				j++;
 				if (i==0){
@@ -307,7 +332,8 @@ public class ResultLogic {
 						battingResultDto.rank=1;
 					}
 				}
-				convert2BattingResultDto(battingResultList,i);
+				//convert2BattingResultDto(battingResultList,i);
+
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -325,7 +351,8 @@ public class ResultLogic {
 		eraTop10=new ArrayList<PitchingResultDto>();
 		for(int i=0;i<pitchingResultList.size();i++){
 			pitchingResultDto=new PitchingResultDto();
-
+			PitchingResultDto pitchingResult = pitchingResultList.get(i);
+			BeanUtil.copyProperties(pitchingResult, pitchingResultDto);
 			if(pitchingResultList.get(i).inning>=regAtPitch){
 				j++;
 				if (i==0){
@@ -335,7 +362,7 @@ public class ResultLogic {
 					pitchingResultDto.rank=j;
 					k=j;
 				}
-				convert2PitchingResultDto(pitchingResultList,i);
+				//convert2PitchingResultDto(pitchingResultList,i);
 				if (pitchingResultDto.rank==null||pitchingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -353,6 +380,8 @@ public class ResultLogic {
 		winTop10=new ArrayList<PitchingResultDto>();
 		for(int i=0;i<pitchingResultList.size();i++){
 			pitchingResultDto=new PitchingResultDto();
+			PitchingResultDto pitchingResult = pitchingResultList.get(i);
+			BeanUtil.copyProperties(pitchingResult, pitchingResultDto);
 			if (pitchingResultList.get(i).win>0){
 				j++;
 				if (i==0){
@@ -363,7 +392,7 @@ public class ResultLogic {
 					pitchingResultDto.rank=j;
 					k=j;
 				}
-				convert2PitchingResultDto(pitchingResultList,i);
+				//convert2PitchingResultDto(pitchingResultList,i);
 				if (pitchingResultDto.rank==null||pitchingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -381,6 +410,8 @@ public class ResultLogic {
 		saveTop10=new ArrayList<PitchingResultDto>();
 		for(int i=0;i<pitchingResultList.size();i++){
 			pitchingResultDto=new PitchingResultDto();
+			PitchingResultDto pitchingResult = pitchingResultList.get(i);
+			BeanUtil.copyProperties(pitchingResult, pitchingResultDto);
 			if (pitchingResultList.get(i).save>0){
 				j++;
 				if (i==0){
@@ -391,7 +422,7 @@ public class ResultLogic {
 					pitchingResultDto.rank=j;
 					k=j;
 				}
-				convert2PitchingResultDto(pitchingResultList,i);
+				//convert2PitchingResultDto(pitchingResultList,i);
 				if (pitchingResultDto.rank==null||pitchingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -410,6 +441,8 @@ public class ResultLogic {
 		strikeOutTop10=new ArrayList<PitchingResultDto>();
 		for(int i=0;i<pitchingResultList.size();i++){
 			pitchingResultDto=new PitchingResultDto();
+			PitchingResultDto pitchingResult = pitchingResultList.get(i);
+			BeanUtil.copyProperties(pitchingResult, pitchingResultDto);
 			if (pitchingResultList.get(i).strikeOut>0){
 				j++;
 				if (i==0){
@@ -420,7 +453,7 @@ public class ResultLogic {
 					pitchingResultDto.rank=j;
 					k=j;
 				}
-				convert2PitchingResultDto(pitchingResultList,i);
+				//convert2PitchingResultDto(pitchingResultList,i);
 				if (pitchingResultDto.rank==null||pitchingResultDto.rank<=10){
 					if (k>=11){
 						break;
@@ -431,44 +464,5 @@ public class ResultLogic {
 
 		}
 		return strikeOutTop10;
-	}
-
-
-	public void convert2PitchingResultDto(List<PitchingResultDto> pitchingResultList, int i) {
-		pitchingResultDto.complete=pitchingResultList.get(i).complete;
-		pitchingResultDto.era=pitchingResultList.get(i).era;
-		pitchingResultDto.fourBall=pitchingResultList.get(i).fourBall;
-		pitchingResultDto.gameCount=pitchingResultList.get(i).gameCount;
-		pitchingResultDto.hit=pitchingResultList.get(i).hit;
-		pitchingResultDto.homerun=pitchingResultList.get(i).homerun;
-		pitchingResultDto.inning=pitchingResultList.get(i).inning;
-		pitchingResultDto.lose=pitchingResultList.get(i).lose;
-		pitchingResultDto.name=pitchingResultList.get(i).name;
-		pitchingResultDto.pa=pitchingResultList.get(i).pa;
-		pitchingResultDto.playerId=pitchingResultList.get(i).playerId;
-		pitchingResultDto.runs=pitchingResultList.get(i).runs;
-		pitchingResultDto.save=pitchingResultList.get(i).save;
-		pitchingResultDto.shutout=pitchingResultList.get(i).shutout;
-		pitchingResultDto.strikeAvg=pitchingResultList.get(i).strikeAvg;
-		pitchingResultDto.strikeOut=pitchingResultList.get(i).strikeOut;
-		pitchingResultDto.whip=pitchingResultList.get(i).whip;
-		pitchingResultDto.win=pitchingResultList.get(i).win;
-	}
-
-	public void convert2BattingResultDto(List<BattingResultDto> battingResultList,int i){
-		battingResultDto.atBats=battingResultList.get(i).atBats;
-		battingResultDto.average=battingResultList.get(i).average;
-		battingResultDto.fourBall=battingResultList.get(i).fourBall;
-		battingResultDto.hit=battingResultList.get(i).hit;
-		battingResultDto.homerun=battingResultList.get(i).homerun;
-		battingResultDto.name=battingResultList.get(i).name;
-		battingResultDto.rbi=battingResultList.get(i).rbi;
-		battingResultDto.strikeOut=battingResultList.get(i).strikeOut;
-		battingResultDto.tpa=battingResultList.get(i).tpa;
-		battingResultDto.twobase=battingResultList.get(i).twobase;
-		battingResultDto.notStrikeOut=battingResultList.get(i).notStrikeOut;
-		battingResultDto.obp=battingResultList.get(i).obp;
-		battingResultDto.slg=battingResultList.get(i).slg;
-		battingResultDto.ops=battingResultList.get(i).ops;
 	}
 }

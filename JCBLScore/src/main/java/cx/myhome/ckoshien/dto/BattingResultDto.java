@@ -12,8 +12,9 @@ public class BattingResultDto implements Serializable {
 
 	public Integer playerId;
 	public Integer rank;
+	public String teamId;
 	public String name;
-
+	public String teamName;
 	public Double average;
 
 	public Double slg;

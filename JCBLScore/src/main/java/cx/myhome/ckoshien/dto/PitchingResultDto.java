@@ -4,6 +4,8 @@ public class PitchingResultDto {
 	public Integer playerId;
 	public Integer rank;
 	public String name;
+	public String teamName;
+	public Integer teamId;
 	public Integer gameCount;
 	public Double era;
 	public Double whip;

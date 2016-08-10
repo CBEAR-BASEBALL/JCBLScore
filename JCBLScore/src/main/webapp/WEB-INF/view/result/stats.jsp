@@ -109,7 +109,7 @@
 		<c:forEach var="averageTop10" items="${averageTop10}">
 		<tr>
 			<td align="right">${averageTop10.rank}</td>
-			<td>${averageTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${averageTop10.teamId}.jpg" title="${averageTop10.teamName}">${averageTop10.name}</td>
 			<td align="right">${averageTop10.tpa}</td>
 			<td align="right">${averageTop10.atBats}</td>
 			<td align="right">${averageTop10.hit}</td>
@@ -153,7 +153,7 @@
 		<c:forEach var="homerunTop10" items="${homerunTop10}">
 		<tr>
 			<td align="right">${homerunTop10.rank}</td>
-			<td>${homerunTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${homerunTop10.teamId}.jpg" title="${homerunTop10.teamName}">${homerunTop10.name}</td>
 			<td align="right">${homerunTop10.tpa}</td>
 			<td align="right">${homerunTop10.atBats}</td>
 			<td align="right">${homerunTop10.hit}</td>
@@ -197,7 +197,7 @@
 		<c:forEach var="rbiTop10" items="${rbiTop10}">
 		<tr>
 			<td align="right">${rbiTop10.rank}</td>
-			<td>${rbiTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${rbiTop10.teamId}.jpg" title="${rbiTop10.teamName}">${rbiTop10.name}</td>
 			<td align="right">${rbiTop10.tpa}</td>
 			<td align="right">${rbiTop10.atBats}</td>
 			<td align="right">${rbiTop10.hit}</td>
@@ -241,7 +241,7 @@
 		<c:forEach var="hitTop10" items="${hitTop10}">
 		<tr>
 			<td align="right">${hitTop10.rank}</td>
-			<td>${hitTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${hitTop10.teamId}.jpg" title="${hitTop10.teamName}">${hitTop10.name}</td>
 			<td align="right">${hitTop10.tpa}</td>
 			<td align="right">${hitTop10.atBats}</td>
 			<td align="right" bgcolor="#FC9898">${hitTop10.hit}</td>
@@ -287,7 +287,7 @@
 		<c:forEach var="eraTop10" items="${eraTop10}">
 		<tr>
 			<td align="right">${eraTop10.rank}</td>
-			<td>${eraTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${eraTop10.teamId}.jpg" title="${eraTop10.teamName}">${eraTop10.name}</td>
 			<td align="right">${eraTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${eraTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${eraTop10.hit}</td>
@@ -336,7 +336,7 @@
 		<c:forEach var="winTop10" items="${winTop10}">
 		<tr>
 			<td align="right">${winTop10.rank}</td>
-			<td>${winTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${winTop10.teamId}.jpg" title="${winTop10.teamName}">${winTop10.name}</td>
 			<td align="right">${winTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${winTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${winTop10.hit}</td>
@@ -385,7 +385,7 @@
 		<c:forEach var="saveTop10" items="${saveTop10}">
 		<tr>
 			<td align="right">${saveTop10.rank}</td>
-			<td>${saveTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${saveTop10.teamId}.jpg" title="${saveTop10.teamName}">${saveTop10.name}</td>
 			<td align="right">${saveTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${saveTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${saveTop10.hit}</td>
@@ -434,7 +434,7 @@
 		<c:forEach var="strikeOutTop10" items="${strikeOutTop10}">
 		<tr>
 			<td align="right">${strikeOutTop10.rank}</td>
-			<td>${strikeOutTop10.name}</td>
+			<td><img width="15" height="15" src="${f:url('/img/') }${strikeOutTop10.teamId}.jpg" title="${strikeOutTop10.teamName}">${strikeOutTop10.name}</td>
 			<td align="right">${strikeOutTop10.gameCount}</td>
 			<td align="right"><fmt:formatNumber value="${strikeOutTop10.inning}" pattern="#0.##" /></td>
 			<td align="right">${strikeOutTop10.hit}</td>
@@ -554,7 +554,7 @@
 	<tbody>
 	<c:forEach var="battingResultList" items="${battingResultList}">
 	<tr>
-		<td><a href="${f:url('/player/show/') }${battingResultList.playerId}">${battingResultList.name}</a></td>
+		<td><img width="13" height="13" src="${f:url('/img/') }${battingResultList.teamId}.jpg" title="${battingResultList.teamName}"><a href="${f:url('/player/show/') }${battingResultList.playerId}">${battingResultList.name}</a></td>
 		<td align="right">${battingResultList.tpa}</td>
 		<td align="right">${battingResultList.atBats}</td>
 		<td align="right">${battingResultList.hit}</td>
@@ -600,7 +600,7 @@
 	<tbody>
 	<c:forEach var="pitchingResultList" items="${pitchingResultList}">
 	<tr>
-		<td><a href="${f:url('/player/show/') }${pitchingResultList.playerId}">${pitchingResultList.name}</a></td>
+		<td><img width="13" height="13" src="${f:url('/img/') }${pitchingResultList.teamId}.jpg" title="${pitchingResultList.teamName}"><a href="${f:url('/player/show/') }${pitchingResultList.playerId}">${pitchingResultList.name}</a></td>
 		<td align="right">${pitchingResultList.gameCount}</td>
 		<td align="right"><fmt:formatNumber value="${pitchingResultList.inning}" pattern="#0.##" /></td>
 		<td align="right">${pitchingResultList.hit}</td>
