@@ -5,7 +5,12 @@
 <table border=1>
 	<c:forEach var="team" items="${teamList}">
 	<tr>
-		<td>${team.teamName}</td>
+		<td>${team.teamName}
+		<c:choose>
+			<c:when test="${!empty loginUserDto.id}">
+				<a href="./update/${team.teamId}/">(編集)</a>
+			</c:when>
+		</c:choose></td>
 		<td><a href="./batting/${team.teamId}/${teamForm.leagueId}">打撃成績</a></td>
 		<td><a href="./pitching/${team.teamId}/${teamForm.leagueId}">投球成績</a></td>
 	</tr>

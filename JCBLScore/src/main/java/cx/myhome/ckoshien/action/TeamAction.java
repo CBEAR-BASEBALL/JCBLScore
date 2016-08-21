@@ -67,6 +67,24 @@ public class TeamAction {
         return "createComplete.jsp";
 	}
 
+	@Aspect(value="loginConfInterceptor")
+	@Execute(urlPattern="update/{teamId}",validator = false)
+	public String update(){
+		teamList=teamService.findAllOrderById();
+		team=teamService.findById(Integer.parseInt(teamForm.teamId));
+		Beans.copy(team, teamForm).execute();
+		return "update.jsp";
+	}
+
+	@Aspect(value="loginConfInterceptor")
+	@Execute(validator = false,input="update/{id}",stopOnValidationError=false)
+	public String updateComplete(){
+		team=teamService.findById(Integer.parseInt(teamForm.teamId));
+		Beans.copy(teamForm, team).execute();
+		teamService.update(team);
+        return "index&redirect=true";
+	}
+
 	@Execute(urlPattern="batting/{teamId}/{leagueId}",validator = false)
 	public String batting(){
 		if(teamForm.leagueId==null){

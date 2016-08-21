@@ -7,7 +7,8 @@ public class TeamForm {
 	/*チーム名*/
 	@Required
 	public String teamName;
-
+	@Required
+	public String shortName;
 	public String teamId;
 	public String leagueId;
 }
