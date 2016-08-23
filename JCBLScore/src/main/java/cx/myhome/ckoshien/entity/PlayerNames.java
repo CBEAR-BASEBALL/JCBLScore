@@ -3,6 +3,7 @@ package cx.myhome.ckoshien.entity;
 import cx.myhome.ckoshien.entity.BattingDetailNames._BattingDetailNames;
 import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
+import cx.myhome.ckoshien.entity.TScheduleNames._TScheduleNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
@@ -11,7 +12,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link Player}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2016/03/12 23:42:26")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2016/08/24 0:03:17")
 public class PlayerNames {
 
     /**
@@ -78,6 +79,15 @@ public class PlayerNames {
     }
 
     /**
+     * scPasswordのプロパティ名を返します。
+     * 
+     * @return scPasswordのプロパティ名
+     */
+    public static PropertyName<String> scPassword() {
+        return new PropertyName<String>("scPassword");
+    }
+
+    /**
      * battingDetailListのプロパティ名を返します。
      * 
      * @return battingDetailListのプロパティ名
@@ -120,6 +130,15 @@ public class PlayerNames {
      */
     public static _TeamNames team() {
         return new _TeamNames("team");
+    }
+
+    /**
+     * TScheduleListのプロパティ名を返します。
+     * 
+     * @return TScheduleListのプロパティ名
+     */
+    public static _TScheduleNames TScheduleList() {
+        return new _TScheduleNames("TScheduleList");
     }
 
     /**
@@ -219,6 +238,15 @@ public class PlayerNames {
         }
 
         /**
+         * scPasswordのプロパティ名を返します。
+         *
+         * @return scPasswordのプロパティ名
+         */
+        public PropertyName<String> scPassword() {
+            return new PropertyName<String>(this, "scPassword");
+        }
+
+        /**
          * battingDetailListのプロパティ名を返します。
          * 
          * @return battingDetailListのプロパティ名
@@ -261,6 +289,15 @@ public class PlayerNames {
          */
         public _TeamNames team() {
             return new _TeamNames(this, "team");
+        }
+
+        /**
+         * TScheduleListのプロパティ名を返します。
+         * 
+         * @return TScheduleListのプロパティ名
+         */
+        public _TScheduleNames TScheduleList() {
+            return new _TScheduleNames(this, "TScheduleList");
         }
     }
 }

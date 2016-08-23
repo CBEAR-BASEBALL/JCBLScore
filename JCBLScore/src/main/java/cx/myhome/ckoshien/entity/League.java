@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/03/12 22:46:17")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/08/24 0:03:15")
 public class League implements Serializable {
 
     private static final long serialVersionUID = 1L;

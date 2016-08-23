@@ -4,9 +4,11 @@ import cx.myhome.ckoshien.entity.BattingDetailNames._BattingDetailNames;
 import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.GameNames._GameNames;
 import cx.myhome.ckoshien.entity.LeagueNames._LeagueNames;
+import cx.myhome.ckoshien.entity.MScheduleNames._MScheduleNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
 import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
+import cx.myhome.ckoshien.entity.TScheduleNames._TScheduleNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
 import javax.annotation.Generated;
 
@@ -14,7 +16,7 @@ import javax.annotation.Generated;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2016/03/12 23:42:26")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2016/08/24 0:03:18")
 public class Names {
 
     /**
@@ -54,6 +56,15 @@ public class Names {
     }
 
     /**
+     * {@link MSchedule}の名前クラスを返します。
+     * 
+     * @return MScheduleの名前クラス
+     */
+    public static _MScheduleNames mSchedule() {
+        return new _MScheduleNames();
+    }
+
+    /**
      * {@link Pitching}の名前クラスを返します。
      * 
      * @return Pitchingの名前クラス
@@ -87,5 +98,14 @@ public class Names {
      */
     public static _TeamNames team() {
         return new _TeamNames();
+    }
+
+    /**
+     * {@link TSchedule}の名前クラスを返します。
+     * 
+     * @return TScheduleの名前クラス
+     */
+    public static _TScheduleNames tSchedule() {
+        return new _TScheduleNames();
     }
 }
