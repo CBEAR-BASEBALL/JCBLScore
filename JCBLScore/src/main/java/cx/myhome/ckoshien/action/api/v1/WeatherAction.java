@@ -31,6 +31,7 @@ public class WeatherAction {
 	}
 	public HashMap<String, WeatherDto> get(){
 		Document document;
+		response=new HashMap<String,WeatherDto>();
 		for(int i=0;i<6;i++){
 			try{
 				document = Jsoup.connect("http://www.accuweather.com/ja/jp/tokorozawa-shi/225818/daily-weather-forecast/225818?day="+(i*5+1)).get();
