@@ -35,7 +35,7 @@ public class WeatherAction {
 	public String index(){
 		long t1 = System.currentTimeMillis();
 		response=new HashMap<String,WeatherDto>();
-		weatherList=weatherService.findAllOrderById();
+		weatherList=weatherService.findAllOrderByRegTime();
 		boolean timeFlg=false;
 		if(weatherList.size()>0){
 			//現在時刻-3Hの取得
@@ -55,19 +55,23 @@ public class WeatherAction {
 			timeFlg=true;
 		}
 		if(timeFlg){
+			//テーブル全データ削除
+			for(int i=0;i<weatherList.size();i++){
+				weatherService.delete(weatherList.get(i));
+			}
 			response=get();
 			String date="";
 			WeatherDto weatherDto= new WeatherDto();
 			for(Map.Entry<String, WeatherDto> e : response.entrySet()) {
-	            date=e.getKey();
-	            weatherDto=e.getValue();
-	            Weather weatherBean= new Weather();
+				date=e.getKey();
+				weatherDto=e.getValue();
+				Weather weatherBean= new Weather();
 				BeanUtil.copyProperties(weatherDto, weatherBean);
 				int year=Calendar.getInstance().get(Calendar.YEAR);
 				weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
-				weatherBean.regtime=new Timestamp(System.currentTimeMillis());
+				//weatherBean.regtime=new Timestamp(System.currentTimeMillis());
 				weatherService.insert(weatherBean);
-	        }
+			}
 		}else{
 			for(int i=0;i<weatherList.size();i++){
 				WeatherDto weatherDto= new WeatherDto();
@@ -111,6 +115,7 @@ public class WeatherAction {
 					weatherDto.setWeather(weather);
 					weatherDto.setHighTemp(highTemp);
 					weatherDto.setLowTemp(lowTemp);
+					weatherDto.setRegTime(new Timestamp(System.currentTimeMillis()));
 					response.put(date, weatherDto);
 				}
 			}catch(HttpStatusException hse){
@@ -120,6 +125,7 @@ public class WeatherAction {
 				e.printStackTrace();
 			}
 		}
+		logger.info("長期予報が更新されました。");
 		return response;
 	}
 }

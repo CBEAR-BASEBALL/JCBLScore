@@ -2,6 +2,12 @@
 <html>
 <head>
 <style>
+table td{
+	text-align:center;
+}
+.left-box{
+	text-align:left;
+}
 #selection01{
 	background:#eef0f0;
 }

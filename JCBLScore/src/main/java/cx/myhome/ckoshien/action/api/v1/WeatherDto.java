@@ -1,10 +1,13 @@
 package cx.myhome.ckoshien.action.api.v1;
 
+import java.sql.Timestamp;
+
 public class WeatherDto {
 	private String img;
 	private String weather;
 	private String highTemp;
 	private String lowTemp;
+	private Timestamp regTime;
 	public String getImg() {
 		return img;
 	}
@@ -28,5 +31,11 @@ public class WeatherDto {
 	}
 	public void setLowTemp(String lowTemp) {
 		this.lowTemp = lowTemp;
+	}
+	public Timestamp getRegTime() {
+		return regTime;
+	}
+	public void setRegTime(Timestamp regTime) {
+		this.regTime = regTime;
 	}
 }
