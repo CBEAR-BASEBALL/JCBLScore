@@ -1,8 +1,10 @@
 package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.dto.PlanDto;
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.MSchedule;
 
+import java.sql.Date;
 import java.util.List;
 import javax.annotation.Generated;
 
@@ -28,6 +30,9 @@ public class MScheduleService extends AbstractService<MSchedule> {
     public MSchedule findById(Integer id) {
         return select().id(id).getSingleResult();
     }
+    public List<MSchedule> findByDate(Date date) {
+        return select().where("date=?",date).getResultList();
+    }
 
     /**
      * 識別子の昇順ですべてのエンティティを検索します。
@@ -38,6 +43,10 @@ public class MScheduleService extends AbstractService<MSchedule> {
         return select().orderBy(asc(id())).getResultList();
     }
 
+    public List<MSchedule> findOldData() {
+        return select().where("date<?",new Date(System.currentTimeMillis())).getResultList();
+    }
+
     public List<PlanDto> findAllPlan(){
     	resultList=
     		jdbcManager
@@ -45,4 +54,5 @@ public class MScheduleService extends AbstractService<MSchedule> {
     		.getResultList();
     	return resultList;
     }
+
 }

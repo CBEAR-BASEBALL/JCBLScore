@@ -12,6 +12,9 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.seasar.framework.beans.util.BeanUtil;
+import org.seasar.framework.beans.util.Beans;
+import org.seasar.framework.container.annotation.tiger.Aspect;
+import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import cx.myhome.ckoshien.action.api.v1.WeatherAction;
@@ -20,7 +23,11 @@ import cx.myhome.ckoshien.dto.PlanDto;
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.ScheduleDto;
 import cx.myhome.ckoshien.entity.MSchedule;
+import cx.myhome.ckoshien.entity.Player;
+import cx.myhome.ckoshien.entity.TSchedule;
 import cx.myhome.ckoshien.entity.Weather;
+import cx.myhome.ckoshien.form.PlayerForm;
+import cx.myhome.ckoshien.form.ScheduleForm;
 import cx.myhome.ckoshien.service.MScheduleService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TScheduleService;
@@ -30,23 +37,39 @@ public class ScheduleAction {
 	@Resource
 	public MScheduleService mScheduleService;
 	@Resource
+	public TScheduleService tScheduleService;
+	@Resource
 	public PlayerService playerService;
 	@Resource
 	public WeatherService weatherService;
 	public List<MSchedule> mScheduleList;
 	public WeatherAction weatherAction;
 	public HashMap<String,WeatherDto> response;
-	private WeatherDto weatherDto;
+	public WeatherDto weatherDto;
 	public List<ScheduleDto> scheduleList;
-	private ScheduleDto scheduleDto;
+	public ScheduleDto scheduleDto;
 	public List<PlanDto> planList;
-	private List<PlayerDto> playerList;
+	public List<PlayerDto> playerList;
 	public String htmlStr;
-	private List<Weather> weatherList;
-
+	public List<Weather> weatherList;
+	@Resource
+	@ActionForm
+	public ScheduleForm scheduleForm;
+	private MSchedule mSchedule;
+	private List<MSchedule> oldMScheduleList;
+	private List<TSchedule> oldTScheduleList;
 
 	@Execute(validator = false)
 	public String index(){
+		//前日までのスケジュール削除
+		oldMScheduleList=mScheduleService.findOldData();
+		for(int i=0;i<oldMScheduleList.size();i++){
+			oldTScheduleList=tScheduleService.findOldData(oldMScheduleList.get(i).id);
+			for(int j=0;j<oldTScheduleList.size();j++){
+				tScheduleService.delete(oldTScheduleList.get(j));
+			}
+			mScheduleService.delete(oldMScheduleList.get(i));
+		}
 		mScheduleList=mScheduleService.findAllOrderById();
 		response=new HashMap<String,WeatherDto>();
 		weatherList=weatherService.findAllOrderByRegTime();
@@ -109,59 +132,28 @@ public class ScheduleAction {
 			scheduleList.add(scheduleDto);
 		}
 		planList=mScheduleService.findAllPlan();
-		playerList=playerService.findAllOrderById();
-		HashMap<HashMap<Integer,Integer>,Integer> plans= new HashMap<HashMap<Integer,Integer>,Integer>();
-		//HashMap<<playerId,mstId>,plans>>
-		HashMap<Integer,Integer> planMap=new HashMap<Integer,Integer>();
-		for(int i=0;i<planList.size();i++){
-			for(int j=0;j<playerList.size();j++){
-				if(planList.get(i).getPlayerId().equals(playerList.get(j).id)){
-					planMap=new HashMap<Integer,Integer>();
-					planMap.put(playerList.get(j).id,planList.get(i).getMstId());
-					plans.put(planMap, planList.get(i).getPlans());
-				}
-			}
-
-		}
-
-
-		StringBuilder sb=new StringBuilder();
-		boolean flg=false;
-		for(int i=0;i<playerList.size();i++){
-			flg=false;
-			for(int j=0;j<planList.size();j++){
-				if(playerList.get(i).id.equals(planList.get(j).getPlayerId())){
-					flg = true;
-					sb.append("<tr>\n");
-					sb.append("<td class=\"left-box\"><img width=\"15\" height=\"15\" src=\"../img/"+playerList.get(i).teamId+".jpg\">"+playerList.get(i).name+"</td>\n");
-					//sb.append("<td>"+playerList.get(i).name+"</td>\n");
-					break;
-				}
-			}
-			if(flg){
-				for(int k=0;k<mScheduleList.size();k++){
-					HashMap<Integer,Integer> keyMap= new HashMap<Integer,Integer>();
-					keyMap.put(playerList.get(i).id, mScheduleList.get(k).id);
-					if(plans.get(keyMap)!=null){
-						if(plans.get(keyMap).equals(1)){
-							sb.append("<td id=\"selection01\">△</td>\n");
-						}else if(plans.get(keyMap).equals(2)){
-							sb.append("<td id=\"selection02\">○</td>\n");
-						}else if(plans.get(keyMap).equals(3)){
-							sb.append("<td id=\"selection03\">◎</td>\n");
-						}else {
-							sb.append("<td>×</td>\n");
-						}
-
-					}else{
-						sb.append("<td></td>\n");
-					}
-				}
-				sb.append("</tr>\n");
-			}
-
-		}
-		htmlStr=new String(sb);
+		playerList=playerService.findPlayerHasPlan();
 		return "index.jsp";
+	}
+
+	@Aspect(value="loginConfInterceptor")
+	@Execute(validator=false)
+	public String create(){
+		return "create.jsp";
+	}
+
+	@Aspect(value="loginConfInterceptor")
+	@Execute(validator = true,input="create",stopOnValidationError=true)
+	public String createComplete(){
+		String[] scheduleArray=scheduleForm.getDate().split(",");
+		//SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		for(int i=0;i<scheduleArray.length;i++){
+			mSchedule= new MSchedule();
+			if(mScheduleService.findByDate(Date.valueOf(scheduleArray[i])).size()==0){
+				mSchedule.date=Date.valueOf(scheduleArray[i]);
+				mScheduleService.insert(mSchedule);
+			}
+		}
+        return "index&redirect=true";
 	}
 }

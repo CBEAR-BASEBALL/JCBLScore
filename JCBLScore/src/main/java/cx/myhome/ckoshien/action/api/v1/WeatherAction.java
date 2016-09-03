@@ -108,6 +108,10 @@ public class WeatherAction {
 					Element row=element.child(j).child(1);//j日目
 					String date=row.child(1).html().replaceAll(" ", "/");
 					String img=row.child(2).attributes().get("class").replaceAll("icon i-", "").replaceAll(" ", "");
+					if(img.indexOf("-")==1){
+						//一桁の場合0埋め
+						img="0"+img;
+					}
 					String weather=row.child(3).child(0).text();
 					String highTemp=row.child(3).child(1).text().replaceAll("°", "").replaceAll("最低", "");
 					String lowTemp=row.child(3).child(2).text().replaceAll("°", "").replaceAll("最低", "").replaceAll(" ", "");
