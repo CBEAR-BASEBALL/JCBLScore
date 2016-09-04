@@ -5,6 +5,10 @@
 table td{
 	font-size:12px;
 	text-align:center;
+	border:1px solid #d2d2d2;
+}
+td .choice_date{
+	width:110px;
 }
 .left-box{
 	text-align:left;
@@ -20,6 +24,7 @@ table td{
 	color:#fff;
 }
 </style>
+<title>JCBLスコア管理システム：日程調整＆天気予報</title>
 <script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
 <script>
 $(function(){
@@ -49,7 +54,7 @@ $(function(){
 	<tr>
 		<td></td>
 		<c:forEach items="${scheduleList}" var="scheduleList">
-			<td>
+			<td class="choice_date">
 			<fmt:formatDate value="${scheduleList.date}" pattern="yyyy/MM/dd(E)"/>
 			<br><img src="http://vortex.accuweather.com/adc2010/images/icons-numbered/${scheduleList.weatherdto.img}.png">
 			<br>${scheduleList.weatherdto.weather}
@@ -73,33 +78,16 @@ $(function(){
 		</c:forEach>
 	</tr>
 	</c:forEach>
-	<%-- <c:choose>
-									<c:when test="${planList.plans==0}">
-										<td>×</td>
-									</c:when>
-									<c:when test="${planList.plans==1}">
-										<td id="selection01">△</td>
-									</c:when>
-									<c:when test="${planList.plans==2}">
-										<td id="selection02">○</td>
-									</c:when>
-									<c:when test="${planList.plans==3}">
-										<td id="selection03">◎</td>
-									</c:when>
-									<c:otherwise>
-										<td></td>
-									</c:otherwise>
-									</c:choose>--%>
-		<%-- <c:forEach items="${planList}" var="planList">
-			<c:choose>
-				<c:when test="${playerList.Id==planList.playerId}">
-					<tr>
-						<td class="left-box"><img width="15" height="15" src="../img/${planList.teamId}.jpg">${planList.name}</td>
-					</tr>
-				</c:when>
-			</c:choose>
-			</c:forEach>--%>
-	${htmlStr}
 </table>
+<c:choose>
+	<c:when test="${!empty loginUserDto.id}">
+		<s:form action="">
+			<s:submit property="create" value="新規スケジュールマスタ入力"/>
+		</s:form>
+	</c:when>
+</c:choose>
+<s:form action="/plan/">
+	<s:submit property="create" value="新規スケジュール入力"/>
+</s:form>
 </body>
 </html>

@@ -56,6 +56,12 @@ public class PlayerService extends AbstractService<Player> {
 		return playerList;
 	}
 
+    public List<PlayerDto> findPlayerHasNoPlan(){
+		playerList=new ArrayList<PlayerDto>();
+		playerList=jdbcManager.selectBySqlFile(PlayerDto.class, "cx.myhome.ckoshien.sql.PlayerHasNoPlan.sql").getResultList();
+		return playerList;
+	}
+
 
 	public Player findByLoginId(String loginId) {
 		return select().where("loginId=?", loginId).getSingleResult();

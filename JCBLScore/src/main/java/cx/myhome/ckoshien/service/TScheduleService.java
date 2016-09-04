@@ -37,4 +37,7 @@ public class TScheduleService extends AbstractService<TSchedule> {
     public List<TSchedule> findOldData(Integer id){
     	return select().where("mst_id=?", id).getResultList();
     }
+    public List<TSchedule> findByPlayerId(Integer playerId){
+    	return select().where("player_id=?", playerId).getResultList();
+    }
 }
