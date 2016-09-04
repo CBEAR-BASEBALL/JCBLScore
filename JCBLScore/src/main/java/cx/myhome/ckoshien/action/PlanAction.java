@@ -41,15 +41,16 @@ public class PlanAction {
 	@Execute(validator=false)
 	public String createComplete(){
 		mScheduleList=mScheduleService.findAllOrderById();
-		for(int i=0;i<mScheduleList.size();i++){
-			if(!planForm.getPlans().get(i).equals("")){
-				tSchedule = new TSchedule();
-				tSchedule.mstId=mScheduleList.get(i).id;
-				tSchedule.plans=Integer.parseInt(planForm.getPlans().get(i));
-				tSchedule.playerId=Integer.parseInt(planForm.getId());
-				List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
-				if(list.size()==0){
+		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
+		if(list.size()==0){
+			for(int i=0;i<mScheduleList.size();i++){
+				if(!planForm.getPlans().get(i).equals("")){
+					tSchedule = new TSchedule();
+					tSchedule.mstId=mScheduleList.get(i).id;
+					tSchedule.plans=Integer.parseInt(planForm.getPlans().get(i));
+					tSchedule.playerId=Integer.parseInt(planForm.getId());
 					tScheduleService.insert(tSchedule);
+
 				}
 			}
 		}
