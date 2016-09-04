@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.annotation.UrlType;
 
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.MSchedule;
@@ -55,5 +56,22 @@ public class PlanAction {
 			}
 		}
 		return "/schedule/index&redirect=true";
+	}
+
+	@Execute(urlPattern="update/{id}",validator=false)
+	public String update(){
+		mScheduleList=mScheduleService.findAllOrderById();
+		List<TSchedule> list=tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
+		List<String> plans=new ArrayList<String>();
+		for(int i=0; i<mScheduleList.size();i++){
+			if(i<list.size()){
+				plans.add(String.valueOf(list.get(i).plans));
+			}else{
+				plans.add(null);
+			}
+		}
+		planForm.setPlans(plans);
+		return "update.jsp";
+
 	}
 }
