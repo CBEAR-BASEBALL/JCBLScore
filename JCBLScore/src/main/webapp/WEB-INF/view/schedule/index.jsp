@@ -56,15 +56,21 @@ $(function(){
 		<c:forEach items="${scheduleList}" var="scheduleList">
 			<td class="choice_date">
 			<fmt:formatDate value="${scheduleList.date}" pattern="yyyy/MM/dd(E)"/>
-			<br><img src="http://vortex.accuweather.com/adc2010/images/icons-numbered/${scheduleList.weatherdto.img}.png">
-			<br>${scheduleList.weatherdto.weather}
-			<br><font color="red">${scheduleList.weatherdto.highTemp}</font>/<font color="blue">${scheduleList.weatherdto.lowTemp}</font>
+			<br>
+			<c:choose>
+				<c:when test="${empty scheduleList.weatherdto.img}">天気未取得</c:when>
+				<c:otherwise>
+					<img src="http://vortex.accuweather.com/adc2010/images/icons-numbered/${scheduleList.weatherdto.img}.png">
+					<br>${scheduleList.weatherdto.weather}
+					<br><font color="red">${scheduleList.weatherdto.highTemp}</font>/<font color="blue">${scheduleList.weatherdto.lowTemp}</font>
+				</c:otherwise>
+			</c:choose>
 			</td>
 		</c:forEach>
 	</tr>
 	<c:forEach items="${playerList}" var="playerList">
 	<tr>
-		<td class="left-box"><img width="15" height="15" src="../img/${playerList.teamId}.jpg">${playerList.name}</td>
+		<td class="left-box"><img width="15" height="15" src="../img/${playerList.teamId}.jpg"><a href="${f:url('/plan/update/') }${playerList.id}">${playerList.name}</a></td>
 		<c:forEach items="${scheduleList}" var="scheduleList">
 		<td class="hoge">
 			<c:forEach items="${planList}" var="planList">

@@ -2,12 +2,6 @@
 <html>
 <body>
 <s:form>
-<html:select property="id">
-			<html:option value=""></html:option>
-			<c:forEach var="playerList" items="${playerList}">
-				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
-			</c:forEach>
-			</html:select>
 <table border=1>
 <c:forEach items="${mScheduleList}" var="mScheduleList" varStatus="i">
 	<tr>
@@ -24,6 +18,7 @@
 	</tr>
 </c:forEach>
 </table>
+<html:hidden property="id" value="${id}"/>
 <s:submit property="updateComplete" value="更新"/>
 </s:form>
 </body>

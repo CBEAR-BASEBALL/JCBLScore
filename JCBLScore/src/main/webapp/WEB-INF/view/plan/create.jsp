@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
 <body>
+<html:errors/>
 <s:form>
 <html:select property="id">
 			<html:option value=""></html:option>

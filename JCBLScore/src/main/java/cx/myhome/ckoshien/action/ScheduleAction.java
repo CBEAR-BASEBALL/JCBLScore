@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.seasar.framework.beans.util.BeanUtil;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.framework.container.annotation.tiger.Aspect;
@@ -58,10 +59,12 @@ public class ScheduleAction {
 	private MSchedule mSchedule;
 	private List<MSchedule> oldMScheduleList;
 	private List<TSchedule> oldTScheduleList;
+	static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
 	public String index(){
 		//前日までのスケジュール削除
+		long t1 = System.currentTimeMillis();
 		oldMScheduleList=mScheduleService.findOldData();
 		for(int i=0;i<oldMScheduleList.size();i++){
 			oldTScheduleList=tScheduleService.findOldData(oldMScheduleList.get(i).id);
@@ -70,6 +73,8 @@ public class ScheduleAction {
 			}
 			mScheduleService.delete(oldMScheduleList.get(i));
 		}
+		long t2 = System.currentTimeMillis();
+		logger.info("削除処理:"+(t2-t1));
 		mScheduleList=mScheduleService.findAllOrderById();
 		response=new HashMap<String,WeatherDto>();
 		weatherList=weatherService.findAllOrderByRegTime();

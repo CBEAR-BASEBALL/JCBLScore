@@ -40,4 +40,7 @@ public class TScheduleService extends AbstractService<TSchedule> {
     public List<TSchedule> findByPlayerId(Integer playerId){
     	return select().where("player_id=?", playerId).getResultList();
     }
+    public List<TSchedule> findByPlayerIdAndMstId(Integer playerId,Integer mstId){
+    	return select().where("player_id=? and mstId=?", playerId,mstId).getResultList();
+    }
 }
