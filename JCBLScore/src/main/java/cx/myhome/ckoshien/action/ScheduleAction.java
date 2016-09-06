@@ -29,6 +29,7 @@ import cx.myhome.ckoshien.entity.TSchedule;
 import cx.myhome.ckoshien.entity.Weather;
 import cx.myhome.ckoshien.form.PlayerForm;
 import cx.myhome.ckoshien.form.ScheduleForm;
+import cx.myhome.ckoshien.rest.SlackLogger;
 import cx.myhome.ckoshien.service.MScheduleService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TScheduleService;
@@ -59,6 +60,7 @@ public class ScheduleAction {
 	private MSchedule mSchedule;
 	private List<MSchedule> oldMScheduleList;
 	private List<TSchedule> oldTScheduleList;
+	public Timestamp timestamp;
 	static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
@@ -138,6 +140,7 @@ public class ScheduleAction {
 		}
 		planList=mScheduleService.findAllPlan();
 		playerList=playerService.findPlayerHasPlan();
+		timestamp=weatherList.get(0).regtime;
 		return "index.jsp";
 	}
 

@@ -22,6 +22,7 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ResponseUtil;
 
 import cx.myhome.ckoshien.entity.Weather;
+import cx.myhome.ckoshien.rest.SlackLogger;
 import cx.myhome.ckoshien.service.WeatherService;
 
 public class WeatherAction {
@@ -30,6 +31,7 @@ public class WeatherAction {
 	@Resource
 	public WeatherService weatherService;
 	private List<Weather> weatherList;
+	private SlackLogger slackLogger=new SlackLogger();
 
 	@Execute(validator = false)
 	public String index(){
@@ -130,6 +132,7 @@ public class WeatherAction {
 			}
 		}
 		logger.info("長期予報が更新されました。");
+		slackLogger.info("長期予報が更新されました。");
 		return response;
 	}
 }

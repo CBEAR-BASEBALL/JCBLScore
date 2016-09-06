@@ -2,6 +2,14 @@
 <html>
 <head>
 <style>
+* {
+	font-family: Meiryo,"MS PGothic",arial,sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+table{
+	border-collapse: collapse;
+}
 table td{
 	font-size:12px;
 	text-align:center;
@@ -10,8 +18,13 @@ table td{
 td .choice_date{
 	width:110px;
 }
+a{
+	color: #1c79b4;
+}
 .left-box{
 	text-align:left;
+	float:left;
+	width:160px;
 }
 #selection01{
 	background:#eef0f0;
@@ -51,6 +64,7 @@ $(function(){
 </head>
 <body>
 <table border=1>
+	<thead>
 	<tr>
 		<td></td>
 		<c:forEach items="${scheduleList}" var="scheduleList">
@@ -68,6 +82,8 @@ $(function(){
 			</td>
 		</c:forEach>
 	</tr>
+	</thead>
+	<tbody>
 	<c:forEach items="${playerList}" var="playerList">
 	<tr>
 		<td class="left-box"><img width="15" height="15" src="../img/${playerList.teamId}.jpg"><a href="${f:url('/plan/update/') }${playerList.id}">${playerList.name}</a></td>
@@ -84,6 +100,7 @@ $(function(){
 		</c:forEach>
 	</tr>
 	</c:forEach>
+	</tbody>
 </table>
 <c:choose>
 	<c:when test="${!empty loginUserDto.id}">
@@ -95,5 +112,6 @@ $(function(){
 <s:form action="/plan/">
 	<s:submit property="create" value="新規スケジュール入力"/>
 </s:form>
+<br>30日間天気最終取得日時：<fmt:formatDate value="${timestamp}" pattern="yyyy/MM/dd(E) HH:mm:ss"/>
 </body>
 </html>
