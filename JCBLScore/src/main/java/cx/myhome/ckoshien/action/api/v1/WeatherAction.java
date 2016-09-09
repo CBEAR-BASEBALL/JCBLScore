@@ -17,6 +17,7 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.seasar.framework.beans.util.BeanUtil;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ResponseUtil;
@@ -96,43 +97,51 @@ public class WeatherAction {
 	public HashMap<String, WeatherDto> get(){
 		Document document;
 		response=new HashMap<String,WeatherDto>();
+		boolean errFlg=false;
 		for(int i=0;i<6;i++){
 			try{
 				document = Jsoup.connect("http://www.accuweather.com/ja/jp/tokorozawa-shi/225818/daily-weather-forecast/225818?day="+(i*5+1)).get();
 				Element element;
-				if(i==0){
-					element=document.getElementById("feed-tabs").child(1);
-				}else{
-					element=document.getElementById("feed-tabs").child(2);
-				}
+				Elements dateList=null;
+				Element row=null;
+				dateList=document.select("#feed-tabs > ul ");//日付のリスト
+				row=dateList.get(1);
 				for(int j=0;j<5;j++){
 					WeatherDto weatherDto=new WeatherDto();
-					Element row=element.child(j).child(1);//j日目
-					String date=row.child(1).html().replaceAll(" ", "/");
-					String img=row.child(2).attributes().get("class").replaceAll("icon i-", "").replaceAll(" ", "");
+					String date=row.child(j).child(0).child(1).text().replaceAll("月", "/").replaceAll("日", "");//日付
+					String img=row.child(j).child(0).child(2).attributes().get("class").replaceAll("icon i-", "").replaceAll(" ", "").replaceAll("l", "m");//画像
 					if(img.indexOf("-")==1){
 						//一桁の場合0埋め
 						img="0"+img;
 					}
-					String weather=row.child(3).child(0).text();
-					String highTemp=row.child(3).child(1).text().replaceAll("°", "").replaceAll("最低", "");
-					String lowTemp=row.child(3).child(2).text().replaceAll("°", "").replaceAll("最低", "").replaceAll(" ", "");
+					String highTemp=row.child(j).child(0).child(3).child(0).child(0).text().replaceAll("°", "");//最高気温
+					String lowTemp=row.child(j).child(0).child(3).child(0).child(1).text().replaceAll("°", "").replaceAll("C", "").replaceAll("/", "");//最低
+					String weather=row.child(j).child(0).child(3).child(1).text();//天気
 					weatherDto.setImg(img);
 					weatherDto.setWeather(weather);
 					weatherDto.setHighTemp(highTemp);
 					weatherDto.setLowTemp(lowTemp);
 					weatherDto.setRegTime(new Timestamp(System.currentTimeMillis()));
+					System.out.println(date+" "+img+" "+weather+" "+highTemp+"/"+lowTemp);
 					response.put(date, weatherDto);
 				}
+
 			}catch(HttpStatusException hse){
 				logger.error("[API]"+hse.getStatusCode());
 				hse.printStackTrace();
+				errFlg=true;
 			}catch(Exception e){
+				logger.error("長期予報の更新に失敗しました。");
+				//slackLogger.info("長期予報の更新に失敗しました。");
 				e.printStackTrace();
+				errFlg=true;
+				break;
 			}
 		}
-		logger.info("長期予報が更新されました。");
-		slackLogger.info("長期予報が更新されました。");
+		if(!errFlg){
+			logger.info("長期予報が更新されました。");
+			slackLogger.info("長期予報が更新されました。");
+		}
 		return response;
 	}
 }

@@ -14,6 +14,7 @@ import org.seasar.struts.annotation.UrlType;
 
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.MSchedule;
+import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.entity.TSchedule;
 import cx.myhome.ckoshien.form.PlanForm;
 import cx.myhome.ckoshien.rest.SlackLogger;
@@ -35,7 +36,6 @@ public class PlanAction {
 	public PlayerService playerService;
 	public List<PlayerDto> playerList;
 	public TSchedule tSchedule;
-	private List<TSchedule> tScheduleList;
 	@Resource
 	protected HttpServletRequest request;
 	@Resource
@@ -52,6 +52,7 @@ public class PlanAction {
 
 	@Execute(validator=true,input="create",stopOnValidationError=false)
 	public String createComplete(){
+		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
 		mScheduleList=mScheduleService.findAllOrderById();
 		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
 		if(list.size()==0){
@@ -66,11 +67,12 @@ public class PlanAction {
 				}
 			}
 		}
+		logger.info(player.name+"さんが予定を入力しました。");
 		logger.info("IP:"+request.getRemoteAddr());
 		logger.info("ポート:"+request.getRemotePort());
 		logger.info(request.getRemoteHost());
 		logger.info(request.getHeader("user-agent"));
-		//slackLogger.info("playerId="+planForm.getId()+"のスケジュールが更新されました。");
+		slackLogger.info(player.name+"さんが予定を入力しました。");
 		return "/schedule/index&redirect=true";
 	}
 
@@ -96,6 +98,7 @@ public class PlanAction {
 
 	@Execute(validator=false)
 	public String updateComplete(){
+		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
 		mScheduleList=mScheduleService.findAllOrderById();
 		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
 		for(int i=0;i<list.size();i++){
@@ -110,11 +113,12 @@ public class PlanAction {
 				tScheduleService.insert(tSchedule);
 			}
 		}
+		logger.info(player.name+"さんが予定を変更しました");
 		logger.info("IP:"+request.getRemoteAddr());
 		logger.info("ポート:"+request.getRemotePort());
 		logger.info(request.getRemoteHost());
 		logger.info(request.getHeader("user-agent"));
-		slackLogger.info("playerId="+planForm.getId()+"のスケジュールが更新されました。");
+		slackLogger.info(player.name+"さんが予定を変更しました");
 		return "/schedule/index&redirect=true";
 
 	}

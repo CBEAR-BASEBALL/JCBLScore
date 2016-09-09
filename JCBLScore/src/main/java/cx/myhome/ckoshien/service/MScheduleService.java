@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.dto.PlanDto;
 import cx.myhome.ckoshien.dto.PlayerDto;
+import cx.myhome.ckoshien.dto.ScheduleDto;
 import cx.myhome.ckoshien.entity.MSchedule;
 
 import java.sql.Date;
@@ -19,6 +20,7 @@ import static org.seasar.extension.jdbc.operation.Operations.*;
 public class MScheduleService extends AbstractService<MSchedule> {
 
     private List<PlanDto> resultList;
+	private List<ScheduleDto> scheduleList;
 
 	/**
      * 識別子でエンティティを検索します。
@@ -53,6 +55,14 @@ public class MScheduleService extends AbstractService<MSchedule> {
     		.selectBySqlFile(PlanDto.class, "cx.myhome.ckoshien.sql.Schedule.sql")
     		.getResultList();
     	return resultList;
+    }
+
+    public List<ScheduleDto> findScheduleList(){
+    	scheduleList=
+    		jdbcManager
+    		.selectBySqlFile(ScheduleDto.class, "cx.myhome.ckoshien.sql.PlanCount.sql")
+    		.getResultList();
+    	return scheduleList;
     }
 
 }

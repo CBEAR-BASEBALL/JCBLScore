@@ -76,7 +76,10 @@ public class ScheduleAction {
 			mScheduleService.delete(oldMScheduleList.get(i));
 		}
 		long t2 = System.currentTimeMillis();
-		logger.info("削除処理:"+(t2-t1));
+		if(t2-t1>1000){
+			logger.info("削除処理:"+(t2-t1)+"mS");
+		}
+
 		mScheduleList=mScheduleService.findAllOrderById();
 		response=new HashMap<String,WeatherDto>();
 		weatherList=weatherService.findAllOrderByRegTime();
@@ -114,33 +117,15 @@ public class ScheduleAction {
 				BeanUtil.copyProperties(weatherDto, weatherBean);
 				int year=Calendar.getInstance().get(Calendar.YEAR);
 				weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
-				//weatherBean.regtime=new Timestamp(System.currentTimeMillis());
 				weatherService.insert(weatherBean);
 			}
-		}else{
-			for(int i=0;i<weatherList.size();i++){
-				WeatherDto weatherDto= new WeatherDto();
-				Weather weatherBean=weatherList.get(i);
-				BeanUtil.copyProperties(weatherBean,weatherDto);
-				SimpleDateFormat sdf= new SimpleDateFormat("M/d");
-				response.put(sdf.format(weatherBean.date), weatherDto);
-			}
-
 		}
-		SimpleDateFormat sdf= new SimpleDateFormat("M/d");
-		scheduleList= new ArrayList<ScheduleDto>();
-		for(int i=0;i<mScheduleList.size();i++){
-			scheduleDto= new ScheduleDto();
-			System.out.println(sdf.format(mScheduleList.get(i).date).toString());
-			weatherDto=response.get(sdf.format(mScheduleList.get(i).date).toString());
-			scheduleDto.setWeatherDto(weatherDto);
-			scheduleDto.id=mScheduleList.get(i).id;
-			scheduleDto.date=mScheduleList.get(i).date;
-			scheduleList.add(scheduleDto);
-		}
+		scheduleList= mScheduleService.findScheduleList();
 		planList=mScheduleService.findAllPlan();
 		playerList=playerService.findPlayerHasPlan();
-		timestamp=weatherList.get(0).regtime;
+		if(scheduleList.size()!=0){
+			timestamp=scheduleList.get(0).getRegtime();
+		}
 		return "index.jsp";
 	}
 
