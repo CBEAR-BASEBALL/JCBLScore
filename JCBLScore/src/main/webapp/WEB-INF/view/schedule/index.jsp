@@ -75,7 +75,15 @@ $(function(){
 				<c:when test="${empty scheduleList.img}">天気未取得</c:when>
 				<c:otherwise>
 					<img src="http://vortex.accuweather.com/adc2010/images/icons-numbered/${scheduleList.img}.png" title="${scheduleList.weather}">
-					<br><font color="red">${scheduleList.highTemp}</font>/<font color="blue">${scheduleList.lowTemp}</font>
+					<c:choose>
+						<c:when test="${scheduleList.lowTemp=='最低'}">
+							<br>${scheduleList.lowTemp}<font color="blue">${scheduleList.highTemp}</font>
+						</c:when>
+						<c:otherwise>
+							<br><font color="red">${scheduleList.highTemp}</font>/<font color="blue">${scheduleList.lowTemp}</font>
+						</c:otherwise>
+					</c:choose>
+
 				</c:otherwise>
 			</c:choose>
 			<br><b>参加人数:${scheduleList.count}人</b>

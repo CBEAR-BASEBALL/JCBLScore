@@ -77,7 +77,7 @@ public class ScheduleAction {
 		}
 		long t2 = System.currentTimeMillis();
 		if(t2-t1>1000){
-			logger.info("削除処理:"+(t2-t1)+"mS");
+			logger.info("スケジュール削除処理:"+(t2-t1)+"mS");
 		}
 
 		mScheduleList=mScheduleService.findAllOrderById();
@@ -103,11 +103,14 @@ public class ScheduleAction {
 		}
 		if(timeFlg){
 			//テーブル全データ削除
+			long t3=System.currentTimeMillis();
 			for(int i=0;i<weatherList.size();i++){
 				weatherService.delete(weatherList.get(i));
 			}
+			long t4=System.currentTimeMillis();
 			WeatherAction weatherAction =new WeatherAction();
 			response=weatherAction.get();
+			long t5=System.currentTimeMillis();
 			String date="";
 			WeatherDto weatherDto= new WeatherDto();
 			for(Map.Entry<String, WeatherDto> e : response.entrySet()) {
@@ -119,6 +122,10 @@ public class ScheduleAction {
 				weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
 				weatherService.insert(weatherBean);
 			}
+			long t6=System.currentTimeMillis();
+			logger.info("天気テーブル全削除:"+(t4-t3));
+			logger.info("天気データ取得:"+(t5-t4));
+			logger.info("天気データinsert:"+(t6-t5));
 		}
 		scheduleList= mScheduleService.findScheduleList();
 		planList=mScheduleService.findAllPlan();

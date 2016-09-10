@@ -59,10 +59,13 @@ public class WeatherAction {
 		}
 		if(timeFlg){
 			//テーブル全データ削除
+			long t3=System.currentTimeMillis();
 			for(int i=0;i<weatherList.size();i++){
 				weatherService.delete(weatherList.get(i));
 			}
+			long t4=System.currentTimeMillis();
 			response=get();
+			long t5=System.currentTimeMillis();
 			String date="";
 			WeatherDto weatherDto= new WeatherDto();
 			for(Map.Entry<String, WeatherDto> e : response.entrySet()) {
@@ -75,6 +78,8 @@ public class WeatherAction {
 				//weatherBean.regtime=new Timestamp(System.currentTimeMillis());
 				weatherService.insert(weatherBean);
 			}
+			logger.info("天気テーブル全削除:"+(t4-t3));
+			logger.info("天気データ取得:"+(t5-t4));
 		}else{
 			for(int i=0;i<weatherList.size();i++){
 				WeatherDto weatherDto= new WeatherDto();
