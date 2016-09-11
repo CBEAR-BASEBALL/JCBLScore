@@ -58,6 +58,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jersey-servlet-1.19.1.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jettison-1.1.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jsr311-api-1.1.1.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/log4j-1.2.17.jar" sourcepath="C:/Users/既定/Desktop/log4j-1.2.17.zip"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

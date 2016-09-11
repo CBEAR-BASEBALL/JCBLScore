@@ -87,7 +87,7 @@ public class PlanAction {
 		for(int j=0;j<list.size();j++){
 			for(int i=0; i<mScheduleList.size();i++){
 				if(list.get(j).mstId.equals(mScheduleList.get(i).id)){
-					plans.set(mScheduleList.get(i).id-1, list.get(j).plans.toString());
+					plans.set(i, list.get(j).plans.toString());
 				}
 			}
 		}

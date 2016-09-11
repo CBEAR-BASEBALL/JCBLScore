@@ -127,7 +127,7 @@ public class WeatherAction {
 					weatherDto.setHighTemp(highTemp);
 					weatherDto.setLowTemp(lowTemp);
 					weatherDto.setRegTime(new Timestamp(System.currentTimeMillis()));
-					System.out.println(date+" "+img+" "+weather+" "+highTemp+"/"+lowTemp);
+					//System.out.println(date+" "+img+" "+weather+" "+highTemp+"/"+lowTemp);
 					response.put(date, weatherDto);
 				}
 
@@ -137,7 +137,7 @@ public class WeatherAction {
 				errFlg=true;
 			}catch(Exception e){
 				logger.error("長期予報の更新に失敗しました。");
-				//slackLogger.info("長期予報の更新に失敗しました。");
+				slackLogger.info("長期予報の更新に失敗しました。");
 				e.printStackTrace();
 				errFlg=true;
 				break;
@@ -145,7 +145,7 @@ public class WeatherAction {
 		}
 		if(!errFlg){
 			logger.info("長期予報が更新されました。");
-			slackLogger.info("長期予報が更新されました。");
+			//slackLogger.info("長期予報が更新されました。");
 		}
 		return response;
 	}
