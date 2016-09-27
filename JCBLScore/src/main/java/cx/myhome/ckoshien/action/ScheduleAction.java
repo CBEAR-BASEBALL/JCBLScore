@@ -87,14 +87,14 @@ public class ScheduleAction {
 		if(weatherList.size()>0){
 			//現在時刻-3Hの取得
 			Calendar cal= Calendar.getInstance();
-			cal.add(Calendar.HOUR, -3);
+			cal.add(Calendar.HOUR, -6);
 			Timestamp regtime=weatherList.get(0).regtime;
 			//System.out.println(cal.getTime());
 			if(regtime.before(cal.getTime())){
-			//3時間経過している場合
+			//6時間経過している場合
 				timeFlg=true;
 			}else{
-				//3時間経過していない場合DBから取得
+				//6時間経過していない場合DBから取得
 				timeFlg=false;
 			}
 		}else{
