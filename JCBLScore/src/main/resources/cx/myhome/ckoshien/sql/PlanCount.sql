@@ -23,3 +23,4 @@ group by date) plan
 on ms.date=plan.date
 left outer join weather w
 on w.date=ms.date
+order by date
