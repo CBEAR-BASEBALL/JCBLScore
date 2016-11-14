@@ -11,7 +11,6 @@ import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
@@ -53,6 +52,8 @@ public class PlayerAction {
 	public List<TeamBattingResultDto> tbrDtos;
 	public List<League> leagueList;
 	public List<TeamBattingResultDto> pbrlList;
+	public List<TeamPitchingResultDto> tprDtos;
+	public List<TeamPitchingResultDto> pprlList;
 
 	@Execute(validator = false)
 	public String index() {
@@ -103,13 +104,17 @@ public class PlayerAction {
 	public String show(){
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
+		//タブ用の成績があるシーズンリスト(PersonalBattingResultbyLeagueId)
 		pbrlList=battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
 		pbrgoList=battingSumService.findPBRGOById(Integer.parseInt(playerForm.id));
-        pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
-        pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));
-        tbrDtos=battingSumService.findPBRDById(Integer.parseInt(playerForm.id));
-        leagueList=leagueService.findAllOrderByIdExceptTotal();
-        return "result.jsp";
+		pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
+		pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));
+		tbrDtos=battingSumService.findPBRDById(Integer.parseInt(playerForm.id));
+		//タブ用の投球成績明細
+		tprDtos=pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
+		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
+		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		return "result.jsp";
 	}
 
 	public ActionMessages createValidate(){
