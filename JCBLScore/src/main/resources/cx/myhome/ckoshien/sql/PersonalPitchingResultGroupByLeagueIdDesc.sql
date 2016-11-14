@@ -31,6 +31,6 @@ inner join team t
 on pc.team_id=t.team_id
 inner join league l
 on g.league_id=l.id
-where player_id=1
+where player_id=/*playerId*/
 group by league_id
 order by league_id desc;

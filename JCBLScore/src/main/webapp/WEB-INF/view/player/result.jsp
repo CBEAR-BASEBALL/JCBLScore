@@ -536,9 +536,6 @@
 							<a href="${f:url('/gameSummary/show/')}${tprDtos.gameId}">
 								<fmt:formatDate value="${tprDtos.gameDate}" pattern="MM/dd" />
 								-${tprDtos.gameNumber}対${tprDtos.opponentName}
-								<c:choose>
-									<c:when test="${tprDtos.teamId!=tprDtos.myteamId}">(助)</c:when>
-								</c:choose>
 							</a>
 						</td>
 						<td><b><fmt:formatNumber value="${tprDtos.inning}" pattern="#0.##" /></b></td>
