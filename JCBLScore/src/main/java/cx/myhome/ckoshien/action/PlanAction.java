@@ -43,7 +43,7 @@ public class PlanAction {
 
 	@Execute(validator=false)
 	public String create(){
-		mScheduleList=mScheduleService.findAllOrderById();
+		mScheduleList=mScheduleService.findAllOrderByDate();
 		playerList=playerService.findPlayerHasNoPlan();
 		return "create.jsp";
 	}
@@ -51,7 +51,7 @@ public class PlanAction {
 	@Execute(validator=true,input="create",stopOnValidationError=false)
 	public String createComplete(){
 		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
-		mScheduleList=mScheduleService.findAllOrderById();
+		mScheduleList=mScheduleService.findAllOrderByDate();
 		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
 		if(list.size()==0){
 			for(int i=0;i<mScheduleList.size();i++){
@@ -76,7 +76,7 @@ public class PlanAction {
 
 	@Execute(urlPattern="update/{id}",validator=false)
 	public String update(){
-		mScheduleList=mScheduleService.findAllOrderById();
+		mScheduleList=mScheduleService.findAllOrderByDate();
 		List<TSchedule> list=tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
 		List<String> plans=new ArrayList<String>(mScheduleList.size());
 		for(int i=0;i<mScheduleList.size();i++){
@@ -97,7 +97,7 @@ public class PlanAction {
 	@Execute(validator=false)
 	public String updateComplete(){
 		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
-		mScheduleList=mScheduleService.findAllOrderById();
+		mScheduleList=mScheduleService.findAllOrderByDate();
 		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
 		for(int i=0;i<list.size();i++){
 			tScheduleService.delete(list.get(i));

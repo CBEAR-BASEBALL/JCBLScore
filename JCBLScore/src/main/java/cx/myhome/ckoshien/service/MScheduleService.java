@@ -45,6 +45,10 @@ public class MScheduleService extends AbstractService<MSchedule> {
         return select().orderBy(asc(id())).getResultList();
     }
 
+    public List<MSchedule> findAllOrderByDate() {
+        return select().orderBy(asc(date())).getResultList();
+    }
+
     public List<MSchedule> findOldData() {
         return select().where("date<?",new Date(System.currentTimeMillis())).getResultList();
     }
