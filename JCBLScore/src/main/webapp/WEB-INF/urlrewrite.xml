@@ -18,11 +18,11 @@
         <from>/test/status/</from>
         <to type="redirect">%{context-path}/rewrite-status</to>
     </rule>
-	<rule>
+<!--  	<rule>
 		<name>静的ファイルは除外</name>
 		<from>/(css|js|images)/(.*)</from>
 		<to last="true">/$1/$2</to>
-	</rule>
+	</rule>-->
 
 
     <outbound-rule>
