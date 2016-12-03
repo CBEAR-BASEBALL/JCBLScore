@@ -12,6 +12,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import cx.myhome.ckoshien.dto.PlayerDto;
+import cx.myhome.ckoshien.dto.PositionDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.entity.League;
@@ -54,6 +55,7 @@ public class PlayerAction {
 	public List<TeamBattingResultDto> pbrlList;
 	public List<TeamPitchingResultDto> tprDtos;
 	public List<TeamPitchingResultDto> pprlList;
+	public List<PositionDto> posDtos;
 
 	@Execute(validator = false)
 	public String index() {
@@ -114,6 +116,7 @@ public class PlayerAction {
 		tprDtos=pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
 		return "result.jsp";
 	}
 

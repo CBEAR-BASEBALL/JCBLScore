@@ -55,6 +55,7 @@
 <table border=1>
 	<tr>
 		<th>選手名</th>
+		<th>守備</th>
 		<th>打席数</th>
 		<th>打数</th>
 		<th>安打</th>
@@ -67,6 +68,16 @@
 	<c:forEach var="i" items="${firstBattingSumList}" >
 	<tr>
 		<td>${i.player.name}</td>
+		<td>
+			<c:choose>
+				<c:when test="${i.position==1}">投</c:when>
+				<c:when test="${i.position==2}">捕</c:when>
+				<c:when test="${i.position==3}">一</c:when>
+				<c:when test="${i.position==4}">二</c:when>
+				<c:when test="${i.position==5}">外</c:when>
+				<c:when test="${i.position==6}">DH</c:when>
+			</c:choose>
+		</td>
 		<td align="right">${i.tpa}</td>
 		<td align="right">${i.atBats}</td>
 		<td align="right">${i.hit}</td>
@@ -122,6 +133,7 @@
 <table border=1>
 	<tr>
 		<th>選手名</th>
+		<th>守備</th>
 		<th>打席数</th>
 		<th>打数</th>
 		<th>安打</th>
@@ -134,6 +146,16 @@
 	<c:forEach var="i" items="${lastBattingSumList}" >
 	<tr>
 		<td>${i.player.name}</td>
+		<td>
+			<c:choose>
+				<c:when test="${i.position==1}">投</c:when>
+				<c:when test="${i.position==2}">捕</c:when>
+				<c:when test="${i.position==3}">一</c:when>
+				<c:when test="${i.position==4}">二</c:when>
+				<c:when test="${i.position==5}">外</c:when>
+				<c:when test="${i.position==6}">DH</c:when>
+			</c:choose>
+		</td>
 		<td align="right">${i.tpa}</td>
 		<td align="right">${i.atBats}</td>
 		<td align="right">${i.hit}</td>

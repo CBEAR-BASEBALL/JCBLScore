@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.SqlFiles;
 import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.PositionDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 
@@ -27,6 +28,7 @@ public class BattingSumService extends AbstractService<BattingSum> {
 	public List<BattingSum> list;
 	public List<BattingResultDto> battingResultDtos;
 	public List<TeamBattingResultDto> teamBattingResultDtos;
+	public List<PositionDto> posDtos;
     /**
      * 識別子でエンティティを検索します。
      *
@@ -119,5 +121,13 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		param.put("playerId", playerId);
 		teamBattingResultDtos=jdbcManager.selectBySqlFile(TeamBattingResultDto.class, "cx.myhome.ckoshien.sql.PersonalBattingResultGroupByOpponent.sql",param).getResultList();
 		return teamBattingResultDtos;
+	}
+
+	public List<PositionDto> countDiffensePositionById(Integer playerId){
+		posDtos=new ArrayList<PositionDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("playerId", playerId);
+		posDtos=jdbcManager.selectBySqlFile(PositionDto.class, "cx.myhome.ckoshien.sql.CountDiffensePosition.sql",param).getResultList();
+		return posDtos;
 	}
 }

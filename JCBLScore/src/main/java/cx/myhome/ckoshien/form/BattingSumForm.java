@@ -5,6 +5,7 @@ import java.util.List;
 public class BattingSumForm {
 	//打撃成績関連
 	public List<String> playerId;
+	public List<String> position;
 	//打席数
 	public List<String> tpa;
 	//打数

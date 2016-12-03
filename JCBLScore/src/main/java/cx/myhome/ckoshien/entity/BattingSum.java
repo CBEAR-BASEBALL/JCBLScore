@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/08/24 0:03:15")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/12/03 21:17:34")
 public class BattingSum implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,6 +73,10 @@ public class BattingSum implements Serializable {
     /** teamIdプロパティ */
     @Column(precision = 10, nullable = false, unique = false)
     public Integer teamId;
+
+    /** positionプロパティ */
+    @Column(precision = 10, nullable = true, unique = false)
+    public Integer position;
 
     /** player関連プロパティ */
     @ManyToOne

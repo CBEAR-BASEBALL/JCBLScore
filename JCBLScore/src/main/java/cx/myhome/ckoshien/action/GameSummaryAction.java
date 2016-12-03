@@ -101,20 +101,12 @@ public Integer saverId;
 	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = false)
 	public String create(){
-//		HttpSession session =
-//            (HttpSession) SingletonS2ContainerFactory
-//                .getContainer()
-//                .getExternalContext()
-//                .getSession();
-		//session.removeAttribute("gameSummaryForm");
-
 		teamList=teamService.findAllOrderById();
 		playerList=playerService.findAllOrderById();
 		return "create.jsp";
 	}
 
 	@Aspect(value="loginConfInterceptor")
-	//@Execute(validator = true,input="create?redirect=true")
 	@Execute(validator = true,input="create",
 			stopOnValidationError=false,
 			validate="dateValidate",

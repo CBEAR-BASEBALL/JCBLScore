@@ -154,6 +154,7 @@
 <table border=1>
 	<tr>
 		<th>選手名</th>
+		<th>守備位置</th>
 		<th>打席数</th>
 		<th>打数</th>
 		<th>安打</th>
@@ -171,6 +172,17 @@
 			<c:forEach var="playerList" items="${playerList}">
 				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="position[${i-1}]">
+				<html:option value=""></html:option>
+				<html:option value="1">投</html:option>
+				<html:option value="2">捕</html:option>
+				<html:option value="3">一</html:option>
+				<html:option value="4">二</html:option>
+				<html:option value="5">外</html:option>
+				<html:option value="6">DH</html:option>
 			</html:select>
 		</td>
 		<td>
@@ -281,6 +293,7 @@
 <table border=1>
 	<tr>
 		<th>選手名</th>
+		<th>守備位置</th>
 		<th>打席数</th>
 		<th>打数</th>
 		<th>安打</th>
@@ -298,6 +311,17 @@
 			<c:forEach var="playerList" items="${playerList}">
 				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
+			</html:select>
+		</td>
+		<td>
+			<html:select property="position[${i-1}]">
+				<html:option value=""></html:option>
+				<html:option value="1">投</html:option>
+				<html:option value="2">捕</html:option>
+				<html:option value="3">一</html:option>
+				<html:option value="4">二</html:option>
+				<html:option value="5">外</html:option>
+				<html:option value="6">DH</html:option>
 			</html:select>
 		</td>
 		<td>

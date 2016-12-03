@@ -210,7 +210,35 @@
 				]
 					}]
 			});
+			$('#chart_div3').highcharts({
+				title: {
+					text: '守備位置の割合'
+				},
+				plotOptions: {
+					pie: {
+						dataLabels: {
+							formatter: function() {
+								return '<b>'+ this.point.name +'</b>:'+ Math.round(this.percentage*10)/10 + '%';}
+							}
+						}
+					},
+				series: [{
+					type: 'pie',
+					name: '',
+					data: [
+					<c:forEach var="posDtos" items="${posDtos}">
+						['${posDtos.pos}',${posDtos.count}],
+					</c:forEach>
+					]
+				}],
+				tooltip: {
+					formatter: function() {
+						return this.y +'試合';},
+				enabled:true
+				}
+				});
 		});
+
 	</script>
 
 </head>
@@ -601,7 +629,7 @@
 	</c:forEach>
 
 </table>
-
+<div id="chart_div3" style="width: 80%; height: 300px;"></div>
 <div id="chart_div" style="width: 80%; height: 300px;"></div>
 <div id="chart_div2" style="width: 80%; height: 300px;"></div>
 <!--shinobi1-->

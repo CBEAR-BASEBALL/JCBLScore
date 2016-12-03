@@ -10,7 +10,7 @@ import org.seasar.extension.jdbc.name.PropertyName;
  * {@link BattingSum}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2016/08/24 0:03:17")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2016/12/03 21:18:45")
 public class BattingSumNames {
 
     /**
@@ -128,6 +128,15 @@ public class BattingSumNames {
      */
     public static PropertyName<Integer> teamId() {
         return new PropertyName<Integer>("teamId");
+    }
+
+    /**
+     * positionのプロパティ名を返します。
+     * 
+     * @return positionのプロパティ名
+     */
+    public static PropertyName<Integer> position() {
+        return new PropertyName<Integer>("position");
     }
 
     /**
@@ -314,6 +323,15 @@ public class BattingSumNames {
          */
         public PropertyName<Integer> teamId() {
             return new PropertyName<Integer>(this, "teamId");
+        }
+
+        /**
+         * positionのプロパティ名を返します。
+         *
+         * @return positionのプロパティ名
+         */
+        public PropertyName<Integer> position() {
+            return new PropertyName<Integer>(this, "position");
         }
 
         /**
