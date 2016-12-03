@@ -9,19 +9,6 @@
 	<script type="text/javascript" src="${f:url('/js/highcharts.src.js') }"></script>
 	<script type="text/javascript" src="${f:url('/js/highcharts-more.src.js') }"></script>
 	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
-	<script type="text/javascript">
-	$(document).ready(function()
-		       {
-		          $("#battingAll").tablesorter(
-		        		   {widgets: ['zebra']}
-		           );
-		          $("#pitchingAll").tablesorter(
-		        		   {widgets: ['zebra']}
-		           );
-		       }
-		   );
-
-	</script>
 	<script>
 	$(function() {
 		$( "#tab-b" ).tabs();
@@ -240,7 +227,19 @@
 		});
 
 	</script>
+	<script type="text/javascript">
+	$(document).ready(function()
+		       {
+		          $("#battingAll").tablesorter(
+		        		   {widgets: ['zebra']}
+		           );
+		          $("#pitchingAll").tablesorter(
+		        		   {widgets: ['zebra']}
+		           );
+		       }
+		   );
 
+	</script>
 </head>
 <body>
 <hr>
