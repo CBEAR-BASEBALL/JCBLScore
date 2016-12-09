@@ -1,10 +1,13 @@
 package cx.myhome.ckoshien.interceptor;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;
+import org.seasar.framework.container.SingletonS2Container;
 
 import cx.myhome.ckoshien.dto.LoginUserDto;
 
@@ -27,8 +30,7 @@ public class LoginConfInterceptor extends AbstractInterceptor {
 			object="/login/";
 		}
 		return object;
-//		return (!isExecuteMethod(invocation) || isLoggedIn()) ? invocation
-//				.proceed() : "/login/";
+
 	}
 		private boolean isExecuteMethod(MethodInvocation invocation) {
 				return invocation.getMethod().isAnnotationPresent(Execute.class);
@@ -39,6 +41,8 @@ public class LoginConfInterceptor extends AbstractInterceptor {
 			 * @return 上記の条件を両方満たしていればtrue
 			 */
 		private boolean isLoggedIn() {
+			Map<String, Object> sessionScope = SingletonS2Container.getComponent("sessionScope");
+			LoginUserDto loginUserDto = (LoginUserDto) sessionScope.get("loginUserDto");
 				return (loginUserDto != null && loginUserDto.getId() != null);
 		}
 
