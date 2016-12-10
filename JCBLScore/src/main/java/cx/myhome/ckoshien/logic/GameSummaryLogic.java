@@ -83,6 +83,7 @@ public class GameSummaryLogic {
 		gameSummaryForm.teamId=new ArrayList<String>();
 		gameSummaryForm.gameId=new ArrayList<String>();
 		gameSummaryForm.playerRecordId=new ArrayList<String>();
+		gameSummaryForm.position=new ArrayList<String>();
 		addBattingSumList(gameSummaryForm,firstBattingSumList, game);
 		addBattingSumList(gameSummaryForm,lastBattingSumList, game);
 
@@ -120,6 +121,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.teamId.add(String.valueOf(list.get(i).teamId));
 				gameSummaryForm.gameId.add(String.valueOf(game.gameId));
 				gameSummaryForm.playerRecordId.add(String.valueOf(list.get(i).id));
+				gameSummaryForm.position.add(String.valueOf(list.get(i).position));
 			}else{
 				gameSummaryForm.playerId.add(" ");
 				gameSummaryForm.tpa.add("");
@@ -134,6 +136,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.teamId.add("");
 				gameSummaryForm.gameId.add("");
 				gameSummaryForm.playerRecordId.add("");
+				gameSummaryForm.position.add("");
 			}
 		}
 	}
@@ -226,6 +229,11 @@ public class GameSummaryLogic {
 			battingSum.homerun=0;
 		}else{
 			battingSum.homerun=Integer.parseInt(battingSumForm.homerun.get(i));
+		}
+		if(battingSumForm.position.get(i)==""){
+			battingSum.position=0;
+		}else{
+			battingSum.position=Integer.parseInt(battingSumForm.position.get(i));
 		}
 		//所属チームIDの検索と代入
 		for(int j=0;j<playerList.size();j++){
