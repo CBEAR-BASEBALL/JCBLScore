@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.action;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,8 +119,22 @@ public class ScheduleAction {
 				weatherDto=e.getValue();
 				Weather weatherBean= new Weather();
 				BeanUtil.copyProperties(weatherDto, weatherBean);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				java.util.Date formatDate = null;
+				String todayStr= new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).replaceAll("-", "/");
 				int year=Calendar.getInstance().get(Calendar.YEAR);
-				weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
+				java.util.Date today=null;
+				try {
+					formatDate = sdf.parse(year+"/"+date);
+					today=sdf.parse(todayStr);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				if(today.compareTo(formatDate)>0){
+					weatherBean.date=Date.valueOf(String.valueOf(year+1)+"-"+date.replaceAll("/", "-"));
+				}else{
+					weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
+				}
 				weatherService.insert(weatherBean);
 			}
 			long t6=System.currentTimeMillis();

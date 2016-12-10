@@ -32,10 +32,7 @@ public class WeatherService extends AbstractService<Weather> {
      * @return エンティティのリスト
      */
     public List<Weather> findAllOrderByRegTime() {
-        return select().orderBy(asc(regtime())).getResultList();
+        return select().orderBy(desc(regtime())).getResultList();
     }
 
-    public List<Weather> findOldData() {
-        return select().where("date<?",new Date(System.currentTimeMillis())).getResultList();
-    }
 }

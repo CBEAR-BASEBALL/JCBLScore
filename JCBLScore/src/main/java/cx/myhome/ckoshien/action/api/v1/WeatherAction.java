@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.action.api.v1;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -73,10 +74,22 @@ public class WeatherAction {
 				weatherDto=e.getValue();
 				Weather weatherBean= new Weather();
 				BeanUtil.copyProperties(weatherDto, weatherBean);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				java.util.Date formatDate = null;
+				String todayStr= new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).replaceAll("-", "/");
 				int year=Calendar.getInstance().get(Calendar.YEAR);
-				weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
-				//weatherBean.regtime=new Timestamp(System.currentTimeMillis());
-				weatherService.insert(weatherBean);
+				java.util.Date today=null;
+				try {
+					formatDate = sdf.parse(year+"/"+date);
+					today=sdf.parse(todayStr);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				if(today.compareTo(formatDate)>0){
+					weatherBean.date=Date.valueOf(String.valueOf(year+1)+"-"+date.replaceAll("/", "-"));
+				}else{
+					weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
+				}weatherService.insert(weatherBean);
 			}
 			logger.info("天気テーブル全削除:"+(t4-t3));
 			logger.info("天気データ取得:"+(t5-t4));
