@@ -2,9 +2,11 @@ package cx.myhome.ckoshien.rest;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.seasar.framework.util.ResourceUtil;
 
 public class SlackLogger {
+	static Logger logger = Logger.getLogger("rootLogger");
 
 	public void info(Object message) {
 		RestClient client = new RestClient();
@@ -14,7 +16,7 @@ public class SlackLogger {
 		entity.setText(message.toString());
 		entity.setUsername("JCBLScoreBot");
 		String json=client.sendRequest(uri, "POST", entity, String.class,header);
-		System.out.println(json);
+		logger.info(json);
 	}
 
 }
