@@ -23,7 +23,7 @@ import cx.myhome.ckoshien.entity.Weather;
 import cx.myhome.ckoshien.service.WeatherService;
 
 @Task
-@CronTrigger(expression = "0 0 0-23/6 * * ?")//6時間ごと
+@CronTrigger(expression = "0 0 */6 * * ?")//6時間ごと
 public class GetWeatherTask {
 	@Resource
 	public WeatherService weatherService;
@@ -35,25 +35,25 @@ public class GetWeatherTask {
 	public void doExecute() {
 		weatherList=weatherService.findAllOrderByRegTime();
 		response=new HashMap<String,WeatherDto>();
-		boolean timeFlg=false;
-		if(weatherList.size()>0){
-			//現在時刻-3Hの取得
-			Calendar cal= Calendar.getInstance();
-			cal.add(Calendar.HOUR, -6);
-			Timestamp regtime=weatherList.get(0).regtime;
-			//System.out.println(cal.getTime());
-			if(regtime.before(cal.getTime())){
-			//6時間経過している場合
-				timeFlg=true;
-			}else{
-				//6時間経過していない場合DBから取得
-				timeFlg=false;
-			}
-		}else{
-			//DBにない場合
-			timeFlg=true;
-		}
-		if(timeFlg){
+//		boolean timeFlg=false;
+//		if(weatherList.size()>0){
+//			//現在時刻-3Hの取得
+//			Calendar cal= Calendar.getInstance();
+//			cal.add(Calendar.HOUR, -6);
+//			Timestamp regtime=weatherList.get(0).regtime;
+//			//System.out.println(cal.getTime());
+//			if(regtime.before(cal.getTime())){
+//			//6時間経過している場合
+//				timeFlg=true;
+//			}else{
+//				//6時間経過していない場合DBから取得
+//				timeFlg=false;
+//			}
+//		}else{
+//			//DBにない場合
+//			timeFlg=true;
+//		}
+//		if(timeFlg){
 			//テーブル全データ削除
 			long t3=System.currentTimeMillis();
 			for(int i=0;i<weatherList.size();i++){
@@ -92,8 +92,8 @@ public class GetWeatherTask {
 			logger.info("天気テーブル全削除:"+(t4-t3));
 			logger.info("天気データ取得:"+(t5-t4));
 			logger.info("天気データinsert:"+(t6-t5));
-		}
-		logger.info(this.getClass().getSimpleName() + ":タスク終了");
+
+		logger.info("タスク終了");
 	}
 
 	 // 破棄処理
