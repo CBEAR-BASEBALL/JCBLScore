@@ -23,7 +23,7 @@ import cx.myhome.ckoshien.entity.Weather;
 import cx.myhome.ckoshien.service.WeatherService;
 
 @Task
-@CronTrigger(expression = "0 0 */6 * * ?")//6時間ごと
+@CronTrigger(expression = "0 15 */6 * * ?")//6時間ごと
 public class GetWeatherTask {
 	@Resource
 	public WeatherService weatherService;
@@ -33,66 +33,47 @@ public class GetWeatherTask {
 	private static Logger logger = Logger.getLogger("rootLogger");
 	// タスク処理
 	public void doExecute() {
+		logger.info("タスク開始");
 		weatherList=weatherService.findAllOrderByRegTime();
 		response=new HashMap<String,WeatherDto>();
-//		boolean timeFlg=false;
-//		if(weatherList.size()>0){
-//			//現在時刻-3Hの取得
-//			Calendar cal= Calendar.getInstance();
-//			cal.add(Calendar.HOUR, -6);
-//			Timestamp regtime=weatherList.get(0).regtime;
-//			//System.out.println(cal.getTime());
-//			if(regtime.before(cal.getTime())){
-//			//6時間経過している場合
-//				timeFlg=true;
-//			}else{
-//				//6時間経過していない場合DBから取得
-//				timeFlg=false;
-//			}
-//		}else{
-//			//DBにない場合
-//			timeFlg=true;
-//		}
-//		if(timeFlg){
-			//テーブル全データ削除
-			long t3=System.currentTimeMillis();
-			for(int i=0;i<weatherList.size();i++){
-				weatherService.delete(weatherList.get(i));
+		//テーブル全データ削除
+		long t3=System.currentTimeMillis();
+		for(int i=0;i<weatherList.size();i++){
+			weatherService.delete(weatherList.get(i));
+		}
+		long t4=System.currentTimeMillis();
+		WeatherAction weatherAction =new WeatherAction();
+		response=weatherAction.get();
+		long t5=System.currentTimeMillis();
+		String date="";
+		WeatherDto weatherDto= new WeatherDto();
+		for(Map.Entry<String, WeatherDto> e : response.entrySet()) {
+			date=e.getKey();
+			weatherDto=e.getValue();
+			Weather weatherBean= new Weather();
+			BeanUtil.copyProperties(weatherDto, weatherBean);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			java.util.Date formatDate = null;
+			String todayStr= new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).replaceAll("-", "/");
+			int year=Calendar.getInstance().get(Calendar.YEAR);
+			java.util.Date today=null;
+			try {
+				formatDate = sdf.parse(year+"/"+date);
+				today=sdf.parse(todayStr);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
 			}
-			long t4=System.currentTimeMillis();
-			WeatherAction weatherAction =new WeatherAction();
-			response=weatherAction.get();
-			long t5=System.currentTimeMillis();
-			String date="";
-			WeatherDto weatherDto= new WeatherDto();
-			for(Map.Entry<String, WeatherDto> e : response.entrySet()) {
-				date=e.getKey();
-				weatherDto=e.getValue();
-				Weather weatherBean= new Weather();
-				BeanUtil.copyProperties(weatherDto, weatherBean);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				java.util.Date formatDate = null;
-				String todayStr= new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).replaceAll("-", "/");
-				int year=Calendar.getInstance().get(Calendar.YEAR);
-				java.util.Date today=null;
-				try {
-					formatDate = sdf.parse(year+"/"+date);
-					today=sdf.parse(todayStr);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
-				if(today.compareTo(formatDate)>0){
-					weatherBean.date=Date.valueOf(String.valueOf(year+1)+"-"+date.replaceAll("/", "-"));
-				}else{
-					weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
-				}
-				weatherService.insert(weatherBean);
+			if(today.compareTo(formatDate)>0){
+				weatherBean.date=Date.valueOf(String.valueOf(year+1)+"-"+date.replaceAll("/", "-"));
+			}else{
+				weatherBean.date=Date.valueOf(String.valueOf(year)+"-"+date.replaceAll("/", "-"));
 			}
-			long t6=System.currentTimeMillis();
-			logger.info("天気テーブル全削除:"+(t4-t3));
-			logger.info("天気データ取得:"+(t5-t4));
-			logger.info("天気データinsert:"+(t6-t5));
-
+			weatherService.insert(weatherBean);
+		}
+		long t6=System.currentTimeMillis();
+		logger.info("天気テーブル全削除:"+(t4-t3));
+		logger.info("天気データ取得:"+(t5-t4));
+		logger.info("天気データinsert:"+(t6-t5));
 		logger.info("タスク終了");
 	}
 
