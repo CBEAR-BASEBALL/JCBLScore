@@ -64,6 +64,8 @@ public List<BattingResultDto> slgTop10;
 public List<BattingResultDto> fourBallTop10;
 public List<BattingResultDto> opsTop10;
 public List<BattingResultDto> nsoTop10;
+public List<BattingResultDto> avgHRTop10;
+public List<BattingResultDto> avgRBITop10;
 public Game game;
 public int regAtBats;
 public int regAtPitch;
@@ -71,6 +73,7 @@ public int listSize;
 public List<Game> gameList;
 public double regGameCount;
 public List<GameResultDto> tmpResultList;
+
 
 
 	@Execute(validator = false)
@@ -177,6 +180,12 @@ public List<GameResultDto> tmpResultList;
 		//三振率TOP10
 		nsoTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"not_strike_out desc");
 		nsoTop10=resultLogic.returnNsoTop10(nsoTop10,regAtBats);
+		//本塁打率TOP10
+		avgHRTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"avg_homerun asc");
+		avgHRTop10=resultLogic.returnAvgHRTop10(avgHRTop10,regAtBats);
+		//打点率
+		avgRBITop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"avg_rbi desc");
+		avgRBITop10=resultLogic.returnAvgRBITop10(avgRBITop10,regAtBats);
 		//ノンタイトルの行数を決定
 		if(twobaseTop10.size()>=fourBallTop10.size()){
 			listSize=twobaseTop10.size();

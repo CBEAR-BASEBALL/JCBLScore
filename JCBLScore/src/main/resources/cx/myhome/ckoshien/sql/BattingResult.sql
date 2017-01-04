@@ -13,6 +13,14 @@ SELECT
     WHEN sum(at_bats)/sum(strike_out) is null THEN 0
     WHEN sum(at_bats)/sum(strike_out) is not null THEN sum(at_bats)/sum(strike_out)
   	END as not_strike_out,
+  	CASE
+    WHEN sum(at_bats)/sum(homerun) is null THEN 0
+    WHEN sum(at_bats)/sum(homerun) is not null THEN sum(at_bats)/sum(homerun)
+  	END as avg_homerun,
+  	CASE
+    WHEN sum(rbi)/sum(at_bats) is null THEN 0
+    WHEN sum(rbi)/sum(at_bats) is not null THEN sum(rbi)/sum(at_bats)
+  	END as avg_rbi,
   	sum(tpa) as tpa,
 	sum(at_bats) as at_bats,
 	sum(hit) as hit,

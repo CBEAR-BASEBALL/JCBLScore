@@ -469,6 +469,8 @@
 					<td bgcolor="#006400"><font color="#EEEEEE">最多四球</font></td>
 					<td bgcolor="#006400"><font color="#EEEEEE">OPS</font></td>
 					<td bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">本塁打率<br>(AB/HR)</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">打点率<br>(RBI/AB)</font></td>
 				</tr>
 				<c:forEach var="i" begin="0" end="${listSize-1}">
 				<tr>
@@ -519,6 +521,22 @@
 						</c:when>
 						<c:otherwise>
 							<td>${nsoTop10[i].name}/<fmt:formatNumber value="${nsoTop10[i].notStrikeOut}" pattern="#0.00" /></td>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${avgHRTop10[i].rank==1 }">
+							<td bgcolor="#FC9898">${avgHRTop10[i].name}/<fmt:formatNumber value="${avgHRTop10[i].avgHomerun}" pattern="#0.00" /></td>
+						</c:when>
+						<c:otherwise>
+							<td>${avgHRTop10[i].name}/<fmt:formatNumber value="${avgHRTop10[i].avgHomerun}" pattern="#0.00" /></td>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${avgRBITop10[i].rank==1 }">
+							<td bgcolor="#FC9898">${avgRBITop10[i].name}/<fmt:formatNumber value="${avgRBITop10[i].avgRbi}" pattern="0.000" /></td>
+						</c:when>
+						<c:otherwise>
+							<td>${avgRBITop10[i].name}/<fmt:formatNumber value="${avgRBITop10[i].avgRbi}" pattern="0.000" /></td>
 						</c:otherwise>
 					</c:choose>
 				</tr>

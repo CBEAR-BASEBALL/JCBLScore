@@ -1,10 +1,8 @@
 package cx.myhome.ckoshien.logic;
 
-import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.seasar.framework.beans.util.BeanUtil;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
@@ -27,6 +25,8 @@ public class ResultLogic {
 	public List<BattingResultDto> fourBallTop10;
 	public List<BattingResultDto> opsTop10;
 	public List<BattingResultDto> nsoTop10;
+	public List<BattingResultDto> avgHRTop10;
+	public List<BattingResultDto> avgRBITop10;
 
 	public List<BattingResultDto> returnAverageTop10(List<BattingResultDto> battingResultList,int regAtBats){
 		int j=0;
@@ -343,6 +343,78 @@ public class ResultLogic {
 			}
 		}
 		return nsoTop10;
+	}
+	public List<BattingResultDto> returnAvgHRTop10(List<BattingResultDto> battingResultList,int regAtBats){
+		int j=0;
+		int k=0;
+		avgHRTop10=new ArrayList<BattingResultDto>();
+		for(int i=0;i<battingResultList.size();i++){
+			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
+			if(battingResultList.get(i).tpa>=regAtBats &&battingResultList.get(i).avgHomerun>0){
+				j++;
+				if (i==0){
+					battingResultDto.rank=1;
+				}
+				if (i>=1 && (!battingResultList.get(i-1).avgHomerun.equals(battingResultList.get(i).avgHomerun))){
+					battingResultDto.rank=j;
+					k=j;
+				}
+				if (i>=1 && (battingResultList.get(i-1).avgHomerun.equals(battingResultList.get(i).avgHomerun))){
+					battingResultDto.rank=k;
+					//バグ修正。rank=0となる場合は1位タイなので1を代入。
+					if(k==0){
+						battingResultDto.rank=1;
+					}
+				}
+				//convert2BattingResultDto(battingResultList,i);
+
+				if (battingResultDto.rank==null||battingResultDto.rank<=10){
+					if (k>=11){
+						break;
+					}
+					avgHRTop10.add(battingResultDto);
+				}
+			}
+		}
+		return avgHRTop10;
+	}
+	public List<BattingResultDto> returnAvgRBITop10(List<BattingResultDto> battingResultList,int regAtBats){
+		int j=0;
+		int k=0;
+		avgRBITop10=new ArrayList<BattingResultDto>();
+		for(int i=0;i<battingResultList.size();i++){
+			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
+			if(battingResultList.get(i).tpa>=regAtBats &&battingResultList.get(i).avgRbi>0){
+				j++;
+				if (i==0){
+					battingResultDto.rank=1;
+				}
+				if (i>=1 && (!battingResultList.get(i-1).avgRbi.equals(battingResultList.get(i).avgRbi))){
+					battingResultDto.rank=j;
+					k=j;
+				}
+				if (i>=1 && (battingResultList.get(i-1).avgRbi.equals(battingResultList.get(i).avgRbi))){
+					battingResultDto.rank=k;
+					//バグ修正。rank=0となる場合は1位タイなので1を代入。
+					if(k==0){
+						battingResultDto.rank=1;
+					}
+				}
+				//convert2BattingResultDto(battingResultList,i);
+
+				if (battingResultDto.rank==null||battingResultDto.rank<=10){
+					if (k>=11){
+						break;
+					}
+					avgRBITop10.add(battingResultDto);
+				}
+			}
+		}
+		return avgRBITop10;
 	}
 
 	public List<PitchingResultDto> returnEraTop10(List<PitchingResultDto> pitchingResultList,int regAtPitch){

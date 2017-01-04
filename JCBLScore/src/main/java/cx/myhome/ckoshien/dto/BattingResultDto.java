@@ -24,6 +24,8 @@ public class BattingResultDto implements Serializable {
 	public Double obp;
 
 	public Double notStrikeOut;
+	public Double avgHomerun;
+	public Double avgRbi;
 	public Double rc27;
 
 	public Integer tpa;
