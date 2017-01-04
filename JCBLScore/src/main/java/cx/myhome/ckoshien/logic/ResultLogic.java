@@ -384,6 +384,14 @@ public class ResultLogic {
 		int j=0;
 		int k=0;
 		avgRBITop10=new ArrayList<BattingResultDto>();
+		List<BattingResultDto> list=new ArrayList<BattingResultDto>();
+		//規定打席数でリスト詰め替え
+		for(int i=0;i<battingResultList.size();i++){
+			if(battingResultList.get(i).tpa>=regAtBats){
+				list.add(battingResultList.get(i));
+			}
+		}
+		battingResultList=list;
 		for(int i=0;i<battingResultList.size();i++){
 			battingResultDto=new BattingResultDto();
 			BattingResultDto battingResult = battingResultList.get(i);
@@ -404,7 +412,6 @@ public class ResultLogic {
 						battingResultDto.rank=1;
 					}
 				}
-				//convert2BattingResultDto(battingResultList,i);
 
 				if (battingResultDto.rank==null||battingResultDto.rank<=10){
 					if (k>=11){

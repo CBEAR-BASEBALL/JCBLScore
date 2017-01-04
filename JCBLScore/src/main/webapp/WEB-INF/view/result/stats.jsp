@@ -566,6 +566,8 @@
 		<th>出塁率</th>
 		<th>三振率</th>
 		<th>RC27</th>
+		<th>本塁打率</th>
+		<th>打点率</th>
 
 	</tr>
 	</thead>
@@ -587,6 +589,8 @@
 		<td><fmt:formatNumber value="${battingResultList.obp}" pattern="0.0000" /></td>
 		<td><fmt:formatNumber value="${battingResultList.notStrikeOut}" pattern="#0.00" /></td>
 		<td><fmt:formatNumber value="${battingResultList.rc27}" pattern="#0.00" /></td>
+		<td><fmt:formatNumber value="${battingResultList.avgHomerun}" pattern="#0.00" /></td>
+		<td><fmt:formatNumber value="${battingResultList.avgRbi}" pattern="0.0000" /></td>
 	</tr>
 	</c:forEach>
 	</tbody>
