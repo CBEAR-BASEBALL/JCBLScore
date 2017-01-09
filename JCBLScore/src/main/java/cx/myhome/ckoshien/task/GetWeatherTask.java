@@ -19,7 +19,11 @@ import org.seasar.framework.beans.util.BeanUtil;
 
 import cx.myhome.ckoshien.action.api.v1.WeatherAction;
 import cx.myhome.ckoshien.action.api.v1.WeatherDto;
+import cx.myhome.ckoshien.entity.MSchedule;
+import cx.myhome.ckoshien.entity.TSchedule;
 import cx.myhome.ckoshien.entity.Weather;
+import cx.myhome.ckoshien.service.MScheduleService;
+import cx.myhome.ckoshien.service.TScheduleService;
 import cx.myhome.ckoshien.service.WeatherService;
 
 @Task
@@ -29,11 +33,29 @@ public class GetWeatherTask {
 	public WeatherService weatherService;
 	public List<Weather> weatherList;
 	public HashMap<String,WeatherDto> response;
-
+	private List<MSchedule> oldMScheduleList;
+	private List<TSchedule> oldTScheduleList;
+	@Resource
+	public MScheduleService mScheduleService;
+	@Resource
+	public TScheduleService tScheduleService;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	// タスク処理
 	public void doExecute() {
 		logger.info("タスク開始");
+		//前日までのスケジュール削除
+		long t1 = System.currentTimeMillis();
+		oldMScheduleList=mScheduleService.findOldData();
+		for(int i=0;i<oldMScheduleList.size();i++){
+			oldTScheduleList=tScheduleService.findOldData(oldMScheduleList.get(i).id);
+			for(int j=0;j<oldTScheduleList.size();j++){
+				tScheduleService.delete(oldTScheduleList.get(j));
+			}
+			mScheduleService.delete(oldMScheduleList.get(i));
+		}
+		long t2 = System.currentTimeMillis();
+		logger.info("スケジュール削除処理:"+(t2-t1)+"mS");
+
 		weatherList=weatherService.findAllOrderByRegTime();
 		response=new HashMap<String,WeatherDto>();
 		//テーブル全データ削除

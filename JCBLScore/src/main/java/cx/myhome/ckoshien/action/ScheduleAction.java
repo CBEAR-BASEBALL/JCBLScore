@@ -56,19 +56,19 @@ public class ScheduleAction {
 	@Execute(validator = false)
 	public String index(){
 		//前日までのスケジュール削除
-		long t1 = System.currentTimeMillis();
-		oldMScheduleList=mScheduleService.findOldData();
-		for(int i=0;i<oldMScheduleList.size();i++){
-			oldTScheduleList=tScheduleService.findOldData(oldMScheduleList.get(i).id);
-			for(int j=0;j<oldTScheduleList.size();j++){
-				tScheduleService.delete(oldTScheduleList.get(j));
-			}
-			mScheduleService.delete(oldMScheduleList.get(i));
-		}
-		long t2 = System.currentTimeMillis();
-		if(t2-t1>1000){
-			logger.info("スケジュール削除処理:"+(t2-t1)+"mS");
-		}
+//		long t1 = System.currentTimeMillis();
+//		oldMScheduleList=mScheduleService.findOldData();
+//		for(int i=0;i<oldMScheduleList.size();i++){
+//			oldTScheduleList=tScheduleService.findOldData(oldMScheduleList.get(i).id);
+//			for(int j=0;j<oldTScheduleList.size();j++){
+//				tScheduleService.delete(oldTScheduleList.get(j));
+//			}
+//			mScheduleService.delete(oldMScheduleList.get(i));
+//		}
+//		long t2 = System.currentTimeMillis();
+//		if(t2-t1>1000){
+//			logger.info("スケジュール削除処理:"+(t2-t1)+"mS");
+//		}
 
 		mScheduleList=mScheduleService.findAllOrderById();
 		response=new HashMap<String,WeatherDto>();
