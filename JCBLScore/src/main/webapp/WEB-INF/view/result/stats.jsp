@@ -104,7 +104,7 @@
 			<th>四球</th>
 			<th>三振</th>
 			<th>二塁打</th>
-			<th>打率</th>
+			<th>&nbsp;打率</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -120,7 +120,7 @@
 			<td align="right">${averageTop10.fourBall}</td>
 			<td align="right">${averageTop10.strikeOut}</td>
 			<td align="right">${averageTop10.twobase}</td>
-			<td bgcolor="#FC9898"><fmt:formatNumber value="${averageTop10.average}" pattern="0.0000" /></td>
+			<td bgcolor="#FC9898">&nbsp;<fmt:formatNumber value="${averageTop10.average}" pattern="0.0000" /></td>
 		</tr>
 		</c:forEach>
 		</tbody>
@@ -148,7 +148,7 @@
 			<th>四球</th>
 			<th>三振</th>
 			<th>二塁打</th>
-			<th>打率</th>
+			<th>&nbsp;打率</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -164,7 +164,7 @@
 			<td align="right">${homerunTop10.fourBall}</td>
 			<td align="right">${homerunTop10.strikeOut}</td>
 			<td align="right">${homerunTop10.twobase}</td>
-			<td><fmt:formatNumber value="${homerunTop10.average}" pattern="0.0000" /></td>
+			<td>&nbsp;<fmt:formatNumber value="${homerunTop10.average}" pattern="0.0000" /></td>
 		</tr>
 		</c:forEach>
 		</tbody>
@@ -192,7 +192,7 @@
 			<th>四球</th>
 			<th>三振</th>
 			<th>二塁打</th>
-			<th>打率</th>
+			<th>&nbsp;打率</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -208,7 +208,7 @@
 			<td align="right">${rbiTop10.fourBall}</td>
 			<td align="right">${rbiTop10.strikeOut}</td>
 			<td align="right">${rbiTop10.twobase}</td>
-			<td><fmt:formatNumber value="${rbiTop10.average}" pattern="0.0000" /></td>
+			<td>&nbsp;<fmt:formatNumber value="${rbiTop10.average}" pattern="0.0000" /></td>
 		</tr>
 		</c:forEach>
 		</tbody>
@@ -236,7 +236,7 @@
 			<th>四球</th>
 			<th>三振</th>
 			<th>二塁打</th>
-			<th>打率</th>
+			<th>&nbsp;打率</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -252,7 +252,7 @@
 			<td align="right">${hitTop10.fourBall}</td>
 			<td align="right">${hitTop10.strikeOut}</td>
 			<td align="right">${hitTop10.twobase}</td>
-			<td><fmt:formatNumber value="${hitTop10.average}" pattern="0.0000" /></td>
+			<td>&nbsp;<fmt:formatNumber value="${hitTop10.average}" pattern="0.0000" /></td>
 		</tr>
 		</c:forEach>
 		</tbody>
