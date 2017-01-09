@@ -2,6 +2,9 @@
 <html>
 <head>
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
+	<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
+	<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
+	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
 </head>
 <body>
 <table border=1>

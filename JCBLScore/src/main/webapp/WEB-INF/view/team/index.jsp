@@ -1,5 +1,12 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
+<head>
+<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
+<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
+<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
+<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
+<title>チーム一覧</title>
+</head>
 <body>
 <h1>チーム一覧</h1>
 <table border=1>
