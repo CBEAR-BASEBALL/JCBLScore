@@ -54,8 +54,9 @@ public class GetWeatherTask {
 			mScheduleService.delete(oldMScheduleList.get(i));
 		}
 		long t2 = System.currentTimeMillis();
-		logger.info("スケジュール削除処理:"+(t2-t1)+"mS");
-
+		if(oldMScheduleList.size()>0){
+			logger.info("スケジュール削除処理:"+(t2-t1)+"mS");
+		}
 		weatherList=weatherService.findAllOrderByRegTime();
 		response=new HashMap<String,WeatherDto>();
 		//テーブル全データ削除
