@@ -9,14 +9,16 @@ import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
 import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import cx.myhome.ckoshien.entity.TScheduleNames._TScheduleNames;
+import cx.myhome.ckoshien.entity.TeamHistoryNames._TeamHistoryNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
+import cx.myhome.ckoshien.entity.WeatherNames._WeatherNames;
 import javax.annotation.Generated;
 
 /**
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2016/08/24 0:03:18")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2016/12/03 21:18:45")
 public class Names {
 
     /**
@@ -101,11 +103,29 @@ public class Names {
     }
 
     /**
+     * {@link TeamHistory}の名前クラスを返します。
+     * 
+     * @return TeamHistoryの名前クラス
+     */
+    public static _TeamHistoryNames teamHistory() {
+        return new _TeamHistoryNames();
+    }
+
+    /**
      * {@link TSchedule}の名前クラスを返します。
      * 
      * @return TScheduleの名前クラス
      */
     public static _TScheduleNames tSchedule() {
         return new _TScheduleNames();
+    }
+
+    /**
+     * {@link Weather}の名前クラスを返します。
+     * 
+     * @return Weatherの名前クラス
+     */
+    public static _WeatherNames weather() {
+        return new _WeatherNames();
     }
 }
