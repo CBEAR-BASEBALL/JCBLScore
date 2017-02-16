@@ -172,7 +172,7 @@
 	</c:forEach>
 </table>
 <hr>
-<h2>先攻投手成績</h2>
+<h2>後攻投手成績</h2>
 <table border=1>
 	<tr>
 		<th>勝敗S</th>
