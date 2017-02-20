@@ -154,7 +154,7 @@ public List<GameResultDto> tmpResultList;
 		//防御率TOP10
 		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
 		//勝利数TOP10
-		winTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"win desc");
+		winTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"win desc,era asc");
 		winTop10=resultLogic.returnWinTop10(winTop10);
 		//セーブTOP10
 		saveTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"save desc,era asc");

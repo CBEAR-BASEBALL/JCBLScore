@@ -1,5 +1,13 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
+<head>
+	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
+	<link rel="stylesheet" href="${f:url('/css/jquery-ui.css') }" type="text/css" media="print, projection, screen"/>
+	<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
+	<script type="text/javascript" src="${f:url('/js/jquery-latest.js') }"></script>
+	<script type="text/javascript" src="${f:url('/js/jquery-ui.js') }"></script>
+	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
+</head>
 <body>
 <s:form>
 	<s:submit property="create" value="新規作成"/>
