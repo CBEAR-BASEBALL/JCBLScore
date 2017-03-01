@@ -143,13 +143,13 @@ public List<GameResultDto> tmpResultList;
 		//打率TOP10
 		averageTop10=resultLogic.returnAverageTop10(battingResultList,regAtBats);
 		//HRTOP10
-		homerunTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"homerun desc");
+		homerunTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"homerun desc,average desc");
 		homerunTop10=resultLogic.returnHomerunTop10(homerunTop10);
 		//打点TOP10
-		rbiTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"rbi desc");
+		rbiTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"rbi desc,average desc");
 		rbiTop10=resultLogic.returnRbiTop10(rbiTop10);
 		//安打数TOP10
-		hitTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"hit desc");
+		hitTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"hit desc,average desc");
 		hitTop10=resultLogic.returnHitTop10(hitTop10);
 		//防御率TOP10
 		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
