@@ -515,7 +515,7 @@ public class ResultLogic {
 					pitchingResultDto.rank=1;
 				}
 				if (i>=1&&!(pitchingResultList.get(i-1).win.equals(pitchingResultList.get(i).win))){
-					System.out.println(pitchingResultList.get(i-1).win+","+pitchingResultList.get(i).win);
+					//System.out.println(pitchingResultList.get(i-1).win+","+pitchingResultList.get(i).win);
 					pitchingResultDto.rank=j;
 					k=j;
 				}
