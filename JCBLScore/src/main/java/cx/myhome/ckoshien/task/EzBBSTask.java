@@ -24,7 +24,7 @@ import org.seasar.chronos.core.annotation.trigger.NonDelayTrigger;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
-@CronTrigger(expression = "0 30 */1 * * ?")
+@CronTrigger(expression = "0 30 */3 * * ?")
 //@NonDelayTrigger
 public class EzBBSTask {
 	public static String filepath="../tomcat6.0/logs/jcbl/ezbbs.txt";

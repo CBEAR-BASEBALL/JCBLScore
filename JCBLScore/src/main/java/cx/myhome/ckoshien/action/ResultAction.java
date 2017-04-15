@@ -1,10 +1,8 @@
 package cx.myhome.ckoshien.action;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +25,6 @@ import cx.myhome.ckoshien.service.GameService;
 import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.ResultService;
-import cx.myhome.ckoshien.util.HomerunComparator;
-import cx.myhome.ckoshien.util.RbiComparator;
 
 public class ResultAction {
 

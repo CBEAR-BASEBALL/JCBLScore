@@ -7,7 +7,7 @@
 	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
 </head>
 <body>
-<fmt:formatDate value="${game.gameDate}"pattern="yyyy年MM月dd日"/>
+<fmt:formatDate value="${game.gameDate}" pattern="yyyy年MM月dd日"/>
 第${game.gameNumber}試合
 <hr>
 <table border=1 width="50%">
