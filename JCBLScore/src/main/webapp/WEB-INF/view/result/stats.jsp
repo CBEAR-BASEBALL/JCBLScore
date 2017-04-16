@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8"%>
 <html>
 <head>
+	<link rel="icon" href="${f:url('/favicon.ico') }" type="image/vnd.microsoft.icon">
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
 	<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
 	<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
@@ -576,7 +577,7 @@
 	<tbody>
 	<c:forEach var="battingResultList" items="${battingResultList}">
 	<tr>
-		<td><img width="13" height="13" src="${f:url('/img/') }${battingResultList.teamId}.jpg" title="${battingResultList.teamName}"><a href="${f:url('/player/show/') }${battingResultList.playerId}">${battingResultList.name}</a></td>
+		<td><img width="13" height="13" src="${f:url('/img/') }${battingResultList.teamId}.jpg" title="${battingResultList.teamName}"><a href="${f:url('/player/show/') }${battingResultList.playerId}" class="btn btn-default btn-xs">${battingResultList.name}</a></td>
 		<td align="right">${battingResultList.tpa}</td>
 		<td align="right">${battingResultList.atBats}</td>
 		<td align="right">${battingResultList.hit}</td>
@@ -624,7 +625,7 @@
 	<tbody>
 	<c:forEach var="pitchingResultList" items="${pitchingResultList}">
 	<tr>
-		<td><img width="13" height="13" src="${f:url('/img/') }${pitchingResultList.teamId}.jpg" title="${pitchingResultList.teamName}"><a href="${f:url('/player/show/') }${pitchingResultList.playerId}">${pitchingResultList.name}</a></td>
+		<td><img width="13" height="13" src="${f:url('/img/') }${pitchingResultList.teamId}.jpg" title="${pitchingResultList.teamName}"><a href="${f:url('/player/show/') }${pitchingResultList.playerId}" class="btn btn-default btn-xs">${pitchingResultList.name}</a></td>
 		<td align="right">${pitchingResultList.gameCount}</td>
 		<td align="right"><fmt:formatNumber value="${pitchingResultList.inning}" pattern="#0.##" /></td>
 		<td align="right">${pitchingResultList.hit}</td>
