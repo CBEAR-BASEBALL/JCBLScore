@@ -19,6 +19,7 @@ import cx.myhome.ckoshien.rest.SlackLogger;
 import cx.myhome.ckoshien.service.MScheduleService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TScheduleService;
+import cx.myhome.ckoshien.util.MemoryUtil;
 
 public class PlanAction {
 
@@ -33,7 +34,7 @@ public class PlanAction {
 	@Resource
 	public PlayerService playerService;
 	public List<PlayerDto> playerList;
-	public TSchedule tSchedule;
+	//public TSchedule tSchedule;
 	@Resource
 	protected HttpServletRequest request;
 	@Resource
@@ -56,7 +57,7 @@ public class PlanAction {
 		if(list.size()==0){
 			for(int i=0;i<mScheduleList.size();i++){
 				if(!planForm.getPlans().get(i).equals("")){
-					tSchedule = new TSchedule();
+					TSchedule tSchedule = new TSchedule();
 					tSchedule.mstId=mScheduleList.get(i).id;
 					tSchedule.plans=Integer.parseInt(planForm.getPlans().get(i));
 					tSchedule.playerId=Integer.parseInt(planForm.getId());
@@ -71,6 +72,7 @@ public class PlanAction {
 		logger.info(request.getRemoteHost());
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を入力しました。");
+		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 	}
 
@@ -104,7 +106,7 @@ public class PlanAction {
 		}
 		for(int i=0;i<mScheduleList.size();i++){
 			if(!planForm.getPlans().get(i).equals("")){
-				tSchedule = new TSchedule();
+				TSchedule tSchedule = new TSchedule();
 				tSchedule.mstId=mScheduleList.get(i).id;
 				tSchedule.plans=Integer.parseInt(planForm.getPlans().get(i));
 				tSchedule.playerId=Integer.parseInt(planForm.getId());
@@ -117,6 +119,7 @@ public class PlanAction {
 		logger.info(request.getRemoteHost());
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を変更しました");
+		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 
 	}

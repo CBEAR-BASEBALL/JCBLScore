@@ -25,6 +25,7 @@ import cx.myhome.ckoshien.service.GameService;
 import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.ResultService;
+import cx.myhome.ckoshien.util.MemoryUtil;
 
 public class ResultAction {
 
@@ -361,6 +362,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		if(listSize<=10){
 			listSize=10;
 		}
+		MemoryUtil.viewMemoryInfo();
 		return "stats.jsp";
 	}
 }

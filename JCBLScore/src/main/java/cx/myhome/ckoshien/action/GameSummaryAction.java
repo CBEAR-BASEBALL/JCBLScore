@@ -29,6 +29,7 @@ import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.ResultService;
 import cx.myhome.ckoshien.service.TeamService;
+import cx.myhome.ckoshien.util.MemoryUtil;
 
 public class GameSummaryAction {
 
@@ -48,7 +49,7 @@ public BattingSumForm battingSumForm;
 public BattingSum battingSum;
 @Resource
 public BattingSumService battingSumService;
-public GameSummaryLogic logic;
+//public GameSummaryLogic logic;
 public List<BattingSum> firstBattingSumList;
 public List<BattingSum> lastBattingSumList;
 public int gameId;
@@ -64,27 +65,28 @@ public List<BattingSum> battingSumList;
 public List<BattingResultDto> battingResultList;
 @Resource
 public ResultService resultService;
-public Result result;
-public Result result2;
+//public Result result;
+//public Result result2;
 @Resource
 public LeagueService leagueService;
 public List<League> leagueList;
-public Date gameDate;
+//private Date gameDate;
 public List<GameListDto> gameListDtos;
 public Integer leagueId;
 public League league;
 public Team firstTeam;
 public Team lastTeam;
 public GameListDto gameListDto;
-public Integer winnerId;
-public Integer loserId;
-public Integer saverId;
+//public Integer winnerId;
+//public Integer loserId;
+//public Integer saverId;
 
 	@Execute(validator = false)
 	public String index(){
 		gameListDtos=gameService.findAllGroupByGameDate();
-		logic=new GameSummaryLogic();
+		GameSummaryLogic logic=new GameSummaryLogic();
 		gameListDtos=logic.convert2GameList(gameListDtos);
+		MemoryUtil.viewMemoryInfo();
 		return "index.jsp";
 	}
 
@@ -130,7 +132,7 @@ public Integer saverId;
 			battingSum=new BattingSum();
 			if (!battingSumForm.playerId.get(i).equals("")||!battingSumForm.tpa.get(i).equals("")){
 				battingSum.gameId=game.gameId;
-				logic=new GameSummaryLogic();
+				GameSummaryLogic logic=new GameSummaryLogic();
 				battingSum=logic.convert2BattingSum(battingSumForm, battingSum, playerList,i);
 				if (battingSumForm.myTeamId.get(i).equals("0")){
 					//先攻の場合先攻チームIDを代入
@@ -145,7 +147,7 @@ public Integer saverId;
 		for(int i=0;i<gameSummaryForm.p_playerId.size();i++){
 			pitching=new Pitching();
 			if(!gameSummaryForm.p_playerId.get(i).equals("")){
-				logic=new GameSummaryLogic();
+				GameSummaryLogic logic=new GameSummaryLogic();
 				pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
 
 				if(gameSummaryForm.p_myTeamId.get(i).equals("0")){
@@ -164,8 +166,8 @@ public Integer saverId;
 			}
 		}
 		//resultテーブルinsert
-		result=new Result();
-		result2=new Result();
+		Result result=new Result();
+		Result result2=new Result();
 		result.gameId=game.gameId;
 		result2.gameId=game.gameId;
 		result.teamId=game.firstTeam;
@@ -198,6 +200,7 @@ public Integer saverId;
 		result2.leagueId=game.leagueId;
 		resultService.insert(result);
 		resultService.insert(result2);
+		MemoryUtil.viewMemoryInfo();
 		return "index&redirect=true";
 	}
 
@@ -229,8 +232,9 @@ public Integer saverId;
 		lastPitchingList=pitchingService.findByGameId(gameId,game.lastTeam);
 		firstBattingSumList=battingSumService.findByGameId(gameId,game.firstTeam);
 		lastBattingSumList=battingSumService.findByGameId(gameId,game.lastTeam);
-		logic= new GameSummaryLogic();
+		GameSummaryLogic logic= new GameSummaryLogic();
 		gameSummaryForm=logic.convert2GameSummary(game,firstBattingSumList,lastBattingSumList,gameSummaryForm,firstPitchingList,lastPitchingList);
+		MemoryUtil.viewMemoryInfo();
 		return "edit.jsp";
 	}
 
@@ -272,7 +276,7 @@ public Integer saverId;
 			battingSum=new BattingSum();
 			if (!battingSumForm.playerId.get(i).equals("")||!battingSumForm.tpa.get(i).equals("")){
 				battingSum.gameId=game.gameId;
-				logic=new GameSummaryLogic();
+				GameSummaryLogic logic=new GameSummaryLogic();
 				battingSum=logic.convert2BattingSum(battingSumForm, battingSum, playerList,i);
 				if (battingSumForm.myTeamId.get(i).equals("0")){
 					//先攻の場合先攻チームIDを代入
@@ -293,7 +297,7 @@ public Integer saverId;
 			if(!gameSummaryForm.p_playerId.get(i).equals("")){
 				pitching=pitchingService.findById(Integer.parseInt(gameSummaryForm.p_playerId.get(i)));
 				pitching=new Pitching();
-				logic=new GameSummaryLogic();
+				GameSummaryLogic logic=new GameSummaryLogic();
 				pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
 				for(int j=0;j<playerList.size();j++){
 					if(playerList.get(j).id.equals(pitching.playerId)){
@@ -306,8 +310,8 @@ public Integer saverId;
 			}
 		}
 		//resultテーブルupdate
-		result=new Result();
-		result2=new Result();
+		Result result=new Result();
+		Result result2=new Result();
 		result.id=resultService.findById(game.firstTeam,game.gameId).id;
 		result2.id=resultService.findById(game.lastTeam,game.gameId).id;
 		result.gameId=game.gameId;
@@ -342,13 +346,14 @@ public Integer saverId;
 		result2.leagueId=game.leagueId;
 		resultService.update(result);
 		resultService.update(result2);
+		MemoryUtil.viewMemoryInfo();
 		return "";
 	}
 
 	@Execute(urlPattern="date/{id}",validator=false)
 	public String date(){
 		gameId=Integer.parseInt(gameSummaryForm.id);
-		gameDate=gameService.findById(gameId).gameDate;
+		Date gameDate=gameService.findById(gameId).gameDate;
 		gameList=gameService.findByDateOrderByDate(gameDate);
 		league=leagueService.findIdByDate(gameDate);
 		gameListDtos=new ArrayList<GameListDto>();
@@ -366,9 +371,9 @@ public Integer saverId;
 			//引き分けの場合勝敗なし
 			if(game.firstRun!=game.lastRun){
 				pitchingList=pitchingService.findByGameIdAll(game.gameId);
-				winnerId=null;
-				loserId=null;
-				saverId=null;
+				Integer winnerId=null;
+				Integer loserId=null;
+				Integer saverId=null;
 				for(int j=0;j<pitchingList.size();j++){
 					if(pitchingList.get(j).win==1){
 						winnerId=pitchingList.get(j).playerId;
@@ -390,6 +395,7 @@ public Integer saverId;
 			}
 			gameListDtos.add(gameListDto);
 		}
+		MemoryUtil.viewMemoryInfo();
 		return "index2.jsp";
 	}
 

@@ -32,8 +32,8 @@ public class TeamAction {
 	public LeagueService leagueService;
 	public List<Team> teamList;
 
-	public Team team;
-	public League league;
+	//private Team team;
+	//private League league;
 
 	@Resource
 	public BattingSumService battingSumService;
@@ -61,7 +61,7 @@ public class TeamAction {
 	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = true,input="create.jsp")
 	public String createComplete(){
-		team = Beans.createAndCopy(Team.class, teamForm).execute();
+		Team team = Beans.createAndCopy(Team.class, teamForm).execute();
 		team.jcblFlg=0;
 		teamService.insert(team);
         return "createComplete.jsp";
@@ -71,7 +71,7 @@ public class TeamAction {
 	@Execute(urlPattern="update/{teamId}",validator = false)
 	public String update(){
 		teamList=teamService.findAllOrderById();
-		team=teamService.findById(Integer.parseInt(teamForm.teamId));
+		Team team=teamService.findById(Integer.parseInt(teamForm.teamId));
 		Beans.copy(team, teamForm).execute();
 		return "update.jsp";
 	}
@@ -79,7 +79,7 @@ public class TeamAction {
 	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = false,input="update/{id}",stopOnValidationError=false)
 	public String updateComplete(){
-		team=teamService.findById(Integer.parseInt(teamForm.teamId));
+		Team team=teamService.findById(Integer.parseInt(teamForm.teamId));
 		Beans.copy(teamForm, team).execute();
 		teamService.update(team);
         return "index&redirect=true";
@@ -87,6 +87,7 @@ public class TeamAction {
 
 	@Execute(urlPattern="batting/{teamId}/{leagueId}",validator = false)
 	public String batting(){
+		League league;
 		if(teamForm.leagueId==null){
 			teamForm.leagueId=leagueService.findTotal().get(0).id.toString();
 		}
@@ -103,6 +104,7 @@ public class TeamAction {
 
 	@Execute(urlPattern="pitching/{teamId}/{leagueId}",validator = false)
 	public String pitching(){
+		League league;
 		if(teamForm.leagueId==null){
 			teamForm.leagueId=leagueService.findTotal().get(0).id.toString();
 		}

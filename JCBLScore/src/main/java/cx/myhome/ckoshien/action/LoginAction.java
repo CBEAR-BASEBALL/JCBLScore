@@ -32,7 +32,7 @@ public class LoginAction {
 	@Resource
 	protected PlayerService playerService;
 
-	public Player player;
+	//public Player player;
 
 
 	static Logger logger = Logger.getLogger("rootLogger");
@@ -46,7 +46,7 @@ public class LoginAction {
 	public String login() {
 		// セッションへの保存処理
 		// userDtoに値を入れるだけでSessionに保存される
-		player = playerService.findByLoginId(playerForm.loginId);
+		Player player = playerService.findByLoginId(playerForm.loginId);
         //Beans.copy(user, userForm).execute();
 		Beans.copy(player, this.loginUserDto).execute();
 		return "../redirect=true";
@@ -65,7 +65,7 @@ public class LoginAction {
 		}
 
 		//パスワード照合エラー
-		player = playerService.findByLoginId(playerForm.loginId);
+		Player player = playerService.findByLoginId(playerForm.loginId);
 		logger.info("IP:"+request.getRemoteAddr());
 		logger.info("ポート:"+request.getRemotePort());
 		logger.info(request.getRemoteHost());

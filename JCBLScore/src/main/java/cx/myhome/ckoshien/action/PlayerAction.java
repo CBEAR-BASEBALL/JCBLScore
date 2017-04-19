@@ -24,6 +24,7 @@ import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TeamService;
+import cx.myhome.ckoshien.util.MemoryUtil;
 
 
 
@@ -117,6 +118,7 @@ public class PlayerAction {
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
+		MemoryUtil.viewMemoryInfo();
 		return "result.jsp";
 	}
 
