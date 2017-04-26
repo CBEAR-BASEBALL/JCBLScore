@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.util.TokenProcessor;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.util.RequestUtil;
+
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.MSchedule;
 import cx.myhome.ckoshien.entity.Player;
@@ -46,11 +49,17 @@ public class PlanAction {
 	public String create(){
 		mScheduleList=mScheduleService.findAllOrderByDate();
 		playerList=playerService.findPlayerHasNoPlan();
+		//トークンを設定する
+		TokenProcessor.getInstance().saveToken(RequestUtil.getRequest());
 		return "create.jsp";
 	}
 
 	@Execute(validator=true,input="create",stopOnValidationError=false)
 	public String createComplete(){
+		if (!TokenProcessor.getInstance().isTokenValid(RequestUtil.getRequest(), true)) {
+			//不正なトークンの場合。エラー画面を表示
+			return "twice.jsp";
+		}
 		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
 		mScheduleList=mScheduleService.findAllOrderByDate();
 		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
@@ -92,12 +101,18 @@ public class PlanAction {
 			}
 		}
 		planForm.setPlans(plans);
+		//トークンを設定する
+		TokenProcessor.getInstance().saveToken(RequestUtil.getRequest());
 		return "update.jsp";
 
 	}
 
 	@Execute(validator=false)
 	public String updateComplete(){
+		if (!TokenProcessor.getInstance().isTokenValid(RequestUtil.getRequest(), true)) {
+			//不正なトークンの場合。エラー画面を表示
+			return "twice.jsp";
+		}
 		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
 		mScheduleList=mScheduleService.findAllOrderByDate();
 		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));

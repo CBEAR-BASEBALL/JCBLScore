@@ -30,29 +30,29 @@ import cx.myhome.ckoshien.util.MemoryUtil;
 public class ResultAction {
 
 @Resource
-public LeagueService leagueService;
+protected LeagueService leagueService;
 public List<League> leagueList;
 @Resource
 @ActionForm
-public ResultForm resultForm;
+protected ResultForm resultForm;
 public League league;
 @Resource
-public BattingSumService battingSumService;
+protected BattingSumService battingSumService;
 public List<BattingResultDto> battingResultList;
 @Resource
-public PitchingService pitchingService;
+protected PitchingService pitchingService;
 public List<PitchingResultDto> pitchingResultList;
 public List<GameResultDto> resultList;
 @Resource
-public ResultService resultService;
+protected ResultService resultService;
 @Resource
-public GameService gameService;
+protected GameService gameService;
 public int length;
 public List<GameResultDto> opponentList;
 public List<GameResultDto> resultList2;
 public List<BattingResultDto> averageTop10;
 public List<BattingResultDto> homerunTop10;
-public ResultLogic resultLogic;
+//public ResultLogic resultLogic;
 public List<BattingResultDto> rbiTop10;
 public List<BattingResultDto> hitTop10;
 public List<PitchingResultDto> eraTop10;
@@ -72,10 +72,10 @@ public int regAtBats;
 public int regAtPitch;
 public int listSize;
 public List<Game> gameList;
-public double regGameCount;
+//public double regGameCount;
 public List<GameResultDto> tmpResultList;
 @Resource
-public HttpServletRequest request;
+protected HttpServletRequest request;
 private static Logger logger = Logger.getLogger("rootLogger");
 
 
@@ -118,7 +118,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		gameList=gameService.findByPeriod(league.beginDate, league.endDate);
 		regAtBats=0;
 		regAtPitch=0;
-		regGameCount=0;
+		double regGameCount=0;
 		Date today = new Date();
 		if (gameList.size()>0){
 			game=gameList.get(0);
@@ -161,7 +161,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		resultList2=resultList;
 		length=resultList.size();
-		resultLogic=new ResultLogic();
+		ResultLogic resultLogic=new ResultLogic();
 		long t1=System.currentTimeMillis();
 		//打率TOP10
 		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
@@ -330,7 +330,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		avgHRTop10=new ArrayList<BattingResultDto>(battingResultList);
 		for(int i=0;i<avgHRTop10.size();i++){
 			for(int j=0;j<avgHRTop10.size();j++){
-				if(avgHRTop10.get(i).avgHomerun>avgHRTop10.get(j).avgHomerun){
+				if(avgHRTop10.get(i).avgHomerun<avgHRTop10.get(j).avgHomerun){
 					BattingResultDto brd=avgHRTop10.get(i);
 					avgHRTop10.set(i, avgHRTop10.get(j));
 					avgHRTop10.set(j,brd);
@@ -362,6 +362,9 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		if(listSize<=10){
 			listSize=10;
 		}
+		request=null;
+		resultLogic=null;
+		tmpResultList=null;
 		MemoryUtil.viewMemoryInfo();
 		return "stats.jsp";
 	}

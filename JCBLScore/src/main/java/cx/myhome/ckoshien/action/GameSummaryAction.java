@@ -35,51 +35,44 @@ public class GameSummaryAction {
 
 @Resource
 @ActionForm
-public GameSummaryForm gameSummaryForm;
+protected GameSummaryForm gameSummaryForm;
 @Resource
-public TeamService teamService;
+protected TeamService teamService;
 @Resource
-public PlayerService playerService;
+protected PlayerService playerService;
 public List<Team> teamList;
 public List<PlayerDto> playerList;
 @Resource
-public GameService gameService;
+protected GameService gameService;
 public Game game;
-public BattingSumForm battingSumForm;
+protected BattingSumForm battingSumForm;
 public BattingSum battingSum;
 @Resource
-public BattingSumService battingSumService;
-//public GameSummaryLogic logic;
+protected BattingSumService battingSumService;
+
 public List<BattingSum> firstBattingSumList;
 public List<BattingSum> lastBattingSumList;
 public int gameId;
 public String id;
 public List<Game> gameList;
-public Pitching pitching;
 @Resource
-public PitchingService pitchingService;
+protected PitchingService pitchingService;
 public List<Pitching> firstPitchingList;
 public List<Pitching> lastPitchingList;
 public List<Pitching> pitchingList;
 public List<BattingSum> battingSumList;
 public List<BattingResultDto> battingResultList;
 @Resource
-public ResultService resultService;
-//public Result result;
-//public Result result2;
+protected ResultService resultService;
 @Resource
-public LeagueService leagueService;
+protected LeagueService leagueService;
 public List<League> leagueList;
-//private Date gameDate;
 public List<GameListDto> gameListDtos;
 public Integer leagueId;
 public League league;
 public Team firstTeam;
 public Team lastTeam;
-public GameListDto gameListDto;
-//public Integer winnerId;
-//public Integer loserId;
-//public Integer saverId;
+//public GameListDto gameListDto;
 
 	@Execute(validator = false)
 	public String index(){
@@ -145,7 +138,7 @@ public GameListDto gameListDto;
 			}
 		}
 		for(int i=0;i<gameSummaryForm.p_playerId.size();i++){
-			pitching=new Pitching();
+			Pitching pitching=new Pitching();
 			if(!gameSummaryForm.p_playerId.get(i).equals("")){
 				GameSummaryLogic logic=new GameSummaryLogic();
 				pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
@@ -295,7 +288,7 @@ public GameListDto gameListDto;
 		}
 		for(int i=0;i<gameSummaryForm.p_playerId.size();i++){
 			if(!gameSummaryForm.p_playerId.get(i).equals("")){
-				pitching=pitchingService.findById(Integer.parseInt(gameSummaryForm.p_playerId.get(i)));
+				Pitching pitching=pitchingService.findById(Integer.parseInt(gameSummaryForm.p_playerId.get(i)));
 				pitching=new Pitching();
 				GameSummaryLogic logic=new GameSummaryLogic();
 				pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
@@ -358,7 +351,7 @@ public GameListDto gameListDto;
 		league=leagueService.findIdByDate(gameDate);
 		gameListDtos=new ArrayList<GameListDto>();
 		for(int i=0;i<gameList.size();i++){
-			gameListDto=new GameListDto();
+			GameListDto gameListDto=new GameListDto();
 			game=gameList.get(i);
 			gameListDto = Beans.createAndCopy(GameListDto.class, game).execute();
 			//通算本塁打数
