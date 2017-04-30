@@ -24,37 +24,32 @@ import cx.myhome.ckoshien.service.MScheduleService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TScheduleService;
 import cx.myhome.ckoshien.service.WeatherService;
+import cx.myhome.ckoshien.util.MemoryUtil;
 
 public class ScheduleAction {
 	@Resource
-	public MScheduleService mScheduleService;
+	protected MScheduleService mScheduleService;
 	@Resource
-	public TScheduleService tScheduleService;
+	protected TScheduleService tScheduleService;
 	@Resource
-	public PlayerService playerService;
+	protected PlayerService playerService;
 	@Resource
-	public WeatherService weatherService;
+	protected WeatherService weatherService;
 	public List<MSchedule> mScheduleList;
-	//public WeatherAction weatherAction;
-	//public HashMap<String,WeatherDto> response;
-	//public WeatherDto weatherDto;
+
 	public List<ScheduleDto> scheduleList;
-	//public ScheduleDto scheduleDto;
 	public List<PlanDto> planList;
 	public List<PlayerDto> playerList;
-	//public String htmlStr;
 	public List<Weather> weatherList;
 	@Resource
 	@ActionForm
-	public ScheduleForm scheduleForm;
-	//private MSchedule mSchedule;
+	private ScheduleForm scheduleForm;
 	public Timestamp timestamp;
-	static Logger logger = Logger.getLogger("rootLogger");
+	private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
 	public String index(){
 		mScheduleList=mScheduleService.findAllOrderById();
-		//HashMap<String,WeatherDto> response=new HashMap<String,WeatherDto>();
 		weatherList=weatherService.findAllOrderByRegTime();
 		scheduleList= mScheduleService.findScheduleList();
 		planList=mScheduleService.findAllPlan();
@@ -62,6 +57,11 @@ public class ScheduleAction {
 		if(scheduleList.size()!=0){
 			timestamp=scheduleList.get(0).getRegtime();
 		}
+		mScheduleService=null;
+		weatherService=null;
+		playerService=null;
+		logger.info("/schedule");
+		MemoryUtil.viewMemoryInfo();
 		return "index.jsp";
 	}
 
