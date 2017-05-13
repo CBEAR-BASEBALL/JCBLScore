@@ -1,10 +1,14 @@
 package cx.myhome.ckoshien.action;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.seasar.framework.container.annotation.tiger.Aspect;
@@ -36,6 +40,10 @@ public class ScheduleAction {
 	@Resource
 	protected WeatherService weatherService;
 	public List<MSchedule> mScheduleList;
+	@Resource
+	protected HttpServletRequest request;
+	@Resource
+	protected HttpServletResponse response;
 
 	public List<ScheduleDto> scheduleList;
 	public List<PlanDto> planList;
@@ -49,6 +57,26 @@ public class ScheduleAction {
 
 	@Execute(validator = false)
 	public String index(){
+		try {
+    		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+    		System.out.println(ia.getHostName());
+//    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+//    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+//    				&& !request.getRemoteAddr().startsWith("192.168")
+//    				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")){
+//    			//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//    			try {
+//    				response.sendError(404, "許可されていないドメインです");
+//    			} catch (Exception e) {
+//    				logger.error(e);
+//    			}
+//        		return null;
+//    		}
+    		logger.info(ia.getHostName()+":"+request.getRemotePort());
+    	} catch (UnknownHostException e1) {
+    		e1.printStackTrace();
+    	}
 		mScheduleList=mScheduleService.findAllOrderById();
 		weatherList=weatherService.findAllOrderByRegTime();
 		scheduleList= mScheduleService.findScheduleList();
@@ -60,6 +88,8 @@ public class ScheduleAction {
 		mScheduleService=null;
 		weatherService=null;
 		playerService=null;
+		request=null;
+		response=null;
 		logger.info("/schedule");
 		MemoryUtil.viewMemoryInfo();
 		return "index.jsp";

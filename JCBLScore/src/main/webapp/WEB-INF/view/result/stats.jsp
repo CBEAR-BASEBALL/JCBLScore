@@ -60,7 +60,7 @@
 	<c:forEach var="resultList" items="${resultList}" varStatus="i">
 	<tr>
 		<th>${i.index+1}</th>
-		<td>${resultList.teamName}</td>
+		<td><img width="15" height="15" src="${f:url('/img/') }${resultList.teamId}.jpg">${resultList.teamName}</td>
 		<td>${resultList.gameCount}</td>
 		<td>${resultList.win}</td>
 		<td>${resultList.lose}</td>
