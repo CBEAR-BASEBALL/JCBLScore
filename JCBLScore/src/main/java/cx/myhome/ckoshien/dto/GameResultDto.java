@@ -13,4 +13,6 @@ public class GameResultDto {
 	public Integer points;
 	public Integer leagueId;
 	public Integer opponent;
+	public Double avg;
+	public Double era;
 }

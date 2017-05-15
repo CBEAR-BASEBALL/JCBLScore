@@ -51,6 +51,8 @@
 		<th>引き分け</th>
 		<th>勝率</th>
 		<th>勝ち点</th>
+		<th>打率</th>
+		<th>防御率</th>
 		<c:forEach var="resultList" items="${resultList}" begin="0" end="${length}">
 		<th>対${resultList.shortName}</th>
 		</c:forEach>
@@ -67,6 +69,8 @@
 		<td>${resultList.draw}</td>
 		<td><fmt:formatNumber value="${resultList.percentage}" pattern="0.000" /></td>
 		<td>${resultList.points}</td>
+		<td><fmt:formatNumber value="${resultList.avg}" pattern="0.000" /></td>
+		<td><fmt:formatNumber value="${resultList.era}" pattern="0.00" /></td>
 		<c:forEach var="resultList2" items="${resultList2}" begin="0" end="${length}">
 			<td>
 			<c:forEach var="opponentList" items="${opponentList}">

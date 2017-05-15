@@ -73,7 +73,7 @@ public int regAtPitch;
 public int listSize;
 public List<Game> gameList;
 //public double regGameCount;
-public List<GameResultDto> tmpResultList;
+//public List<GameResultDto> tmpResultList;
 @Resource
 protected HttpServletRequest request;
 private static Logger logger = Logger.getLogger("rootLogger");
@@ -150,7 +150,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			}
 		}
 		resultList=resultService.findGameResult(Integer.parseInt(resultForm.id),regGameCount);
-		tmpResultList=resultService.findGameResultByPoints(Integer.parseInt(resultForm.id),regGameCount);
+		List<GameResultDto> tmpResultList = resultService.findGameResultByPoints(Integer.parseInt(resultForm.id),regGameCount);
 		for(int i=0;i<tmpResultList.size();i++){
 			resultList.add(tmpResultList.get(i));
 		}
