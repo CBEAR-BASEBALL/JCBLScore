@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.struts.annotation.ActionForm;
@@ -23,25 +24,26 @@ import cx.myhome.ckoshien.service.TeamService;
 
 public class TeamAction {
 	@Resource
-	public TeamService teamService;
+	protected TeamService teamService;
 	@Resource
 	@ActionForm
 	public TeamForm teamForm;
 
 	@Resource
-	public LeagueService leagueService;
+	protected LeagueService leagueService;
 	public List<Team> teamList;
 
 	//private Team team;
 	//private League league;
 
 	@Resource
-	public BattingSumService battingSumService;
+	protected BattingSumService battingSumService;
 	public List<TeamBattingResultDto> tbrDtos;
 	public List<League> leagueList;
 	@Resource
-	public PitchingService pitchingService;
+	protected PitchingService pitchingService;
 	public List<TeamPitchingResultDto> tprDtos;
+	private static Logger logger = Logger.getLogger("rootLogger");
 
 	//チーム一覧表示
 	@Execute(validator = false)

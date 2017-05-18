@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.beans.util.Beans;
@@ -57,6 +58,7 @@ public class PlayerAction {
 	public List<TeamPitchingResultDto> tprDtos;
 	public List<TeamPitchingResultDto> pprlList;
 	public List<PositionDto> posDtos;
+	private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
 	public String index() {
@@ -118,6 +120,7 @@ public class PlayerAction {
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
+		logger.info("/player/show/"+playerForm.id);
 		MemoryUtil.viewMemoryInfo();
 		return "result.jsp";
 	}

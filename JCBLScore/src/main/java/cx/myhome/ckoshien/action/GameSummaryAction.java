@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.beans.util.Beans;
@@ -72,6 +74,7 @@ public Integer leagueId;
 public League league;
 public Team firstTeam;
 public Team lastTeam;
+private static Logger logger = Logger.getLogger("rootLogger");
 //public GameListDto gameListDto;
 
 	@Execute(validator = false)
@@ -79,6 +82,7 @@ public Team lastTeam;
 		gameListDtos=gameService.findAllGroupByGameDate();
 		GameSummaryLogic logic=new GameSummaryLogic();
 		gameListDtos=logic.convert2GameList(gameListDtos);
+		logger.info("/gameSummary");
 		MemoryUtil.viewMemoryInfo();
 		return "index.jsp";
 	}
@@ -211,6 +215,8 @@ public Team lastTeam;
 		lastBattingSumList=battingSumService.findByGameId(gameId,game.lastTeam);
 		//logic= new GameSummaryLogic();
 		//gameSummaryForm=logic.convert2GameSummary(game,firstBattingSumList,lastBattingSumList,gameSummaryForm,firstPitchingList,lastPitchingList);
+		logger.info("/gameSummary/show/"+gameSummaryForm.id);
+		MemoryUtil.viewMemoryInfo();
 		return "show.jsp";
 	}
 
@@ -388,6 +394,7 @@ public Team lastTeam;
 			}
 			gameListDtos.add(gameListDto);
 		}
+		logger.info("/gameSummary/date/"+gameSummaryForm.id);
 		MemoryUtil.viewMemoryInfo();
 		return "index2.jsp";
 	}
