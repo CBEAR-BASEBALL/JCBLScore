@@ -2,8 +2,12 @@ package cx.myhome.ckoshien.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.sql.Date;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
@@ -74,6 +78,11 @@ public Integer leagueId;
 public League league;
 public Team firstTeam;
 public Team lastTeam;
+@Resource
+protected HttpServletRequest request;
+@Resource
+protected HttpServletResponse response;
+
 private static Logger logger = Logger.getLogger("rootLogger");
 //public GameListDto gameListDto;
 
@@ -203,6 +212,29 @@ private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(urlPattern="show/{id}",validator = false)
 	public String show(){
+		//アクセス制限
+		try {
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+		    System.out.println(ia.getHostName());
+		    if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+		    		&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+		    		&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		    	){
+//		    	//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//		    	//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    	try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+		    	return null;
+		    	}
+				logger.info(ia.getHostName()+":"+request.getRemotePort());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		game=gameService.findById(gameId);
 		//playerList=playerService.findAllOrderById();
@@ -351,6 +383,28 @@ private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(urlPattern="date/{id}",validator=false)
 	public String date(){
+		try {
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+		    System.out.println(ia.getHostName());
+		    if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+		    		&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+		    		&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		    	){
+//		    	//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//		    	//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    	try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+		    	return null;
+		    	}
+				logger.info(ia.getHostName()+":"+request.getRemotePort());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		Date gameDate=gameService.findById(gameId).gameDate;
 		gameList=gameService.findByDateOrderByDate(gameDate);

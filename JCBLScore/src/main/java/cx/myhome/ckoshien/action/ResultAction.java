@@ -1,5 +1,6 @@
 package cx.myhome.ckoshien.action;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.seasar.struts.annotation.ActionForm;
@@ -72,10 +74,11 @@ public int regAtBats;
 public int regAtPitch;
 public int listSize;
 public List<Game> gameList;
-//public double regGameCount;
-//public List<GameResultDto> tmpResultList;
+
 @Resource
 protected HttpServletRequest request;
+@Resource
+protected HttpServletResponse response;
 private static Logger logger = Logger.getLogger("rootLogger");
 
 
@@ -93,21 +96,25 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}catch(NumberFormatException e){
 			return "index&redirect=true";
 		}
+		//アクセス制限
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
-//    		System.out.println(ia.getHostName());
-//    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
-//    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
-//    				&& !request.getRemoteAddr().startsWith("192.168")){
+    		System.out.println(ia.getHostName());
+    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+    				&& !request.getRemoteAddr().startsWith("192.168")
+    				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+    				&& !ia.getHostName().equals("127.0.0.1")
+    			){
 //    			//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
 //    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-//    			try {
-//					response.sendError(404, "許可されていないドメインです");
-//				} catch (IOException e) {
-//					logger.error(e);
-//				}
-//        		return null;
-//    		}
+    			try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+        		return null;
+    		}
 			logger.info(ia.getHostName()+":"+request.getRemotePort());
 		} catch (Exception e1) {
 			e1.printStackTrace();

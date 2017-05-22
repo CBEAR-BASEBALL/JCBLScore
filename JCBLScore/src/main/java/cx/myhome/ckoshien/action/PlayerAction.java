@@ -1,8 +1,12 @@
 package cx.myhome.ckoshien.action;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessage;
@@ -32,20 +36,20 @@ import cx.myhome.ckoshien.util.MemoryUtil;
 public class PlayerAction {
 
 	@Resource
-	public PlayerService playerService;
+	protected PlayerService playerService;
 	@Resource
-	public TeamService teamService;
+	protected TeamService teamService;
 	@Resource
 	@ActionForm
-	public PlayerForm playerForm;
+	private PlayerForm playerForm;
 
 	public List<Team> teamList;
 	public List<PlayerDto> playerList;
 	public Player player;
 	@Resource
-	public BattingSumService battingSumService;
+	protected BattingSumService battingSumService;
 	@Resource
-	public LeagueService leagueService;
+	protected LeagueService leagueService;
 	public List<TeamBattingResultDto> pbrList;
 	@Resource
 	public PitchingService pitchingService;
@@ -58,6 +62,10 @@ public class PlayerAction {
 	public List<TeamPitchingResultDto> tprDtos;
 	public List<TeamPitchingResultDto> pprlList;
 	public List<PositionDto> posDtos;
+	@Resource
+	protected HttpServletRequest request;
+	@Resource
+	protected HttpServletResponse response;
 	private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
@@ -107,6 +115,29 @@ public class PlayerAction {
 
 	@Execute(urlPattern="show/{id}",validator = false)
 	public String show(){
+		//アクセス制限
+		try {
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+		    System.out.println(ia.getHostName());
+		    if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+		    		&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+		    		&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		    	){
+//		    	//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//		    	//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    	try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+		    	return null;
+		    }
+				logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
 		//タブ用の成績があるシーズンリスト(PersonalBattingResultbyLeagueId)
