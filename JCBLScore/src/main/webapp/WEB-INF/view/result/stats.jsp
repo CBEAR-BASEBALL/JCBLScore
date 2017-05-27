@@ -69,8 +69,8 @@
 		<td>${resultList.draw}</td>
 		<td><fmt:formatNumber value="${resultList.percentage}" pattern="0.000" /></td>
 		<td>${resultList.points}</td>
-		<td><fmt:formatNumber value="${resultList.avg}" pattern="0.000" /></td>
-		<td><fmt:formatNumber value="${resultList.era}" pattern="0.00" /></td>
+		<td><a href="${f:url('/team/batting/') }${resultList.teamId}/${totalLeagueId}" ><fmt:formatNumber value="${resultList.avg}" pattern="0.000" /></a></td>
+		<td><a href="${f:url('/team/pitching/') }${resultList.teamId}/${totalLeagueId}" ><fmt:formatNumber value="${resultList.era}" pattern="0.00" /></a></td>
 		<c:forEach var="resultList2" items="${resultList2}" begin="0" end="${length}">
 			<td>
 			<c:forEach var="opponentList" items="${opponentList}">

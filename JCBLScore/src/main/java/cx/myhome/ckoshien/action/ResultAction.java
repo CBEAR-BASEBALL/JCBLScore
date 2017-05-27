@@ -79,6 +79,7 @@ public List<Game> gameList;
 protected HttpServletRequest request;
 @Resource
 protected HttpServletResponse response;
+public Integer totalLeagueId;
 private static Logger logger = Logger.getLogger("rootLogger");
 
 
@@ -109,7 +110,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 //    			//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
 //    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     			try {
-					response.sendError(404, "許可されていないドメインです");
+					response.sendError(404, "許可されていないドメインです。"+ia.getHostName());
 				} catch (IOException e) {
 					logger.error(e);
 				}
@@ -121,6 +122,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		logger.info("result/season/"+Integer.parseInt(resultForm.id));
 		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
+		totalLeagueId = leagueService.findTotal().get(0).id;
 		opponentList=resultService.findOpponentResult(Integer.parseInt(resultForm.id));
 		gameList=gameService.findByPeriod(league.beginDate, league.endDate);
 		regAtBats=0;
