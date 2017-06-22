@@ -49,7 +49,7 @@ public class ResultLogic {
 				if (i==0){
 					battingResultDto.rank=1;
 				}
-				if (i>=1&&!(battingResultList.get(i-1).average==battingResultList.get(i).average)){
+				if (i>=1&&!(battingResultList.get(i-1).average.equals(battingResultList.get(i).average))){
 					battingResultDto.rank=j;
 					k=j;
 				}
