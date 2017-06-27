@@ -24,22 +24,26 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.seasar.chronos.core.annotation.task.Task;
 import org.seasar.chronos.core.annotation.trigger.CronTrigger;
+import org.seasar.chronos.core.annotation.trigger.NonDelayTrigger;
+import org.seasar.framework.util.ResourceUtil;
 
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
 @CronTrigger(expression = "0 0 */4 * * ?")
+//@NonDelayTrigger
 public class KimetaroAccessTask {
 	public List<String[]> csvData;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
+	private Element name;
 
 	public void doExecute(){
 		logger.info("タスク開始");
 		String ua = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36";
 		String baseUrl="http://www.freeml.com";
-		String targetUrl="http://www.freeml.com/kimetaro/jLx2PS";//TODO DBから取得
-		String password="2017";//TODO DBから取得
+		String targetUrl=ResourceUtil.getProperties("config.properties").getProperty("KIMETARO_URL");
+		String password=ResourceUtil.getProperties("config.properties").getProperty("KIMETARO_PASS");//TODO DBから取得
 		List<List<String>> list=new ArrayList<List<String>>();
 		try {
 			Response res1 = Jsoup.connect(targetUrl)
@@ -76,6 +80,7 @@ public class KimetaroAccessTask {
 			List<String> row = null;
 			for(int i=2;i<42;i++){
 				element=timeline.getElementById("attend_table_col6").child(1).child(0).child(0).child(i);
+				name=timeline.getElementById("attend_table_col6").child(0).child(0).child(0);
 				try{
 					row=new ArrayList<String>();
 					for(int j=0;j<10;j++){
@@ -104,7 +109,7 @@ public class KimetaroAccessTask {
         		}
 			}
 		}
-		File file = new File("../tomcat6.0/logs/jcbl/jLx2PS.csv");
+		File file = new File("../tomcat6.0/logs/jcbl/CadcFN.csv");
 		if(file.exists()){
 			CsvConfig cfg = new CsvConfig();
 			cfg.setQuoteDisabled(false);// デフォルトでは無効となっている囲み文字を有効にします。
@@ -126,8 +131,9 @@ public class KimetaroAccessTask {
 				for(int j=0;j<arrayStr.length;j++){
 					if(!list.get(i).get(j).equals(arrayStr[j])){
 						//変更があった場合
-						logger.info("決め太郎："+(i+1)+"行"+(j+1)+"列に変更がありました");
-						slackLogger.info("決め太郎："+(i+1)+"行"+(j+1)+"列に変更がありました");
+						logger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
+						//logger.info("決め太郎："+(i+1)+"行"+(j+1)+"列に変更がありました");
+						slackLogger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
 					}
 				}
 			}
