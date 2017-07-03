@@ -92,11 +92,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(urlPattern="season/{id}",validator = false)
 	public String season(){
-		try{
-			league=leagueService.findById(Integer.parseInt(resultForm.id));
-		}catch(NumberFormatException e){
-			return "index&redirect=true";
-		}
 		//アクセス制限
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
@@ -120,8 +115,14 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		long t1=System.currentTimeMillis();
+		try{
+			league=leagueService.findById(Integer.parseInt(resultForm.id));
+		}catch(NumberFormatException e){
+			return "index&redirect=true";
+		}
 		logger.info("result/season/"+Integer.parseInt(resultForm.id));
-		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
+		//System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		totalLeagueId = leagueService.findTotal().get(0).id;
 		opponentList=resultService.findOpponentResult(Integer.parseInt(resultForm.id));
 		gameList=gameService.findByPeriod(league.beginDate, league.endDate);
@@ -171,7 +172,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		resultList2=resultList;
 		length=resultList.size();
 		ResultLogic resultLogic=new ResultLogic();
-		long t1=System.currentTimeMillis();
 		//打率TOP10
 		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
 		averageTop10=resultLogic.returnAverageTop10(battingResultList,regAtBats);
@@ -360,8 +360,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			}
 		}
 		avgRBITop10=resultLogic.returnAvgRBITop10(avgRBITop10,regAtBats);
-		long t2=System.currentTimeMillis();
-		logger.info(t2-t1+"ms");
 		//ノンタイトルの行数を決定
 		if(twobaseTop10.size()>=fourBallTop10.size()){
 			listSize=twobaseTop10.size();
@@ -375,6 +373,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		resultLogic=null;
 		tmpResultList=null;
 		MemoryUtil.viewMemoryInfo();
+		long t2=System.currentTimeMillis();
+		logger.info(t2-t1+"ms");
 		return "stats.jsp";
 	}
 }

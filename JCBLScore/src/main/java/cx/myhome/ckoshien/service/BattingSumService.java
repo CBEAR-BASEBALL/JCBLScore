@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.SqlFiles;
 import cx.myhome.ckoshien.dto.BattingResultDto;
+import cx.myhome.ckoshien.dto.MemberCountDto;
 import cx.myhome.ckoshien.dto.PositionDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.entity.BattingSum;
@@ -129,5 +130,11 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		param.put("playerId", playerId);
 		posDtos=jdbcManager.selectBySqlFile(PositionDto.class, "cx.myhome.ckoshien.sql.CountDiffensePosition.sql",param).getResultList();
 		return posDtos;
+	}
+	public List<MemberCountDto> countMemberBySeason(){
+		List<MemberCountDto> countDtos=new ArrayList<MemberCountDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		countDtos=jdbcManager.selectBySqlFile(MemberCountDto.class, "cx.myhome.ckoshien.sql.MemberCountBySeason.sql",null).getResultList();
+		return countDtos;
 	}
 }
