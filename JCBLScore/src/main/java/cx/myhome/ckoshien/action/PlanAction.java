@@ -1,5 +1,7 @@
 package cx.myhome.ckoshien.action;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,9 +78,12 @@ public class PlanAction {
 			}
 		}
 		logger.info(player.name+"さんが予定を入力しました。");
-		logger.info("IP:"+request.getRemoteAddr());
-		logger.info("ポート:"+request.getRemotePort());
-		logger.info(request.getRemoteHost());
+		try{
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+			logger.info(ia.getHostName()+":"+request.getRemotePort());
+		}catch(UnknownHostException e1){
+			e1.printStackTrace();
+		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を入力しました。");
 		MemoryUtil.viewMemoryInfo();
