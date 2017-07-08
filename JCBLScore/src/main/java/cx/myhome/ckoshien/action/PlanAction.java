@@ -133,10 +133,13 @@ public class PlanAction {
 				tScheduleService.insert(tSchedule);
 			}
 		}
-		logger.info(player.name+"さんが予定を変更しました");
-		logger.info("IP:"+request.getRemoteAddr());
-		logger.info("ポート:"+request.getRemotePort());
-		logger.info(request.getRemoteHost());
+		logger.info(player.name+"さんが予定を変更しました。");
+		try{
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+			logger.info(ia.getHostName()+":"+request.getRemotePort());
+		}catch(UnknownHostException e1){
+			e1.printStackTrace();
+		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を変更しました");
 		MemoryUtil.viewMemoryInfo();
