@@ -151,7 +151,7 @@ public class PlayerAction {
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
-		logger.info("/player/show/"+playerForm.id);
+		logger.info("/player/show/"+playerForm.id+" "+player.name);
 		MemoryUtil.viewMemoryInfo();
 		return "result.jsp";
 	}
