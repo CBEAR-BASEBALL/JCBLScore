@@ -123,11 +123,11 @@
 				},
 				xAxis: {
 					categories: [
-						<c:forEach var="pbrDtos" items="${pbrList}">
+						<c:forEach var="pprDtos" items="${pprList}">
 							<c:choose>
-								<c:when test="${empty pbrDtos.leagueId}"></c:when>
+								<c:when test="${empty pprDtos.leagueId}"></c:when>
 								<c:otherwise>
-									"${pbrDtos.title}",
+									"${pprDtos.title}",
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>

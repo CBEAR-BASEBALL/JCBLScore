@@ -115,7 +115,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 				}
         		return null;
     		}
-			logger.info(ia.getHostName()+":"+request.getRemotePort());
+			logger.info("[API]"+ia.getHostName()+":"+request.getRemotePort());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -125,7 +125,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}catch(NumberFormatException e){
 			return "index&redirect=true";
 		}
-		logger.info("result/season/"+Integer.parseInt(resultForm.id));
+		logger.info("[API]result/season/"+Integer.parseInt(resultForm.id));
 		//System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		totalLeagueId = leagueService.findTotal().get(0).id;
 		opponentList=resultService.findOpponentResult(Integer.parseInt(resultForm.id));
@@ -395,7 +395,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		tmpResultList=null;
 		MemoryUtil.viewMemoryInfo();
 		long t2=System.currentTimeMillis();
-		logger.info(t2-t1+"ms");
+		logger.info("[API] "+ (t2-t1) +"ms");
 		return null;
 	}
 }
