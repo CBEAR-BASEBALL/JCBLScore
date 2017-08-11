@@ -28,8 +28,8 @@ import cx.myhome.ckoshien.service.TScheduleService;
 import cx.myhome.ckoshien.service.WeatherService;
 
 @Task
-//@CronTrigger(expression = "0 15 */6 * * ?")//6時間ごと
-@NonDelayTrigger
+@CronTrigger(expression = "0 15 */6 * * ?")//6時間ごと
+//@NonDelayTrigger
 public class GetWeatherTask {
 	@Resource
 	public WeatherService weatherService;
