@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import org.seasar.chronos.core.annotation.task.Task;
 import org.seasar.chronos.core.annotation.trigger.CronTrigger;
+import org.seasar.chronos.core.annotation.trigger.NonDelayTrigger;
 import org.seasar.framework.beans.util.BeanUtil;
 
 import cx.myhome.ckoshien.action.api.v1.WeatherAction;
@@ -27,7 +28,8 @@ import cx.myhome.ckoshien.service.TScheduleService;
 import cx.myhome.ckoshien.service.WeatherService;
 
 @Task
-@CronTrigger(expression = "0 15 */6 * * ?")//6時間ごと
+//@CronTrigger(expression = "0 15 */6 * * ?")//6時間ごと
+@NonDelayTrigger
 public class GetWeatherTask {
 	@Resource
 	public WeatherService weatherService;
@@ -59,14 +61,16 @@ public class GetWeatherTask {
 		}
 		weatherList=weatherService.findAllOrderByRegTime();
 		response=new HashMap<String,WeatherDto>();
-		//テーブル全データ削除
-		long t3=System.currentTimeMillis();
-		for(int i=0;i<weatherList.size();i++){
-			weatherService.delete(weatherList.get(i));
-		}
 		long t4=System.currentTimeMillis();
 		WeatherAction weatherAction =new WeatherAction();
 		response=weatherAction.get();
+		long t3=System.currentTimeMillis();
+		if(response.size()!=0){
+			//テーブル全データ削除
+			for(int i=0;i<weatherList.size();i++){
+				weatherService.delete(weatherList.get(i));
+			}
+		}
 		long t5=System.currentTimeMillis();
 		String date="";
 		WeatherDto weatherDto= new WeatherDto();
@@ -94,7 +98,7 @@ public class GetWeatherTask {
 			weatherService.insert(weatherBean);
 		}
 		long t6=System.currentTimeMillis();
-		logger.info("天気テーブル全削除:"+(t4-t3));
+		logger.info("天気テーブル全削除:"+(t5-t3));
 		logger.info("天気データ取得:"+(t5-t4));
 		logger.info("天気データinsert:"+(t6-t5));
 		logger.info("タスク終了");
