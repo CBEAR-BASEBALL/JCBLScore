@@ -387,6 +387,13 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		res.opsTop10=opsTop10;
 		res.rbiTop10=rbiTop10;
 		res.regAtBats=regAtBats;
+		res.regAtPitch=regAtPitch;
+		res.winTop10=winTop10;
+		res.saveTop10=saveTop10;
+		res.strikeOutTop10=strikeOutTop10;
+		res.listSize=listSize;
+		res.battingResultList=battingResultList;
+		res.pitchingResultList=pitchingResultList;
 		String json=JSON.encode(res);
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
