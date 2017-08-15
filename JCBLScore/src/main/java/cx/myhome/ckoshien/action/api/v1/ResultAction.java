@@ -394,6 +394,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		res.listSize=listSize;
 		res.battingResultList=battingResultList;
 		res.pitchingResultList=pitchingResultList;
+		res.twobaseTop10=twobaseTop10;
+		res.slgTop10=slgTop10;
 		String json=JSON.encode(res);
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
