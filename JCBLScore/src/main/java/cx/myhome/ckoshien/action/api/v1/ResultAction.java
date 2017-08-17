@@ -373,6 +373,16 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		if(listSize<=10){
 			listSize=10;
 		}
+		//API用にデータ加工
+		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();
+		for(int i=0;i<opponentList.size();i++){
+			for(int j=0;j<resultList.size();j++){
+				if(resultList.get(j).teamId.equals(opponentList.get(i).teamId)){
+					opponentList2.add(opponentList.get(i));
+				}
+			}
+		}
+
 		//API出力処理
 		ResultApiDto res=new ResultApiDto();
 		res.averageTop10=averageTop10;
@@ -396,6 +406,10 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		res.pitchingResultList=pitchingResultList;
 		res.twobaseTop10=twobaseTop10;
 		res.slgTop10=slgTop10;
+		res.resultList=resultList;
+		res.resultList2=resultList2;
+		res.opponentList=opponentList2;
+		res.length=length;
 		String json=JSON.encode(res);
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
