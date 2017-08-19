@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -375,14 +376,36 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		//API用にデータ加工
 		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();
+		HashMap<HashMap<Integer,Integer>,GameResultDto> map=new HashMap<HashMap<Integer,Integer>,GameResultDto>();
+		HashMap<Integer,Integer> tmpMap= new HashMap<Integer,Integer>();
 		for(int i=0;i<opponentList.size();i++){
 			for(int j=0;j<resultList.size();j++){
 				if(resultList.get(j).teamId.equals(opponentList.get(i).teamId)){
-					opponentList2.add(opponentList.get(i));
+					//tmp_opponentList.add(opponentList.get(i));
+					tmpMap.put(opponentList.get(i).teamId,opponentList.get(i).opponent);
+					map.put(tmpMap, opponentList.get(i));
+					tmpMap=new HashMap<Integer,Integer>();
 				}
 			}
 		}
 
+		for(int i=0;i<resultList.size();i++){
+			for(int j=0;j<resultList.size();j++){
+				tmpMap.put(resultList.get(i).teamId, resultList.get(j).teamId);
+				if(map.get(tmpMap)==null){
+					GameResultDto blankData = new GameResultDto();
+					blankData.opponent=resultList.get(j).teamId;
+					blankData.teamId=resultList.get(i).teamId;
+					blankData.win=0;
+					blankData.lose=0;
+					blankData.draw=0;
+					opponentList2.add(blankData);
+				}else{
+					opponentList2.add(map.get(tmpMap));
+				}
+				tmpMap=new HashMap<Integer,Integer>();
+			}
+		}
 		//API出力処理
 		ResultApiDto res=new ResultApiDto();
 		res.averageTop10=averageTop10;
@@ -410,6 +433,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		res.resultList2=resultList2;
 		res.opponentList=opponentList2;
 		res.length=length;
+		res.league=league;
 		String json=JSON.encode(res);
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
