@@ -14,6 +14,7 @@ public class LoginUserDto implements Serializable{
 	//private String password;
 	private String name;
 	private String authority;
+	private String token;
 
 	public String getId() {
 		return id;
@@ -38,6 +39,12 @@ public class LoginUserDto implements Serializable{
 	}
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 

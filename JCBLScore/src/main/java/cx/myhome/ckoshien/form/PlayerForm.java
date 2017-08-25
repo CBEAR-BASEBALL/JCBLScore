@@ -18,6 +18,8 @@ public class PlayerForm {
 
 	public String id;
 
+	public String token;
+
 	@Maxlength(maxlength=1000)
 	public String comment;
 }
