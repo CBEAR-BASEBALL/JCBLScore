@@ -438,6 +438,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
 		request=null;
+		res=null;
 		resultLogic=null;
 		tmpResultList=null;
 		MemoryUtil.viewMemoryInfo();

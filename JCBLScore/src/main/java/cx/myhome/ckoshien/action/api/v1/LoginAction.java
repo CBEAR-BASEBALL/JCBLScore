@@ -95,7 +95,7 @@ public class LoginAction {
 		ActionMessages errors = new ActionMessages();
 		//emailかpasswordが空の場合エラー
 		if(playerForm.loginId.equals("")|playerForm.password.equals("")){
-			errors.add("login", new ActionMessage("errors.login"));
+			//errors.add("login", new ActionMessage("errors.login"));
 			return false;
 		}
 
