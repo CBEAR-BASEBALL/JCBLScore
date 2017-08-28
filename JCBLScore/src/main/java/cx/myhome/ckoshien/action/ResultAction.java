@@ -101,11 +101,12 @@ private static Logger logger = Logger.getLogger("rootLogger");
     				&& !request.getRemoteAddr().startsWith("192.168")
     				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
     				&& !ia.getHostName().equals("127.0.0.1")
+    				&& !ia.getHostName().equals(request.getRemoteAddr())
     			){
 //    			//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
 //    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     			try {
-					response.sendError(404, "許可されていないドメインです。"+ia.getHostName());
+					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
 				} catch (IOException e) {
 					logger.error(e);
 				}
@@ -113,7 +114,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
     		}
 			logger.info(ia.getHostName()+":"+request.getRemotePort());
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			logger.warn(e1);
 		}
 		long t1=System.currentTimeMillis();
 		try{
