@@ -485,7 +485,7 @@ public class ResultLogic {
 				if (i==0){
 					pitchingResultDto.rank=1;
 				}
-				if (i>=1&&!(pitchingResultList.get(i-1).era==pitchingResultList.get(i).era)){
+				if (i>=1&&!(pitchingResultList.get(i-1).era.equals(pitchingResultList.get(i).era))){
 					pitchingResultDto.rank=j;
 					k=j;
 				}
