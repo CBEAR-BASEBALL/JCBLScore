@@ -374,6 +374,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		if(listSize<=10){
 			listSize=10;
 		}
+		long t3=System.currentTimeMillis();
 		//API用にデータ加工
 		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();
 		HashMap<HashMap<Integer,Integer>,GameResultDto> map=new HashMap<HashMap<Integer,Integer>,GameResultDto>();
@@ -444,6 +445,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		MemoryUtil.viewMemoryInfo();
 		long t2=System.currentTimeMillis();
 		logger.info("[API] "+ (t2-t1) +"ms");
+		logger.info("[APIデータ加工] "+ (t2-t3) +"ms");
 		return null;
 	}
 }

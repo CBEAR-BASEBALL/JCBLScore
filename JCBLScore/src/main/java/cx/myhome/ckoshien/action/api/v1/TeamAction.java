@@ -54,7 +54,7 @@ public class TeamAction {
 	@Aspect(value="loginConfApiInterceptor")
 	@Execute(validator = false)
 	public String create(){
-        return "create.jsp";
+        return null;
 	}
 
 	@Aspect(value="loginConfApiInterceptor")
