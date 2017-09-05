@@ -116,6 +116,10 @@ public class LoginAction {
 				//errors.add("login", new ActionMessage("errors.login"));
 				return false;
 			}
+			if(playerForm.token==null){
+				logger.error("[API]トークンがありません");
+				return false;
+			}
 			if(!playerForm.token.equals(loginUserDto.getToken())){
 				logger.warn("[API]セッションの不一致");
 				return false;
