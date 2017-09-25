@@ -152,6 +152,7 @@ public class WeatherAction {
 				logger.error("長期予報の更新に失敗しました。",e);
 				slackLogger.info("長期予報の更新に失敗しました。");
 				e.printStackTrace();
+				response=null;
 				errFlg=true;
 				break;
 			}
