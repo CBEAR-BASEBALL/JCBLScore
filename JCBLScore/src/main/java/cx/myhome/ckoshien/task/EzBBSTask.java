@@ -20,8 +20,9 @@ import org.apache.log4j.Logger;
 import org.seasar.chronos.core.annotation.task.Task;
 import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 import org.seasar.chronos.core.annotation.trigger.NonDelayTrigger;
+import org.seasar.framework.util.ResourceUtil;
 
-import cx.myhome.ckoshien.rest.PushbulletLogger;
+import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
@@ -32,7 +33,7 @@ public class EzBBSTask {
 	private static BufferedReader br;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
-	private PushbulletLogger bulletLogger=new PushbulletLogger();
+	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));
 
 
 	public void doExecute() {
@@ -73,8 +74,8 @@ public class EzBBSTask {
 					//slackに通知
 					logger.info("掲示板が更新されました");
 					slackLogger.info("掲示板が更新されました");
-					bulletLogger.info("掲示板が更新されました");
-
+					bullet.sendPush("note", "JCBLスコア管理システム", "掲示板が更新されました"
+							,null, null, null, null, null, null, null, "jcbl", null, null);
 				}
 			}else{
 				//ファイルがないとき

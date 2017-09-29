@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.util.TokenProcessor;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.RequestUtil;
@@ -20,8 +21,7 @@ import cx.myhome.ckoshien.entity.MSchedule;
 import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.entity.TSchedule;
 import cx.myhome.ckoshien.form.PlanForm;
-import cx.myhome.ckoshien.rest.PushbulletDto;
-import cx.myhome.ckoshien.rest.PushbulletLogger;
+import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 import cx.myhome.ckoshien.service.MScheduleService;
 import cx.myhome.ckoshien.service.PlayerService;
@@ -48,7 +48,7 @@ public class PlanAction {
 	protected HttpServletResponse response;
 	static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
-	private PushbulletLogger bulletLogger=new PushbulletLogger();
+	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));;
 
 	@Execute(validator=false)
 	public String create(){
@@ -89,7 +89,7 @@ public class PlanAction {
 		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を入力しました。");
-		bulletLogger.info(player.name+"さんが予定を入力しました。");
+		bullet.sendPush("note", "JCBLスコア管理システム", player.name+"さんが予定を入力しました。",null, null, null, null, null, null, null, "jcbl", null, null);
 		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 	}
@@ -146,7 +146,7 @@ public class PlanAction {
 		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を変更しました");
-		bulletLogger.info(player.name+"さんが予定を変更しました");
+		bullet.sendPush("note", "JCBLスコア管理システム", player.name+"さんが予定を変更しました",null, null, null, null, null, null, null, "jcbl", null, null);
 		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 

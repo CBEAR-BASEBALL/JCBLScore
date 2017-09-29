@@ -27,15 +27,17 @@ import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 import org.seasar.chronos.core.annotation.trigger.NonDelayTrigger;
 import org.seasar.framework.util.ResourceUtil;
 
+import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
-@CronTrigger(expression = "0 0 */4 * * ?")
-//@NonDelayTrigger
+//@CronTrigger(expression = "0 0 */4 * * ?")
+@NonDelayTrigger
 public class KimetaroAccessTask {
 	public List<String[]> csvData;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
+	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));
 	private Element name;
 
 	public void doExecute(){
@@ -109,7 +111,7 @@ public class KimetaroAccessTask {
         		}
 			}
 		}
-		File file = new File("../tomcat6.0/logs/jcbl/CadcFN.csv");
+		File file = new File("../tomcat6.0/logs/jcbl/eTsUgf.csv");
 		if(file.exists()){
 			CsvConfig cfg = new CsvConfig();
 			cfg.setQuoteDisabled(false);// デフォルトでは無効となっている囲み文字を有効にします。
@@ -125,6 +127,7 @@ public class KimetaroAccessTask {
 			if(csvData.size()!=list.size()){
 				logger.info("決め太郎：新規スケジュールが入力されました");
 				slackLogger.info("決め太郎：新規スケジュールが入力されました");
+				bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎：新規スケジュールが入力されました",null, null, null, null, null, null, null, "jcbl", null, null);
 			}
 			for(int i=0;i<csvData.size();i++){
 				String[] arrayStr=csvData.get(i);
@@ -134,6 +137,7 @@ public class KimetaroAccessTask {
 						logger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
 						//logger.info("決め太郎："+(i+1)+"行"+(j+1)+"列に変更がありました");
 						slackLogger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
+						bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました",null, null, null, null, null, null, null, "jcbl", null, null);
 					}
 				}
 			}

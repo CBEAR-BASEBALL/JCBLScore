@@ -28,7 +28,7 @@ import cx.myhome.ckoshien.service.TScheduleService;
 import cx.myhome.ckoshien.service.WeatherService;
 
 @Task
-@CronTrigger(expression = "0 15 12 * * ?")
+@CronTrigger(expression = "0 25 12 * * ?")
 //@NonDelayTrigger
 public class GetWeatherTask {
 	@Resource
