@@ -20,6 +20,8 @@ import cx.myhome.ckoshien.entity.MSchedule;
 import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.entity.TSchedule;
 import cx.myhome.ckoshien.form.PlanForm;
+import cx.myhome.ckoshien.rest.PushbulletDto;
+import cx.myhome.ckoshien.rest.PushbulletLogger;
 import cx.myhome.ckoshien.rest.SlackLogger;
 import cx.myhome.ckoshien.service.MScheduleService;
 import cx.myhome.ckoshien.service.PlayerService;
@@ -46,6 +48,7 @@ public class PlanAction {
 	protected HttpServletResponse response;
 	static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
+	private PushbulletLogger bulletLogger=new PushbulletLogger();
 
 	@Execute(validator=false)
 	public String create(){
@@ -86,6 +89,7 @@ public class PlanAction {
 		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を入力しました。");
+		bulletLogger.info(player.name+"さんが予定を入力しました。");
 		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 	}
@@ -142,6 +146,7 @@ public class PlanAction {
 		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を変更しました");
+		bulletLogger.info(player.name+"さんが予定を変更しました");
 		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 

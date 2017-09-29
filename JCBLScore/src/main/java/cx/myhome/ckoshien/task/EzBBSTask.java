@@ -21,6 +21,7 @@ import org.seasar.chronos.core.annotation.task.Task;
 import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 import org.seasar.chronos.core.annotation.trigger.NonDelayTrigger;
 
+import cx.myhome.ckoshien.rest.PushbulletLogger;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
@@ -31,6 +32,7 @@ public class EzBBSTask {
 	private static BufferedReader br;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
+	private PushbulletLogger bulletLogger=new PushbulletLogger();
 
 
 	public void doExecute() {
@@ -71,6 +73,7 @@ public class EzBBSTask {
 					//slackに通知
 					logger.info("掲示板が更新されました");
 					slackLogger.info("掲示板が更新されました");
+					bulletLogger.info("掲示板が更新されました");
 
 				}
 			}else{
