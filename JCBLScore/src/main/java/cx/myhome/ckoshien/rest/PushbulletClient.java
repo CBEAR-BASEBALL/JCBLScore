@@ -38,7 +38,7 @@ public class PushbulletClient {
 			String file_name, String file_type, String file_url,
 			String source_device_iden, String device_iden,
 			String client_iden, String channel_tag, String email, String guid){
-			List<NameValuePair> nameValuePairs = new ArrayList<>();
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			if(type.equals("link")) {
 				nameValuePairs.add(new BasicNameValuePair("title", title));
 				nameValuePairs.add(new BasicNameValuePair("body", body));
@@ -72,7 +72,8 @@ public class PushbulletClient {
 
 	private String collectResponse(HttpResponse response) {
 		StringBuilder result = new StringBuilder();
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))) {
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			for (String line; (line = br.readLine()) != null; ) {
 				result.append(line);
 			}

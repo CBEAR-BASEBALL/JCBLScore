@@ -31,8 +31,8 @@ import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
-//@CronTrigger(expression = "0 0 */4 * * ?")
-@NonDelayTrigger
+@CronTrigger(expression = "0 0 */4 * * ?")
+//@NonDelayTrigger
 public class KimetaroAccessTask {
 	public List<String[]> csvData;
 	private static Logger logger = Logger.getLogger("rootLogger");
