@@ -48,7 +48,7 @@ public class PlanAction {
 	protected HttpServletResponse response;
 	static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
-	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));;
+	//private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));;
 
 	@Execute(validator=false)
 	public String create(){
@@ -89,7 +89,7 @@ public class PlanAction {
 		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を入力しました。");
-		bullet.sendPush("note", "JCBLスコア管理システム", player.name+"さんが予定を入力しました。",null, null, null, null, null, null, null, "jcbl", null, null);
+		//bullet.sendPush("note", "JCBLスコア管理システム", player.name+"さんが予定を入力しました。",null, null, null, null, null, null, null, "jcbl", null, null);
 		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 	}
@@ -146,7 +146,7 @@ public class PlanAction {
 		}
 		logger.info(request.getHeader("user-agent"));
 		slackLogger.info(player.name+"さんが予定を変更しました");
-		bullet.sendPush("note", "JCBLスコア管理システム", player.name+"さんが予定を変更しました",null, null, null, null, null, null, null, "jcbl", null, null);
+		//bullet.sendPush("note", "JCBLスコア管理システム", player.name+"さんが予定を変更しました",null, null, null, null, null, null, null, "jcbl", null, null);
 		MemoryUtil.viewMemoryInfo();
 		return "/schedule/index&redirect=true";
 
