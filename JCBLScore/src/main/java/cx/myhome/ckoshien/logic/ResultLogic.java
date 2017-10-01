@@ -67,6 +67,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnHomerunTop10(List<BattingResultDto> battingResultList){
+		//homerunTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).homerun>battingResultList.get(j).homerun){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		homerunTop10=new ArrayList<BattingResultDto>();

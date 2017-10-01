@@ -177,18 +177,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
 		averageTop10=resultLogic.returnAverageTop10(battingResultList,regAtBats);
 		//HRTOP10
-		//homerunTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"homerun desc,average desc");
-		homerunTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<homerunTop10.size();i++){
-			for(int j=0;j<homerunTop10.size();j++){
-				if(homerunTop10.get(i).homerun>homerunTop10.get(j).homerun){
-					BattingResultDto brd=homerunTop10.get(i);
-					homerunTop10.set(i, homerunTop10.get(j));
-					homerunTop10.set(j,brd);
-				}
-			}
-		}
-		homerunTop10=resultLogic.returnHomerunTop10(homerunTop10);
+		homerunTop10=resultLogic.returnHomerunTop10(battingResultList);
 		//打点TOP10
 		//rbiTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"rbi desc,average desc");
 		rbiTop10=new ArrayList<BattingResultDto>(battingResultList);;
