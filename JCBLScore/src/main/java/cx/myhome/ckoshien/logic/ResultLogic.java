@@ -107,6 +107,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnRbiTop10(List<BattingResultDto> battingResultList){
+		//rbiTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).rbi>battingResultList.get(j).rbi){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		rbiTop10=new ArrayList<BattingResultDto>();
@@ -137,6 +147,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnHitTop10(List<BattingResultDto> battingResultList){
+		//hitTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).hit>battingResultList.get(j).hit){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		hitTop10=new ArrayList<BattingResultDto>();
@@ -166,6 +186,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnObpTop10(List<BattingResultDto> battingResultList,int regAtBats){
+		//obpTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).obp>battingResultList.get(j).obp){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		obpTop10=new ArrayList<BattingResultDto>();
@@ -512,6 +542,15 @@ public class ResultLogic {
 	}
 
 	public List<PitchingResultDto> returnWinTop10(List<PitchingResultDto> pitchingResultList){
+		for(int i=0;i<pitchingResultList.size();i++){
+			for(int j=0;j<pitchingResultList.size();j++){
+				if(pitchingResultList.get(i).win>pitchingResultList.get(j).win){
+					PitchingResultDto prd=pitchingResultList.get(i);
+					pitchingResultList.set(i, pitchingResultList.get(j));
+					pitchingResultList.set(j,prd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		winTop10=new ArrayList<PitchingResultDto>();
@@ -542,6 +581,15 @@ public class ResultLogic {
 		return winTop10;
 	}
 	public List<PitchingResultDto> returnSaveTop10(List<PitchingResultDto> pitchingResultList){
+		for(int i=0;i<pitchingResultList.size();i++){
+			for(int j=0;j<pitchingResultList.size();j++){
+				if(pitchingResultList.get(i).save>pitchingResultList.get(j).save){
+					PitchingResultDto prd=pitchingResultList.get(i);
+					pitchingResultList.set(i, pitchingResultList.get(j));
+					pitchingResultList.set(j,prd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		saveTop10=new ArrayList<PitchingResultDto>();
@@ -573,6 +621,16 @@ public class ResultLogic {
 	}
 
 	public List<PitchingResultDto> returnStrikeOutTop10(List<PitchingResultDto> pitchingResultList){
+		//strikeOutTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
+		for(int i=0;i<pitchingResultList.size();i++){
+			for(int j=0;j<pitchingResultList.size();j++){
+				if(pitchingResultList.get(i).strikeOut>pitchingResultList.get(j).strikeOut){
+					PitchingResultDto prd=pitchingResultList.get(i);
+					pitchingResultList.set(i, pitchingResultList.get(j));
+					pitchingResultList.set(j,prd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		strikeOutTop10=new ArrayList<PitchingResultDto>();

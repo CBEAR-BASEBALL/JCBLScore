@@ -179,86 +179,21 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		//HRTOP10
 		homerunTop10=resultLogic.returnHomerunTop10(battingResultList);
 		//打点TOP10
-		//rbiTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"rbi desc,average desc");
-		rbiTop10=new ArrayList<BattingResultDto>(battingResultList);;
-		for(int i=0;i<rbiTop10.size();i++){
-			for(int j=0;j<rbiTop10.size();j++){
-				if(rbiTop10.get(i).rbi>rbiTop10.get(j).rbi){
-					BattingResultDto brd=rbiTop10.get(i);
-					rbiTop10.set(i, rbiTop10.get(j));
-					rbiTop10.set(j,brd);
-				}
-			}
-		}
-		rbiTop10=resultLogic.returnRbiTop10(rbiTop10);
+		rbiTop10=resultLogic.returnRbiTop10(battingResultList);
 		//安打数TOP10
-		//hitTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"hit desc,average desc");
-		hitTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<hitTop10.size();i++){
-			for(int j=0;j<hitTop10.size();j++){
-				if(hitTop10.get(i).hit>hitTop10.get(j).hit){
-					BattingResultDto brd=hitTop10.get(i);
-					hitTop10.set(i, hitTop10.get(j));
-					hitTop10.set(j,brd);
-				}
-			}
-		}
-		hitTop10=resultLogic.returnHitTop10(hitTop10);
+		hitTop10=resultLogic.returnHitTop10(battingResultList);
 		//防御率TOP10
 		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
 		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
 		//勝利数TOP10
-		//winTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"win desc,era asc");
-		winTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
-		for(int i=0;i<winTop10.size();i++){
-			for(int j=0;j<winTop10.size();j++){
-				if(winTop10.get(i).win>winTop10.get(j).win){
-					PitchingResultDto prd=winTop10.get(i);
-					winTop10.set(i, winTop10.get(j));
-					winTop10.set(j,prd);
-				}
-			}
-		}
-		winTop10=resultLogic.returnWinTop10(winTop10);
+		winTop10=resultLogic.returnWinTop10(pitchingResultList);
 		//セーブTOP10
-		//saveTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"save desc,era asc");
-		saveTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
-		for(int i=0;i<saveTop10.size();i++){
-			for(int j=0;j<saveTop10.size();j++){
-				if(saveTop10.get(i).save>saveTop10.get(j).save){
-					PitchingResultDto prd=saveTop10.get(i);
-					saveTop10.set(i, saveTop10.get(j));
-					saveTop10.set(j,prd);
-				}
-			}
-		}
-		saveTop10=resultLogic.returnSaveTop10(saveTop10);
+		saveTop10=resultLogic.returnSaveTop10(pitchingResultList);
 		//奪三振TOP10
-		//strikeOutTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"strike_out desc");
-		strikeOutTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
-		for(int i=0;i<strikeOutTop10.size();i++){
-			for(int j=0;j<strikeOutTop10.size();j++){
-				if(strikeOutTop10.get(i).strikeOut>strikeOutTop10.get(j).strikeOut){
-					PitchingResultDto prd=strikeOutTop10.get(i);
-					strikeOutTop10.set(i, strikeOutTop10.get(j));
-					strikeOutTop10.set(j,prd);
-				}
-			}
-		}
-		strikeOutTop10=resultLogic.returnStrikeOutTop10(strikeOutTop10);
+		strikeOutTop10=resultLogic.returnStrikeOutTop10(pitchingResultList);
 		//出塁率TOP10
-		//obpTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"obp desc");
-		obpTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<obpTop10.size();i++){
-			for(int j=0;j<obpTop10.size();j++){
-				if(obpTop10.get(i).obp>obpTop10.get(j).obp){
-					BattingResultDto brd=obpTop10.get(i);
-					obpTop10.set(i, obpTop10.get(j));
-					obpTop10.set(j,brd);
-				}
-			}
-		}
-		obpTop10=resultLogic.returnObpTop10(obpTop10,regAtBats);
+
+		obpTop10=resultLogic.returnObpTop10(battingResultList,regAtBats);
 		//二塁打TOP10
 		//twobaseTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"twobase desc");
 		twobaseTop10=new ArrayList<BattingResultDto>(battingResultList);
