@@ -236,6 +236,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnTwobaseTop10(List<BattingResultDto> battingResultList){
+		//twobaseTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<twobaseTop10.size();j++){
+				if(battingResultList.get(i).twobase>battingResultList.get(j).twobase){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		twobaseTop10=new ArrayList<BattingResultDto>();
@@ -268,6 +278,16 @@ public class ResultLogic {
 		return twobaseTop10;
 	}
 	public List<BattingResultDto> returnSlgTop10(List<BattingResultDto> battingResultList,int regAtBats){
+		slgTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).slg>battingResultList.get(j).slg){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		slgTop10=new ArrayList<BattingResultDto>();

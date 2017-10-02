@@ -196,30 +196,11 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		obpTop10=resultLogic.returnObpTop10(battingResultList,regAtBats);
 		//二塁打TOP10
 		//twobaseTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"twobase desc");
-		twobaseTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<twobaseTop10.size();i++){
-			for(int j=0;j<twobaseTop10.size();j++){
-				if(twobaseTop10.get(i).twobase>twobaseTop10.get(j).twobase){
-					BattingResultDto brd=twobaseTop10.get(i);
-					twobaseTop10.set(i, twobaseTop10.get(j));
-					twobaseTop10.set(j,brd);
-				}
-			}
-		}
-		twobaseTop10=resultLogic.returnTwobaseTop10(twobaseTop10);
+		twobaseTop10=resultLogic.returnTwobaseTop10(battingResultList);
 		//長打率TOP10
 		//slgTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"slg desc");
-		slgTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<slgTop10.size();i++){
-			for(int j=0;j<slgTop10.size();j++){
-				if(slgTop10.get(i).slg>slgTop10.get(j).slg){
-					BattingResultDto brd=slgTop10.get(i);
-					slgTop10.set(i, slgTop10.get(j));
-					slgTop10.set(j,brd);
-				}
-			}
-		}
-		slgTop10=resultLogic.returnSlgTop10(slgTop10,regAtBats);
+
+		slgTop10=resultLogic.returnSlgTop10(battingResultList,regAtBats);
 		//最多四球TOP10
 		//fourBallTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"four_ball desc");
 		fourBallTop10=new ArrayList<BattingResultDto>(battingResultList);
