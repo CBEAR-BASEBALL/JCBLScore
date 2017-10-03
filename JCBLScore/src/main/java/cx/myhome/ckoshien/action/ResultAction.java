@@ -204,48 +204,13 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		//最多四球TOP10
 		fourBallTop10=resultLogic.returnFourBallTop10(battingResultList);
 		//OPS TOP10
-		//opsTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"ops desc");
-
 		opsTop10=resultLogic.returnOpsTop10(battingResultList,regAtBats);
 		//三振率TOP10
-		//nsoTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"not_strike_out desc");
-		nsoTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<nsoTop10.size();i++){
-			for(int j=0;j<nsoTop10.size();j++){
-				if(nsoTop10.get(i).notStrikeOut>nsoTop10.get(j).notStrikeOut){
-					BattingResultDto brd=nsoTop10.get(i);
-					nsoTop10.set(i, nsoTop10.get(j));
-					nsoTop10.set(j,brd);
-				}
-			}
-		}
-		nsoTop10=resultLogic.returnNsoTop10(nsoTop10,regAtBats);
+		nsoTop10=resultLogic.returnNsoTop10(battingResultList,regAtBats);
 		//本塁打率TOP10
-		//avgHRTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"avg_homerun asc");
-		avgHRTop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<avgHRTop10.size();i++){
-			for(int j=0;j<avgHRTop10.size();j++){
-				if(avgHRTop10.get(i).avgHomerun<avgHRTop10.get(j).avgHomerun){
-					BattingResultDto brd=avgHRTop10.get(i);
-					avgHRTop10.set(i, avgHRTop10.get(j));
-					avgHRTop10.set(j,brd);
-				}
-			}
-		}
-		avgHRTop10=resultLogic.returnAvgHRTop10(avgHRTop10,regAtBats);
+		avgHRTop10=resultLogic.returnAvgHRTop10(battingResultList,regAtBats);
 		//打点率
-		//avgRBITop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"avg_rbi desc");
-		avgRBITop10=new ArrayList<BattingResultDto>(battingResultList);
-		for(int i=0;i<avgRBITop10.size();i++){
-			for(int j=0;j<avgRBITop10.size();j++){
-				if(avgRBITop10.get(i).avgRbi>avgRBITop10.get(j).avgRbi){
-					BattingResultDto brd=avgRBITop10.get(i);
-					avgRBITop10.set(i, avgRBITop10.get(j));
-					avgRBITop10.set(j,brd);
-				}
-			}
-		}
-		avgRBITop10=resultLogic.returnAvgRBITop10(avgRBITop10,regAtBats);
+		avgRBITop10=resultLogic.returnAvgRBITop10(battingResultList,regAtBats);
 		//ノンタイトルの行数を決定
 		if(twobaseTop10.size()>=fourBallTop10.size()){
 			listSize=twobaseTop10.size();

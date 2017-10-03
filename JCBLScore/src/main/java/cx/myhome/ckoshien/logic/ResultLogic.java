@@ -238,7 +238,7 @@ public class ResultLogic {
 	public List<BattingResultDto> returnTwobaseTop10(List<BattingResultDto> battingResultList){
 		//twobaseTop10=new ArrayList<BattingResultDto>(battingResultList);
 		for(int i=0;i<battingResultList.size();i++){
-			for(int j=0;j<twobaseTop10.size();j++){
+			for(int j=0;j<battingResultList.size();j++){
 				if(battingResultList.get(i).twobase>battingResultList.get(j).twobase){
 					BattingResultDto brd=battingResultList.get(i);
 					battingResultList.set(i, battingResultList.get(j));
@@ -421,6 +421,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnNsoTop10(List<BattingResultDto> battingResultList,int regAtBats){
+		nsoTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).notStrikeOut>battingResultList.get(j).notStrikeOut){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		nsoTop10=new ArrayList<BattingResultDto>();
@@ -465,6 +475,16 @@ public class ResultLogic {
 		return nsoTop10;
 	}
 	public List<BattingResultDto> returnAvgHRTop10(List<BattingResultDto> battingResultList,int regAtBats){
+		//avgHRTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).avgHomerun<battingResultList.get(j).avgHomerun){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		avgHRTop10=new ArrayList<BattingResultDto>();
@@ -509,6 +529,16 @@ public class ResultLogic {
 		return avgHRTop10;
 	}
 	public List<BattingResultDto> returnAvgRBITop10(List<BattingResultDto> battingResultList,int regAtBats){
+		//avgRBITop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).avgRbi>battingResultList.get(j).avgRbi){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		avgRBITop10=new ArrayList<BattingResultDto>();
