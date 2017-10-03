@@ -328,6 +328,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnFourBallTop10(List<BattingResultDto> battingResultList){
+		//fourBallTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).fourBall>battingResultList.get(j).fourBall){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		fourBallTop10=new ArrayList<BattingResultDto>();
@@ -361,6 +371,16 @@ public class ResultLogic {
 	}
 
 	public List<BattingResultDto> returnOpsTop10(List<BattingResultDto> battingResultList,int regAtBats){
+		//opsTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<battingResultList.size();i++){
+			for(int j=0;j<battingResultList.size();j++){
+				if(battingResultList.get(i).ops>battingResultList.get(j).ops){
+					BattingResultDto brd=battingResultList.get(i);
+					battingResultList.set(i, battingResultList.get(j));
+					battingResultList.set(j,brd);
+				}
+			}
+		}
 		int j=0;
 		int k=0;
 		opsTop10=new ArrayList<BattingResultDto>();
