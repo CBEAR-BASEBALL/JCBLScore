@@ -31,8 +31,8 @@ import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
-@CronTrigger(expression = "0 0 */4 * * ?")
-//@NonDelayTrigger
+//@CronTrigger(expression = "0 0 */4 * * ?")
+@NonDelayTrigger
 public class KimetaroAccessTask {
 	public List<String[]> csvData;
 	private static Logger logger = Logger.getLogger("rootLogger");
@@ -129,18 +129,23 @@ public class KimetaroAccessTask {
 				slackLogger.info("決め太郎：新規スケジュールが入力されました");
 				bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎：新規スケジュールが入力されました",null, null, null, null, null, null, null, "jcbl", null, null);
 			}
+			StringBuilder modifyStr=new StringBuilder();
 			for(int i=0;i<csvData.size();i++){
 				String[] arrayStr=csvData.get(i);
 				for(int j=0;j<arrayStr.length;j++){
 					if(!list.get(i).get(j).equals(arrayStr[j])){
 						//変更があった場合
-						logger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
-						//logger.info("決め太郎："+(i+1)+"行"+(j+1)+"列に変更がありました");
-						slackLogger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
-						bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました",null, null, null, null, null, null, null, "jcbl", null, null);
+						modifyStr.append("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました\n");
+//						logger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
+//						slackLogger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
+//						bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました",null, null, null, null, null, null, null, "jcbl", null, null);
 					}
 				}
 			}
+			logger.info(modifyStr);
+			slackLogger.info(modifyStr);
+			bullet.sendPush("note", "JCBLスコア管理システム",new String(modifyStr),null, null, null, null, null, null, null, "jcbl", null, null);
+
 		}
 		try {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"Shift-JIS"));
