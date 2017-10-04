@@ -31,8 +31,8 @@ import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
-//@CronTrigger(expression = "0 0 */4 * * ?")
-@NonDelayTrigger
+@CronTrigger(expression = "0 0 */4 * * ?")
+//@NonDelayTrigger
 public class KimetaroAccessTask {
 	public List<String[]> csvData;
 	private static Logger logger = Logger.getLogger("rootLogger");
@@ -142,9 +142,12 @@ public class KimetaroAccessTask {
 					}
 				}
 			}
-			logger.info(modifyStr);
-			slackLogger.info(modifyStr);
-			bullet.sendPush("note", "JCBLスコア管理システム",new String(modifyStr),null, null, null, null, null, null, null, "jcbl", null, null);
+			if(modifyStr.length()>0){
+				logger.info(modifyStr);
+				slackLogger.info(modifyStr);
+				bullet.sendPush("note", "JCBLスコア管理システム",new String(modifyStr),null, null, null, null, null, null, null, "jcbl", null, null);
+			}
+
 
 		}
 		try {
