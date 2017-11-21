@@ -43,7 +43,7 @@ public class KimetaroAccessTask {
 	public void doExecute(){
 		logger.info("タスク開始");
 		String ua = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36";
-		String baseUrl="http://www.freeml.com";
+		String baseUrl="https://www.freeml.com";
 		String targetUrl=ResourceUtil.getProperties("config.properties").getProperty("KIMETARO_URL");
 		String password=ResourceUtil.getProperties("config.properties").getProperty("KIMETARO_PASS");//TODO DBから取得
 		List<List<String>> list=new ArrayList<List<String>>();
@@ -111,7 +111,7 @@ public class KimetaroAccessTask {
         		}
 			}
 		}
-		File file = new File("../tomcat6.0/logs/jcbl/eTsUgf.csv");
+		File file = new File("../tomcat6.0/logs/jcbl/n13veV.csv");
 		if(file.exists()){
 			CsvConfig cfg = new CsvConfig();
 			cfg.setQuoteDisabled(false);// デフォルトでは無効となっている囲み文字を有効にします。
