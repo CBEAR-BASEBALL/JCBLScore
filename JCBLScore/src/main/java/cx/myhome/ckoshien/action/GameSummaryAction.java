@@ -468,6 +468,9 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		if(league==null){
 			errors.add("gameDate", new ActionMessage("試合日付がリーグ戦期間外です", false));
 		}
+		if(gameSummaryForm.firstTeam.equals(gameSummaryForm.lastTeam)){
+			errors.add("teamId", new ActionMessage("先攻後攻のチームIDが同じです", false));
+		}
 		return errors;
 	}
 }
