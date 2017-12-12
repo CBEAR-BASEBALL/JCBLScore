@@ -11,6 +11,7 @@ public class PitchingResultDto {
 	public Double whip;
 	public Double strikeAvg;
 	public Double inning;
+	public Double runSupport;
 	public Integer pa;
 	public Integer hit;
 	public Integer homerun;

@@ -19,7 +19,8 @@ SELECT
   sum(pc.save) as save,
   myteam_id,
   g.league_id as league_id,
-  l.short_title as title
+  l.short_title as title,
+  tmp2.run_support as run_support
  FROM pitching pc
 inner join GAME g
 on pc.game_id=g.game_id
@@ -31,5 +32,19 @@ inner join team t
 on pc.team_id=t.team_id
 inner join league l
 on g.league_id=l.id
+inner join(
+select
+league_id,
+sum(inning),
+sum(runs),
+sum(runs)/sum(inning)*5 as run_support
+FROM pitching p
+INNER JOIN
+(SELECT p.game_id,myteam_id FROM pitching p
+where player_id=/*playerId*/)tmp
+on tmp.game_id=p.game_id and tmp.myteam_id!=p.myteam_id
+inner join GAME g on g.game_id=p.game_id
+group by league_id) tmp2
+on g.league_id=tmp2.league_id
 where player_id=/*playerId*/
 group by league_id with rollup

@@ -456,6 +456,7 @@
 		<th>防御率</th>
 		<th>WHIP</th>
 		<th>奪三振率</th>
+		<th>援護率</th>
 	</tr>
 	</thead>
 	<c:forEach var="tprDtos" items="${pprList}">
@@ -477,6 +478,7 @@
 					<td><fmt:formatNumber value="${tprDtos.era}" pattern="#0.00" /></td>
 					<td><fmt:formatNumber value="${tprDtos.whip}" pattern="#0.00" /></td>
 					<td><fmt:formatNumber value="${tprDtos.strikeAvg}" pattern="#0.00" /></td>
+					<td><!-- <fmt:formatNumber value="${tprDtos.runSupport}" pattern="#0.00" />--></td>
 				</tr>
 			</c:when>
 			<c:otherwise>
@@ -496,6 +498,7 @@
 					<td><fmt:formatNumber value="${tprDtos.era}" pattern="#0.00" /></td>
 					<td><fmt:formatNumber value="${tprDtos.whip}" pattern="#0.00" /></td>
 					<td><fmt:formatNumber value="${tprDtos.strikeAvg}" pattern="#0.00" /></td>
+					<td><fmt:formatNumber value="${tprDtos.runSupport}" pattern="#0.00" /></td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
