@@ -138,6 +138,7 @@ public class PlayerAction {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		long t1=System.currentTimeMillis();
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
 		//タブ用の成績があるシーズンリスト(PersonalBattingResultbyLeagueId)
@@ -151,8 +152,10 @@ public class PlayerAction {
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
+		long t2=System.currentTimeMillis();
 		logger.info("/player/show/"+playerForm.id+" "+player.name);
 		MemoryUtil.viewMemoryInfo();
+		logger.info(t2-t1+"ms");
 		return "result.jsp";
 	}
 

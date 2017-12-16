@@ -39,6 +39,7 @@ public class KimetaroAccessTask {
 	private SlackLogger slackLogger=new SlackLogger();
 	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));
 	private Element name;
+	private boolean errFlg;
 
 	public void doExecute(){
 		logger.info("タスク開始");
@@ -94,11 +95,13 @@ public class KimetaroAccessTask {
 				list.add(row);
 			}
 		}catch (IndexOutOfBoundsException e) {
-
-		} catch (IOException e) {
-			e.printStackTrace();
+			//発生してしまうので握り潰し
+		}catch (IOException e) {
+			logger.error(e);
+			errFlg=true;
 		}catch (Exception e){
-			e.printStackTrace();
+			logger.error(e);
+			errFlg=true;
 		}
 		StringBuilder sb=new StringBuilder();
 		for(int i=0;i<list.size();i++){
@@ -111,8 +114,8 @@ public class KimetaroAccessTask {
         		}
 			}
 		}
-		File file = new File("../tomcat6.0/logs/jcbl/n13veV.csv");
-		if(file.exists()){
+		File file = new File("../tomcat6.0/logs/jcbl/Ps8mDR.csv");
+		if(file.exists() && !errFlg){
 			CsvConfig cfg = new CsvConfig();
 			cfg.setQuoteDisabled(false);// デフォルトでは無効となっている囲み文字を有効にします。
 			cfg.setEscapeDisabled(false);// デフォルトでは無効となっているエスケープ文字を有効にします。
