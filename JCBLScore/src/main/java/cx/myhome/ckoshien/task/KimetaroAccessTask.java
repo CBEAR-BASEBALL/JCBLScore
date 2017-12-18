@@ -82,25 +82,26 @@ public class KimetaroAccessTask {
 			Element element = null;
 			List<String> row = null;
 			for(int i=2;i<42;i++){
-				element=timeline.getElementById("attend_table_col6").child(1).child(0).child(0).child(i);
-				name=timeline.getElementById("attend_table_col6").child(0).child(0).child(0);
 				try{
+					element=timeline.getElementById("attend_table_col6").child(1).child(0).child(0).child(i);
+					name=timeline.getElementById("attend_table_col6").child(0).child(0).child(0);
+
 					row=new ArrayList<String>();
 					for(int j=0;j<10;j++){
 						row.add(element.child(j).child(0).text());
 					}
 				}catch (IndexOutOfBoundsException e) {
-
+					break;
 				}
 				list.add(row);
 			}
 		}catch (IndexOutOfBoundsException e) {
-			//発生してしまうので握り潰し
+			logger.error("ERROR", e);
 		}catch (IOException e) {
-			logger.error(e);
+			logger.error("ERROR", e);
 			errFlg=true;
 		}catch (Exception e){
-			logger.error(e);
+			logger.error("ERROR", e);
 			errFlg=true;
 		}
 		StringBuilder sb=new StringBuilder();
