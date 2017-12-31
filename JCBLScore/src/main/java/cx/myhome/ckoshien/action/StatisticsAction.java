@@ -25,17 +25,20 @@ public class StatisticsAction {
 	protected BattingSumService battingSumService;
 	public List<Integer> leagueList;
 	public List<MemberCountDto> countDtos;
+	public List<MemberCountDto> yearDtos;
 	@Resource
 	protected TeamService teamService;
 	public List<Team> teamList;
 	@Resource
 	protected LeagueService leagueService;
 	public List<String> seasonList;
+	public List<String> yearList;
 
 	@Execute(validator = false)
 	public String index(){
 		logger.info("/statistics/");
 		countDtos = battingSumService.countMemberBySeason();
+		yearDtos=battingSumService.countMemberByYear();
 		teamList=teamService.findAllOrderById();
 		leagueList=new ArrayList<Integer>();
 		seasonList=new ArrayList<String>();
@@ -67,12 +70,46 @@ public class StatisticsAction {
 				MemberCountDto mcd=new MemberCountDto();
 				mcd.leagueId=leagueList.get(j);
 				mcd.teamId=teamList.get(i).teamId;
-				//mcd.teamName=teamList.get(i).teamName;
-				//mcd.shortName=teamList.get(i).shortName;
 				elementMap = new HashMap<Integer,Integer>();
 				elementMap.put(teamList.get(i).teamId, leagueList.get(j));
 				mcd.memberCount=dbMap.get(elementMap);
 				countDtos.add(mcd);
+			}
+		}
+		//年ごとの処理ここから
+		yearList=new ArrayList<String>();
+		for(int i=0;i<yearDtos.size();i++){
+			if(!yearList.contains(yearDtos.get(i).shortName)){
+				//leagueList.add(yearDtos.get(i).leagueId);
+				yearList.add(yearDtos.get(i).shortName);
+			}
+		}
+		HashMap<HashMap<Integer, String>, Integer> dbMap2 = new HashMap<HashMap<Integer,String>,Integer>();
+		HashMap<Integer, String> elementMap2 = new HashMap<Integer, String>();
+		for(int i=0;i<yearDtos.size();i++){
+			elementMap2 = new HashMap<Integer,String>();
+			elementMap2.put(yearDtos.get(i).teamId, yearDtos.get(i).shortName);
+			dbMap2.put(elementMap2, yearDtos.get(i).memberCount);
+		}
+		for(int i=0;i<teamList.size();i++){
+			for(int j=0;j<yearList.size();j++){
+				elementMap2 = new HashMap<Integer,String>();
+				elementMap2.put(teamList.get(i).teamId, yearList.get(j));
+				if(!dbMap2.containsKey(elementMap2)){
+					dbMap2.put(elementMap2, 0);
+				}
+			}
+		}
+		yearDtos= new ArrayList<MemberCountDto>();
+		for(int i=0;i<teamList.size();i++){
+			for(int j=0;j<yearList.size();j++){
+				MemberCountDto mcd=new MemberCountDto();
+				mcd.shortName=yearList.get(j);
+				mcd.teamId=teamList.get(i).teamId;
+				elementMap2 = new HashMap<Integer,String>();
+				elementMap2.put(teamList.get(i).teamId, yearList.get(j));
+				mcd.memberCount=dbMap2.get(elementMap2);
+				yearDtos.add(mcd);
 			}
 		}
 		MemoryUtil.viewMemoryInfo();

@@ -137,4 +137,11 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		countDtos=jdbcManager.selectBySqlFile(MemberCountDto.class, "cx.myhome.ckoshien.sql.MemberCountBySeason.sql",null).getResultList();
 		return countDtos;
 	}
+
+	public List<MemberCountDto> countMemberByYear(){
+		List<MemberCountDto> countDtos=new ArrayList<MemberCountDto>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		countDtos=jdbcManager.selectBySqlFile(MemberCountDto.class, "cx.myhome.ckoshien.sql.MemberCountByYear.sql",null).getResultList();
+		return countDtos;
+	}
 }
