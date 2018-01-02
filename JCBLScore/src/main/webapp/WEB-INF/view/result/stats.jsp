@@ -307,6 +307,7 @@
 			<td align="right">${eraTop10.lose}</td>
 			<td align="right">${eraTop10.save}</td>
 			<td align="right" bgcolor="#FC9898"><fmt:formatNumber value="${eraTop10.era}" pattern="#0.00" /></td>
+			<td align="right">${eraTop10.runSupport}</td>
 		</tr>
 		</c:forEach>
 		</tbody>
@@ -337,6 +338,7 @@
 			<th>負け</th>
 			<th>S</th>
 			<th>防御率</th>
+			<th>援護率</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -356,6 +358,7 @@
 			<td align="right">${winTop10.lose}</td>
 			<td align="right">${winTop10.save}</td>
 			<td align="right"><fmt:formatNumber value="${winTop10.era}" pattern="#0.00" /></td>
+			<td align="right"><fmt:formatNumber value="${winTop10.runSupport}" pattern="#0.00" /></td>
 		</tr>
 		</c:forEach>
 		</tbody>
@@ -623,6 +626,7 @@
 		<th>防御率</th>
 		<th>WHIP</th>
 		<th>奪三振率</th>
+		<th>援護率</th>
 
 	</tr>
 	</thead>
@@ -645,6 +649,7 @@
 		<td><fmt:formatNumber value="${pitchingResultList.era}" pattern="#0.00" /></td>
 		<td><fmt:formatNumber value="${pitchingResultList.whip}" pattern="#0.00" /></td>
 		<td><fmt:formatNumber value="${pitchingResultList.strikeAvg}" pattern="#0.00" /></td>
+		<td><fmt:formatNumber value="${pitchingResultList.runSupport}" pattern="#0.00" /></td>
 	</tr>
 	</c:forEach>
 	</tbody>
