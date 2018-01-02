@@ -659,7 +659,8 @@
 <br><a href="${f:url('/statistics/') }">統計</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
-<br><br><br><br><br>
+<script src="https://embed.small.chat/T25NYBSGZG8LLE0A9J.js" async></script>
+<hr><br><br><br><br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"

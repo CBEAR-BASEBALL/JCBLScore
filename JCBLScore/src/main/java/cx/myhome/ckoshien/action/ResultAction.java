@@ -80,7 +80,6 @@ protected HttpServletRequest request;
 @Resource
 protected HttpServletResponse response;
 public Integer totalLeagueId;
-private List<PitchingResultDto> pitchingResultList2;
 private static Logger logger = Logger.getLogger("rootLogger");
 
 
@@ -185,12 +184,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		hitTop10=resultLogic.returnHitTop10(battingResultList);
 		//防御率TOP10
 		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
-//		pitchingResultList2=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
-//		pitchingResultList=new ArrayList<PitchingResultDto>();
-//		for(int i=0;i<pitchingResultList2.size();i++){
-//			PitchingResultDto element = pitchingService.findSeasonPitchingResultWithRunSupport(pitchingResultList2.get(i).playerId, Integer.parseInt(resultForm.id));
-//			pitchingResultList.add(element);
-//		}
 		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
 		//勝利数TOP10
 		winTop10=resultLogic.returnWinTop10(pitchingResultList);
@@ -230,7 +223,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		request=null;
 		resultLogic=null;
 		tmpResultList=null;
-		pitchingResultList2=null;
 		MemoryUtil.viewMemoryInfo();
 		long t2=System.currentTimeMillis();
 		logger.info(t2-t1+"ms");
