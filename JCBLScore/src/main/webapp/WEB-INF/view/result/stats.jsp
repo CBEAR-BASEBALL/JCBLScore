@@ -288,6 +288,7 @@
 			<th>負け</th>
 			<th>S</th>
 			<th>防御率</th>
+			<th>援護率</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -307,7 +308,7 @@
 			<td align="right">${eraTop10.lose}</td>
 			<td align="right">${eraTop10.save}</td>
 			<td align="right" bgcolor="#FC9898"><fmt:formatNumber value="${eraTop10.era}" pattern="#0.00" /></td>
-			<td align="right">${eraTop10.runSupport}</td>
+			<td align="right" ><fmt:formatNumber value="${eraTop10.runSupport}" pattern="#0.00" /></td>
 		</tr>
 		</c:forEach>
 		</tbody>
