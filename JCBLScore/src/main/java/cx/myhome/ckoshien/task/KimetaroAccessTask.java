@@ -115,7 +115,7 @@ public class KimetaroAccessTask {
         		}
 			}
 		}
-		File file = new File("../tomcat6.0/logs/jcbl/Ps8mDR.csv");
+		File file = new File("../tomcat6.0/logs/jcbl/2gDjrP.csv");
 		if(file.exists() && !errFlg){
 			CsvConfig cfg = new CsvConfig();
 			cfg.setQuoteDisabled(false);// デフォルトでは無効となっている囲み文字を有効にします。
@@ -139,10 +139,10 @@ public class KimetaroAccessTask {
 				for(int j=0;j<arrayStr.length;j++){
 					if(!list.get(i).get(j).equals(arrayStr[j])){
 						//変更があった場合
-						modifyStr.append("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました\n");
+						modifyStr.append("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列が"+arrayStr[j]+"から"+list.get(i).get(j)+"に変更されました\n");
 //						logger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
 //						slackLogger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
-//						bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました",null, null, null, null, null, null, null, "jcbl", null, null);
+						bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列が"+arrayStr[j]+"から"+list.get(i).get(j)+"に変更されました",null, null, null, null, null, null, null, "jcbl", null, null);
 					}
 				}
 			}
