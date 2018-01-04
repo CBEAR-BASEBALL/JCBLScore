@@ -82,6 +82,7 @@ public Team lastTeam;
 protected HttpServletRequest request;
 @Resource
 protected HttpServletResponse response;
+public String gameDate;
 
 private static Logger logger = Logger.getLogger("rootLogger");
 //public GameListDto gameListDto;
@@ -113,11 +114,11 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		playerList=playerService.findAllOrderById();
 		StringBuilder sb = new StringBuilder();
 		//日付を連結
-		sb.append(gameSummaryForm.gameYear);
-		sb.append("/");
-		sb.append(gameSummaryForm.gameMonth);
-		sb.append("/");
-		sb.append(gameSummaryForm.gameDay);
+//		sb.append(gameSummaryForm.gameYear);
+//		sb.append("/");
+//		sb.append(gameSummaryForm.gameMonth);
+//		sb.append("/");
+//		sb.append(gameSummaryForm.gameDay);
 		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
@@ -265,6 +266,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		lastBattingSumList=battingSumService.findByGameId(gameId,game.lastTeam);
 		GameSummaryLogic logic= new GameSummaryLogic();
 		gameSummaryForm=logic.convert2GameSummary(game,firstBattingSumList,lastBattingSumList,gameSummaryForm,firstPitchingList,lastPitchingList);
+		gameDate=game.gameDate.toString().toString().replace("-", "/");
 		MemoryUtil.viewMemoryInfo();
 		return "edit.jsp";
 	}
@@ -277,12 +279,12 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	public String updateComplete(){
 		StringBuilder sb = new StringBuilder();
 		//日付を連結
-		sb.append(gameSummaryForm.gameYear);
-		sb.append("/");
-		sb.append(gameSummaryForm.gameMonth);
-		sb.append("/");
-		sb.append(gameSummaryForm.gameDay);
-		gameSummaryForm.gameDate=new String(sb);
+//		sb.append(gameSummaryForm.gameYear);
+//		sb.append("/");
+//		sb.append(gameSummaryForm.gameMonth);
+//		sb.append("/");
+//		sb.append(gameSummaryForm.gameDay);
+//		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		game.gameId=Integer.parseInt(gameSummaryForm.id);
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
@@ -454,14 +456,14 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	}
 
 	public ActionMessages dateValidate(){
-		StringBuilder sb = new StringBuilder();
+//		StringBuilder sb = new StringBuilder();
 		//日付を連結
-		sb.append(gameSummaryForm.gameYear);
-		sb.append("/");
-		sb.append(gameSummaryForm.gameMonth);
-		sb.append("/");
-		sb.append(gameSummaryForm.gameDay);
-		gameSummaryForm.gameDate=new String(sb);
+//		sb.append(gameSummaryForm.gameYear);
+//		sb.append("/");
+//		sb.append(gameSummaryForm.gameMonth);
+//		sb.append("/");
+//		sb.append(gameSummaryForm.gameDay);
+//		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		league=leagueService.findIdByDate(game.gameDate);
 		ActionMessages errors = new ActionMessages();

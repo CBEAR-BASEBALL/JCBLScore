@@ -35,9 +35,10 @@ public class GameSummaryLogic {
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(game.gameDate);
-		gameSummaryForm.gameYear=String.valueOf(cal.get(Calendar.YEAR));
-		gameSummaryForm.gameMonth=String.valueOf(cal.get(Calendar.MONTH)+1);
-		gameSummaryForm.gameDay=String.valueOf(cal.get(Calendar.DATE));
+//		gameSummaryForm.gameYear=String.valueOf(cal.get(Calendar.YEAR));
+//		gameSummaryForm.gameMonth=String.valueOf(cal.get(Calendar.MONTH)+1);
+//		gameSummaryForm.gameDay=String.valueOf(cal.get(Calendar.DATE));
+		gameSummaryForm.gameDate=game.gameDate.toString().toString().replace("-", "/");
 		gameSummaryForm.gameNumber=String.valueOf(game.gameNumber);
 		gameSummaryForm.firstTeam=String.valueOf(game.firstTeam);
 		gameSummaryForm.lastTeam=String.valueOf(game.lastTeam);

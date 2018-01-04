@@ -2,7 +2,17 @@
 <html>
 <head>
 	<link rel="stylesheet" href="${f:url('/css/error.css') }" type="text/css" media="print, projection, screen"/>
+	<link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
+	<script src="${f:url('/js/jquery-ui.js')}" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#datepicker").datepicker();
+			$("#datepicker").datepicker("option", "dateFormat", 'yy/mm/dd');
+			$("#datepicker").datepicker("setDate",'${gameDate}');
+
+		});
+	</script>
 	<script type="text/javascript">
 	jQuery(function($){
 		$('input').keyup(function(){
@@ -59,7 +69,7 @@
 <body>
 <html:errors/>
 <s:form action="">
-<html:select property="gameYear">
+<%-- <html:select property="gameYear">
 	<c:forEach var="i" begin="2003" end="2025">
 		<html:option value="${i}">${i}</html:option>
 	</c:forEach>
@@ -76,7 +86,10 @@
 		<html:option value="${i}">${i}</html:option>
 	</c:forEach>
 </html:select>
-日第
+日--%>
+<html:text styleId="datepicker" property="gameDate"/>
+<%-- <html:hidden property="gameDate" />--%>
+第
 <html:select property="gameNumber">
 	<c:forEach var="i" begin="1" end="10">
 		<html:option value="${i}">${i}</html:option>
