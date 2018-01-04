@@ -277,109 +277,115 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			validate="dateValidate",
 			removeActionForm=true)
 	public String updateComplete(){
-		StringBuilder sb = new StringBuilder();
-		//日付を連結
-//		sb.append(gameSummaryForm.gameYear);
-//		sb.append("/");
-//		sb.append(gameSummaryForm.gameMonth);
-//		sb.append("/");
-//		sb.append(gameSummaryForm.gameDay);
-//		gameSummaryForm.gameDate=new String(sb);
-		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
-		game.gameId=Integer.parseInt(gameSummaryForm.id);
-		leagueList=leagueService.findAllOrderByIdExceptTotal();
-		//リーグID検索
-		for (int i=0;i<leagueList.size();i++){
-			int j=game.gameDate.compareTo(leagueList.get(i).beginDate);
-			int k=game.gameDate.compareTo(leagueList.get(i).endDate);
-			if(j>=0 && k<=0){
-				game.leagueId=leagueList.get(i).id;
-				break;
-			}
-		}
-		gameService.update(game);
-		playerList=playerService.findAllOrderById();
-		battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
-		//GAME_IDに紐づく打撃成績をテーブルから全て削除
-		battingSumList=battingSumService.findByGameIdAll(game.gameId);
-		for(int i=0;i<battingSumList.size();i++){
-			battingSumService.delete(battingSumList.get(i));
-		}
-		for(int i=0;i<battingSumForm.atBats.size();i++){
-			battingSum=new BattingSum();
-			if (!battingSumForm.playerId.get(i).equals("")||!battingSumForm.tpa.get(i).equals("")){
-				battingSum.gameId=game.gameId;
-				GameSummaryLogic logic=new GameSummaryLogic();
-				battingSum=logic.convert2BattingSum(battingSumForm, battingSum, playerList,i);
-				if (battingSumForm.myTeamId.get(i).equals("0")){
-					//先攻の場合先攻チームIDを代入
-					battingSum.myteamId=game.firstTeam;
-				}else if(battingSumForm.myTeamId.get(i).equals("1")){
-					//後攻の場合後攻チームIDを代入
-					battingSum.myteamId=game.lastTeam;
+		try{
+			StringBuilder sb = new StringBuilder();
+			//日付を連結
+//			sb.append(gameSummaryForm.gameYear);
+//			sb.append("/");
+//			sb.append(gameSummaryForm.gameMonth);
+//			sb.append("/");
+//			sb.append(gameSummaryForm.gameDay);
+//			gameSummaryForm.gameDate=new String(sb);
+			game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
+			game.gameId=Integer.parseInt(gameSummaryForm.id);
+			leagueList=leagueService.findAllOrderByIdExceptTotal();
+			//リーグID検索
+			for (int i=0;i<leagueList.size();i++){
+				int j=game.gameDate.compareTo(leagueList.get(i).beginDate);
+				int k=game.gameDate.compareTo(leagueList.get(i).endDate);
+				if(j>=0 && k<=0){
+					game.leagueId=leagueList.get(i).id;
+					break;
 				}
-				battingSumService.insert(battingSum);
 			}
-		}
-		//GAME_IDに紐づく投手成績を全て削除
-		pitchingList=pitchingService.findByGameIdAll(game.gameId);
-		for(int i=0;i<pitchingList.size();i++){
-			pitchingService.delete(pitchingList.get(i));
-		}
-		for(int i=0;i<gameSummaryForm.p_playerId.size();i++){
-			if(!gameSummaryForm.p_playerId.get(i).equals("")){
-				Pitching pitching=pitchingService.findById(Integer.parseInt(gameSummaryForm.p_playerId.get(i)));
-				pitching=new Pitching();
-				GameSummaryLogic logic=new GameSummaryLogic();
-				pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
-				for(int j=0;j<playerList.size();j++){
-					if(playerList.get(j).id.equals(pitching.playerId)){
-						pitching.teamId=playerList.get(j).teamId;
-						break;
+			gameService.update(game);
+			playerList=playerService.findAllOrderById();
+			battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
+			//GAME_IDに紐づく打撃成績をテーブルから全て削除
+			battingSumList=battingSumService.findByGameIdAll(game.gameId);
+			for(int i=0;i<battingSumList.size();i++){
+				battingSumService.delete(battingSumList.get(i));
+			}
+			for(int i=0;i<battingSumForm.atBats.size();i++){
+				battingSum=new BattingSum();
+				if (!battingSumForm.playerId.get(i).equals("")||!battingSumForm.tpa.get(i).equals("")){
+					battingSum.gameId=game.gameId;
+					GameSummaryLogic logic=new GameSummaryLogic();
+					battingSum=logic.convert2BattingSum(battingSumForm, battingSum, playerList,i);
+					if (battingSumForm.myTeamId.get(i).equals("0")){
+						//先攻の場合先攻チームIDを代入
+						battingSum.myteamId=game.firstTeam;
+					}else if(battingSumForm.myTeamId.get(i).equals("1")){
+						//後攻の場合後攻チームIDを代入
+						battingSum.myteamId=game.lastTeam;
 					}
+					battingSumService.insert(battingSum);
 				}
-				pitching.gameId=game.gameId;
-				pitchingService.insert(pitching);
 			}
+			//GAME_IDに紐づく投手成績を全て削除
+			pitchingList=pitchingService.findByGameIdAll(game.gameId);
+			for(int i=0;i<pitchingList.size();i++){
+				pitchingService.delete(pitchingList.get(i));
+			}
+			for(int i=0;i<gameSummaryForm.p_playerId.size();i++){
+				if(!gameSummaryForm.p_playerId.get(i).equals("")){
+					Pitching pitching=pitchingService.findById(Integer.parseInt(gameSummaryForm.p_playerId.get(i)));
+					pitching=new Pitching();
+					GameSummaryLogic logic=new GameSummaryLogic();
+					pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
+					for(int j=0;j<playerList.size();j++){
+						if(playerList.get(j).id.equals(pitching.playerId)){
+							pitching.teamId=playerList.get(j).teamId;
+							break;
+						}
+					}
+					pitching.gameId=game.gameId;
+					pitchingService.insert(pitching);
+				}
+			}
+			//resultテーブルupdate
+			Result result=new Result();
+			Result result2=new Result();
+			result.id=resultService.findById(game.firstTeam,game.gameId).id;
+			result2.id=resultService.findById(game.lastTeam,game.gameId).id;
+			result.gameId=game.gameId;
+			result2.gameId=game.gameId;
+			result.teamId=game.firstTeam;
+			result2.teamId=game.lastTeam;
+			result.opponent=game.lastTeam;
+			result2.opponent=game.firstTeam;
+			if(Integer.parseInt(gameSummaryForm.firstRun)>Integer.parseInt(gameSummaryForm.lastRun)){
+				result.win=1;
+				result.lose=0;
+				result.draw=0;
+				result2.win=0;
+				result2.lose=1;
+				result2.draw=0;
+			}else if(Integer.parseInt(gameSummaryForm.firstRun)<Integer.parseInt(gameSummaryForm.lastRun)){
+				result.win=0;
+				result.lose=1;
+				result.draw=0;
+				result2.win=1;
+				result2.lose=0;
+				result2.draw=0;
+			}else if(Integer.parseInt(gameSummaryForm.firstRun)==Integer.parseInt(gameSummaryForm.lastRun)){
+				result.win=0;
+				result.lose=0;
+				result.draw=1;
+				result2.win=0;
+				result2.lose=0;
+				result2.draw=1;
+			}
+			result.leagueId=game.leagueId;
+			result2.leagueId=game.leagueId;
+			resultService.update(result);
+			resultService.update(result2);
+			MemoryUtil.viewMemoryInfo();
+
+		}catch(Throwable t){
+			logger.error("ERROR", t);
+			throw t;
 		}
-		//resultテーブルupdate
-		Result result=new Result();
-		Result result2=new Result();
-		result.id=resultService.findById(game.firstTeam,game.gameId).id;
-		result2.id=resultService.findById(game.lastTeam,game.gameId).id;
-		result.gameId=game.gameId;
-		result2.gameId=game.gameId;
-		result.teamId=game.firstTeam;
-		result2.teamId=game.lastTeam;
-		result.opponent=game.lastTeam;
-		result2.opponent=game.firstTeam;
-		if(Integer.parseInt(gameSummaryForm.firstRun)>Integer.parseInt(gameSummaryForm.lastRun)){
-			result.win=1;
-			result.lose=0;
-			result.draw=0;
-			result2.win=0;
-			result2.lose=1;
-			result2.draw=0;
-		}else if(Integer.parseInt(gameSummaryForm.firstRun)<Integer.parseInt(gameSummaryForm.lastRun)){
-			result.win=0;
-			result.lose=1;
-			result.draw=0;
-			result2.win=1;
-			result2.lose=0;
-			result2.draw=0;
-		}else if(Integer.parseInt(gameSummaryForm.firstRun)==Integer.parseInt(gameSummaryForm.lastRun)){
-			result.win=0;
-			result.lose=0;
-			result.draw=1;
-			result2.win=0;
-			result2.lose=0;
-			result2.draw=1;
-		}
-		result.leagueId=game.leagueId;
-		result2.leagueId=game.leagueId;
-		resultService.update(result);
-		resultService.update(result2);
-		MemoryUtil.viewMemoryInfo();
 		return "";
 	}
 

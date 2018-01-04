@@ -9,14 +9,14 @@ import static org.seasar.extension.jdbc.operation.Operations.*;
 
 /**
  * {@link Team}のサービスクラスです。
- * 
+ *
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2014/12/09 16:58:09")
 public class TeamService extends AbstractService<Team> {
 
     /**
      * 識別子でエンティティを検索します。
-     * 
+     *
      * @param teamId
      *            識別子
      * @return エンティティ
@@ -27,10 +27,14 @@ public class TeamService extends AbstractService<Team> {
 
     /**
      * 識別子の昇順ですべてのエンティティを検索します。
-     * 
+     *
      * @return エンティティのリスト
      */
     public List<Team> findAllOrderById() {
         return select().orderBy(asc(teamId())).getResultList();
+    }
+
+    public List<Team> findTeamOrderByLastJoinedDate(){
+    	return jdbcManager.selectBySqlFile(Team.class, "cx.myhome.ckoshien.sql.FindTeamOrderByLastJoinedDate.sql").getResultList();
     }
 }

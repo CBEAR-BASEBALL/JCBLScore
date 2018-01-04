@@ -1,20 +1,11 @@
 package cx.myhome.ckoshien.service;
 
-import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Generated;
-
-import static cx.myhome.ckoshien.entity.PlayerNames.*;
-import static org.seasar.extension.jdbc.operation.Operations.*;
-import static org.seasar.extension.jdbc.parameter.Parameter.date;
 
 /**
  * {@link Player}のサービスクラスです。

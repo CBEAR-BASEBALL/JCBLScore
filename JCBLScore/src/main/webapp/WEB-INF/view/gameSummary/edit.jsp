@@ -199,28 +199,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:text property="tpa[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="tpa[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="atBats[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="atBats[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="hit[${i-1 }]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="hit[${i-1 }]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="homerun[${i-1 }]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="homerun[${i-1 }]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="rbi[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="rbi[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="fourBall[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="fourBall[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="strikeOut[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="strikeOut[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="twoBase[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="twoBase[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			<html:hidden property="myTeamId[${i-1}]" value="0"/>
 			<html:hidden property="playerRecordId[${i-1}]" value="${playerRecordId[i-1] }"/>
 		</td>
@@ -262,28 +262,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:text property="inning1[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="inning1[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			回
-			<html:text property="inning2[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="inning2[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
-			<html:text property="p_hit[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_hit[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_strikeOut[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_strikeOut[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_fourBall[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_fourBall[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="runs[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="runs[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="pa[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="pa[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_homerun[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:select property="complete[${i-1}]">
@@ -338,28 +338,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:text property="tpa[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="tpa[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="atBats[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="atBats[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="hit[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="hit[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="homerun[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="rbi[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="rbi[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="fourBall[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="fourBall[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="strikeOut[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="strikeOut[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="twoBase[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="twoBase[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			<html:hidden property="myTeamId[${i-1}]" value="1"/>
 			<html:hidden property="playerRecordId[${i-1}]" value="${playerRecordId[i-1] }"/>
 		</td>
@@ -401,28 +401,28 @@
 			</html:select>
 		</td>
 		<td>
-			<html:text property="inning1[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="inning1[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			回
-			<html:text property="inning2[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="inning2[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
-			<html:text property="p_hit[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_hit[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_strikeOut[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_strikeOut[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_fourBall[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_fourBall[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="runs[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="runs[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="pa[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="pa[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="p_homerun[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />
+			<html:text property="p_homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
 			<html:select property="complete[${i-1}]">
