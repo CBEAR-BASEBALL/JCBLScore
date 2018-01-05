@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -33,8 +35,7 @@ public class EzBBSTask {
 	private static BufferedReader br;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
-	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));
-
+	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));	
 
 	public void doExecute() {
 		logger.info("タスク開始");
@@ -51,6 +52,7 @@ public class EzBBSTask {
 			sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 			Date date = sdf.parse(dateStr);
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
 			System.out.println(sdf2.format(date));
 			File file = new File(filepath);
 			String line = null;
@@ -71,11 +73,13 @@ public class EzBBSTask {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					//slackに通知
+
 					logger.info("掲示板が更新されました");
-					slackLogger.info("掲示板が更新されました");
-					bullet.sendPush("note", "JCBLスコア管理システム", "掲示板が更新されました"
-							,null, null, null, null, null, null, null, "jcbl", null, null);
+
+					//slackに通知
+					slackLogger.info(""+sdf3.format(date)+"に掲示板が更新されました");
+					//pushbullet通知
+					bullet.sendPush("note", "JCBLスコア管理システム", ""+sdf3.format(date)+"に掲示板が更新されました",null, null, null, null, null, null, null, "jcbl", null, null);
 				}
 			}else{
 				//ファイルがないとき

@@ -68,6 +68,7 @@
 </head>
 <body>
 <html:errors/>
+レコードの削除はプレイヤー名「空」かつ打席数「空」。
 <s:form action="">
 <%-- <html:select property="gameYear">
 	<c:forEach var="i" begin="2003" end="2025">
