@@ -10,6 +10,7 @@
 システムエラーが発生しました。<br>
 管理者へご報告お願いします。<br>
 <hr>
+<script src="https://embed.small.chat/T25NYBSGZG8LLE0A9J.js" async></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"

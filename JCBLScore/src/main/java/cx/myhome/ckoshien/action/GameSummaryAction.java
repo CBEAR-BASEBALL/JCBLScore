@@ -277,7 +277,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			validate="dateValidate",
 			removeActionForm=true)
 	public String updateComplete(){
-		try{
 			StringBuilder sb = new StringBuilder();
 			//日付を連結
 //			sb.append(gameSummaryForm.gameYear);
@@ -381,11 +380,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			resultService.update(result);
 			resultService.update(result2);
 			MemoryUtil.viewMemoryInfo();
-
-		}catch(Throwable t){
-			logger.error("ERROR", t);
-			throw t;
-		}
 		return "";
 	}
 
