@@ -659,7 +659,7 @@
 <br><a href="${f:url('/statistics/') }">統計</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
-<script src="https://embed.small.chat/T25NYBSGZG8LLE0A9J.js" async></script>
+<br><a href="https://ckoshien.github.io/JCBLScore/notification.html" target="_top">プッシュ通知設定ページ</a>
 <hr><br><br><br><br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->

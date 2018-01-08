@@ -13,12 +13,7 @@ public class GameSummaryForm implements Serializable{
 
 	//試合結果関連
 	public String id;
-//	@Required
-//	public String gameYear;
-//	@Required
-//	public String gameMonth;
 	@Required
-//	public String gameDay;
 	public String gameDate;
 	@Required
 	public String gameNumber;

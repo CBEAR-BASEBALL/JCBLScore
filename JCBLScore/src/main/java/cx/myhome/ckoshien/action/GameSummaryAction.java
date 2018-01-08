@@ -112,14 +112,14 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			removeActionForm=true)
 	public String createComplete(){
 		playerList=playerService.findAllOrderById();
-		StringBuilder sb = new StringBuilder();
+//		StringBuilder sb = new StringBuilder();
 		//日付を連結
 //		sb.append(gameSummaryForm.gameYear);
 //		sb.append("/");
 //		sb.append(gameSummaryForm.gameMonth);
 //		sb.append("/");
 //		sb.append(gameSummaryForm.gameDay);
-		gameSummaryForm.gameDate=new String(sb);
+//		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		//リーグID検索
