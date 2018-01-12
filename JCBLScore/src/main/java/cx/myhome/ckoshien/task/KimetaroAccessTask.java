@@ -128,12 +128,14 @@ public class KimetaroAccessTask {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			StringBuilder modifyStr=new StringBuilder();
 			if(csvData.size()!=list.size()){
 				logger.info("決め太郎：新規スケジュールが入力されました");
 				slackLogger.info("決め太郎：新規スケジュールが入力されました");
-				bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎：新規スケジュールが入力されました",null, null, null, null, null, null, null, "jcbl", null, null);
+				modifyStr.append("決め太郎：新規スケジュールが入力されました\n");
+				//bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎：新規スケジュールが入力されました",null, null, null, null, null, null, null, "jcbl", null, null);
 			}
-			StringBuilder modifyStr=new StringBuilder();
+
 			for(int i=0;i<csvData.size();i++){
 				String[] arrayStr=csvData.get(i);
 				for(int j=0;j<arrayStr.length;j++){
