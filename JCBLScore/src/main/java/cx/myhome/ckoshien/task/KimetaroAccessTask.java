@@ -31,8 +31,8 @@ import cx.myhome.ckoshien.rest.PushbulletClient;
 import cx.myhome.ckoshien.rest.SlackLogger;
 
 @Task
-//@CronTrigger(expression = "0 0 */4 * * ?")
-@NonDelayTrigger
+@CronTrigger(expression = "0 0 */4 * * ?")
+//@NonDelayTrigger
 public class KimetaroAccessTask {
 	public List<String[]> csvData;
 	private static Logger logger = Logger.getLogger("rootLogger");
@@ -130,10 +130,7 @@ public class KimetaroAccessTask {
 			}
 			StringBuilder modifyStr=new StringBuilder();
 			if(csvData.size()!=list.size()){
-				logger.info("決め太郎：新規スケジュールが入力されました");
-				slackLogger.info("決め太郎：新規スケジュールが入力されました");
 				modifyStr.append("決め太郎：新規スケジュールが入力されました\n");
-				//bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎：新規スケジュールが入力されました",null, null, null, null, null, null, null, "jcbl", null, null);
 			}
 
 			for(int i=0;i<csvData.size();i++){
@@ -142,9 +139,6 @@ public class KimetaroAccessTask {
 					if(!list.get(i).get(j).equals(arrayStr[j])){
 						//変更があった場合
 						modifyStr.append("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列が"+arrayStr[j]+"から"+list.get(i).get(j)+"に変更されました\n");
-//						logger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
-//						slackLogger.info("決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列に変更がありました");
-//						bullet.sendPush("note", "JCBLスコア管理システム", "決め太郎："+name.child(i+1).child(0).child(0).text()+"の"+(j+1)+"列が"+arrayStr[j]+"から"+list.get(i).get(j)+"に変更されました",null, null, null, null, null, null, null, "jcbl", null, null);
 					}
 				}
 			}
