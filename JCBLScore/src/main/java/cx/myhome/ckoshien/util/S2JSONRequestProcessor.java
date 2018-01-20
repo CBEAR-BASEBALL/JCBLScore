@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.seasar.framework.beans.util.Beans;
+import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.util.ReaderUtil;
 import org.seasar.struts.action.S2RequestProcessor;
 import org.seasar.struts.util.S2ActionMappingUtil;
@@ -47,7 +48,10 @@ public class S2JSONRequestProcessor extends S2RequestProcessor {
 				Beans.copy(value, actionForm).execute();
 			} catch (IOException e) {
 				log.error(e.getMessage(), e);
-				throw new ServletException(e.getMessage(), e);
+				//throw new ServletException(e.getMessage(), e);
+			}catch(IORuntimeException e){
+				//log.error(e.getMessage(), e);
+				//throw new ServletException(e.getMessage(), e);
 			}
 		} else {
 			super.processPopulate(request, response, form, mapping);
