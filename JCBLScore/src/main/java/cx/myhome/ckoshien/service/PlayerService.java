@@ -61,4 +61,8 @@ public class PlayerService extends AbstractService<Player> {
 	public Player findByNameAndTeamId(String name,Integer teamId) {
 		return select().where("name=? and teamId=?", name,teamId).getSingleResult();
 	}
+
+	public List<Player> findByLikeName(String name) {
+		return select().where("name like ?", "%"+name+"%").getResultList();
+	}
 }
