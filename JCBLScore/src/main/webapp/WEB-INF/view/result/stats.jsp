@@ -4,7 +4,9 @@
 	<link rel="icon" href="${f:url('/favicon.ico') }" type="image/vnd.microsoft.icon">
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
 	<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
+	<link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
 	<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" type="text/javascript"></script>
 	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
 	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -23,10 +25,11 @@
 		   );
 
 	</script>
-
+	<!--  <meta name="viewport" content="width=device-width,initial-scale=1"> -->
 </head>
 <body>
 <!--shinobi1-->
+<%--
 <script type="text/javascript" src="http://x6.karakasa.com/ufo/05087790l"></script>
 <noscript><a href="http://x6.karakasa.com/bin/gg?05087790l" target="_blank">
 <img src="http://x6.karakasa.com/bin/ll?05087790l" border="0"></a>
@@ -34,7 +37,9 @@
 <img style="margin:0;vertical-align:text-bottom;" src="http://img.shinobi.jp/tadaima/fj.gif" width="19" height="11">
 </span>
 </noscript>
+--%>
 <!--shinobi2-->
+
 <table border=1>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">${league.title} チーム成績</font></td>
@@ -659,17 +664,6 @@
 <br><a href="${f:url('/statistics/') }">統計</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
-<br><a href="https://ckoshien.github.io/JCBLScore/notification.html" target="_top">プッシュ通知設定ページ</a>
 <hr><br><br><br><br>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6455792541973521"
-     data-ad-slot="1903562094"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 </body>
 </html>

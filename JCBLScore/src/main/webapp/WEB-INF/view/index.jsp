@@ -16,28 +16,29 @@
 <!--shinobi2-->
 <hr>
 <h2>JCBLスコア管理システム</h2>
-・<a href="./team/">チーム紹介</a>
-<br>・<a href="./result/">スタッツ</a>
-<br>・<a href="./gameSummary/">スコアボード</a>
+<a href="${f:url('/team/')}" class="btn btn-success">チーム紹介</a>
+<a href="${f:url('/result/')}" class="btn btn-success">スタッツ</a>
+<a href="${f:url('/gameSummary/')}" class="btn btn-success">スコアボード</a>
+<br>
+<br>
+<br>
+<br>
+<br>
 <c:choose>
 	<c:when test="${!empty loginUserDto.authority}">
-		<br>・<a href="./gameSummary/create">新規試合入力</a>
-		<br>・<a href="./player/">選手新規入力・更新</a>
+		<a href="./gameSummary/create" class="btn btn-warning">新規試合入力</a>
+		<a href="./player/" class="btn btn-warning">選手新規入力・更新</a>
 		<br><b>(${loginUserDto.name}さんログイン中)</b>
 	</c:when>
 	<c:otherwise>
 		<s:form action="login">
-			<input type="submit" value="ログイン" class="btn btn-primary"/>
+			<input type="submit" value="ログイン" class="btn btn-danger"/>
 		</s:form>
 	</c:otherwise>
 </c:choose>
 <hr>
-ご意見・ご要望・ご質問
-<!--ninja_style_mailform-->
-<script type="text/javascript" src="http://mf1.shinobi.jp/call/646aed85cc6881f51be70c5e0ba98e15/default.js" charset="utf-8"></script>
-<!--ninja_style_mailform-->
-
 <hr>
+<script src="https://embed.small.chat/T25NYBSGZG8LLE0A9J.js" async></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"

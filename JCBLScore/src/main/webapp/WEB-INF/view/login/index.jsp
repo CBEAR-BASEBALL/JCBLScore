@@ -13,7 +13,7 @@
 <br>
 パスワード:<html:password property="password" size="20" maxlength="20"/>
 <br>
-<input type="submit" name="login" value="ログイン" class="btn btn-primary">
+<input type="submit" name="login" value="ログイン" class="btn btn-danger">
 </s:form>
 <hr>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
