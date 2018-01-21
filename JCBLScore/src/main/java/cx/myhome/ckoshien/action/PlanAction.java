@@ -65,16 +65,16 @@ public class PlanAction {
 			//不正なトークンの場合。エラー画面を表示
 			return "twice.jsp";
 		}
-		Player player = playerService.findById(Integer.parseInt(planForm.getId()));
+		Player player = playerService.findById(Integer.parseInt(planForm.getIdHidden()));
 		mScheduleList=mScheduleService.findAllOrderByDate();
-		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getId()));
+		List<TSchedule> list = tScheduleService.findByPlayerId(Integer.parseInt(planForm.getIdHidden()));
 		if(list.size()==0){
 			for(int i=0;i<mScheduleList.size();i++){
 				if(!planForm.getPlans().get(i).equals("")){
 					TSchedule tSchedule = new TSchedule();
 					tSchedule.mstId=mScheduleList.get(i).id;
 					tSchedule.plans=Integer.parseInt(planForm.getPlans().get(i));
-					tSchedule.playerId=Integer.parseInt(planForm.getId());
+					tSchedule.playerId=Integer.parseInt(planForm.getIdHidden());
 					tScheduleService.insert(tSchedule);
 
 				}

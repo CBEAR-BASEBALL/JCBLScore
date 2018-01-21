@@ -2,9 +2,15 @@ package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.Player;
+import cx.myhome.ckoshien.entity.Team;
+
+import static org.seasar.extension.jdbc.parameter.Parameter.date;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Generated;
 
 /**
@@ -62,7 +68,11 @@ public class PlayerService extends AbstractService<Player> {
 		return select().where("name=? and teamId=?", name,teamId).getSingleResult();
 	}
 
-	public List<Player> findByLikeName(String name) {
-		return select().where("name like ?", "%"+name+"%").getResultList();
+	public List<PlayerDto> findByLikeName(String name) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("word","%"+name+"%");
+		playerList=new ArrayList<PlayerDto>();
+		playerList=jdbcManager.selectBySqlFile(PlayerDto.class, "cx.myhome.ckoshien.sql.TeamDateLike.sql",param).getResultList();
+		return playerList;
 	}
 }

@@ -16,6 +16,7 @@ import org.seasar.framework.util.ResourceUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.dto.api.MessageDto;
@@ -114,7 +115,7 @@ public class LineBotAction {
 		logger.info(playerName);
 		MessageDto message=new MessageDto();
 		message.text="";
-		List<Player> playerList=playerService.findByLikeName(playerName);
+		List<PlayerDto> playerList=playerService.findByLikeName(playerName);
 		if(playerList.size()>1){
 			//候補を提示する
 			message.text=playerList.size()+"人候補がいます。\n";
