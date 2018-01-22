@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -35,10 +37,16 @@ public class EzBBSTask {
 	private static BufferedReader br;
 	private static Logger logger = Logger.getLogger("rootLogger");
 	private SlackLogger slackLogger=new SlackLogger();
-	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));	
+	private PushbulletClient bullet=new PushbulletClient(ResourceUtil.getProperties("config.properties").getProperty("PUSHBULLET_TOKEN"));
 
 	public void doExecute() {
 		logger.info("タスク開始");
+		InetAddress ia = null;
+		try {
+			ia = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 		String uri = "http://www3.ezbbs.net/36/jcbl/";
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet(uri);
@@ -78,8 +86,13 @@ public class EzBBSTask {
 
 					//slackに通知
 					slackLogger.info(""+sdf3.format(date)+"に掲示板が更新されました");
-					//pushbullet通知
-					bullet.sendPush("note", "JCBLスコア管理システム", ""+sdf3.format(date)+"に掲示板が更新されました",null, null, null, null, null, null, null, "jcbl", null, null);
+					if(!ia.getHostAddress().equals(ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP"))){
+						//pushbullet通知
+						bullet.sendPush("note", "JCBLスコア管理システム", ""+sdf3.format(date)+"に掲示板が更新されました",null, null, null, null, null, null, null, "jcbl", null, null);
+					}else{
+						logger.info("開発機");
+					}
+
 				}
 			}else{
 				//ファイルがないとき

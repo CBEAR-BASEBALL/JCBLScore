@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +45,13 @@ public class KimetaroAccessTask {
 
 	public void doExecute(){
 		logger.info("タスク開始");
+		InetAddress ia = null;
+		try {
+			ia = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		logger.info(ia.getHostAddress() );
 		String ua = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36";
 		String baseUrl="https://www.freeml.com";
 		String targetUrl=ResourceUtil.getProperties("config.properties").getProperty("KIMETARO_URL");
@@ -145,7 +154,12 @@ public class KimetaroAccessTask {
 			if(modifyStr.length()>0){
 				logger.info(modifyStr);
 				slackLogger.info(modifyStr);
-				bullet.sendPush("note", "JCBLスコア管理システム",new String(modifyStr),null, null, null, null, null, null, null, "jcbl", null, null);
+				if(!ia.getHostAddress().equals(ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP"))){
+					//開発機以外なら通知送信
+					bullet.sendPush("note", "JCBLスコア管理システム",new String(modifyStr),null, null, null, null, null, null, null, "jcbl", null, null);
+				}else{
+					logger.info("開発機のためログのみ");
+				}
 			}
 
 
