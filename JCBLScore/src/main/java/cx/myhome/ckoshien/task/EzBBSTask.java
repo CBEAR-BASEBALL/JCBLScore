@@ -86,7 +86,7 @@ public class EzBBSTask {
 
 					//slackに通知
 					slackLogger.info(""+sdf3.format(date)+"に掲示板が更新されました");
-					if(!ia.getHostAddress().equals(ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP"))){
+					if(ia.getHostAddress().equals(ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP"))){
 						//pushbullet通知
 						bullet.sendPush("note", "JCBLスコア管理システム", ""+sdf3.format(date)+"に掲示板が更新されました",null, null, null, null, null, null, null, "jcbl", null, null);
 					}else{

@@ -154,7 +154,7 @@ public class KimetaroAccessTask {
 			if(modifyStr.length()>0){
 				logger.info(modifyStr);
 				slackLogger.info(modifyStr);
-				if(!ia.getHostAddress().equals(ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP"))){
+				if(ia.getHostAddress().equals(ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP"))){
 					//開発機以外なら通知送信
 					bullet.sendPush("note", "JCBLスコア管理システム",new String(modifyStr),null, null, null, null, null, null, null, "jcbl", null, null);
 				}else{

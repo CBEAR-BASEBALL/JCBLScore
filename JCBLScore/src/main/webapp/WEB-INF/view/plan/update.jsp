@@ -9,7 +9,6 @@
 		<td>
 		<html:select property="plans[${i.index}]">
 			<html:option value=""></html:option>
-			<html:option value="3">◎できればここ</html:option>
 			<html:option value="2">○参加可</html:option>
 			<html:option value="1">△検討中</html:option>
 			<html:option value="0">×参加不可</html:option>
