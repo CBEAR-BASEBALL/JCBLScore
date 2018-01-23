@@ -22,11 +22,10 @@ $(function(){
         select: function (event, ui) {
         	//$("#id").val(ui.item.label);
             $('input:hidden[name="idHidden"]').val(ui.item.id);
-            alert($('input:hidden[name="idHidden"]').val());
         },
         autoFocus: true,
         delay: 2000,
-        minLength: 1
+        minLength: 2
     });
   });
 </script>

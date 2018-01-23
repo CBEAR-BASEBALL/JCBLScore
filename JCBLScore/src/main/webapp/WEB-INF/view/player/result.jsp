@@ -2,17 +2,18 @@
 <html>
 <head>
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
-	<link rel="stylesheet" href="${f:url('/css/jquery-ui.css') }" type="text/css" media="print, projection, screen"/>
 	<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
 	<!--highcharts  -->
-	<script type="text/javascript" src="${f:url('/js/jquery-latest.js') }"></script>
-	<script type="text/javascript" src="${f:url('/js/jquery-ui.js') }"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
-	<script type="text/javascript" src="${f:url('/js/highcharts.src.js') }"></script>
-	<script type="text/javascript" src="${f:url('/js/highcharts-more.src.js') }"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
 	<link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" type="text/javascript"></script>
+	<%--
 	<script>
 	$(function() {
 		$( "#tab-b" ).tabs();
@@ -21,6 +22,7 @@
 		$( "#tab-p" ).tabs();
 	});
 	</script>
+	--%>
 	<script>
 		$(function(){
 			$('#chart_div').highcharts({
@@ -316,6 +318,8 @@
 	</c:forEach>
 </table>
 <h2>期毎打撃成績</h2>
+<a href="${f:url('/player/detail/')}${player.id}">内訳</a>
+<%--
 <div id="tab-b">
     <ul>
 	<c:forEach var="pbrDtos" items="${pbrlList}">
@@ -399,6 +403,7 @@
 	</c:choose>
 	</c:forEach>
   </div>
+  --%>
 <h2>対球団別打撃成績</h2>
 <table border=1 class="tablesorter" id="battingAll">
 	<thead>
@@ -507,6 +512,8 @@
 	</c:forEach>
 </table>
 <h2>期毎投球成績</h2>
+<a href="${f:url('/player/detail/')}${player.id}">内訳</a>
+<%--
 <div id="tab-p">
     <ul>
 	<c:forEach var="pprDtos" items="${pprlList}">
@@ -593,6 +600,7 @@
 	</c:choose>
 	</c:forEach>
   </div>
+  --%>
 <h2>対球団別投球成績</h2>
 <table border=1 class="tablesorter" id="pitchingAll">
 	<thead>

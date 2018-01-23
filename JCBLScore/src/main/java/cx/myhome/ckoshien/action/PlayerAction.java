@@ -159,6 +159,46 @@ public class PlayerAction {
 		return "result.jsp";
 	}
 
+	@Execute(urlPattern="detail/{id}",validator=false)
+	public String detail(){
+		//アクセス制限
+		try {
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+		    System.out.println(ia.getHostName());
+		    if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+		    		&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+		    		&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		   	){
+//		   	//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//		   	//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    	try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+				return null;
+		    }
+				logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		player=playerService.findById(Integer.parseInt(playerForm.id));
+		pbrList=battingSumService.findPBRById(Integer.parseInt(playerForm.id));
+		pbrlList=battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
+		pbrgoList=battingSumService.findPBRGOById(Integer.parseInt(playerForm.id));
+		pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
+		pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));
+		tbrDtos=battingSumService.findPBRDById(Integer.parseInt(playerForm.id));
+		//タブ用の投球成績明細
+		tprDtos=pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
+		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
+		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		//posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
+		return "detail.jsp";
+	}
+
 	public ActionMessages createValidate(){
 		ActionMessages errors = new ActionMessages();
 		player=playerService.findByNameAndTeamId(playerForm.name, Integer.parseInt(playerForm.teamId));
