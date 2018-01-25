@@ -11,8 +11,9 @@
 	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
-	<link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
+	<!--<link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" type="text/javascript"></script>
+	  -->
 	<%--
 	<script>
 	$(function() {

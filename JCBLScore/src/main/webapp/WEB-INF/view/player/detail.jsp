@@ -6,12 +6,10 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
-	<!--  <script type="text/javascript" src="${f:url('/js/highcharts.src.js') }"></script>
-	<script type="text/javascript" src="${f:url('/js/highcharts-more.src.js') }"></script>
-	-->
 	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
-	<link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
+	<!--  <link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" type="text/javascript"></script>
+	-->
 	<script>
 	$(function() {
 		$( "#tab-b" ).tabs();

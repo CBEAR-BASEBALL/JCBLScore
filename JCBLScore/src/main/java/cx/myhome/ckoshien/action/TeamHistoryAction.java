@@ -51,18 +51,30 @@ public class TeamHistoryAction {
 	protected LeagueService leagueService;
 	public List<League> leagueList;
 
-	@Execute(validator = false)
-	public String index(){
-		return null;
-	}
+//	@Execute(validator = false)
+//	public String index(){
+//		return null;
+//	}
 
 	@Aspect(value="loginConfInterceptor")
-	@Execute(validator = false)
+	@Execute(urlPattern="create/{playerId}",validator = false)
 	public String create(){
-        return "create.jsp";
+		player=playerService.findById(Integer.parseInt(teamHistoryForm.playerId));
+		teamHistoryDtoList =teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(teamHistoryForm.playerId));
+		teamList=teamService.findTeamOrderByLastJoinedDate();
+		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		return "create.jsp";
 	}
 
 	@Aspect(value="loginConfInterceptor")
+	@Execute(validator = false)
+	public String createComplete(){
+		player=playerService.findById(Integer.parseInt(teamHistoryForm.playerId));
+		teamHistory=Beans.createAndCopy(TeamHistory.class, teamHistoryForm).execute();
+		teamHistoryService.insert(teamHistory);
+        return  "/teamHistory/show/"+teamHistoryForm.playerId+"&redirect=true";
+	}
+
 	@Execute(urlPattern="show/{playerId}",validator = false)
 	public String show(){
 		//アクセス制限

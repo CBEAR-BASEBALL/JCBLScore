@@ -20,9 +20,20 @@
 			<td>${teamList.teamName}</td>
 			<td>${teamList.startTitle}</td>
 			<td>${teamList.endTitle}</td>
-			<td><a href="../edit/${teamList.playerId}/${teamList.id}">編集</a></td>
+			<td>
+				<a href="../edit/${teamList.playerId}/${teamList.id}">編集</a>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
+	<s:form>
+		<c:choose>
+			<c:when test="${!empty loginUserDto}">
+				<s:submit property="create" value="追加"/>
+				<html:hidden property="playerId" value="${player.id}"/>
+			</c:when>
+		</c:choose>
+
+	</s:form>
 </body>
 </html>
