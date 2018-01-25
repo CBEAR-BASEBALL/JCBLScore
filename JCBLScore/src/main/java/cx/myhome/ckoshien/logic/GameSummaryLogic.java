@@ -35,9 +35,6 @@ public class GameSummaryLogic {
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(game.gameDate);
-//		gameSummaryForm.gameYear=String.valueOf(cal.get(Calendar.YEAR));
-//		gameSummaryForm.gameMonth=String.valueOf(cal.get(Calendar.MONTH)+1);
-//		gameSummaryForm.gameDay=String.valueOf(cal.get(Calendar.DATE));
 		gameSummaryForm.gameDate=game.gameDate.toString().toString().replace("-", "/");
 		gameSummaryForm.gameNumber=String.valueOf(game.gameNumber);
 		gameSummaryForm.firstTeam=String.valueOf(game.firstTeam);
@@ -98,7 +95,9 @@ public class GameSummaryLogic {
 		gameSummaryForm.p_playerId=new ArrayList<String>();
 		gameSummaryForm.p_strikeOut=new ArrayList<String>();
 		gameSummaryForm.pa=new ArrayList<String>();
-		gameSummaryForm.result=new ArrayList<String>();
+		gameSummaryForm.win=new ArrayList<String>();
+		gameSummaryForm.lose=new ArrayList<String>();
+		gameSummaryForm.save=new ArrayList<String>();
 		gameSummaryForm.runs=new ArrayList<String>();
 		gameSummaryForm.shutout=new ArrayList<String>();
 		addPitchingList(gameSummaryForm,firstPitchingList);
@@ -159,15 +158,9 @@ public class GameSummaryLogic {
 				gameSummaryForm.p_playerId.add(String.valueOf(list.get(i).playerId));
 				gameSummaryForm.p_strikeOut.add(String.valueOf(list.get(i).strikeOut));
 				gameSummaryForm.pa.add(String.valueOf(list.get(i).pa));
-				if (list.get(i).win==1){
-					gameSummaryForm.result.add("1");
-				}else if(list.get(i).lose==1){
-					gameSummaryForm.result.add("2");
-				}else if(list.get(i).save==1){
-					gameSummaryForm.result.add("3");
-				}else{
-					gameSummaryForm.result.add("");
-				}
+				gameSummaryForm.win.add(list.get(i).win.toString());
+				gameSummaryForm.lose.add(list.get(i).lose.toString());
+				gameSummaryForm.save.add(list.get(i).save.toString());
 				gameSummaryForm.runs.add(String.valueOf(list.get(i).runs));
 				gameSummaryForm.shutout.add(String.valueOf(list.get(i).shutout));
 			}else{
@@ -181,7 +174,10 @@ public class GameSummaryLogic {
 				gameSummaryForm.p_playerId.add("");
 				gameSummaryForm.p_strikeOut.add("");
 				gameSummaryForm.pa.add("");
-				gameSummaryForm.result.add("");
+				//gameSummaryForm.result.add("");
+				gameSummaryForm.win.add("");
+				gameSummaryForm.lose.add("");
+				gameSummaryForm.save.add("");
 				gameSummaryForm.runs.add("");
 				gameSummaryForm.shutout.add("");
 			}
@@ -250,23 +246,6 @@ public class GameSummaryLogic {
 
 	public Pitching convert2Pitching(GameSummaryForm gameSummaryForm,Pitching pitching,int i){
 		pitching.playerId=Integer.parseInt(gameSummaryForm.p_playerId.get(i));
-		if(gameSummaryForm.result.get(i).equals(WIN)){
-			pitching.win=1;
-			pitching.lose=0;
-			pitching.save=0;
-		}else if(gameSummaryForm.result.get(i).equals(LOSE)){
-			pitching.win=0;
-			pitching.save=0;
-			pitching.lose=1;
-		}else if(gameSummaryForm.result.get(i).equals(SAVE)){
-			pitching.save=1;
-			pitching.win=0;
-			pitching.lose=0;
-		}else{
-			pitching.save=0;
-			pitching.win=0;
-			pitching.lose=0;
-		}
 		//フォーム空欄時のエラー回避
 		if(gameSummaryForm.inning1.get(i).equals("")){
 			gameSummaryForm.inning1.add(i,"0");
@@ -283,6 +262,9 @@ public class GameSummaryLogic {
 		pitching.runs=Integer.parseInt(gameSummaryForm.runs.get(i));
 		pitching.complete=Integer.parseInt(gameSummaryForm.complete.get(i));
 		pitching.shutout=Integer.parseInt(gameSummaryForm.shutout.get(i));
+		pitching.win=Integer.parseInt(gameSummaryForm.win.get(i));
+		pitching.lose=Integer.parseInt(gameSummaryForm.lose.get(i));
+		pitching.save=Integer.parseInt(gameSummaryForm.save.get(i));
 		if(gameSummaryForm.p_myTeamId.get(i).equals("0")){
 			pitching.myteamId=Integer.parseInt(gameSummaryForm.firstTeam);
 		}else if(gameSummaryForm.p_myTeamId.get(i).equals("1")){

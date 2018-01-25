@@ -1,5 +1,6 @@
 package cx.myhome.ckoshien.service;
 
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.TeamHistoryDto;
 import cx.myhome.ckoshien.entity.TeamHistory;
 
@@ -43,5 +44,11 @@ public class TeamHistoryService extends AbstractService<TeamHistory> {
     	Map<String, Object> param = new HashMap<String, Object>();
 		param.put("playerId",playerId);
     	return jdbcManager.selectBySqlFile(TeamHistoryDto.class,"cx.myhome.ckoshien.sql.FindTeamHistoryWithSeasonName.sql",param).getResultList();
+    }
+
+    public List<PlayerDto> findPlayerWithTeamHistory(Integer leagueId){
+    	Map<String, Object> param = new HashMap<String, Object>();
+		param.put("leagueId",leagueId);
+    	return jdbcManager.selectBySqlFile(PlayerDto.class,"cx.myhome.ckoshien.sql.FindPlayerWithTeamHistory.sql",param).getResultList();
     }
 }

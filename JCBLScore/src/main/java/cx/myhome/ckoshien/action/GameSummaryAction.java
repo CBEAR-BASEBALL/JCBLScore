@@ -34,6 +34,7 @@ import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.ResultService;
+import cx.myhome.ckoshien.service.TeamHistoryService;
 import cx.myhome.ckoshien.service.TeamService;
 import cx.myhome.ckoshien.util.MemoryUtil;
 
@@ -83,6 +84,8 @@ protected HttpServletRequest request;
 @Resource
 protected HttpServletResponse response;
 public String gameDate;
+@Resource
+protected TeamHistoryService teamHistoryService;
 
 private static Logger logger = Logger.getLogger("rootLogger");
 //public GameListDto gameListDto;
@@ -101,6 +104,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	@Execute(validator = false)
 	public String create(){
 		teamList=teamService.findAllOrderById();
+		//新規作成時は日付がわからないのでplayerテーブルから引っ張る
 		playerList=playerService.findAllOrderById();
 		return "create.jsp";
 	}
@@ -111,15 +115,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			validate="dateValidate",
 			removeActionForm=true)
 	public String createComplete(){
-		playerList=playerService.findAllOrderById();
-//		StringBuilder sb = new StringBuilder();
-		//日付を連結
-//		sb.append(gameSummaryForm.gameYear);
-//		sb.append("/");
-//		sb.append(gameSummaryForm.gameMonth);
-//		sb.append("/");
-//		sb.append(gameSummaryForm.gameDay);
-//		gameSummaryForm.gameDate=new String(sb);
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		//リーグID検索
@@ -130,9 +125,12 @@ private static Logger logger = Logger.getLogger("rootLogger");
 				game.leagueId=leagueList.get(i).id;
 				break;
 			}
-
 		}
 
+		//playerList=playerService.findAllOrderById();
+		//leagueIdを渡して所属チームIDを引っ張る
+		// チーム履歴で照合できない場合はplayerテーブルの情報
+		playerList=teamHistoryService.findPlayerWithTeamHistory(game.leagueId);
 		gameService.insert(game);
 		battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
 		for(int i=0;i<battingSumForm.atBats.size();i++){
@@ -258,7 +256,9 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	public String edit(){
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		game=gameService.findById(gameId);
-		playerList=playerService.findAllOrderById();
+		//playerList=playerService.findAllOrderById();
+		//チーム履歴テーブル実装による仕様変更
+		playerList=teamHistoryService.findPlayerWithTeamHistory(game.leagueId);
 		teamList=teamService.findAllOrderById();
 		firstPitchingList=pitchingService.findByGameId(gameId,game.firstTeam);
 		lastPitchingList=pitchingService.findByGameId(gameId,game.lastTeam);
@@ -278,13 +278,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			removeActionForm=true)
 	public String updateComplete(){
 			StringBuilder sb = new StringBuilder();
-			//日付を連結
-//			sb.append(gameSummaryForm.gameYear);
-//			sb.append("/");
-//			sb.append(gameSummaryForm.gameMonth);
-//			sb.append("/");
-//			sb.append(gameSummaryForm.gameDay);
-//			gameSummaryForm.gameDate=new String(sb);
 			game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 			game.gameId=Integer.parseInt(gameSummaryForm.id);
 			leagueList=leagueService.findAllOrderByIdExceptTotal();
@@ -298,7 +291,10 @@ private static Logger logger = Logger.getLogger("rootLogger");
 				}
 			}
 			gameService.update(game);
-			playerList=playerService.findAllOrderById();
+			//playerList=playerService.findAllOrderById();
+			//leagueIdを渡して所属チームIDを引っ張る
+			// チーム履歴で照合できない場合はplayerテーブルの情報
+			playerList=teamHistoryService.findPlayerWithTeamHistory(game.leagueId);
 			battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
 			//GAME_IDに紐づく打撃成績をテーブルから全て削除
 			battingSumList=battingSumService.findByGameIdAll(game.gameId);

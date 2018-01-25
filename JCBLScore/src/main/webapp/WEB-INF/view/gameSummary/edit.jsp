@@ -58,7 +58,7 @@
 					//str="input[name=\"playerId["+i+"]\"] option:selected";
 					//var obj=$(str);
 					alert(i+1+"行目のデータが不正です");
-					return false;
+					return true;
 				}
 			}
 			return true;
@@ -70,24 +70,6 @@
 <html:errors/>
 レコードの削除はプレイヤー名「空」かつ打席数「空」。
 <s:form action="">
-<%-- <html:select property="gameYear">
-	<c:forEach var="i" begin="2003" end="2025">
-		<html:option value="${i}">${i}</html:option>
-	</c:forEach>
-</html:select>
-年
-<html:select property="gameMonth">
-	<c:forEach var="i" begin="1" end="12">
-		<html:option value="${i}">${i}</html:option>
-	</c:forEach>
-</html:select>
-月
-<html:select property="gameDay">
-	<c:forEach var="i" begin="1" end="31">
-		<html:option value="${i}">${i}</html:option>
-	</c:forEach>
-</html:select>
-日--%>
 <html:text styleId="datepicker" property="gameDate"/>
 <%-- <html:hidden property="gameDate" />--%>
 第
@@ -247,12 +229,9 @@
 	<c:forEach var="i" begin="1" end="4">
 	<tr>
 		<td>
-			<html:select property="result[${i-1}]">
-				<html:option value=""></html:option>
-				<html:option value="1">○</html:option>
-				<html:option value="2">●</html:option>
-				<html:option value="3">S</html:option>
-			</html:select>
+			<html:text property="win[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />勝
+			<html:text property="lose[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />敗
+			<html:text property="save[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />S
 		</td>
 		<td>
 			<html:select property="p_playerId[${i-1}]">
@@ -265,7 +244,7 @@
 		<td>
 			<html:text property="inning1[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 			回
-			<html:text property="inning2[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
+			<html:text property="inning2[${i-1}]" size="1" maxlength="1" errorStyleClass="err" />
 			/3
 		</td>
 		<td>
@@ -287,16 +266,10 @@
 			<html:text property="p_homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="complete[${i-1}]">
-				<html:option value="0">0</html:option>
-				<html:option value="1">1</html:option>
-			</html:select>
+			<html:text property="complete[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err"/>
 		</td>
 		<td>
-			<html:select property="shutout[${i-1}]">
-				<html:option value="0">0</html:option>
-				<html:option value="1">1</html:option>
-			</html:select>
+			<html:text property="shutout[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err"/>
 		</td>
 	</tr>
 	<html:hidden property="p_myTeamId[${i-1}]" value="0"/>
@@ -386,12 +359,9 @@
 	<c:forEach var="i" begin="5" end="8">
 	<tr>
 		<td>
-			<html:select property="result[${i-1}]">
-				<html:option value=""></html:option>
-				<html:option value="1">○</html:option>
-				<html:option value="2">●</html:option>
-				<html:option value="3">S</html:option>
-			</html:select>
+			<html:text property="win[${i-1}]" size="2" maxlength="2" errorStyleClass="err"/>勝
+			<html:text property="lose[${i-1}]" size="2" maxlength="2" errorStyleClass="err"/>敗
+			<html:text property="save[${i-1}]" size="2" maxlength="2" errorStyleClass="err"/>S
 		</td>
 		<td>
 			<html:select property="p_playerId[${i-1}]">
@@ -426,16 +396,10 @@
 			<html:text property="p_homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="complete[${i-1}]">
-				<html:option value="0">0</html:option>
-				<html:option value="1">1</html:option>
-			</html:select>
+			<html:text property="complete[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:select property="shutout[${i-1}]">
-				<html:option value="0">0</html:option>
-				<html:option value="1">1</html:option>
-			</html:select>
+			<html:text property="shutout[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err"/>
 		</td>
 	</tr>
 	<html:hidden property="p_myTeamId[${i-1}]" value="1"/>

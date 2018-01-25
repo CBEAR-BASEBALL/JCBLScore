@@ -72,7 +72,9 @@ public class GameSummaryForm implements Serializable{
 	public List<String> runs;
 	public List<String> complete;
 	public List<String> shutout;
-	public List<String> result;
+	//public List<String> result;
+	public List<String> win;
+	public List<String> lose;
+	public List<String> save;
 	public List<String> p_myTeamId;
-
 }
