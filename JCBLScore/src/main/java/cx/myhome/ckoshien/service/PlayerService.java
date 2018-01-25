@@ -68,6 +68,10 @@ public class PlayerService extends AbstractService<Player> {
 		return select().where("name=? and teamId=?", name,teamId).getSingleResult();
 	}
 
+	public List<Player> findByName(String name){
+		return select().where("name=?", name).getResultList();
+	}
+
 	public List<PlayerDto> findByLikeName(String name) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("word","%"+name+"%");

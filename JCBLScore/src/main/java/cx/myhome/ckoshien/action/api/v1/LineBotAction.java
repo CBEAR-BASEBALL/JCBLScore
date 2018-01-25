@@ -10,7 +10,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.seasar.framework.util.ResourceUtil;
 import org.seasar.struts.annotation.ActionForm;
@@ -56,7 +55,6 @@ public class LineBotAction {
 			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
 			logger.info("[API]"+ia.getHostName()+":"+request.getRemotePort());
 		} catch (UnknownHostException e) {
-			// TODO 自動生成された catch ブロック
 			logger.error("ERROR",e);
 		}
 		for(int i=0;i<lineBotForm.events.size();i++){
@@ -64,7 +62,11 @@ public class LineBotAction {
 				//同時処理数10まで
 				break;
 			}
-			logger.info(lineBotForm.events.get(i).message.text);
+			if(null!=lineBotForm.events.get(i).message){
+				logger.info(lineBotForm.events.get(i).message.text);
+			}else{
+				logger.warn("messageがnullです。");
+			}
 			RestClient client = new RestClient();
 			String uri=ResourceUtil.getProperties("config.properties").getProperty("LINE_URI");
 			String channelAccessToken=ResourceUtil.getProperties("config.properties").getProperty("LINE_CHANNEL_ACCESS_TOKEN");
@@ -115,19 +117,25 @@ public class LineBotAction {
 		logger.info(playerName);
 		MessageDto message=new MessageDto();
 		message.text="";
-		List<PlayerDto> playerList=playerService.findByLikeName(playerName);
-		if(playerList.size()>1){
+		List<Player> playerList=playerService.findByName(playerName);
+		if(playerList.size()==0){
+			List<PlayerDto> playerLikeList=playerService.findByLikeName(playerName);
 			//候補を提示する
-			message.text=playerList.size()+"人候補がいます。\n";
-			for(int j=0;j<playerList.size();j++){
-				message.text=message.text+playerList.get(j).name+"\n";
+			message.text="もしかして(完全一致させてください)：\n";
+			for(int j=0;j<playerLikeList.size();j++){
+				message.text=message.text+playerLikeList.get(j).name+"\n";
 			}
+			logger.info(message.text);
 		}else if(playerList.size()==0){
 			//見つかりませんでした
 			message.text="見つかりませんでした";
 		}else{
 			if(mode.equals("打撃成績")){
 				List<TeamBattingResultDto> teamBattingResultDtos = battingSumService.findPBRLById(playerList.get(0).id);
+				if(teamBattingResultDtos.size()==0){
+					message.text=message.text+"成績がありませんでした";
+					return message;
+				}
 				for(int j=0;j<teamBattingResultDtos.size();j++){
 					message.text=message.text+teamBattingResultDtos.get(j).title+":";
 					message.text=message.text+"打率："+teamBattingResultDtos.get(j).average+"\n";
@@ -141,6 +149,10 @@ public class LineBotAction {
 				}
 			}else if(mode.equals("投球成績")){
 				List<TeamPitchingResultDto>teamPitchingResultDtos=pitchingService.findPPRLById(playerList.get(0).id);
+				if(teamPitchingResultDtos.size()==0){
+					message.text=message.text+"成績がありませんでした";
+					return message;
+				}
 				for(int j=0;j<teamPitchingResultDtos.size();j++){
 					message.text=message.text+teamPitchingResultDtos.get(j).title+":\n";
 					message.text=message.text+"防御率："+teamPitchingResultDtos.get(j).era+"\n";
