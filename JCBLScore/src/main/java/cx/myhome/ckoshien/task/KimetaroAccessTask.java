@@ -97,8 +97,13 @@ public class KimetaroAccessTask {
 
 					row=new ArrayList<String>();
 					for(int j=0;j<10;j++){
-						row.add(element.child(j).child(0).text());
+						try{
+							row.add(element.child(j).child(0).text());
+						}catch(IndexOutOfBoundsException e){
+
+						}
 					}
+					//list.add(row);
 				}catch (IndexOutOfBoundsException e) {
 					break;
 				}
@@ -124,7 +129,7 @@ public class KimetaroAccessTask {
         		}
 			}
 		}
-		File file = new File("../tomcat6.0/logs/jcbl/2gDjrP.csv");
+		File file = new File("../tomcat6.0.53/logs/jcbl/dlrhgV.csv");
 		if(file.exists() && !errFlg){
 			CsvConfig cfg = new CsvConfig();
 			cfg.setQuoteDisabled(false);// デフォルトでは無効となっている囲み文字を有効にします。
