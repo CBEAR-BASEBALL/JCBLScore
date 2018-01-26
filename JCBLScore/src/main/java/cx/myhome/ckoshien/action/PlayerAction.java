@@ -70,7 +70,27 @@ public class PlayerAction {
 
 	@Execute(validator = false)
 	public String index() {
-		teamList=teamService.findAllOrderById();
+		try {
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+		    System.out.println(ia.getHostName());
+		    if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+		    		&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+		    		&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		    	){
+		    	try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+		    	return null;
+		    }
+				logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		teamList=teamService.findTeamOrderByLastJoinedDate();
 		playerList=playerService.findAllOrderById();
         return "index.jsp";
 	}
@@ -201,11 +221,8 @@ public class PlayerAction {
 
 	public ActionMessages createValidate(){
 		ActionMessages errors = new ActionMessages();
-		player=playerService.findByNameAndTeamId(playerForm.name, Integer.parseInt(playerForm.teamId));
-		if(player!=null && playerForm.comment.equals(player.comment)){
-			/* 既に選手リストに登録されていて、
-			 * DBのコメントとフォームのコメントが同じ場合エラー
-			 */
+		List<Player> players=playerService.findByName(playerForm.name);
+		if(players.size()>=1){
 			errors.add("name", new ActionMessage("既に登録されています", false));
 		}
 		return errors;

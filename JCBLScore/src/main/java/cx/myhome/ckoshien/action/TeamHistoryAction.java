@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.TeamHistoryDto;
 import cx.myhome.ckoshien.entity.League;
 import cx.myhome.ckoshien.entity.Player;
@@ -50,11 +51,15 @@ public class TeamHistoryAction {
 	@Resource
 	protected LeagueService leagueService;
 	public List<League> leagueList;
+	public List<PlayerDto> playerList;
 
-//	@Execute(validator = false)
-//	public String index(){
-//		return null;
-//	}
+	@Aspect(value="loginConfInterceptor")
+	@Execute(validator = false)
+	public String index(){
+		teamList=teamService.findTeamOrderByLastJoinedDate();
+		playerList=playerService.findAllOrderById();
+		return "index.jsp";
+	}
 
 	@Aspect(value="loginConfInterceptor")
 	@Execute(urlPattern="create/{playerId}",validator = false)
@@ -104,7 +109,7 @@ public class TeamHistoryAction {
 		teamHistoryDtoList=new ArrayList<TeamHistoryDto>();
 		player=playerService.findById(Integer.parseInt(teamHistoryForm.playerId));
 		teamHistoryDtoList=teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(teamHistoryForm.playerId));
-		return "index.jsp";
+		return "show.jsp";
 
 	}
 

@@ -14,4 +14,4 @@ inner join team t on t.TEAM_ID=th.TEAM_ID
 right outer join league l on l.ID=th.START_LEAGUE_ID
 left outer join league l2 on l2.ID=th.end_LEAGUE_ID
 where p.ID=/*playerId*/
-order by th.START_LEAGUE_ID desc
+order by th.START_LEAGUE_ID

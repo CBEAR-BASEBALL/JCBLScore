@@ -19,6 +19,7 @@
 <a href="${f:url('/team/')}" class="btn btn-success">チーム紹介</a>
 <a href="${f:url('/result/')}" class="btn btn-success">スタッツ</a>
 <a href="${f:url('/gameSummary/')}" class="btn btn-success">スコアボード</a>
+<a href="${f:url('/player/')}" class="btn btn-success">選手一覧</a>
 <br>
 <br>
 <br>
@@ -27,7 +28,8 @@
 <c:choose>
 	<c:when test="${!empty loginUserDto.authority}">
 		<a href="./gameSummary/create" class="btn btn-warning">新規試合入力</a>
-		<a href="./player/" class="btn btn-warning">選手新規入力・更新</a>
+		<a href="${f:url('./player/') }" class="btn btn-warning">選手新規入力・更新</a>
+		<a href="${f:url('./teamHistory/') }" class="btn btn-warning">チーム履歴新規入力・更新</a>
 		<br><b>(${loginUserDto.name}さんログイン中)</b>
 	</c:when>
 	<c:otherwise>

@@ -3,12 +3,17 @@
 <head>
 	<link rel="icon" href="${f:url('/favicon.ico') }" type="image/vnd.microsoft.icon">
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
-	<link href="${f:url('/css/bootstrap/bootstrap.min.css') }" rel="stylesheet">
-	<link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<%-- <link href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"  rel="stylesheet">
+	--%>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	<%--
 	<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" type="text/javascript"></script>
+	--%>
 	<script src="${f:url('/js/jquery.tablesorter.min.js')}" type="text/javascript"></script>
-	<script src="${f:url('/js/bootstrap/bootstrap.min.js')}" type="text/javascript"></script>
 	<script type="text/javascript">
 	$(document).ready(function()
 		       {
@@ -25,7 +30,7 @@
 		   );
 
 	</script>
-	<!--  <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
 <!--shinobi1-->
