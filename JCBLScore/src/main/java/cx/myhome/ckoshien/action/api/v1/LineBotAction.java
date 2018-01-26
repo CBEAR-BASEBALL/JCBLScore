@@ -64,8 +64,13 @@ public class LineBotAction {
 			}
 			if(null!=lineBotForm.events.get(i).message){
 				logger.info(lineBotForm.events.get(i).message.text);
+				logger.info("userId:"+lineBotForm.events.get(i).source.userId);
+				logger.info("groupId:"+lineBotForm.events.get(i).source.groopId);
+				logger.info("roomId:"+lineBotForm.events.get(i).source.roomId);
 			}else{
-				logger.warn("messageがnullです。");
+				logger.info(lineBotForm.events.get(i).type);
+				//logger.warn("messageがnullです。");
+				break;
 			}
 			RestClient client = new RestClient();
 			String uri=ResourceUtil.getProperties("config.properties").getProperty("LINE_URI");
@@ -89,7 +94,7 @@ public class LineBotAction {
 						message=searchPlayer(playerName,"投球成績");
 						message.type="text";
 					}else{
-						message.text="認識できませんでした";
+						message.text="認識できませんでした。\nコマンド例：ドワーフの打撃成績";
 						message.type="text";
 					}
 				}else{
@@ -121,7 +126,7 @@ public class LineBotAction {
 		if(playerList.size()==0){
 			List<PlayerDto> playerLikeList=playerService.findByLikeName(playerName);
 			//候補を提示する
-			message.text="もしかして(完全一致させてください)：\n";
+			message.text="もしかして(要完全一致)："+playerLikeList.size()+"件\n";
 			for(int j=0;j<playerLikeList.size();j++){
 				message.text=message.text+playerLikeList.get(j).name+"\n";
 			}
