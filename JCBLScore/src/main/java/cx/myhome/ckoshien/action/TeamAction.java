@@ -99,7 +99,7 @@ public class TeamAction {
 			return "index&redirect=true";
 		}
 		leagueList=leagueService.findTotal();
-		tbrDtos=battingSumService.findTBRByPeriod(league.beginDate, league.endDate, Integer.parseInt(teamForm.teamId));
+		tbrDtos=battingSumService.findTBRByPeriod(league.beginDate, league.endDate, Integer.parseInt(teamForm.teamId),league.id);
 		return "tbresult.jsp";
 
 	}
