@@ -82,13 +82,12 @@ public class BattingSumService extends AbstractService<BattingSum> {
 		return battingResultDtos;
 	}
 
-	public List<TeamBattingResultDto> findTBRByPeriod(Date date,Date date2,Integer teamId,Integer leagueId){
+	public List<TeamBattingResultDto> findTBRByPeriod(Date date,Date date2,Integer teamId){
 		//battingResultDtos=new ArrayList<BattingResultDto>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("beginDate", date(date));
 		param.put("endDate", date(date2));
 		param.put("teamId", teamId);
-		param.put("leagueId", leagueId);
 		teamBattingResultDtos=jdbcManager.selectBySqlFile(TeamBattingResultDto.class, "cx.myhome.ckoshien.sql.TeamBattingResult.sql",param).getResultList();
 		return teamBattingResultDtos;
 	}

@@ -48,10 +48,19 @@ from
 player p
 left outer join (
 	select
-	*
+	th.PLAYER_ID,
+	th.TEAM_ID,
+	th.START_LEAGUE_ID,
+	th.END_LEAGUE_ID,
+	l1.BEGIN_DATE,
+	l2.END_DATE
 	from team_history th
-	where th.START_LEAGUE_ID<=/*leagueId*/
-	and (th.END_LEAGUE_ID>=/*leagueId*/ or th.END_LEAGUE_ID is null)
+	inner join league l1
+	on l1.ID=th.START_LEAGUE_ID
+	left outer join league l2
+	on l2.ID=th.END_LEAGUE_ID
+	where l1.BEGIN_DATE<=/*beginDate*/
+	and (l2.END_DATE>=/*endDate*/ or l2.END_DATE is null)
 ) t2
 on t2.PLAYER_ID=p.ID
 inner join team t3
@@ -61,8 +70,7 @@ on p2.ID=p.ID
 right outer join team t4
 on t4.TEAM_ID=p2.TEAM_ID
 where p2.ID is not null
-order by team_id,id)p3
+order by team_id,id) p3
 on p3.ID=b.PLAYER_ID
 where p3.team_id=/*teamId*/ and game_date>=/*beginDate*/ and game_date<=/*endDate*/
 group by player_id,league_id,game_date,game_number with rollup
-;
