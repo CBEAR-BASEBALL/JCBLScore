@@ -5,6 +5,8 @@
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
 	<%-- jquery --%>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<!--<script src="${f:url('/js/loading.js') }" type="text/javascript"></script>
+	<link href="${f:url('/css/loading.css') }" rel="stylesheet">-->
 	<%-- bootstrap --%>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
@@ -45,7 +47,7 @@
 </noscript>
 --%>
 <!--shinobi2-->
-
+<div id="contents">
 <table border=1>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">${league.title} チーム成績</font></td>
@@ -671,5 +673,6 @@
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
 <hr><br><br><br><br>
+</div>
 </body>
 </html>

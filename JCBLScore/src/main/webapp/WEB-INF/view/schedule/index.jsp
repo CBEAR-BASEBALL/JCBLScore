@@ -126,12 +126,12 @@ $(function(){
 <c:choose>
 	<c:when test="${!empty loginUserDto.id}">
 		<s:form action="">
-			<s:submit property="create" value="新規スケジュールマスタ入力"/>
+			<input type="submit" name="create" value="新規スケジュールマスタ入力" class="btn btn-danger"/>
 		</s:form>
 	</c:when>
 </c:choose>
 <s:form action="/plan/">
-	<s:submit property="create" value="新規スケジュール入力"/>
+	<input type="submit" name="create" value="新規スケジュール入力" class="btn btn-primary"/>
 </s:form>
 <br>30日間天気最終取得日時：<fmt:formatDate value="${timestamp}" pattern="yyyy/MM/dd(E) HH:mm:ss"/>
 </body>

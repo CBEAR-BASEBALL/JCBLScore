@@ -1,7 +1,7 @@
 SELECT
   name,
   p3.team_id as team_id,
-  t.team_id,
+--  t.team_id,
   player_id,
   t.short_name as opponent_name,
   sum(tpa) as tpa,
@@ -49,11 +49,7 @@ player p
 left outer join (
 	select
 	th.PLAYER_ID,
-	th.TEAM_ID,
-	th.START_LEAGUE_ID,
-	th.END_LEAGUE_ID,
-	l1.BEGIN_DATE,
-	l2.END_DATE
+	th.TEAM_ID
 	from team_history th
 	inner join league l1
 	on l1.ID=th.START_LEAGUE_ID
@@ -69,8 +65,7 @@ right outer join player p2
 on p2.ID=p.ID
 right outer join team t4
 on t4.TEAM_ID=p2.TEAM_ID
-where p2.ID is not null
-order by team_id,id) p3
+where p2.ID is not null) p3
 on p3.ID=b.PLAYER_ID
 where p3.team_id=/*teamId*/ and game_date>=/*beginDate*/ and game_date<=/*endDate*/
 group by player_id,league_id,game_date,game_number with rollup
