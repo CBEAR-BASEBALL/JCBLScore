@@ -36,8 +36,17 @@
 		           );
 		       }
 		   );
-
 	</script>
+	<%--
+	<script type="text/javascript">
+	$(function() {
+		if(navigator.userAgent.indexOf('iPhone') == -1
+				&& navigator.userAgent.indexOf('Android') == -1){
+			$('ons-bottom-toolbar').hide();
+		}
+	});
+	</script>
+	--%>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
@@ -109,7 +118,7 @@
 </td></tr>
 </table>
 <hr>
-<a name="average"/>
+<a name="average"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:${regAtBats}打席)</font></td>
@@ -153,7 +162,7 @@
 	</td>
 </tr>
 </table>
-
+<a name="homerun"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">HR TOP10</font></td>
@@ -197,7 +206,7 @@
 	</td>
 </tr>
 </table>
-
+<a name="rbi"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">打点 TOP10</font></td>
@@ -241,7 +250,7 @@
 	</td>
 </tr>
 </table>
-
+<a name="hit"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">安打数 TOP10</font></td>
@@ -285,6 +294,7 @@
 	</td>
 </tr>
 </table>
+<a name="era"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">防御率 TOP10(規定投球回:${regAtPitch}回)</font></td>
@@ -336,6 +346,7 @@
 	</td>
 </tr>
 </table>
+<a name="win"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">勝利数 TOP10</font></td>
@@ -387,6 +398,7 @@
 	</td>
 </tr>
 </table>
+<a name="save"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">セーブ TOP10</font></td>
@@ -436,6 +448,7 @@
 	</td>
 </tr>
 </table>
+<a name="strikeout"></a>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">奪三振 TOP10</font></td>
@@ -681,35 +694,43 @@
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
 <hr><br><br><br><br>
 </div>
+
+
 </ons-scroller>
-<ons-bottom-toolbar modifier="transparent aligned">
+<ons-bottom-toolbar>
+<a href="http://jcbldata.fc2web.com/cbl_index.html" title="HOME" target="_top">
+	<ons-icon icon="fa-home" size="30px" fixed-width="true"></ons-icon>
+</a>
+<a href="#average" title="打率">
+	<span style="font-size:30px">A</span><span style="font-size:8px">vg.</span>
+</a>
+<a href="#homerun" title="ホームラン">
+	<span style="font-size:30px">H</span><span style="font-size:8px">R</span>
+</a>
+<a href="#rbi" title="打点">
+	<span style="font-size:30px">R</span><span style="font-size:8px">bi</span>
+</a>
+<a href="#hit" title="安打数">
+	<span style="font-size:30px">H</span><span style="font-size:8px">it</span>
+</a>
+<a href="#era" title="防御率">
+	<ons-icon icon="fa-shield" size="30px" fixed-width="true"></ons-icon>
+</a>
+<a href="#win" title="勝利数">
+	<span style="font-size:30px">W</span><span style="font-size:8px">in</span>
+</a>
+<a href="#save" title="セーブ">
+	<span style="font-size:30px">S</span><span style="font-size:8px">ave</span>
+</a>
+<a href="#strikeout" title="奪三振">
+	<span style="font-size:30px">K</span>
+</a>
 <a href="${f:url('/statistics/') }" title="統計">
 	<ons-icon icon="fa-bar-chart" size="30px" fixed-width="false"></ons-icon>
 </a>
 <a href="http://jcbldata.fc2web.com/cbl_stats.html" title="スタッツTOP">
 <ons-icon icon="fa-list" size="30px" fixed-width="false" label="TOP"></ons-icon>
 </a>
-<a href="http://jcbldata.fc2web.com/cbl_index.html" title="HOME" target="_top">
-	<ons-icon icon="fa-home" size="30px" fixed-width="true"></ons-icon>
-</a>
-<a href="#average">
-	<span style="font-size:30px">A</span><span style="font-size:8px">vg.</span>
-</a>
-<a href="#homerun">
-	<span style="font-size:30px">H</span><span style="font-size:8px">R</span>
-</a>
-<a href="#rbi">
-	<span style="font-size:30px">R</span><span style="font-size:8px">bi</span>
-</a>
-<a href="#hit">
-	<span style="font-size:30px">H</span><span style="font-size:8px">it</span>
-</a>
-<a href="#era" title="防御率">
-	<ons-icon icon="fa-shield" size="40px" fixed-width="true"></ons-icon>
-</a>
-<span style="font-size:40px">W</span><span style="font-size:8px">in</span>
-<span style="font-size:40px">S</span><span style="font-size:8px">ave</span>
-<span style="font-size:40px">K</span>
 </ons-bottom-toolbar>
 </ons-page>
 </body>
