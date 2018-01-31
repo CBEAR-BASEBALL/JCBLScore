@@ -11,9 +11,11 @@
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
 	<%-- highcharts --%>
+	<!--
 	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+	-->
 <style>
 * {
 	font-family: Meiryo,"MS PGothic",arial,sans-serif;
@@ -51,24 +53,17 @@ a{
 }
 </style>
 <title>JCBLスコア管理システム：日程調整＆天気予報</title>
-<script src="${f:url('/js/jquery-latest.js')}" type="text/javascript"></script>
 <script>
 $(function(){
 	var t=$(".hoge")
 	for(var i=0;i<t.length;i++){
 		t[i].innerText=t[i].innerText.replace(/\n\r/g,"");
 		if(t[i].innerText!=""){
-			if(t[i].innerText==3){
-				t[i].id="selection03";
-				t[i].innerText="◎";
-			}else if(t[i].innerText==2){
+			if(t[i].innerText=='○'){
 				t[i].id="selection02";
-				t[i].innerText="○";
-			}else if(t[i].innerText==1){
+			}else if(t[i].innerText=='△'){
 				t[i].id="selection01";
-				t[i].innerText="△";
-			}else if(t[i].innerText==0){
-				t[i].innerText="×";
+			}else if(t[i].innerText=='×'){
 			}
 		}
 	}

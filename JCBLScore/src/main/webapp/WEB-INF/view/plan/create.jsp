@@ -33,11 +33,20 @@ $(function(){
             $('input:hidden[name="idHidden"]').val(ui.item.id);
         },
         autoFocus: true,
-        delay: 2000,
+        delay: 1500,
         minLength: 2
     });
+    $('form[name=planActionForm]').submit(function(){
+    	if($('input:hidden[name="idHidden"]').val() == ""){
+    		alert("2文字以上入力して候補から選択してください");
+    		return false;
+    	}
+		return true;
+
+	});
+
   });
-</script>
+	</script>
 </head>
 <body>
 <html:errors/>

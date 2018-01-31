@@ -8,7 +8,7 @@ public class PlanDto {
 	private String name;
 	private String scPassword;
 	private Integer teamId;
-	private Integer plans;
+	private String plans;
 	private String team_name;
 	private Integer mstId;
 	public Date getDate() {
@@ -41,10 +41,10 @@ public class PlanDto {
 	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
 	}
-	public Integer getPlans() {
+	public String getPlans() {
 		return plans;
 	}
-	public void setPlans(Integer plans) {
+	public void setPlans(String plans) {
 		this.plans = plans;
 	}
 	public String getTeam_name() {

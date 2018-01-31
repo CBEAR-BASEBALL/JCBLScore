@@ -3,11 +3,14 @@ package cx.myhome.ckoshien.form;
 
 import java.util.List;
 
+import org.seasar.struts.annotation.Minlength;
 import org.seasar.struts.annotation.Required;
 
 public class PlanForm {
 	@Required
 	private String id;
+	@Required
+	@Minlength(minlength = 1)
 	private String idHidden;
 	private List<String> plans;
 	public String getIdHidden() {
