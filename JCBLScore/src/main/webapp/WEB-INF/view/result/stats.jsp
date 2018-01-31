@@ -17,6 +17,11 @@
 	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
 	<script type="text/javascript">
 	$(document).ready(function()
 		       {
@@ -36,6 +41,8 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
+<ons-page>
+<ons-scroller style="height: 200px; width:100%">
 <!--shinobi1-->
 <%--
 <script type="text/javascript" src="http://x6.karakasa.com/ufo/05087790l"></script>
@@ -102,7 +109,7 @@
 </td></tr>
 </table>
 <hr>
-
+<a name="average"/>
 <table border=0>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:${regAtBats}打席)</font></td>
@@ -674,5 +681,36 @@
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
 <hr><br><br><br><br>
 </div>
+</ons-scroller>
+<ons-bottom-toolbar modifier="transparent aligned">
+<a href="${f:url('/statistics/') }" title="統計">
+	<ons-icon icon="fa-bar-chart" size="30px" fixed-width="false"></ons-icon>
+</a>
+<a href="http://jcbldata.fc2web.com/cbl_stats.html" title="スタッツTOP">
+<ons-icon icon="fa-list" size="30px" fixed-width="false" label="TOP"></ons-icon>
+</a>
+<a href="http://jcbldata.fc2web.com/cbl_index.html" title="HOME" target="_top">
+	<ons-icon icon="fa-home" size="30px" fixed-width="true"></ons-icon>
+</a>
+<a href="#average">
+	<span style="font-size:30px">A</span><span style="font-size:8px">vg.</span>
+</a>
+<a href="#homerun">
+	<span style="font-size:30px">H</span><span style="font-size:8px">R</span>
+</a>
+<a href="#rbi">
+	<span style="font-size:30px">R</span><span style="font-size:8px">bi</span>
+</a>
+<a href="#hit">
+	<span style="font-size:30px">H</span><span style="font-size:8px">it</span>
+</a>
+<a href="#era" title="防御率">
+	<ons-icon icon="fa-shield" size="40px" fixed-width="true"></ons-icon>
+</a>
+<span style="font-size:40px">W</span><span style="font-size:8px">in</span>
+<span style="font-size:40px">S</span><span style="font-size:8px">ave</span>
+<span style="font-size:40px">K</span>
+</ons-bottom-toolbar>
+</ons-page>
 </body>
 </html>
