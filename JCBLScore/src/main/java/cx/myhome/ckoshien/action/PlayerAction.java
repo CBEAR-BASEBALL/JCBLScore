@@ -127,7 +127,7 @@ public class PlayerAction {
 	}
 
 	@Aspect(value="loginConfInterceptor")
-	@Execute(validator = true,input="update/{id}",stopOnValidationError=false,validate="createValidate")
+	@Execute(validator = true,input="update/{id}",stopOnValidationError=false,validate="updateValidate")
 	public String updateComplete(){
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		player.id=Integer.parseInt(playerForm.id);
@@ -228,6 +228,15 @@ public class PlayerAction {
 	public ActionMessages createValidate(){
 		ActionMessages errors = new ActionMessages();
 		List<Player> players=playerService.findByName(playerForm.name);
+		if(players.size()>=1){
+			errors.add("name", new ActionMessage("既に登録されています", false));
+		}
+		return errors;
+	}
+
+	public ActionMessages updateValidate(){
+		ActionMessages errors = new ActionMessages();
+		List<Player> players=playerService.findByNameExceptSelf(playerForm.name,Integer.parseInt(playerForm.id));
 		if(players.size()>=1){
 			errors.add("name", new ActionMessage("既に登録されています", false));
 		}

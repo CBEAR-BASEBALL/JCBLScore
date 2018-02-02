@@ -72,6 +72,10 @@ public class PlayerService extends AbstractService<Player> {
 		return select().where("name=?", name).getResultList();
 	}
 
+	public List<Player> findByNameExceptSelf(String name,Integer playerId){
+		return select().where("name=? and id!=?", name,playerId).getResultList();
+	}
+
 	public List<PlayerDto> findByLikeName(String name) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("word","%"+name+"%");
