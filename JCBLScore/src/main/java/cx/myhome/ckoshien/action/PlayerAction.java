@@ -19,6 +19,7 @@ import org.seasar.struts.annotation.Execute;
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.dto.PositionDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
+import cx.myhome.ckoshien.dto.TeamHistoryDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
 import cx.myhome.ckoshien.entity.League;
 import cx.myhome.ckoshien.entity.Player;
@@ -28,6 +29,7 @@ import cx.myhome.ckoshien.service.BattingSumService;
 import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
+import cx.myhome.ckoshien.service.TeamHistoryService;
 import cx.myhome.ckoshien.service.TeamService;
 import cx.myhome.ckoshien.util.MemoryUtil;
 
@@ -66,6 +68,9 @@ public class PlayerAction {
 	protected HttpServletRequest request;
 	@Resource
 	protected HttpServletResponse response;
+	@Resource
+	protected TeamHistoryService teamHistoryService;
+	public List<TeamHistoryDto> teamHistoryDtoList;
 	private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
@@ -172,6 +177,7 @@ public class PlayerAction {
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
 		posDtos=battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
+		teamHistoryDtoList=teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(playerForm.id));
 		long t2=System.currentTimeMillis();
 		logger.info("/player/show/"+playerForm.id+" "+player.name);
 		MemoryUtil.viewMemoryInfo();

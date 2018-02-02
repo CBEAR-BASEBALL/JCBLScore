@@ -254,7 +254,18 @@
 <table border=1>
 	<tr>
 		<td>${player.name}</td>
-		<td>${f:br(player.comment)}</td>
+		<td>
+		<c:choose>
+			<c:when test="${!empty teamHistoryDtoList}">
+			所属履歴：<br>
+				<c:forEach var="thList" items="${teamHistoryDtoList}">
+					${thList.startTitle}～${thList.endTitle}：${thList.teamName}<br>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+
+		${f:br(player.comment)}</td>
+
 	</tr>
 </table>
 <h2>打撃成績</h2>
