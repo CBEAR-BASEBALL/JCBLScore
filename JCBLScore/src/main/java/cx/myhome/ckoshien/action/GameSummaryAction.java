@@ -5,6 +5,9 @@ import java.util.List;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -275,11 +278,12 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	@Execute(validator=true,input="edit/{id}",
 			stopOnValidationError=false,
 			validate="dateValidate",
-			removeActionForm=true)
+			removeActionForm=false)
 	public String updateComplete(){
-			StringBuilder sb = new StringBuilder();
-			game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
-			game.gameId=Integer.parseInt(gameSummaryForm.id);
+			//StringBuilder sb = new StringBuilder();
+			Game game=new Game();
+			game=gameService.findById(Integer.parseInt(gameSummaryForm.id));
+			//game.gameId=Integer.parseInt(gameSummaryForm.id);
 			leagueList=leagueService.findAllOrderByIdExceptTotal();
 			//リーグID検索
 			for (int i=0;i<leagueList.size();i++){
@@ -290,12 +294,13 @@ private static Logger logger = Logger.getLogger("rootLogger");
 					break;
 				}
 			}
-			gameService.update(game);
+			//gameService.update(game);
 			//playerList=playerService.findAllOrderById();
 			//leagueIdを渡して所属チームIDを引っ張る
 			// チーム履歴で照合できない場合はplayerテーブルの情報
 			playerList=teamHistoryService.findPlayerWithTeamHistory(game.leagueId);
 			battingSumForm = Beans.createAndCopy(BattingSumForm.class, gameSummaryForm).execute();
+
 			//GAME_IDに紐づく打撃成績をテーブルから全て削除
 			battingSumList=battingSumService.findByGameIdAll(game.gameId);
 			for(int i=0;i<battingSumList.size();i++){
@@ -309,10 +314,12 @@ private static Logger logger = Logger.getLogger("rootLogger");
 					battingSum=logic.convert2BattingSum(battingSumForm, battingSum, playerList,i);
 					if (battingSumForm.myTeamId.get(i).equals("0")){
 						//先攻の場合先攻チームIDを代入
-						battingSum.myteamId=game.firstTeam;
+						battingSum.myteamId=Integer.parseInt(gameSummaryForm.firstTeam);
+						System.out.println("gameSummaryForm.firstTeam");
 					}else if(battingSumForm.myTeamId.get(i).equals("1")){
 						//後攻の場合後攻チームIDを代入
-						battingSum.myteamId=game.lastTeam;
+						battingSum.myteamId=Integer.parseInt(gameSummaryForm.lastTeam);
+						System.out.println("gameSummaryForm.lastTeam");
 					}
 					battingSumService.insert(battingSum);
 				}
@@ -341,8 +348,11 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			//resultテーブルupdate
 			Result result=new Result();
 			Result result2=new Result();
-			result.id=resultService.findById(game.firstTeam,game.gameId).id;
-			result2.id=resultService.findById(game.lastTeam,game.gameId).id;
+			result.id=resultService.findById(Integer.parseInt(gameSummaryForm.firstTeam),game.gameId).id;
+			result2.id=resultService.findById(Integer.parseInt(gameSummaryForm.lastTeam),game.gameId).id;
+			//game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
+			game.firstTeam=Integer.parseInt(gameSummaryForm.firstTeam);
+			game.lastTeam=Integer.parseInt(gameSummaryForm.lastTeam);
 			result.gameId=game.gameId;
 			result2.gameId=game.gameId;
 			result.teamId=game.firstTeam;
@@ -375,6 +385,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			result2.leagueId=game.leagueId;
 			resultService.update(result);
 			resultService.update(result2);
+			gameService.update(game);
 			MemoryUtil.viewMemoryInfo();
 		return "";
 	}
@@ -452,16 +463,14 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	}
 
 	public ActionMessages dateValidate(){
-//		StringBuilder sb = new StringBuilder();
-		//日付を連結
-//		sb.append(gameSummaryForm.gameYear);
-//		sb.append("/");
-//		sb.append(gameSummaryForm.gameMonth);
-//		sb.append("/");
-//		sb.append(gameSummaryForm.gameDay);
-//		gameSummaryForm.gameDate=new String(sb);
-		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
-		league=leagueService.findIdByDate(game.gameDate);
+		//game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			league=leagueService.findIdByDate(sdf.parse(gameSummaryForm.gameDate));
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		ActionMessages errors = new ActionMessages();
 		if(league==null){
 			errors.add("gameDate", new ActionMessage("試合日付がリーグ戦期間外です", false));
