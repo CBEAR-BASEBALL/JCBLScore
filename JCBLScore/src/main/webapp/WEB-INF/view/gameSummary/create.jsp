@@ -56,7 +56,7 @@
 					//str="input[name=\"playerId["+i+"]\"] option:selected";
 					//var obj=$(str);
 					alert(i+1+"行目のデータが不正です");
-					return false;
+					return true;
 				}
 			}
 			return true;

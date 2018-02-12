@@ -36,6 +36,15 @@ $(function(){
         delay: 1500,
         minLength: 2
     });
+	//日本語入力をスタートしたら無効化
+    $('#id').on('compositionstart', function(){
+    	$('#id').autocomplete('disable');
+    });
+
+    //日本語入力が確定したら有効化
+    $('#id').on('compositionend', function(){
+    	$('#id').autocomplete('enable').autocomplete('search');
+    });
     $('form[name=planActionForm]').submit(function(){
     	if($('input:hidden[name="idHidden"]').val() == ""){
     		alert("2文字以上入力して候補から選択してください");
