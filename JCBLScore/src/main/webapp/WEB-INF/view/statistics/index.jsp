@@ -92,7 +92,10 @@ $(function () {
 			<c:forEach var="i" items="${countDtos}">
 			<c:choose>
 			<c:when test="${k.teamId==i.teamId}">
-				${i.memberCount},
+			<c:choose>
+			<c:when test="${!empty i.memberCount}">${i.memberCount}</c:when>
+			<c:otherwise>null</c:otherwise>
+		</c:choose>,
 			</c:when>
 			</c:choose>
 			</c:forEach>
@@ -185,9 +188,13 @@ $(function () {
 			data: [
 			<c:forEach var="i" items="${yearDtos}">
 			<c:choose>
-			<c:when test="${k.teamId==i.teamId}">
-				${i.memberCount},
-			</c:when>
+				<c:when test="${k.teamId==i.teamId}">
+					<c:choose>
+						<c:when test="${!empty i.memberCount}">${i.memberCount}</c:when>
+						<c:otherwise>null</c:otherwise>
+					</c:choose>
+				,
+				</c:when>
 			</c:choose>
 			</c:forEach>
 			],

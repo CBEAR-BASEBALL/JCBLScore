@@ -60,7 +60,7 @@ public class StatisticsAction {
 				elementMap = new HashMap<Integer,Integer>();
 				elementMap.put(teamList.get(i).teamId, leagueList.get(j));
 				if(!dbMap.containsKey(elementMap)){
-					dbMap.put(elementMap, 0);
+					dbMap.put(elementMap, null);
 				}
 			}
 		}
@@ -96,7 +96,8 @@ public class StatisticsAction {
 				elementMap2 = new HashMap<Integer,String>();
 				elementMap2.put(teamList.get(i).teamId, yearList.get(j));
 				if(!dbMap2.containsKey(elementMap2)){
-					dbMap2.put(elementMap2, 0);
+					//dbMap2.put(elementMap2, 0);
+					dbMap2.put(elementMap2, null);
 				}
 			}
 		}
