@@ -37,21 +37,13 @@
 		       }
 		   );
 	</script>
-	<%--
-	<script type="text/javascript">
-	$(function() {
-		if(navigator.userAgent.indexOf('iPhone') == -1
-				&& navigator.userAgent.indexOf('Android') == -1){
-			$('ons-bottom-toolbar').hide();
-		}
-	});
-	</script>
-	--%>
-	<meta name="viewport" content="width=device-width,initial-scale=1">
+
 </head>
 <body>
-<ons-page>
-<ons-scroller style="height: 200px; width:100%">
+	<ons-page>
+	<ons-scroller style="height: 200px; width:100%">
+
+
 <!--shinobi1-->
 <%--
 <script type="text/javascript" src="http://x6.karakasa.com/ufo/05087790l"></script>
@@ -694,9 +686,10 @@
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
 <hr><br><br><br><br>
 </div>
-
-
 </ons-scroller>
+<c:choose>
+	<c:when test="${device!='pc'}">
+
 <ons-bottom-toolbar>
 <a href="http://jcbldata.fc2web.com/cbl_index.html" title="HOME" target="_top">
 	<ons-icon icon="fa-home" size="30px" fixed-width="true"></ons-icon>
@@ -732,6 +725,9 @@
 <ons-icon icon="fa-list" size="30px" fixed-width="false" label="TOP"></ons-icon>
 </a>
 </ons-bottom-toolbar>
+
+	</c:when>
+</c:choose>
 </ons-page>
 </body>
 </html>

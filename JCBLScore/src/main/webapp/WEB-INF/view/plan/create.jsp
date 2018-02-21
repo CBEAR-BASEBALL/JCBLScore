@@ -33,7 +33,7 @@ $(function(){
             $('input:hidden[name="idHidden"]').val(ui.item.id);
         },
         autoFocus: true,
-        delay: 1500,
+        delay: 1000,
         minLength: 2
     });
 	//日本語入力をスタートしたら無効化

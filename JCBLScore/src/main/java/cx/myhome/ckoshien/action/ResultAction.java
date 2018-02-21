@@ -74,6 +74,7 @@ public int regAtBats;
 public int regAtPitch;
 public int listSize;
 public List<Game> gameList;
+public String device;
 
 @Resource
 protected HttpServletRequest request;
@@ -95,7 +96,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		//アクセス制限
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
-    		System.out.println(ia.getHostName());
+//    		System.out.println(ia.getHostName());
     		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
     				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
     				&& !request.getRemoteAddr().startsWith("192.168")
@@ -103,7 +104,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
     				&& !ia.getHostName().equals("127.0.0.1")
     				&& !ia.getHostName().equals(request.getRemoteAddr())
     			){
-//    			//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+    			logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
 //    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     			try {
 					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
@@ -121,6 +122,16 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			league=leagueService.findById(Integer.parseInt(resultForm.id));
 		}catch(NumberFormatException e){
 			return "index&redirect=true";
+		}
+		//user-agent判定
+		String userAgent = request.getHeader("user-agent");
+		if(userAgent.indexOf("Android")==-1 && userAgent.indexOf("iPhone")==-1){
+			device="pc";
+			//mav.addObject("device", "pc");
+		}else{
+			System.out.println("mobile");
+			//mav.addObject("device","mobile");
+			device="mobile";
 		}
 		logger.info("result/season/"+Integer.parseInt(resultForm.id));
 		//System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
