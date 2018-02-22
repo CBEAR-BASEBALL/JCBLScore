@@ -73,6 +73,7 @@
 	</table>
 </c:forEach>
 <hr>
+<%--
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"
@@ -92,5 +93,6 @@
 </span>
 </noscript>
 <!--shinobi2-->
+--%>
 </body>
 </html>

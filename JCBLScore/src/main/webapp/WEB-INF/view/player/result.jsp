@@ -2,6 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
+
 	<%-- jquery --%>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<%-- bootstrap --%>
@@ -14,15 +15,9 @@
 	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
-	<%--
-	<script>
-	$(function() {
-		$( "#tab-b" ).tabs();
-	});
-	$(function() {
-		$( "#tab-p" ).tabs();
-	});
-	</script>
+	<%-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 	--%>
 	<script>
 		$(function(){
@@ -249,6 +244,9 @@
 	</script>
 </head>
 <body>
+<%-- <ons-page>
+<ons-scroller style="height: 200px; width:100%">
+--%>
 <hr>
 <h2>選手紹介</h2>
 <table border=1>
@@ -658,6 +656,7 @@
 <div id="chart_div3" style="width: 80%; height: 300px;"></div>
 <div id="chart_div" style="width: 80%; height: 300px;"></div>
 <div id="chart_div2" style="width: 80%; height: 300px;"></div>
+<%--
 <!--shinobi1-->
 <script type="text/javascript" src="http://x6.karakasa.com/ufo/05087790l"></script>
 <noscript><a href="http://x6.karakasa.com/bin/gg?05087790l" target="_blank">
@@ -667,5 +666,8 @@
 </span>
 </noscript>
 <!--shinobi2-->
+--%>
+<%-- </ons-scroller>
+</ons-page>--%>
 </body>
 </html>

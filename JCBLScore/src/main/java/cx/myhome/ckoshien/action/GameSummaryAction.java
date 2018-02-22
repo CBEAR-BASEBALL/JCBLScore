@@ -348,8 +348,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			//resultテーブルupdate
 			Result result=new Result();
 			Result result2=new Result();
-			result.id=resultService.findById(Integer.parseInt(gameSummaryForm.firstTeam),game.gameId).id;
-			result2.id=resultService.findById(Integer.parseInt(gameSummaryForm.lastTeam),game.gameId).id;
+			result.id=resultService.findById(game.firstTeam,game.gameId).id;
+			result2.id=resultService.findById(game.lastTeam,game.gameId).id;
 			//game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 			game.firstTeam=Integer.parseInt(gameSummaryForm.firstTeam);
 			game.lastTeam=Integer.parseInt(gameSummaryForm.lastTeam);
