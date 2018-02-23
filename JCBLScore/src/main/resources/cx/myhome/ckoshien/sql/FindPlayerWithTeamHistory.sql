@@ -1,4 +1,5 @@
-select
+select * from
+(select
 p2.ID,
 p2.NAME,
 CASE
@@ -29,5 +30,17 @@ right outer join player p2
 on p2.ID=p.ID
 right outer join team t4
 on t4.TEAM_ID=p2.TEAM_ID
-where p2.ID is not null
-order by team_id,id
+where p2.ID is not null) p5
+inner join(SELECT
+  t.team_id as team_id,
+  t.team_name as team_name,
+  t.short_name as short_name,
+  max(game_date) as last_join_date,
+  t.jcbl_flg
+ FROM team t
+  left outer join result r on t.team_id=r.team_id
+  left outer join game g on r.game_id=g.game_id
+group by team_id
+)td
+on p5.TEAM_ID=td.team_id
+order by td.jcbl_flg asc,last_join_date desc

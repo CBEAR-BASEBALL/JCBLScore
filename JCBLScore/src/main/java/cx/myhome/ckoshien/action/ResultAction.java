@@ -125,6 +125,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		//user-agent判定
 		String userAgent = request.getHeader("user-agent");
+		logger.info(userAgent);
 		if(userAgent.indexOf("Android")==-1 && userAgent.indexOf("iPhone")==-1){
 			device="pc";
 			//mav.addObject("device", "pc");
