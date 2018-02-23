@@ -43,4 +43,4 @@ inner join(SELECT
 group by team_id
 )td
 on p5.TEAM_ID=td.team_id
-order by td.jcbl_flg asc,last_join_date desc
+order by td.jcbl_flg asc,last_join_date desc,p5.team_id

@@ -50,6 +50,10 @@ public class GameService extends AbstractService<Game> {
     	return select().innerJoin(league()).where("begin_date>=? and end_date<=?", beginDate,endDate).orderBy(desc(gameDate())).getResultList();
     }
 
+    public Game findByDateAndNumber(Date gameDate,Integer number){
+    	return select().where("game_date=? and game_number=?",gameDate,number).getSingleResult();
+    }
+
     public List<GameListDto> findAllGroupByGameDate() {
     	return jdbcManager
     	.selectBySqlFile(GameListDto.class, "cx.myhome.ckoshien.sql.GameDate.sql")

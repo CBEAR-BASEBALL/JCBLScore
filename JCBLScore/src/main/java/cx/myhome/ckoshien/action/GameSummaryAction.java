@@ -115,7 +115,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	@Aspect(value="loginConfInterceptor")
 	@Execute(validator = true,input="create",
 			stopOnValidationError=false,
-			validate="dateValidate",
+			validate="dateValidateInsert",
 			removeActionForm=true)
 	public String createComplete(){
 		game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
@@ -129,7 +129,6 @@ private static Logger logger = Logger.getLogger("rootLogger");
 				break;
 			}
 		}
-
 		//playerList=playerService.findAllOrderById();
 		//leagueIdを渡して所属チームIDを引っ張る
 		// チーム履歴で照合できない場合はplayerテーブルの情報
@@ -277,7 +276,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	@Aspect(value="loginConfInterceptor")
 	@Execute(validator=true,input="edit/{id}",
 			stopOnValidationError=false,
-			validate="dateValidate",
+			validate="dateValidateUpdate",
 			removeActionForm=false)
 	public String updateComplete(){
 			//StringBuilder sb = new StringBuilder();
@@ -462,16 +461,55 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		return "index2.jsp";
 	}
 
-	public ActionMessages dateValidate(){
+	public ActionMessages dateValidateInsert(){
 		//game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		try {
 			league=leagueService.findIdByDate(sdf.parse(gameSummaryForm.gameDate));
-		} catch (ParseException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error("ERROR", e);
+		}
+		//レコードの存在チェック
+		Game oldGame=null;
+		try {
+			oldGame = gameService.findByDateAndNumber(sdf.parse(gameSummaryForm.gameDate), Integer.parseInt(gameSummaryForm.gameNumber));
+		} catch (Exception e) {
+			logger.error("ERROR",e);
 		}
 		ActionMessages errors = new ActionMessages();
+		if(oldGame!=null){
+			errors.add("gameDate", new ActionMessage("日付と試合番号が重複しています", false));
+		}
+		if(league==null){
+			errors.add("gameDate", new ActionMessage("試合日付がリーグ戦期間外です", false));
+		}
+		if(gameSummaryForm.firstTeam.equals(gameSummaryForm.lastTeam)){
+			errors.add("teamId", new ActionMessage("先攻後攻のチームIDが同じです", false));
+		}
+		return errors;
+	}
+
+	public ActionMessages dateValidateUpdate(){
+		//game = Beans.createAndCopy(Game.class, gameSummaryForm).execute();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			league=leagueService.findIdByDate(sdf.parse(gameSummaryForm.gameDate));
+		} catch (Exception e) {
+			logger.error("ERROR", e);
+		}
+		//レコードの存在チェック
+		Game oldGame=null;
+		try {
+			oldGame = gameService.findByDateAndNumber(sdf.parse(gameSummaryForm.gameDate), Integer.parseInt(gameSummaryForm.gameNumber));
+		} catch (Exception e) {
+			logger.error("ERROR",e);
+		}
+		ActionMessages errors = new ActionMessages();
+		if(oldGame!=null && oldGame.gameId==Integer.parseInt(gameSummaryForm.id)){
+			//レコードが存在し、かつgameIdが同じときupdate
+		}else{
+			errors.add("gameDate", new ActionMessage("日付と試合番号が重複しています", false));
+		}
 		if(league==null){
 			errors.add("gameDate", new ActionMessage("試合日付がリーグ戦期間外です", false));
 		}
