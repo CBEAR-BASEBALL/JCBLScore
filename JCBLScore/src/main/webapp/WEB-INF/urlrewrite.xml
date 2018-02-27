@@ -18,11 +18,11 @@
         <from>/test/status/</from>
         <to type="redirect">%{context-path}/rewrite-status</to>
     </rule>
-<!--  	<rule>
+  	<!-- <rule>
 		<name>静的ファイルは除外</name>
 		<from>/(css|js|images)/(.*)</from>
 		<to last="true">/$1/$2</to>
-	</rule>-->
+	</rule> -->
 
 
     <outbound-rule>
@@ -41,6 +41,10 @@
 		<from>(.*);jsessionid=[0-9A-Fa-f]{32}(.*)</from>
 		<to>$1$2</to>
 	</outbound-rule>
+	<!-- <outbound-rule encodefirst="true">
+		<from>/v2/(.*)</from>
+		<to last="true">/v2/#/$1</to>
+	</outbound-rule> -->
 
     <!--
 

@@ -1,0 +1,549 @@
+<table border=1>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">{{items.league.title}} チーム成績</font></td>
+</tr>
+<tr><td>
+<table border=1 ts-wrapper class="tablesort-sortable">
+	<thead>
+	<!--<tr>
+		<th></th>
+		<th ts-criteria="teamName|lowercase">チーム名</th>
+		<th ts-criteria="gameCount|parseInt">試合</th>
+		<th ts-criteria="win|parseInt">勝利</th>
+		<th ts-criteria="lose|parseInt">敗北</th>
+		<th ts-criteria="draw|parseInt">引き分け</th>
+		<th ts-criteria="percentage|parseFloat">勝率</th>
+		<th ts-criteria="points|parseInt">勝ち点</th>
+		<th ts-criteria="avg|parseFloat">打率</th>
+		<th ts-criteria="era|parseFloat">防御率</th>
+		<th ng-repeat="i in range(items.length)">対{{$parent.items.resultList[i].shortName}}</th>
+	</tr>-->
+	<tr>
+		<th></th>
+		<th>チーム名</th>
+		<th>試合</th>
+		<th>勝利</th>
+		<th>敗北</th>
+		<th>引き分け</th>
+		<th>勝率</th>
+		<th>勝ち点</th>
+		<th>打率</th>
+		<th>防御率</th>
+		<th ng-repeat="i in range(items.length)">対{{$parent.items.resultList[i].shortName}}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="resultList in items.resultList track by $index" ts-hide-no-data>
+		<th>{{$index+1}}</th>
+		<td><img width="15" height="15" ng-src="/JCBLScore/img/{{resultList.teamId}}.jpg">{{resultList.teamName}}</td>
+		<td>{{resultList.gameCount}}</td>
+		<td>{{resultList.win}}</td>
+		<td>{{resultList.lose}}</td>
+		<td>{{resultList.draw}}</td>
+		<td>{{resultList.percentage | number:3}}</td>
+		<td>{{resultList.points}}</td>
+		<td><a href="/JCBLScore/team/batting/{{resultList.teamId}}/{{items.totalLeagueId}}">{{resultList.avg | number:3}}</a></td>
+		<td><a href="/JCBLScore/team/pitching/{{resultList.teamId}}/{{items.totalLeagueId}}">{{resultList.era | number:2}}</a></td>
+		<div ng-repeat="i in range($parent.items.length)">
+			<td ng-repeat="opponentList in resultList.opponentList">
+				<div ng-if="opponentList.win!=0 || opponentList.lose!=0 || opponentList.draw!=0">
+					 	{{opponentList.win}}-{{opponentList.lose}}({{opponentList.draw}})
+				</div>
+				<div ng-if="opponentList.win==0 && opponentList.lose==0 && opponentList.draw==0">
+				</div>
+			</td>
+		</div>
+	</tr>
+	</tbody>
+</table>
+</td></tr>
+</table>
+<hr>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:{{items.regAtBats}}打席)</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>打席数</th>
+			<th>打数</th>
+			<th>安打</th>
+			<th>HR</th>
+			<th>打点</th>
+			<th>四球</th>
+			<th>三振</th>
+			<th>二塁打</th>
+			<th>&nbsp;打率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="averageTop10 in items.averageTop10">
+			<td align="right">{{averageTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{averageTop10.teamId}}.jpg" title="{{averageTop10.teamName}}">{{averageTop10.name}}</td>
+			<td align="right">{{averageTop10.tpa}}</td>
+			<td align="right">{{averageTop10.atBats}}</td>
+			<td align="right">{{averageTop10.hit}}</td>
+			<td align="right">{{averageTop10.homerun}}</td>
+			<td align="right">{{averageTop10.rbi}}</td>
+			<td align="right">{{averageTop10.fourBall}}</td>
+			<td align="right">{{averageTop10.strikeOut}}</td>
+			<td align="right">{{averageTop10.twobase}}</td>
+			<td bgcolor="#FC9898">&nbsp;{{averageTop10.average | number:4 }}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">HR TOP10</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>打席数</th>
+			<th>打数</th>
+			<th>安打</th>
+			<th>HR</th>
+			<th>打点</th>
+			<th>四球</th>
+			<th>三振</th>
+			<th>二塁打</th>
+			<th>&nbsp;打率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="homerunTop10 in items.homerunTop10">
+			<td align="right">{{homerunTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{homerunTop10.teamId}}.jpg" title="{{homerunTop10.teamName}}">{{homerunTop10.name}}</td>
+			<td align="right">{{homerunTop10.tpa}}</td>
+			<td align="right">{{homerunTop10.atBats}}</td>
+			<td align="right">{{homerunTop10.hit}}</td>
+			<td align="right" bgcolor="#FC9898">{{homerunTop10.homerun}}</td>
+			<td align="right">{{homerunTop10.rbi}}</td>
+			<td align="right">{{homerunTop10.fourBall}}</td>
+			<td align="right">{{homerunTop10.strikeOut}}</td>
+			<td align="right">{{homerunTop10.twobase}}</td>
+			<td>&nbsp;{{homerunTop10.average | number:4 }}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">打点 TOP10</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>打席数</th>
+			<th>打数</th>
+			<th>安打</th>
+			<th>HR</th>
+			<th>打点</th>
+			<th>四球</th>
+			<th>三振</th>
+			<th>二塁打</th>
+			<th>&nbsp;打率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="rbiTop10 in items.rbiTop10">
+			<td align="right">{{rbiTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{rbiTop10.teamId}}.jpg" title="{{rbiTop10.teamName}}">{{rbiTop10.name}}</td>
+			<td align="right">{{rbiTop10.tpa}}</td>
+			<td align="right">{{rbiTop10.atBats}}</td>
+			<td align="right">{{rbiTop10.hit}}</td>
+			<td align="right">{{rbiTop10.homerun}}</td>
+			<td align="right" bgcolor="#FC9898">{{rbiTop10.rbi}}</td>
+			<td align="right">{{rbiTop10.fourBall}}</td>
+			<td align="right">{{rbiTop10.strikeOut}}</td>
+			<td align="right">{{rbiTop10.twobase}}</td>
+			<td>&nbsp;{{rbiTop10.average | number:4 }}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">安打数 TOP10</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>打席数</th>
+			<th>打数</th>
+			<th>安打</th>
+			<th>HR</th>
+			<th>打点</th>
+			<th>四球</th>
+			<th>三振</th>
+			<th>二塁打</th>
+			<th>&nbsp;打率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="hitTop10 in items.hitTop10">
+			<td align="right">{{hitTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{hitTop10.teamId}}.jpg" title="{{hitTop10.teamName}}">{{hitTop10.name}}</td>
+			<td align="right">{{hitTop10.tpa}}</td>
+			<td align="right">{{hitTop10.atBats}}</td>
+			<td align="right" bgcolor="#FC9898">{{hitTop10.hit}}</td>
+			<td align="right">{{hitTop10.homerun}}</td>
+			<td align="right">{{hitTop10.rbi}}</td>
+			<td align="right">{{hitTop10.fourBall}}</td>
+			<td align="right">{{hitTop10.strikeOut}}</td>
+			<td align="right">{{hitTop10.twobase}}</td>
+			<td>&nbsp;{{hitTop10.average | number:4 }}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">防御率 TOP10(規定投球回:{{items.regAtPitch}}回)</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>登板数</th>
+			<th>投球回</th>
+			<th>被安打</th>
+			<th>奪三振</th>
+			<th>与四球</th>
+			<th>失点</th>
+			<th>完投</th>
+			<th>完封</th>
+			<th>勝ち</th>
+			<th>負け</th>
+			<th>S</th>
+			<th>防御率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="eraTop10 in items.eraTop10">
+			<td align="right">{{eraTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{eraTop10.teamId}}.jpg" title="{{eraTop10.teamName}}">{{eraTop10.name}}</td>
+			<td align="right">{{eraTop10.gameCount}}</td>
+			<td align="right">{{eraTop10.inning| number:2}}</td>
+			<td align="right">{{eraTop10.hit}}</td>
+			<td align="right">{{eraTop10.strikeOut}}</td>
+			<td align="right">{{eraTop10.fourBall}}</td>
+			<td align="right">{{eraTop10.runs}}</td>
+			<td align="right">{{eraTop10.complete}}</td>
+			<td align="right">{{eraTop10.shutout}}</td>
+			<td align="right">{{eraTop10.win}}</td>
+			<td align="right">{{eraTop10.lose}}</td>
+			<td align="right">{{eraTop10.save}}</td>
+			<td align="right" bgcolor="#FC9898">{{eraTop10.era|number:2}}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">勝利数 TOP10</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>登板数</th>
+			<th>投球回</th>
+			<th>被安打</th>
+			<th>奪三振</th>
+			<th>与四球</th>
+			<th>失点</th>
+			<th>完投</th>
+			<th>完封</th>
+			<th>勝ち</th>
+			<th>負け</th>
+			<th>S</th>
+			<th>防御率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="winTop10 in items.winTop10">
+			<td align="right">{{winTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{winTop10.teamId}}.jpg" title="{{winTop10.teamName}}">{{winTop10.name}}</td>
+			<td align="right">{{winTop10.gameCount}}</td>
+			<td align="right">{{winTop10.inning| number:2}}</td>
+			<td align="right">{{winTop10.hit}}</td>
+			<td align="right">{{winTop10.strikeOut}}</td>
+			<td align="right">{{winTop10.fourBall}}</td>
+			<td align="right">{{winTop10.runs}}</td>
+			<td align="right">{{winTop10.complete}}</td>
+			<td align="right">{{winTop10.shutout}}</td>
+			<td align="right" bgcolor="#FC9898">{{winTop10.win}}</td>
+			<td align="right">{{winTop10.lose}}</td>
+			<td align="right">{{winTop10.save}}</td>
+			<td align="right">{{winTop10.era|number:2}}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">セーブ TOP10</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>登板数</th>
+			<th>投球回</th>
+			<th>被安打</th>
+			<th>奪三振</th>
+			<th>与四球</th>
+			<th>失点</th>
+			<th>完投</th>
+			<th>完封</th>
+			<th>勝ち</th>
+			<th>負け</th>
+			<th>S</th>
+			<th>防御率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="saveTop10 in items.saveTop10">
+			<td align="right">{{saveTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{saveTop10.teamId}}.jpg" title="{{saveTop10.teamName}}">{{saveTop10.name}}</td>
+			<td align="right">{{saveTop10.gameCount}}</td>
+			<td align="right">{{saveTop10.inning| number:2}}</td>
+			<td align="right">{{saveTop10.hit}}</td>
+			<td align="right">{{saveTop10.strikeOut}}</td>
+			<td align="right">{{saveTop10.fourBall}}</td>
+			<td align="right">{{saveTop10.runs}}</td>
+			<td align="right">{{saveTop10.complete}}</td>
+			<td align="right">{{saveTop10.shutout}}</td>
+			<td align="right">{{saveTop10.win}}</td>
+			<td align="right">{{saveTop10.lose}}</td>
+			<td align="right" bgcolor="#FC9898">{{saveTop10.save}}</td>
+			<td align="right">{{saveTop10.era|number:2}}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table border=0>
+<tr>
+	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">奪三振 TOP10</font></td>
+</tr>
+<tr>
+	<td>
+		<table border=1>
+		<thead>
+		<tr>
+			<th></th>
+			<th>選手名</th>
+			<th>登板数</th>
+			<th>投球回</th>
+			<th>被安打</th>
+			<th>奪三振</th>
+			<th>与四球</th>
+			<th>失点</th>
+			<th>完投</th>
+			<th>完封</th>
+			<th>勝ち</th>
+			<th>負け</th>
+			<th>S</th>
+			<th>防御率</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="strikeOutTop10 in items.strikeOutTop10">
+			<td align="right">{{strikeOutTop10.rank}}</td>
+			<td><img width="15" height="15" ng-src="/JCBLScore/img/{{strikeOutTop10.teamId}}.jpg" title="{{strikeOutTop10.teamName}}">{{strikeOutTop10.name}}</td>
+			<td align="right">{{strikeOutTop10.gameCount}}</td>
+			<td align="right">{{strikeOutTop10.inning| number:2}}</td>
+			<td align="right">{{strikeOutTop10.hit}}</td>
+			<td align="right" bgcolor="#FC9898">{{strikeOutTop10.strikeOut}}</td>
+			<td align="right">{{strikeOutTop10.fourBall}}</td>
+			<td align="right">{{strikeOutTop10.runs}}</td>
+			<td align="right">{{strikeOutTop10.complete}}</td>
+			<td align="right">{{strikeOutTop10.shutout}}</td>
+			<td align="right">{{strikeOutTop10.win}}</td>
+			<td align="right">{{strikeOutTop10.lose}}</td>
+			<td align="right">{{strikeOutTop10.save}}</td>
+			<td align="right">{{strikeOutTop10.era|number:2}}</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+<table>
+	<tr>
+		<td bgcolor="#006400"><font size="+2" color="#EEEEEE">ノンタイトル部門</font></td>
+	</tr>
+	<tr>
+		<td>
+			<table border=1>
+				<tr>
+					<td bgcolor="#006400"></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">出塁率(OBP)</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">最多二塁打</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">長打率(SLG)</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">最多四球</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">OPS</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">本塁打率<br>(AB/HR)</font></td>
+					<td bgcolor="#006400"><font color="#EEEEEE">打点率<br>(RBI/AB)</font></td>
+				</tr>
+				<tr ng-repeat="i in range(items.listSize-1)">
+					<td>{{i+1}}</td>
+					<td ng-if="$parent.items.obpTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.obpTop10[i].name}}/{{$parent.items.obpTop10[i].obp | number:4}}</td>
+					<td ng-if="$parent.items.obpTop10[i].rank != 1">{{$parent.items.obpTop10[i].name}}/{{$parent.items.obpTop10[i].obp | number:4}}</td>
+					<td ng-if="$parent.items.twobaseTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.twobaseTop10[i].name}}/{{$parent.items.twobaseTop10[i].twobase}}本</td>
+					<td ng-if="$parent.items.twobaseTop10[i].rank != 1">{{$parent.items.twobaseTop10[i].name}}/{{$parent.items.twobaseTop10[i].twobase}}本</td>
+					<td ng-if="$parent.items.slgTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.slgTop10[i].name}}/{{$parent.items.slgTop10[i].slg | number:4}}</td>
+					<td ng-if="$parent.items.slgTop10[i].rank != 1">{{$parent.items.slgTop10[i].name}}/{{$parent.items.slgTop10[i].slg | number:4}}</td>
+					<td ng-if="$parent.items.fourBallTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.fourBallTop10[i].name}}/{{$parent.items.fourBallTop10[i].fourBall}}個</td>
+					<td ng-if="$parent.items.fourBallTop10[i].rank != 1">{{$parent.items.fourBallTop10[i].name}}/{{$parent.items.fourBallTop10[i].fourBall}}個</td>
+					<td ng-if="$parent.items.opsTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.opsTop10[i].name}}/{{$parent.items.opsTop10[i].ops | number:4}}</td>
+					<td ng-if="$parent.items.opsTop10[i].rank != 1">{{$parent.items.opsTop10[i].name}}/{{$parent.items.opsTop10[i].ops | number:4}}</td>
+					<td ng-if="$parent.items.nsoTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.nsoTop10[i].name}}/{{$parent.items.nsoTop10[i].notStrikeOut | number:2}}</td>
+					<td ng-if="$parent.items.nsoTop10[i].rank != 1">{{$parent.items.nsoTop10[i].name}}/{{$parent.items.nsoTop10[i].notStrikeOut | number:2}}</td>
+					<td ng-if="$parent.items.avgHRTop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.avgHRTop10[i].name}}/{{$parent.items.avgHRTop10[i].avgHomerun | number:2}}</td>
+					<td ng-if="$parent.items.avgHRTop10[i].rank != 1">{{$parent.items.avgHRTop10[i].name}}/{{$parent.items.avgHRTop10[i].avgHomerun | number:2}}</td>
+					<td ng-if="$parent.items.avgRBITop10[i].rank == 1" bgcolor="#FC9898">{{$parent.items.avgRBITop10[i].name}}/{{$parent.items.avgRBITop10[i].avgRbi | number:3}}</td>
+					<td ng-if="$parent.items.avgRBITop10[i].rank != 1">{{$parent.items.avgRBITop10[i].name}}/{{$parent.items.avgRBITop10[i].avgRbi | number:3}}</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<hr>
+<h2>打者全成績</h2>
+<table border=1" class="tablesort-sortable" ts-wrapper>
+	<thead>
+	<tr>
+		<th ts-criteria="name | lowercase">選手名</th>
+		<th ts-criteria="tpa | parseInt">打席数</th>
+		<th ts-criteria="atBats | parseInt">打数</th>
+		<th ts-criteria="hit | parseInt">安打</th>
+		<th ts-criteria="homerun | parseInt">HR</th>
+		<th ts-criteria="rbi | parseInt">打点</th>
+		<th ts-criteria="fourBall | parseInt">四球</th>
+		<th ts-criteria="strikeOut | parseInt">三振</th>
+		<th ts-criteria="twobase | parseInt">二塁打</th>
+		<th ts-criteria="average | parseFloat" ts-default="descending">打率</th>
+		<th ts-criteria="slg | parseFloat">長打率</th>
+		<th ts-criteria="ops | parseFloat">OPS</th>
+		<th ts-criteria="obp | parseFloat">出塁率</th>
+		<th ts-criteria="notStrikeOut | parseFloat">三振率</th>
+		<th ts-criteria="rc27 | parseFloat">RC27</th>
+		<th ts-criteria="avgHomerun | parseFloat">本塁打率</th>
+		<th ts-criteria="avgRbi | parseFloat">打点率</th>
+
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="battingResultList in items.battingResultList track by battingResultList.playerId" ts-repeat ts-hide-no-data>
+		<td><img width="13" height="13" ng-src="/JCBLScore/img/{{battingResultList.teamId}}.jpg" title="{{battingResultList.teamName}}"><a href="/JCBLScore/player/show/{{battingResultList.playerId}}" class="btn btn-default btn-xs">{{battingResultList.name}}</a></td>
+		<td align="right">{{battingResultList.tpa}}</td>
+		<td align="right">{{battingResultList.atBats}}</td>
+		<td align="right">{{battingResultList.hit}}</td>
+		<td align="right">{{battingResultList.homerun}}</td>
+		<td align="right">{{battingResultList.rbi}}</td>
+		<td align="right">{{battingResultList.fourBall}}</td>
+		<td align="right">{{battingResultList.strikeOut}}</td>
+		<td align="right">{{battingResultList.twobase}}</td>
+		<td>{{battingResultList.average | number:4}}</td>
+		<td>{{battingResultList.slg | number:4}}</td>
+		<td>{{battingResultList.ops | number:4}}</td>
+		<td>{{battingResultList.obp | number:4}}</td>
+		<td>{{battingResultList.notStrikeOut | number:2}}</td>
+		<td>{{battingResultList.rc27 | number:2}}</td>
+		<td>{{battingResultList.avgHomerun | number:2}}</td>
+		<td>{{battingResultList.avgRbi | number:4}}</td>
+	</tr>
+	</tbody>
+</table>
+<hr>
+<h2>投手全成績</h2>
+<table border=1 id="pitchingAll" class="tablesort-sortable" ts-wrapper>
+	<thead>
+	<tr>
+		<th ts-criteria="name | lowercase">選手名</th>
+		<th ts-criteria="gameCount | parseInt">登板数</th>
+		<th ts-criteria="inning | parseFloat">投球回</th>
+		<th ts-criteria="hitt | parseInt">被安打</th>
+		<th ts-criteria="strikeOut | parseInt">奪三振</th>
+		<th ts-criteria="fourBall | parseInt">与四球</th>
+		<th ts-criteria="runs | parseInt">失点</th>
+		<th ts-criteria="complete | parseInt">完投</th>
+		<th ts-criteria="shutout | parseInt">完封</th>
+		<th ts-criteria="homerun | parseInt">被本</th>
+		<th ts-criteria="win | parseInt">勝ち</th>
+		<th ts-criteria="lose | parseInt">負け</th>
+		<th ts-criteria="save | parseInt">Ｓ</th>
+		<th ts-criteria="era | parseFloat"  ts-default>防御率</th>
+		<th ts-criteria="whip | parseFloat">WHIP</th>
+		<th ts-criteria="strikeAvg | parseFloat">奪三振率</th>
+
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="pitchingResultList in items.pitchingResultList track by pitchingResultList.playerId" ts-repeat ts-hide-no-data>
+		<td><img width="13" height="13" ng-src="/JCBLScore/img/{{pitchingResultList.teamId}}.jpg" title="{{pitchingResultList.teamName}}"><a href="/JCBLScore/player/show/{{pitchingResultList.playerId}}" class="btn btn-default btn-xs">{{pitchingResultList.name}}</a></td>
+		<td align="right">{{pitchingResultList.gameCount}}</td>
+		<td align="right">{{pitchingResultList.inning | number:2}}</td>
+		<td align="right">{{pitchingResultList.hit}}</td>
+		<td align="right">{{pitchingResultList.strikeOut}}</td>
+		<td align="right">{{pitchingResultList.fourBall}}</td>
+		<td align="right">{{pitchingResultList.runs}}</td>
+		<td align="right">{{pitchingResultList.complete}}</td>
+		<td align="right">{{pitchingResultList.shutout}}</td>
+		<td align="right">{{pitchingResultList.homerun}}</td>
+		<td align="right">{{pitchingResultList.win}}</td>
+		<td align="right">{{pitchingResultList.lose}}</td>
+		<td align="right">{{pitchingResultList.save}}</td>
+		<td>{{pitchingResultList.era | number:2}}</td>
+		<td>{{pitchingResultList.whip |  number:2}}</td>
+		<td>{{pitchingResultList.strikeAvg |  number:2}}</td>
+	</tr>
+	</tbody>
+</table>
+<hr>
