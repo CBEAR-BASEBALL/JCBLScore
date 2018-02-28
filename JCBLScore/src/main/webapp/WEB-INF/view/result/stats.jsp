@@ -5,8 +5,7 @@
 	<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
 	<%-- jquery --%>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<%-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
-	--%>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 	<%-- bootstrap --%>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
@@ -17,15 +16,12 @@
 	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
-
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-	<%--
 	<script>
 	$(document).ready(function(){
 		$(function(){
-			 //alert("これはdocument.readyのタイミングです。");
 		    $.blockUI({
 		      message: 'データの取得に時間がかかることがあります。しばらくお待ちください…',
 		      css: {
@@ -40,15 +36,11 @@
 		        opacity: 0.6
 		      }
 		    });
-		    //setTimeout($.unblockUI, 3000);
+		    setTimeout($.unblockUI, 500);
 		});
 	//});
-	$(window).load(function() {
-        //alert("これはwindow.loadのタイミングです。");
-        $.unblockUI();
-    });
+	});
 	</script>
-	 --%>
 	<script type="text/javascript">
 	$(document).ready(function()
 		       {

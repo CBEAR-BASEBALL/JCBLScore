@@ -68,5 +68,5 @@ right outer join team t4
 on t4.TEAM_ID=p2.TEAM_ID
 where p2.ID is not null) p3
 on p3.ID=pc.PLAYER_ID
-where p3.team_id=/*leagueId*/ and game_date>=/*beginDate*/ and game_date<=/*endDate*/
+where p3.team_id=/*teamId*/ and game_date>=/*beginDate*/ and game_date<=/*endDate*/
 group by player_id,league_id,game_date,game_number with rollup
