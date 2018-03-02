@@ -1,0 +1,9 @@
+td{
+	text-align:right
+}
+td.name{
+	text-align: left
+}
+td.important{
+	background-color:#FC9898;
+}

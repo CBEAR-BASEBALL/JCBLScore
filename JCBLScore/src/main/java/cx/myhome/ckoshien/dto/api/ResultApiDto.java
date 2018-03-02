@@ -38,5 +38,6 @@ public class ResultApiDto {
 	public int regAtPitch;
 	public int listSize;
 	public List<Game> gameList;
+	public Integer totalLeagueId;
 
 }

@@ -1,0 +1,177 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" href="./ajaxStats.css" type="text/css" media="print, projection, screen"/>
+	<!-- jquery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+	<!-- bootstrap -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<!-- jquery-ui -->
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
+	<!-- highcharts -->
+	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
+	<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+	-->
+	<!--datatables -->
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax('/JCBLScore/api/v1/result/season/38',
+		{
+			type: 'get',
+			dataType: 'json'
+		})
+		.success(function(data){
+			$('span#regBats').text(data.regAtBats);
+			$('#averageTop10').DataTable({
+				data:data.averageTop10,
+				searching: false,
+				ordering:false,
+				paging: false,
+				columns: [
+					{ data: "rank" },
+					{
+						data: "name",
+						render: function ( data, type, row ) {
+							return '<img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
+						}
+					},
+					{ data: "tpa"  },
+					{ data: "atBats"  },
+					{ data: "hit"  },
+					{ data: "homerun"  },
+					{ data: "rbi"  },
+					{ data: "fourBall"  },
+					{ data: "strikeOut"  },
+					{ data: "twobase"  },
+					{ data: "average",
+						render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+					},
+				],
+				columnDefs: [
+					{
+						targets: [1],
+						className:"name"
+					},{
+						targets: [10],
+						className:"important"
+					}
+				],
+	        	order: [[ 10, "desc" ]],
+				lengthChange: false,
+				info: false,
+				responsive: true,
+				processing: true,
+			})
+			$('#HRTop10').DataTable({
+				data:data.homerunTop10,
+				searching: false,
+				ordering:false,
+				paging: false,
+				columns: [
+					{ data: "rank" },
+					{
+						data: "name",
+						render: function ( data, type, row ) {
+							return '<img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
+						}
+					},
+					{ data: "tpa"  },
+					{ data: "atBats"  },
+					{ data: "hit"  },
+					{ data: "homerun"  },
+					{ data: "rbi"  },
+					{ data: "fourBall"  },
+					{ data: "strikeOut"  },
+					{ data: "twobase"  },
+					{ data: "average",
+						render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+					},
+				],
+				columnDefs: [
+					{
+						targets: [1],
+						className:"name"
+					},{
+						targets: [5],
+						className:"important"
+					}
+
+				],
+	        	order: [[ 5, "desc" ]],
+				lengthChange: false,
+				info: false,
+				responsive: true,
+				processing: true,
+			})
+		});
+		})
+		//$.fn.dataTable.ext.errMode = 'none';
+		$.extend( $.fn.dataTable.defaults, {
+	        language: {
+	            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+	        }
+	    });
+
+	</script>
+</head>
+<body>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:<span id="regBats"></span>打席)</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="averageTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>HR</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">HR TOP10</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="HRTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>HR</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+</body>
+</html>

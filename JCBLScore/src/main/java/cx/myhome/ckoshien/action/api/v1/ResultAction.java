@@ -435,6 +435,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		res.opponentList=opponentList2;
 		res.length=length;
 		res.league=league;
+		res.totalLeagueId=totalLeagueId;
 		String json=JSON.encode(res);
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
