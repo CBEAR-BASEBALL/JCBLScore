@@ -1,9 +1,14 @@
 td{
-	text-align:right
+	text-align:right;
+
 }
 td.name{
-	text-align: left
+	text-align: left;
+	white-space: nowrap;
 }
 td.important{
 	background-color:#FC9898;
+}
+th{
+	white-space: nowrap;
 }

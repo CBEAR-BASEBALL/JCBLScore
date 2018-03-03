@@ -3,121 +3,46 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="stylesheet" href="./ajaxStats.css" type="text/css" media="print, projection, screen"/>
 	<!-- jquery -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+	<!--  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	-->
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 	<!-- bootstrap -->
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 	<!-- jquery-ui -->
-	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
+	<script type="text/javascript" src="//code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
 	<!-- highcharts -->
-	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
-	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
+	<script type="text/javascript" src="//code.highcharts.com/4.2.2/highcharts.js"></script>
+	<script type="text/javascript" src="//code.highcharts.com/2.2/highcharts-more.js"></script>
 	<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
 	-->
 	<!--datatables -->
-	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
-
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax('/JCBLScore/api/v1/result/season/38',
-		{
-			type: 'get',
-			dataType: 'json'
-		})
-		.success(function(data){
-			$('span#regBats').text(data.regAtBats);
-			$('#averageTop10').DataTable({
-				data:data.averageTop10,
-				searching: false,
-				ordering:false,
-				paging: false,
-				columns: [
-					{ data: "rank" },
-					{
-						data: "name",
-						render: function ( data, type, row ) {
-							return '<img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
-						}
-					},
-					{ data: "tpa"  },
-					{ data: "atBats"  },
-					{ data: "hit"  },
-					{ data: "homerun"  },
-					{ data: "rbi"  },
-					{ data: "fourBall"  },
-					{ data: "strikeOut"  },
-					{ data: "twobase"  },
-					{ data: "average",
-						render: $.fn.dataTable.render.number( ',', '.', 3, '' )
-					},
-				],
-				columnDefs: [
-					{
-						targets: [1],
-						className:"name"
-					},{
-						targets: [10],
-						className:"important"
-					}
-				],
-	        	order: [[ 10, "desc" ]],
-				lengthChange: false,
-				info: false,
-				responsive: true,
-				processing: true,
-			})
-			$('#HRTop10').DataTable({
-				data:data.homerunTop10,
-				searching: false,
-				ordering:false,
-				paging: false,
-				columns: [
-					{ data: "rank" },
-					{
-						data: "name",
-						render: function ( data, type, row ) {
-							return '<img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
-						}
-					},
-					{ data: "tpa"  },
-					{ data: "atBats"  },
-					{ data: "hit"  },
-					{ data: "homerun"  },
-					{ data: "rbi"  },
-					{ data: "fourBall"  },
-					{ data: "strikeOut"  },
-					{ data: "twobase"  },
-					{ data: "average",
-						render: $.fn.dataTable.render.number( ',', '.', 3, '' )
-					},
-				],
-				columnDefs: [
-					{
-						targets: [1],
-						className:"name"
-					},{
-						targets: [5],
-						className:"important"
-					}
-
-				],
-	        	order: [[ 5, "desc" ]],
-				lengthChange: false,
-				info: false,
-				responsive: true,
-				processing: true,
-			})
+	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script src="./ajaxStats.js" type="text/javascript"></script>
+	<script>
+	$(document).ready(function(){
+		$(function(){
+		    $.blockUI({
+		      message: 'データの取得に時間がかかることがあります。しばらくお待ちください…',
+		      css: {
+		        border: 'none',
+		        padding: '10px',
+		        backgroundColor: '#333',
+		        opacity: .5,
+		        color: '#fff'
+		      },
+		      overlayCSS: {
+		        backgroundColor: '#000',
+		        opacity: 0.6
+		      }
+		    });
+		    //setTimeout($.unblockUI, 500);
 		});
-		})
-		//$.fn.dataTable.ext.errMode = 'none';
-		$.extend( $.fn.dataTable.defaults, {
-	        language: {
-	            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-	        }
-	    });
-
+	//});
+	});
 	</script>
 </head>
 <body>
@@ -173,5 +98,222 @@
 	</td>
 </tr>
 </table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">打点TOP10</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="RbiTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>HR</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">安打数TOP10</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="hitTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>HR</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">防御率TOP10(規定投球回:<span id="regPitch"></span>回)</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="eraTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登板数</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>完投</th>
+		<th>完封</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">勝利数TOP10</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="winTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登板数</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>完投</th>
+		<th>完封</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">セーブ数TOP10</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="saveTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登板数</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>完投</th>
+		<th>完封</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<table>
+<tr>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">奪三振数TOP10</font></td>
+</tr>
+<tr>
+	<td>
+	<table id="strikeOutTop10" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登板数</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>完投</th>
+		<th>完封</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+	</td>
+</tr>
+</table>
+<hr>
+<h2>打者全成績</h2>
+<table id="battingAll" border=1>
+	<thead>
+	<tr>
+		<th>選手名</th>
+		<th>打席数</th>
+		<th>打数</th>
+		<th>安打</th>
+		<th>HR</th>
+		<th>打点</th>
+		<th>四球</th>
+		<th>三振</th>
+		<th>二塁打</th>
+		<th>打率</th>
+		<th>長打率</th>
+		<th>OPS</th>
+		<th>出塁率</th>
+		<th>三振率</th>
+		<th>RC27</th>
+		<th>本塁打率</th>
+		<th>打点率</th>
+	</tr>
+	</thead>
+</table>
+<h2>投手全成績</h2>
+<table id="pitchingAll" border=1>
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登板数</th>
+		<th>投球回</th>
+		<th>被安打</th>
+		<th>奪三振</th>
+		<th>与四球</th>
+		<th>失点</th>
+		<th>完投</th>
+		<th>完封</th>
+		<th>勝ち</th>
+		<th>負け</th>
+		<th>S</th>
+		<th>防御率</th>
+		<th>WHIP</th>
+		<th>奪三振率</th>
+		<th>援護率</th>
+	</tr>
+	</thead>
+	</table>
 </body>
 </html>
