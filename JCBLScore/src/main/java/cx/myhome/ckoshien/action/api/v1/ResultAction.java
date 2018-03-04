@@ -98,6 +98,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	@Execute(urlPattern="season/{id}",validator = false)
 	public String season(){
 		//アクセス制限
+		long t0=System.currentTimeMillis();
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
     		System.out.println(ia.getHostName());
@@ -121,6 +122,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			e1.printStackTrace();
 		}
 		long t1=System.currentTimeMillis();
+		logger.info("lookup:"+(t1-t0));
 		try{
 			league=leagueService.findById(Integer.parseInt(resultForm.id));
 		}catch(NumberFormatException e){
@@ -405,6 +407,16 @@ private static Logger logger = Logger.getLogger("rootLogger");
 					opponentList2.add(map.get(tmpMap));
 				}
 				tmpMap=new HashMap<Integer,Integer>();
+			}
+		}
+		for(int i=0;i<resultList.size();i++){
+			resultList.get(i).opponentMap=new HashMap<Integer,String>();
+			for(int j=0;j<opponentList.size();j++){
+				if(resultList.get(i).teamId==opponentList.get(j).teamId){
+					//HashMap<Integer,String> oMap=new HashMap<Integer,String>();
+					//oMap.put(resultList.get(i).teamId,opponentList.get(j).win+"-"+opponentList.get(j).lose+"("+opponentList.get(j).draw+")");
+					resultList.get(i).opponentMap.put(opponentList.get(j).opponent,opponentList.get(j).win+"-"+opponentList.get(j).lose+"("+opponentList.get(j).draw+")");
+				}
 			}
 		}
 		//API出力処理

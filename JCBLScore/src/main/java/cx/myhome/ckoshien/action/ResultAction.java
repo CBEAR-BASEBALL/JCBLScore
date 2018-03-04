@@ -93,6 +93,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(urlPattern="season/{id}",validator = false)
 	public String season(){
+		long t0=System.currentTimeMillis();
 		//アクセス制限
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
@@ -118,6 +119,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			logger.warn(e1);
 		}
 		long t1=System.currentTimeMillis();
+		logger.info("lookup:"+(t1-t0));
 		try{
 			league=leagueService.findById(Integer.parseInt(resultForm.id));
 		}catch(NumberFormatException e){
@@ -125,15 +127,18 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		//user-agent判定
 		String userAgent = request.getHeader("user-agent");
-		logger.info(userAgent);
-		if(userAgent.indexOf("Android")==-1 && userAgent.indexOf("iPhone")==-1){
-			device="pc";
-			//mav.addObject("device", "pc");
-		}else{
-			System.out.println("mobile");
-			//mav.addObject("device","mobile");
-			device="mobile";
+		logger.info("UserAgent:"+userAgent);
+		if(userAgent!=null){
+			if(userAgent.indexOf("Android")==-1 && userAgent.indexOf("iPhone")==-1){
+				device="pc";
+				//mav.addObject("device", "pc");
+			}else{
+				System.out.println("mobile");
+				//mav.addObject("device","mobile");
+				device="mobile";
+			}
 		}
+
 		logger.info("result/season/"+Integer.parseInt(resultForm.id));
 		//System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		totalLeagueId = leagueService.findTotal().get(0).id;
@@ -239,5 +244,133 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		long t2=System.currentTimeMillis();
 		logger.info(t2-t1+"ms");
 		return "stats.jsp";
+	}
+
+	@Execute(urlPattern="ajax/{id}",validator = false)
+	public String seasonAjax(){
+		long t1=System.currentTimeMillis();
+		try{
+			league=leagueService.findById(Integer.parseInt(resultForm.id));
+		}catch(NumberFormatException e){
+			return "index&redirect=true";
+		}
+//		//user-agent判定
+//		String userAgent = request.getHeader("user-agent");
+//		logger.info("UserAgent:"+userAgent);
+//		if(userAgent!=null){
+//			if(userAgent.indexOf("Android")==-1 && userAgent.indexOf("iPhone")==-1){
+//				device="pc";
+//				//mav.addObject("device", "pc");
+//			}else{
+//				System.out.println("mobile");
+//				//mav.addObject("device","mobile");
+//				device="mobile";
+//			}
+//		}
+
+		logger.info("result/season/"+Integer.parseInt(resultForm.id));
+		totalLeagueId = leagueService.findTotal().get(0).id;
+//		opponentList=resultService.findOpponentResult(Integer.parseInt(resultForm.id));
+		gameList=gameService.findByPeriod(league.beginDate, league.endDate);
+		regAtBats=0;
+		regAtPitch=0;
+		double regGameCount=0;
+		Date today = new Date();
+		if (gameList.size()>0){
+			game=gameList.get(0);
+			//最新の試合日付がリーグ戦期間内だった場合
+			if(today.compareTo(league.beginDate)>=0&&today.compareTo(league.endDate)<=0){
+				Calendar cal=Calendar.getInstance();
+				Calendar cal2=Calendar.getInstance();
+				cal.setTime(game.gameDate);
+				cal2.setTime(league.beginDate);
+				int gameMonth = cal.get(Calendar.MONTH)+1;
+				int leagueMonth = cal2.get(Calendar.MONTH)+1;
+				regAtBats=(gameMonth-leagueMonth)*7;
+				regAtPitch=(gameMonth-leagueMonth)*3;
+				//regGameCount=(gameMonth-leagueMonth)*4/3;
+				regGameCount=1.0;
+
+			}else{
+			//リーグ戦期間外だった場合
+				Calendar cal=Calendar.getInstance();
+				Calendar cal2=Calendar.getInstance();
+				cal.setTime(league.beginDate);
+				cal2.setTime(league.endDate);
+				int beginMonth = cal.get(Calendar.MONTH)+1;
+				int endMonth = cal2.get(Calendar.MONTH)+1;
+				regAtBats=(endMonth-beginMonth+1)*7;
+				regAtPitch=(endMonth-beginMonth+1)*3;
+				regGameCount=(endMonth-beginMonth+1)*4/3;
+				System.out.println("リーグ戦期間外");
+			}
+		}
+		resultList=resultService.findGameResult(Integer.parseInt(resultForm.id),regGameCount);
+		List<GameResultDto> tmpResultList = resultService.findGameResultByPoints(Integer.parseInt(resultForm.id),regGameCount);
+		for(int i=0;i<tmpResultList.size();i++){
+			resultList.add(tmpResultList.get(i));
+		}
+		tmpResultList=new ArrayList<GameResultDto>();
+		tmpResultList=resultService.findGameResultByJCBL(Integer.parseInt(resultForm.id));
+		for(int i=0;i<tmpResultList.size();i++){
+			resultList.add(tmpResultList.get(i));
+		}
+//		resultList2=resultList;
+//		length=resultList.size();
+//		ResultLogic resultLogic=new ResultLogic();
+//		//打率TOP10
+//		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
+//		averageTop10=resultLogic.returnAverageTop10(battingResultList,regAtBats);
+//		//HRTOP10
+//		homerunTop10=resultLogic.returnHomerunTop10(battingResultList);
+//		//打点TOP10
+//		rbiTop10=resultLogic.returnRbiTop10(battingResultList);
+//		//安打数TOP10
+//		hitTop10=resultLogic.returnHitTop10(battingResultList);
+//		//防御率TOP10
+//		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
+//		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
+//		//勝利数TOP10
+//		winTop10=resultLogic.returnWinTop10(pitchingResultList);
+//		//セーブTOP10
+//		saveTop10=resultLogic.returnSaveTop10(pitchingResultList);
+//		//奪三振TOP10
+//		strikeOutTop10=resultLogic.returnStrikeOutTop10(pitchingResultList);
+//		//出塁率TOP10
+//
+//		obpTop10=resultLogic.returnObpTop10(battingResultList,regAtBats);
+//		//二塁打TOP10
+//		//twobaseTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"twobase desc");
+//		twobaseTop10=resultLogic.returnTwobaseTop10(battingResultList);
+//		//長打率TOP10
+//		//slgTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"slg desc");
+//
+//		slgTop10=resultLogic.returnSlgTop10(battingResultList,regAtBats);
+//		//最多四球TOP10
+//		fourBallTop10=resultLogic.returnFourBallTop10(battingResultList);
+//		//OPS TOP10
+//		opsTop10=resultLogic.returnOpsTop10(battingResultList,regAtBats);
+//		//三振率TOP10
+//		nsoTop10=resultLogic.returnNsoTop10(battingResultList,regAtBats);
+//		//本塁打率TOP10
+//		avgHRTop10=resultLogic.returnAvgHRTop10(battingResultList,regAtBats);
+//		//打点率
+//		avgRBITop10=resultLogic.returnAvgRBITop10(battingResultList,regAtBats);
+//		//ノンタイトルの行数を決定
+//		if(twobaseTop10.size()>=fourBallTop10.size()){
+//			listSize=twobaseTop10.size();
+//		}else{
+//			listSize=fourBallTop10.size();
+//		}
+//		if(listSize<=10){
+//			listSize=10;
+//		}
+		request=null;
+//		resultLogic=null;
+		tmpResultList=null;
+		MemoryUtil.viewMemoryInfo();
+		long t2=System.currentTimeMillis();
+		logger.info(t2-t1+"ms");
+		return "ajaxStats.jsp";
 	}
 }

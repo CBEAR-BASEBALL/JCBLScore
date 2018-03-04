@@ -23,7 +23,7 @@ public class ActivateDBTask {
 		}
 		System.out.println(ia.getHostAddress() );
 		try {
-			Document document = Jsoup.connect("http://localhost/JCBLScore/result/season/36").get();
+			Document document = Jsoup.connect("http://localhost/JCBLScore/api/v1/result/season/36").get();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

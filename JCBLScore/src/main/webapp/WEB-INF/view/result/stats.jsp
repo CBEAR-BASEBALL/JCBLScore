@@ -75,8 +75,8 @@
 --%>
 <!--shinobi2-->
 <div id="contents">
-<a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>v2(Angular版)</a>
-<br><a href="${f:url('/ajax/statsAjax.html')}" target=_blank>Ajax版</a>
+<a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>AngularJS版</a>
+<br><a href="${f:url('/result/ajax/')}${league.id}" target=_blank>Ajax版</a>
 <table border=1>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">${league.title} チーム成績</font></td>
