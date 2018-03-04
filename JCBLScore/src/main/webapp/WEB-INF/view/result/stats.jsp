@@ -16,9 +16,10 @@
 	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<%-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+	--%>
 	<script>
 	$(document).ready(function(){
 		$(function(){
@@ -59,9 +60,9 @@
 
 </head>
 <body>
-	<ons-page>
+<%-- 	<ons-page>
 	<ons-scroller style="height: 200px; width:100%">
-
+--%>
 
 <!--shinobi1-->
 <%--
@@ -75,8 +76,9 @@
 --%>
 <!--shinobi2-->
 <div id="contents">
-<a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>AngularJS版</a>
-<br><a href="${f:url('/result/ajax/')}${league.id}" target=_blank>Ajax版</a>
+<b>・JSP版(従来)</b>
+<a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>・AngularJS版</a>
+<a href="${f:url('/result/ajax/')}${league.id}" target=_blank>・Ajax版</a>
 <table border=1>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">${league.title} チーム成績</font></td>
@@ -707,6 +709,7 @@
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
 <hr><br><br><br><br>
 </div>
+<%--
 </ons-scroller>
 <c:choose>
 	<c:when test="${device!='pc'}">
@@ -750,5 +753,6 @@
 	</c:when>
 </c:choose>
 </ons-page>
+--%>
 </body>
 </html>

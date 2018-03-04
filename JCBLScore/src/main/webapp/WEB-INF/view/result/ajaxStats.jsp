@@ -5,7 +5,8 @@
 	<link rel="stylesheet" href="${f:url('/css/ajaxStats.css') }" type="text/css" media="print, projection, screen"/>
 	<!-- jquery -->
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+	 -->
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 	<!-- bootstrap -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -13,14 +14,13 @@
 	<!-- jquery-ui -->
 	<script type="text/javascript" src="//code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
-	<!-- highcharts -->
-	<%-- <script type="text/javascript" src="//code.highcharts.com/4.2.2/highcharts.js"></script>
-	<script type="text/javascript" src="//code.highcharts.com/2.2/highcharts-more.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
-	--%>
+	<!-- onsenUI -->
+	<!-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+	 -->
 	<!--datatables -->
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
-	<%-- <script src="${f:url('/js/ajaxStats.js') }" type="text/javascript"></script>--%>
 	<script type="text/javascript">
 	$(document).ready(function() {
 			$.fn.dataTable.ext.errMode = 'none';
@@ -36,6 +36,17 @@
 			})
 
 			.success(function(data){
+				//data.nonTitle=new Array();
+				//data.nonTitle['obp']=new Array();
+				//for(var i=0;i<data.listSize-1;i++){
+				//	var tmp=new Array();
+				//	tmp['obp']=data.obpTop10[i].name+'/'+data.obpTop10[i].obp;
+				//	tmp['twobase']=data.twobaseTop10[i];
+				//	data.nonTitle.push(tmp);
+				//	console.log(i);
+				//}
+
+
 				$('span#regBats').text(data.regAtBats);
 				$('span#regPitch').text(data.regAtPitch);
 				$('#averageTop10').DataTable({
@@ -483,7 +494,7 @@
 				$('#leagueAll').DataTable({
 					data:data.resultList,
 					searching: false,
-					ordering:false,
+					ordering:true,
 					paging: false,
 					columns: [
 					    { data:"rank" },
@@ -534,9 +545,120 @@
 					responsive: true,
 					processing: true,
 				})
+				$('#nonTitle').DataTable({
+					data:data.nonTitle,
+					searching: false,
+					ordering:false,
+					paging: false,
+					columns: [
+						{
+							data:"obpName",
+							render: function ( data, type, row ) {
+								if(row.obpRank==1){
+									//$(td).addClass('important');
+									return '<span class="important">'+row.obpName+'/'+row.obp+'</span>';
+								}else if(row.obpName==null){
+									return null;
+								}
+								return row.obpName+'/'+row.obp;
+							}
+						},
+						{
+							data:"twobaseName",
+							render: function ( data, type, row ) {
+								if(row.twobaseRank==1){
+									return '<td><span class="important">'+row.twobaseName+'/'+row.twobase+'本</span></td>';
+								}else if(row.twobaseName==null){
+									return null;
+								}
+								return '<td>'+row.twobaseName+'/'+row.twobase+'本</td>';
+							}
+						},
+						{
+							data:"slgName",
+							render: function ( data, type, row ) {
+								if(row.slgRank==1){
+									return '<td><span class="important">'+row.slgName+'/'+row.slg+'</span></td>';
+								}else if(row.slgName==null){
+									return null;
+								}
+								return '<td>'+row.slgName+'/'+row.slg+'</td>';
+							}
+						},
+						{
+							data:"fourballName",
+							render: function ( data, type, row ) {
+								if(row.fourballRank==1){
+									return '<td><span class="important">'+row.fourballName+'/'+row.fourball+'個</span></td>';
+								}else if(row.fourballName==null){
+									return null;
+								}
+								return '<td>'+row.fourballName+'/'+row.fourball+'個</td>';
+							}
+						},
+						{
+							data:"opsName",
+							render: function ( data, type, row ) {
+								if(row.opsRank==1){
+									return '<td><span class="important">'+row.opsName+'/'+row.ops+'</span></td>';
+								}else if(row.opsName==null){
+									return null;
+								}
+								return '<td>'+row.opsName+'/'+row.ops+'</td>';
+							}
+						},
+						{
+							data:"strikeoutName",
+							render: function ( data, type, row ) {
+								if(row.strikeoutRank==1){
+									return '<td><span class="important">'+row.strikeoutName+'/'+row.strikeout+'</span></td>';
+								}else if(row.srikeoutName==null){
+									return null;
+								}
+								return '<td>'+row.strikeoutName+'/'+row.strikeout+'</td>';
+							}
+						},
+						{
+							data:"avgHRName",
+							render: function ( data, type, row ) {
+								var value=row.avgHR;
+
+								if(row.avgHRRank==1){
+									return '<td><span class="important">'+row.avgHRName+'/'+value.toFixed(2)+'</span></td>';
+								}else if(row.avgHRName==null){
+									return null;
+								}
+								return '<td>'+row.avgHRName+'/'+value.toFixed(2)+'</td>';
+							}
+						},
+						{
+							data:"avgRbiName",
+							render: function ( data, type, row ) {
+								if(row.avgRbiRank==1){
+									return '<td><span class="important">'+row.avgRbiName+'/'+row.avgRbi+'</span></td>';
+								}else if(row.avgRbiName==null){
+									return null;
+								}
+								return '<td>'+row.avgRbiName+'/'+row.avgRbi+'</td>';
+							}
+						},
+					],
+					//columnDefs: [
+					//	{
+					//		targets: [1],
+					//		className:"name"
+					//	},
+					//],
+		        	//order: [[ 10, "desc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
 
 
 			})
+
 
 			.always(function() {
 				$.unblockUI();
@@ -566,8 +688,16 @@
 	//});
 	});
 	</script>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
+<!-- <ons-page>
+<ons-scroller style="height: 200px; width:100%"> -->
+<div id="contents">
+<a href="${f:url('/result/season/')}${league.id}" target=_blank>・JSP版(従来)</a>
+<a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>・AngularJS版</a>
+<b>・Ajax版</b>
+
 <table border=1>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE" >${league.title} チーム成績</font></td>
@@ -788,7 +918,7 @@
 </table>
 <table>
 <tr>
-	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">奪三振数TOP10</font></td>
+	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">奪三振TOP10</font></td>
 </tr>
 <tr>
 	<td>
@@ -814,6 +944,29 @@
 	</table>
 	</td>
 </tr>
+</table>
+<table>
+	<tr>
+		<td bgcolor="#006400" class=name><font size="+2" color="#EEEEEE">ノンタイトル部門</font></td>
+	</tr>
+	<tr>
+		<td>
+			<table border=1 id="nonTitle">
+				<thead>
+				<tr>
+					<th bgcolor="#006400"><font color="#EEEEEE">出塁率(OBP)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">最多二塁打</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">長打率(SLG)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">最多四球</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">OPS</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">本塁打率<br>(AB/HR)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">打点率<br>(RBI/AB)</font></th>
+				</tr>
+				</thead>
+			</table>
+		</td>
+	</tr>
 </table>
 <hr>
 <h2>打者全成績</h2>
@@ -864,5 +1017,12 @@
 	</tr>
 	</thead>
 	</table>
+<hr>
+<br><a href="${f:url('/statistics/') }">統計</a>
+<br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
+<br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
+</div>
+<!-- </ons-scroller>
+</ons-page> -->
 </body>
 </html>

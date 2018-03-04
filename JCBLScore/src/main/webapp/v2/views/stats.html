@@ -44,7 +44,9 @@
 		<td>{{resultList.points}}</td>
 		<td><a href="/JCBLScore/team/batting/{{resultList.teamId}}/{{items.totalLeagueId}}">{{resultList.avg | number:3}}</a></td>
 		<td><a href="/JCBLScore/team/pitching/{{resultList.teamId}}/{{items.totalLeagueId}}">{{resultList.era | number:2}}</a></td>
-		<div ng-repeat="i in range($parent.items.length)">
+		<td ng-repeat="j in range(items.length)">{{resultList.opponentMap[$parent.items.resultList[j].teamId]}}</td>
+
+		<!--  <div ng-repeat="i in range($parent.items.length)">
 			<td ng-repeat="opponentList in resultList.opponentList">
 				<div ng-if="opponentList.win!=0 || opponentList.lose!=0 || opponentList.draw!=0">
 					 	{{opponentList.win}}-{{opponentList.lose}}({{opponentList.draw}})
@@ -53,6 +55,7 @@
 				</div>
 			</td>
 		</div>
+		-->
 	</tr>
 	</tbody>
 </table>

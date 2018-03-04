@@ -1,5 +1,7 @@
 package cx.myhome.ckoshien.dto;
 
+import java.util.HashMap;
+
 public class GameResultDto {
 	public Integer teamId;
 	public Integer rank;
@@ -15,4 +17,5 @@ public class GameResultDto {
 	public Integer opponent;
 	public Double avg;
 	public Double era;
+	public HashMap<Integer, String> opponentMap;
 }

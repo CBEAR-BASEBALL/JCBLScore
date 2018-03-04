@@ -30,14 +30,14 @@ app
 			for (var i=0; i<listSize; ++i) arr.push(i);
 			return arr;
 		};
-		for(var i=0;i<$scope.items.resultList.length;i++){
-			$scope.items.resultList[i]['opponentList']=new Array();
-			for(var j=0;j<$scope.items.opponentList.length;j++){
-				if($scope.items.resultList[i].teamId==$scope.items.opponentList[j].teamId){
-					$scope.items.resultList[i]['opponentList'].push($scope.items.opponentList[j]);
-				}
-			}
-		}
+//		for(var i=0;i<$scope.items.resultList.length;i++){
+//			$scope.items.resultList[i]['opponentList']=new Array();
+//			for(var j=0;j<$scope.items.opponentList.length;j++){
+//				if($scope.items.resultList[i].teamId==$scope.items.opponentList[j].teamId){
+//					$scope.items.resultList[i]['opponentList'].push($scope.items.opponentList[j]);
+//				}
+//			}
+//		}
 		blockUI.stop();
     })
      .error(function(data, status, headers, config){

@@ -12,3 +12,6 @@ td.important{
 th{
 	white-space: nowrap;
 }
+td span.important{
+	background-color:#FC9898;
+}

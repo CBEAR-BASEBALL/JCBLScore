@@ -15,8 +15,8 @@ public class ResultApiDto {
 	public List<PitchingResultDto> pitchingResultList;
 	public List<GameResultDto> resultList;
 	public int length;
-	public List<GameResultDto> opponentList;
-	public List<GameResultDto> resultList2;
+	//public List<GameResultDto> opponentList;
+	//public List<GameResultDto> resultList2;
 	public List<BattingResultDto> averageTop10;
 	public List<BattingResultDto> homerunTop10;
 	public List<BattingResultDto> rbiTop10;
@@ -39,5 +39,6 @@ public class ResultApiDto {
 	public int listSize;
 	public List<Game> gameList;
 	public Integer totalLeagueId;
+	public List<NonTitleDto> nonTitle;
 
 }

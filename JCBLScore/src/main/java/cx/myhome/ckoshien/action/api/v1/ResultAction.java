@@ -22,6 +22,7 @@ import org.seasar.struts.util.ResponseUtil;
 import cx.myhome.ckoshien.dto.BattingResultDto;
 import cx.myhome.ckoshien.dto.GameResultDto;
 import cx.myhome.ckoshien.dto.PitchingResultDto;
+import cx.myhome.ckoshien.dto.api.NonTitleDto;
 import cx.myhome.ckoshien.dto.api.ResultApiDto;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.League;
@@ -378,37 +379,68 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		long t3=System.currentTimeMillis();
 		//API用にデータ加工
-		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();
-		HashMap<HashMap<Integer,Integer>,GameResultDto> map=new HashMap<HashMap<Integer,Integer>,GameResultDto>();
-		HashMap<Integer,Integer> tmpMap= new HashMap<Integer,Integer>();
-		for(int i=0;i<opponentList.size();i++){
-			for(int j=0;j<resultList.size();j++){
-				if(resultList.get(j).teamId.equals(opponentList.get(i).teamId)){
-					//tmp_opponentList.add(opponentList.get(i));
-					tmpMap.put(opponentList.get(i).teamId,opponentList.get(i).opponent);
-					map.put(tmpMap, opponentList.get(i));
-					tmpMap=new HashMap<Integer,Integer>();
-				}
+		List<NonTitleDto> nonTitleList=new ArrayList<NonTitleDto>();
+		for(int i=0;i<listSize;i++){
+			NonTitleDto ntd= new NonTitleDto();
+			if(i<avgHRTop10.size()){
+				ntd.avgHR=avgHRTop10.get(i).avgHomerun;
+				ntd.avgHRName=avgHRTop10.get(i).name;
+				ntd.avgHRRank=avgHRTop10.get(i).rank;
 			}
-		}
+			if(i<avgRBITop10.size()){
+				ntd.avgRbi=avgRBITop10.get(i).avgRbi;
+				ntd.avgRbiName=avgRBITop10.get(i).name;
+				ntd.avgRbiRank=avgRBITop10.get(i).rank;
+			}
+			if(i<fourBallTop10.size()){
+				ntd.fourball=fourBallTop10.get(i).fourBall;
+				ntd.fourballName=fourBallTop10.get(i).name;
+				ntd.fourballRank=fourBallTop10.get(i).rank;
+			}
+			if(i<obpTop10.size()){
+				ntd.obp=obpTop10.get(i).obp;
+				ntd.obpName=obpTop10.get(i).name;
+				ntd.obpRank=obpTop10.get(i).rank;
+			}
+			if(i<opsTop10.size()){
+				ntd.ops=opsTop10.get(i).ops;
+				ntd.opsName=opsTop10.get(i).name;
+				ntd.opsRank=opsTop10.get(i).rank;
+			}
 
-		for(int i=0;i<resultList.size();i++){
-			for(int j=0;j<resultList.size();j++){
-				tmpMap.put(resultList.get(i).teamId, resultList.get(j).teamId);
-				if(map.get(tmpMap)==null){
-					GameResultDto blankData = new GameResultDto();
-					blankData.opponent=resultList.get(j).teamId;
-					blankData.teamId=resultList.get(i).teamId;
-					blankData.win=0;
-					blankData.lose=0;
-					blankData.draw=0;
-					opponentList2.add(blankData);
-				}else{
-					opponentList2.add(map.get(tmpMap));
-				}
-				tmpMap=new HashMap<Integer,Integer>();
-			}
+			nonTitleList.add(ntd);
 		}
+//		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();
+//		HashMap<HashMap<Integer,Integer>,GameResultDto> map=new HashMap<HashMap<Integer,Integer>,GameResultDto>();
+//		HashMap<Integer,Integer> tmpMap= new HashMap<Integer,Integer>();
+//		for(int i=0;i<opponentList.size();i++){
+//			for(int j=0;j<resultList.size();j++){
+//				if(resultList.get(j).teamId.equals(opponentList.get(i).teamId)){
+//					//tmp_opponentList.add(opponentList.get(i));
+//					tmpMap.put(opponentList.get(i).teamId,opponentList.get(i).opponent);
+//					map.put(tmpMap, opponentList.get(i));
+//					tmpMap=new HashMap<Integer,Integer>();
+//				}
+//			}
+//		}
+//
+//		for(int i=0;i<resultList.size();i++){
+//			for(int j=0;j<resultList.size();j++){
+//				tmpMap.put(resultList.get(i).teamId, resultList.get(j).teamId);
+//				if(map.get(tmpMap)==null){
+//					GameResultDto blankData = new GameResultDto();
+//					blankData.opponent=resultList.get(j).teamId;
+//					blankData.teamId=resultList.get(i).teamId;
+//					blankData.win=0;
+//					blankData.lose=0;
+//					blankData.draw=0;
+//					opponentList2.add(blankData);
+//				}else{
+//					opponentList2.add(map.get(tmpMap));
+//				}
+//				tmpMap=new HashMap<Integer,Integer>();
+//			}
+//		}
 		for(int i=0;i<resultList.size();i++){
 			resultList.get(i).opponentMap=new HashMap<Integer,String>();
 			for(int j=0;j<opponentList.size();j++){
@@ -443,11 +475,12 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		res.twobaseTop10=twobaseTop10;
 		res.slgTop10=slgTop10;
 		res.resultList=resultList;
-		res.resultList2=resultList2;
-		res.opponentList=opponentList2;
+		//res.resultList2=resultList2;
+		//res.opponentList=opponentList2;
 		res.length=length;
 		res.league=league;
 		res.totalLeagueId=totalLeagueId;
+		res.nonTitle=nonTitleList;
 		String json=JSON.encode(res);
 		ResponseUtil.write(json,"application/json");
 		//メモリ解放処理
