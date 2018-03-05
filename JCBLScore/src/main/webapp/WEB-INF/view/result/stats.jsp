@@ -78,7 +78,7 @@
 <div id="contents">
 <b>・JSP版(従来)</b>
 <a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>・AngularJS版</a>
-<a href="${f:url('/result/ajax/')}${league.id}" target=_blank>・Ajax版</a>
+<a href="${f:url('/result/season/')}${league.id}" target=_blank>・Ajax版</a>
 <table border=1>
 <tr>
 	<td bgcolor="#006400"><font size="+2" COLOR="#EEEEEE">${league.title} チーム成績</font></td>

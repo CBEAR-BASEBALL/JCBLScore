@@ -98,29 +98,30 @@ private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(urlPattern="season/{id}",validator = false)
 	public String season(){
-		//アクセス制限
 		long t0=System.currentTimeMillis();
+		//アクセス制限
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
-    		System.out.println(ia.getHostName());
+//    		System.out.println(ia.getHostName());
     		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
     				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
     				&& !request.getRemoteAddr().startsWith("192.168")
     				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
     				&& !ia.getHostName().equals("127.0.0.1")
+    				&& !ia.getHostName().equals(request.getRemoteAddr())
     			){
-//    			//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+    			logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
 //    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     			try {
-					response.sendError(404, "許可されていないドメインです。"+ia.getHostName());
+					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
 				} catch (IOException e) {
 					logger.error(e);
 				}
         		return null;
     		}
-			logger.info("[API]"+ia.getHostName()+":"+request.getRemotePort());
+			logger.info(ia.getHostName()+":"+request.getRemotePort());
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			logger.warn(e1);
 		}
 		long t1=System.currentTimeMillis();
 		logger.info("lookup:"+(t1-t0));
@@ -407,7 +408,21 @@ private static Logger logger = Logger.getLogger("rootLogger");
 				ntd.opsName=opsTop10.get(i).name;
 				ntd.opsRank=opsTop10.get(i).rank;
 			}
-
+			if(i<slgTop10.size()){
+				ntd.slg=slgTop10.get(i).slg;
+				ntd.slgName=slgTop10.get(i).name;
+				ntd.slgRank=slgTop10.get(i).rank;
+			}
+			if(i<nsoTop10.size()){
+				ntd.strikeout=nsoTop10.get(i).notStrikeOut;
+				ntd.strikeoutName=nsoTop10.get(i).name;
+				ntd.strikeoutRank=nsoTop10.get(i).rank;
+			}
+			if(i<twobaseTop10.size()){
+				ntd.twobase=twobaseTop10.get(i).twobase;
+				ntd.twobaseName=twobaseTop10.get(i).name;
+				ntd.twobaseRank=twobaseTop10.get(i).rank;
+			}
 			nonTitleList.add(ntd);
 		}
 //		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();

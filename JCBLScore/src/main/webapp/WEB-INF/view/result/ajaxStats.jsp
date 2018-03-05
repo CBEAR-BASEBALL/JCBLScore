@@ -36,17 +36,6 @@
 			})
 
 			.success(function(data){
-				//data.nonTitle=new Array();
-				//data.nonTitle['obp']=new Array();
-				//for(var i=0;i<data.listSize-1;i++){
-				//	var tmp=new Array();
-				//	tmp['obp']=data.obpTop10[i].name+'/'+data.obpTop10[i].obp;
-				//	tmp['twobase']=data.twobaseTop10[i];
-				//	data.nonTitle.push(tmp);
-				//	console.log(i);
-				//}
-
-
 				$('span#regBats').text(data.regAtBats);
 				$('span#regPitch').text(data.regAtPitch);
 				$('#averageTop10').DataTable({
@@ -554,92 +543,119 @@
 						{
 							data:"obpName",
 							render: function ( data, type, row ) {
-								if(row.obpRank==1){
-									//$(td).addClass('important');
-									return '<span class="important">'+row.obpName+'/'+row.obp+'</span>';
-								}else if(row.obpName==null){
+								var value=row.obp;
+								if(row.obpName==null){
 									return null;
 								}
-								return row.obpName+'/'+row.obp;
+								return row.obpName+'/'+value.toFixed(3);
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.obpRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"twobaseName",
 							render: function ( data, type, row ) {
-								if(row.twobaseRank==1){
-									return '<td><span class="important">'+row.twobaseName+'/'+row.twobase+'本</span></td>';
-								}else if(row.twobaseName==null){
+								if(row.twobaseName==null){
 									return null;
 								}
-								return '<td>'+row.twobaseName+'/'+row.twobase+'本</td>';
+								return row.twobaseName+'/'+row.twobase+'本';
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.twobaseRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"slgName",
 							render: function ( data, type, row ) {
-								if(row.slgRank==1){
-									return '<td><span class="important">'+row.slgName+'/'+row.slg+'</span></td>';
-								}else if(row.slgName==null){
+								var value=row.slg;
+								if(row.slgName==null){
 									return null;
 								}
-								return '<td>'+row.slgName+'/'+row.slg+'</td>';
+								return row.slgName+'/'+value.toFixed(3);
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.slgRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"fourballName",
 							render: function ( data, type, row ) {
-								if(row.fourballRank==1){
-									return '<td><span class="important">'+row.fourballName+'/'+row.fourball+'個</span></td>';
-								}else if(row.fourballName==null){
+								if(row.fourballName==null){
 									return null;
 								}
-								return '<td>'+row.fourballName+'/'+row.fourball+'個</td>';
+								return row.fourballName+'/'+row.fourball+'個';
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.fourballRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"opsName",
 							render: function ( data, type, row ) {
-								if(row.opsRank==1){
-									return '<td><span class="important">'+row.opsName+'/'+row.ops+'</span></td>';
-								}else if(row.opsName==null){
+								var value=row.ops;
+								if(row.opsName==null){
 									return null;
 								}
-								return '<td>'+row.opsName+'/'+row.ops+'</td>';
+								return row.opsName+'/'+value.toFixed(3);
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.opsRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"strikeoutName",
 							render: function ( data, type, row ) {
-								if(row.strikeoutRank==1){
-									return '<td><span class="important">'+row.strikeoutName+'/'+row.strikeout+'</span></td>';
-								}else if(row.srikeoutName==null){
+								var value=row.strikeout;
+								if(row.strikeoutName==null){
 									return null;
 								}
-								return '<td>'+row.strikeoutName+'/'+row.strikeout+'</td>';
+								return row.strikeoutName+'/'+value.toFixed(2);
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.strikeoutRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"avgHRName",
 							render: function ( data, type, row ) {
 								var value=row.avgHR;
-
-								if(row.avgHRRank==1){
-									return '<td><span class="important">'+row.avgHRName+'/'+value.toFixed(2)+'</span></td>';
-								}else if(row.avgHRName==null){
+								if(row.avgHRName==null){
 									return null;
 								}
-								return '<td>'+row.avgHRName+'/'+value.toFixed(2)+'</td>';
+								return row.avgHRName+'/'+value.toFixed(2);
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.avgHRRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 						{
 							data:"avgRbiName",
 							render: function ( data, type, row ) {
-								if(row.avgRbiRank==1){
-									return '<td><span class="important">'+row.avgRbiName+'/'+row.avgRbi+'</span></td>';
-								}else if(row.avgRbiName==null){
+								var value=row.avgRbi;
+								if(row.avgRbiName==null){
 									return null;
 								}
-								return '<td>'+row.avgRbiName+'/'+row.avgRbi+'</td>';
+								return row.avgRbiName+'/'+value.toFixed(3);
+							},
+							"createdCell": function (td, cellData, rowData, row, col) {
+								if ( rowData.avgRbiRank==1 ) {
+									$(td).addClass('important')
+								}
 							}
 						},
 					],
@@ -655,10 +671,10 @@
 					responsive: true,
 					processing: true,
 				})
-
-
 			})
-
+			.error(function(){
+				alert("サーバとの通信に失敗しました");
+			})
 
 			.always(function() {
 				$.unblockUI();
@@ -694,7 +710,7 @@
 <!-- <ons-page>
 <ons-scroller style="height: 200px; width:100%"> -->
 <div id="contents">
-<a href="${f:url('/result/season/')}${league.id}" target=_blank>・JSP版(従来)</a>
+<a href="${f:url('/result/old/')}${league.id}" target=_blank>・JSP版</a>
 <a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>・AngularJS版</a>
 <b>・Ajax版</b>
 

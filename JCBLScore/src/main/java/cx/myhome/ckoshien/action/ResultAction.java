@@ -91,7 +91,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		return "index.jsp";
 	}
 
-	@Execute(urlPattern="season/{id}",validator = false)
+	//@Execute(urlPattern="season/{id}",validator = false)
+	@Execute(urlPattern="old/{id}",validator = false)
 	public String season(){
 		long t0=System.currentTimeMillis();
 		//アクセス制限
@@ -246,7 +247,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		return "stats.jsp";
 	}
 
-	@Execute(urlPattern="ajax/{id}",validator = false)
+	@Execute(urlPattern="season/{id}",validator = false)
+	//@Execute(urlPattern="ajax/{id}",validator = false)
 	public String seasonAjax(){
 		long t1=System.currentTimeMillis();
 		try{
@@ -254,9 +256,9 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}catch(NumberFormatException e){
 			return "index&redirect=true";
 		}
-//		//user-agent判定
-//		String userAgent = request.getHeader("user-agent");
-//		logger.info("UserAgent:"+userAgent);
+		//user-agent判定
+		String userAgent = request.getHeader("user-agent");
+		logger.info("UserAgent:"+userAgent);
 //		if(userAgent!=null){
 //			if(userAgent.indexOf("Android")==-1 && userAgent.indexOf("iPhone")==-1){
 //				device="pc";
