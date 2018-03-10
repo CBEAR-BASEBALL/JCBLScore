@@ -250,6 +250,30 @@ private static Logger logger = Logger.getLogger("rootLogger");
 	@Execute(urlPattern="season/{id}",validator = false)
 	//@Execute(urlPattern="ajax/{id}",validator = false)
 	public String seasonAjax(){
+		//アクセス制限
+		try {
+    		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+//		    		System.out.println(ia.getHostName());
+    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+    				&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		    		&& !ia.getHostName().equals(request.getRemoteAddr())
+		    ){
+		    	logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//		    	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    	try {
+					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
+				} catch (IOException e) {
+					logger.error(e);
+				}
+		    	return null;
+    		}
+			logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			logger.warn(e1);
+		}
 		long t1=System.currentTimeMillis();
 		try{
 			league=leagueService.findById(Integer.parseInt(resultForm.id));
@@ -370,7 +394,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		request=null;
 //		resultLogic=null;
 		tmpResultList=null;
-		MemoryUtil.viewMemoryInfo();
+//		MemoryUtil.viewMemoryInfo();
 		long t2=System.currentTimeMillis();
 		logger.info(t2-t1+"ms");
 		return "ajaxStats.jsp";

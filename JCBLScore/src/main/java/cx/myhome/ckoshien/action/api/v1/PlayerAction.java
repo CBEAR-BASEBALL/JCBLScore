@@ -126,12 +126,29 @@ public class PlayerAction {
 		tprDtos=pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		//API用にデータ加工
+		HashMap<Integer,List<TeamBattingResultDto>> tmp=new HashMap<Integer,List<TeamBattingResultDto>>();
+		List<TeamBattingResultDto> tbrDtoTmp=new ArrayList<TeamBattingResultDto>();
+		for(int i=0;i<tbrDtos.size();i++){
+			tbrDtoTmp=tmp.get(tbrDtos.get(i).leagueId);
+			if(tbrDtoTmp!=null){
+				if(tbrDtos.get(i).playerId!=null && tbrDtos.get(i).leagueId!=null && (tbrDtos.get(i).gameNumber!=null || tbrDtos.get(i).gameDate==null)){
+					tbrDtoTmp.add(tbrDtos.get(i));
+				}
+			}else{
+				tbrDtoTmp=new ArrayList<TeamBattingResultDto>();
+			}
+			tmp.put(tbrDtos.get(i).leagueId, tbrDtoTmp);
+		}
+
+
+
 		HashMap<String, Object>map=new HashMap<String, Object>();
 		map.put("personalBattingResultList", personalBattingResultList);
 		map.put("personalBattingResultGroupByOpponent" , personalBattingResultGroupByList);
 		map.put("personalPitchingResultList", pprList);
-		map.put("tbrDtos", tbrDtos);
-		//map.put("pbrlList", pbrlList);
+		map.put("playerBattingResultList", playerBattingResultList);
+		map.put("tbrDtos", tmp);
 		String json=JSON.encode(map);
 		ResponseUtil.write(json);
 		long t2=System.currentTimeMillis();

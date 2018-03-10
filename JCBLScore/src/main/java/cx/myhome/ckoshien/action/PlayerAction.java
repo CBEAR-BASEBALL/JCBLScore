@@ -225,6 +225,42 @@ public class PlayerAction {
 		return "detail.jsp";
 	}
 
+
+	@Execute(urlPattern="ajax/{id}",validator = false)
+	public String ajax(){
+		long t1=System.currentTimeMillis();
+		//アクセス制限
+		try {
+			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+		    System.out.println(ia.getHostName());
+		    if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+		    		&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+		    		&& !request.getRemoteAddr().startsWith("192.168")
+		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+		    		&& !ia.getHostName().equals("127.0.0.1")
+		    	){
+//		    	//logger.info("ホスト名で遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//		    	//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    	try {
+					response.sendError(404, "許可されていないドメインです");
+				} catch (IOException e) {
+					logger.error(e);
+				}
+		    	return null;
+		    }
+				logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		long t2=System.currentTimeMillis();
+		player=playerService.findById(Integer.parseInt(playerForm.id));
+		pbrlList=battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
+		logger.info("/player/show/"+playerForm.id+" "+player.name);
+		MemoryUtil.viewMemoryInfo();
+		logger.info("lookup:"+(t2-t1)+"ms");
+		return "ajaxResult.jsp";
+	}
+
 	public ActionMessages createValidate(){
 		ActionMessages errors = new ActionMessages();
 		List<Player> players=playerService.findByName(playerForm.name);

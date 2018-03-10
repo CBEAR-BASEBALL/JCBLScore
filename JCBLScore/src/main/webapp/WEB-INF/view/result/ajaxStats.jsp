@@ -23,6 +23,24 @@
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		$(function(){
+			$.blockUI({
+				message: $('#tallContent'),
+				//message: 'しばらくお待ちください…',
+				css: {
+					border: 'none',
+					padding: '15px',
+					backgroundColor: '#fff',
+					opacity: .6,
+					color: '#333'
+				},
+				overlayCSS: {
+					backgroundColor: '#000',
+					opacity: 0.6
+				}
+			});
+		    //setTimeout($.unblockUI, 500);
+		});
 			$.fn.dataTable.ext.errMode = 'none';
 			$.extend( $.fn.dataTable.defaults, {
 	        language: {
@@ -681,32 +699,13 @@
 			})
 		});
 	</script>
-	<script>
-	$(document).ready(function(){
-		$(function(){
-		    $.blockUI({
-		      message: 'データの取得に時間がかかることがあります。しばらくお待ちください…',
-		      css: {
-		        border: 'none',
-		        padding: '10px',
-		        backgroundColor: '#333',
-		        opacity: .5,
-		        color: '#fff'
-		      },
-		      overlayCSS: {
-		        backgroundColor: '#000',
-		        opacity: 0.6
-		      }
-		    });
-		    //setTimeout($.unblockUI, 500);
-		});
-
-	//});
-	});
-	</script>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
+<div id="tallContent" style="display:none">
+  <p>サーバとの通信に時間がかかる場合があります。<br>しばらくお待ちください...</p>
+  <p><img src="${f:url('/img/loading.gif')}" width="150"></p>
+</div>
 <!-- <ons-page>
 <ons-scroller style="height: 200px; width:100%"> -->
 <div id="contents">
