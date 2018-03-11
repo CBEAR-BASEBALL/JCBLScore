@@ -138,7 +138,7 @@ public class PlayerAction {
         return "index&redirect=true";
 	}
 
-	@Execute(urlPattern="show/{id}",validator = false)
+	//@Execute(urlPattern="show/{id}",validator = false)
 	public String show(){
 		//アクセス制限
 		try {
@@ -185,7 +185,7 @@ public class PlayerAction {
 		return "result.jsp";
 	}
 
-	@Execute(urlPattern="detail/{id}",validator=false)
+	//@Execute(urlPattern="detail/{id}",validator=false)
 	public String detail(){
 		//アクセス制限
 		try {
@@ -226,7 +226,7 @@ public class PlayerAction {
 	}
 
 
-	@Execute(urlPattern="ajax/{id}",validator = false)
+	@Execute(urlPattern="show/{id}",validator = false)
 	public String ajax(){
 		long t1=System.currentTimeMillis();
 		//アクセス制限
@@ -255,6 +255,8 @@ public class PlayerAction {
 		long t2=System.currentTimeMillis();
 		player=playerService.findById(Integer.parseInt(playerForm.id));
 		pbrlList=battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
+		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
+		teamHistoryDtoList=teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(playerForm.id));
 		logger.info("/player/show/"+playerForm.id+" "+player.name);
 		MemoryUtil.viewMemoryInfo();
 		logger.info("lookup:"+(t2-t1)+"ms");

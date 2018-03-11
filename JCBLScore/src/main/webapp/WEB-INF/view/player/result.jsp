@@ -225,7 +225,7 @@
 						return this.y +'試合';},
 				enabled:true
 				}
-				});
+			});
 		});
 
 	</script>

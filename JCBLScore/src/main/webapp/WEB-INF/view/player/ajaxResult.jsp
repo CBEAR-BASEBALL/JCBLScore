@@ -14,6 +14,9 @@
 	<!-- jquery-ui -->
 	<script type="text/javascript" src="//code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
+	<%-- highcharts --%>
+	<script type="text/javascript" src="//code.highcharts.com/4.2.2/highcharts.js"></script>
+	<script type="text/javascript" src="//code.highcharts.com/2.2/highcharts-more.js"></script>
 	<!-- onsenUI -->
 	<!-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
@@ -52,8 +55,36 @@
 				dataType: 'json'
 			})
 			.success(function(data){
-				//$('span#regBats').text(data.regAtBats);
-				//$('span#regPitch').text(data.regAtPitch);
+				//グラフ用処理
+				var category = new Array();
+				var average = new Array();
+				var slg = new Array();
+				var obp = new Array();
+				for(var i=0;i<data.playerBattingResultList.length;i++){
+					if(data.playerBattingResultList[i].leagueId!=null){
+						//console.log(data.playerBattingResultList[i].title);
+						category.push(data.playerBattingResultList[i].title);
+						average.push(data.playerBattingResultList[i].average);
+						slg.push(data.playerBattingResultList[i].slg);
+						obp.push(data.playerBattingResultList[i].obp);
+					}
+
+				}
+				var pSeasons=new Array();
+				var era=new Array();
+				var whip=new Array();
+				for(var j=0;j<data.personalPitchingResultList.length;j++){
+					if(data.personalPitchingResultList[j].leagueId!=null){
+						pSeasons.push(data.personalPitchingResultList[j].title);
+						era.push(data.personalPitchingResultList[j].era);
+						whip.push(data.personalPitchingResultList[j].whip);
+					}
+				}
+				var pos=new Array();
+				for(var k=0;k<data.posDtos.length;k++){
+					pos.push([data.posDtos[k].pos,data.posDtos[k].count]);
+				}
+
 				$('#battingResult').DataTable({
 					data:data.playerBattingResultList,
 					searching: false,
@@ -104,8 +135,146 @@
 					responsive: true,
 					processing: true,
 				})
+				$('#battingByOpponent').DataTable({
+					data:data.personalBattingResultGroupByOpponent,
+					searching: false,
+					//ordering:false,
+					paging: false,
+					columns: [
+						{
+							data: "opponentName",
+							render:function(data,type,row){
+								return 'v.s.'+data;
+							}
+						},
+						{ data: "tpa"  },
+						{ data: "atBats"  },
+						{ data: "hit"  },
+						{ data: "homerun"  },
+						{ data: "rbi"  },
+						{ data: "fourBall"  },
+						{ data: "strikeOut"  },
+						{ data: "twobase"  },
+						{ data: "average",
+							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+						},
+						{ data: "slg",
+						  render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+						},
+						{ data: "ops",
+							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+						},
+						{ data: "obp",
+							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+						},
+						{ data: "notStrikeOut",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+					],
+					columnDefs: [
+						{
+							targets:[0],
+							className:"name"
+						},
+					],
+		        	//order: [[ 10, "desc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
+				$('#pitchingResult').DataTable({
+					data:data.personalPitchingResultList,
+					searching: false,
+					ordering:false,
+					paging: false,
+					columns: [
+						{ data: "name",
+							render:function(data,type,row){
+								if(row.leagueId!=null){
+									return data+'('+row.title+')';
+								}
+								return '<b>'+data+'(通算)</b>';
+							}
+						},
+						{ data: "gameCount"  },
+						{ data: "inning",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )},
+						{ data: "hit"  },
+						{ data: "strikeOut"  },
+						{ data: "fourBall"  },
+						{ data: "runs"  },
+						{ data: "complete"  },
+						{ data: "shutout"  },
+						{ data: "win"  },
+						{ data: "lose" },
+						{ data: "save" },
+						{ data: "era",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+						{ data: "whip",
+						  render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+						{ data: "strikeAvg",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+						{ data: "runSupport",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+					],
+					columnDefs: [
+						{
+							targets:[0],
+							className:"name"
+						},
+					],
+		        	//order: [[ 10, "desc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
+				$('#pitchingByOpponent').DataTable({
+					data:data.pprgoList,
+					searching: false,
+					//ordering:false,
+					paging: false,
+					columns: [
+						{ data: "opponentName",
+							render:function(data,type,row){
+								return 'v.s.'+data;
+							}
+						},
+						{ data: "gameCount"  },
+						{ data: "inning",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )},
+						{ data: "hit"  },
+						{ data: "strikeOut"  },
+						{ data: "fourBall"  },
+						{ data: "runs"  },
+						{ data: "complete"  },
+						{ data: "shutout"  },
+						{ data: "win"  },
+						{ data: "lose" },
+						{ data: "save" },
+						{ data: "era",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+					],
+					columnDefs: [
+						{
+							targets:[0],
+							className:"name"
+						},
+					],
+		        	//order: [[ 10, "desc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
 				<c:forEach var="pbrDtos" items="${pbrlList}">
-				$('#t-${pbrDtos.leagueId}-table').DataTable({
+				$('#t-${pbrDtos.leagueId}-batting').DataTable({
 					data:data.tbrDtos['${pbrDtos.leagueId}'],
 					searching: false,
 					ordering:false,
@@ -116,8 +285,11 @@
 							render:function(data,type,row){
 								if(row.gameNumber==null){
 									return '<b>'+row.title+'(通算)</b>';
+								}else if(row.myteamId!=row.teamId){
+									return new Date(data).toLocaleDateString()+'-'+row.gameNumber+'対'+row.opponentName+'(助)';
+								}else{
+									return new Date(data).toLocaleDateString()+'-'+row.gameNumber+'対'+row.opponentName;
 								}
-								return new Date(data).toLocaleDateString()+'-'+row.gameNumber+'対'+row.opponentName;
 							}
 						},
 						{ data: "tpa"  },
@@ -149,9 +321,191 @@
 					processing: true,
 				})
 				</c:forEach>
+				<c:forEach var="pprDtos" items="${pprlList}">
+				$('#t-${pprDtos.leagueId}-pitching').DataTable({
+					data:data.tprDtos['${pprDtos.leagueId}'],
+					searching: false,
+					ordering:false,
+					paging: false,
+					columns: [
+						{ data: "name"},
+						{ data: "gameDate",
+							render:function(data,type,row){
+								if(row.gameNumber==null){
+									return '<b>'+row.title+'(通算)</b>';
+								}else if(row.myteamId!=row.teamId){
+									return new Date(data).toLocaleDateString()+'-'+row.gameNumber+'対'+row.opponentName+'(助)';
+								}else{
+									return new Date(data).toLocaleDateString()+'-'+row.gameNumber+'対'+row.opponentName;
+								}
+							}
+						},
+						{ data: "inning"  },
+						{ data: "hit"  },
+						{ data: "strikeOut"  },
+						{ data: "fourBall"  },
+						{ data: "runs"  },
+						{ data: "complete"  },
+						{ data: "shutout"  },
+						{ data: "win"  },
+						{ data: "lose"  },
+						{ data: "save"  },
+						{ data: "era",
+							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+						},
+					],
+					columnDefs: [
+						{
+							targets:[0],
+							className:"name"
+						},
+						{
+							targets:[1],
+							className:"name"
+						},
+					],
+		        	//order: [[ 10, "desc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
+				</c:forEach>
+				$('#chart_div').highcharts({
+						chart: { type: 'line',},
+						title: { text: "打撃成績推移"},
+						xAxis: {
+							categories: category,
+							labels: {
+								style: { color: '#000000' }
+							}
+						},
+						yAxis: {
+								title: { text: null },
+								labels: {
+									style: { color: '#000000' }
+								},
+								ceiling: 1,
+								floor: 0,
+								allowDecimals:true,
+								startOnTick: false
+						},
+						plotOptions: {
+							line: {	events: {
+								legendItemClick: function () {
+									return false;
+								}
+							}}
+						},
+						tooltip: {
+							shared: true,
+							pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>',
+							backgroundColor: '#FFFFFF',
+							style: {
+								color: '#000000'
+							}
+						},
+						series: [
+							{
+								name: '打率',
+								data: average
+							},
+							{
+								name: '長打率',
+								data: slg
+							},
+							{
+								name: '出塁率',
+								data: obp
+						    }]
+					});
+				$('#chart_div2').highcharts({
+					chart: {
+						type: 'line',
+					},
+					title: {
+						text: "投球成績推移"
+					},
+					xAxis: {
+						categories:pSeasons,
+						labels: { style: { color: '#000000'	} }
+					},
+					yAxis: {
+						title: {
+							text: null
+						},
+						reversed:true,
+							labels: {
+								style: {
+									color: '#000000'
+								}
+							},
+
+							allowDecimals:true,
+							startOnTick: false
+					},
+					plotOptions: {
+						line: {
+							events: {
+								legendItemClick: function () {
+									return false;
+								}
+							}
+						}
+					},
+					tooltip: {
+						shared: true,
+						pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>',
+						backgroundColor: '#FFFFFF',
+						style: {
+							color: '#000000'
+						}
+					},
+					series: [
+						{
+							name: '防御率',
+							data: era
+						},
+						{
+							name: 'WHIP',
+							data: whip
+						}
+					]
+				});
+				$('#chart_div3').highcharts({
+					title: {
+						text: '守備位置の割合'
+					},
+					plotOptions: {
+						pie: {
+							dataLabels: {
+								formatter: function() {
+									return '<b>'+ this.point.name +'</b>:'+ Math.round(this.percentage*10)/10 + '%';}
+								}
+							}
+						},
+					series: [{
+						type: 'pie',
+						name: '',
+						data: pos
+						<%--
+						<c:forEach var="posDtos" items="${posDtos}">
+							['${posDtos.pos}',${posDtos.count}],
+						</c:forEach>
+						--%>
+
+					}],
+					tooltip: {
+						formatter: function() {
+							return this.y +'試合';},
+					enabled:true
+					}
+				});
+
 			})
 			.always(function() {
 				$('#tab-b').tabs();
+				$('#tab-p').tabs();
 				$.unblockUI();
 			});
 				})
@@ -202,7 +556,6 @@
 	</thead>
 </table>
 <h2>期毎打撃成績</h2>
-<a href="${f:url('/player/detail/')}${player.id}">内訳</a>
 <div id="tab-b">
 <ul>
 	<c:forEach var="pbrDtos" items="${pbrlList}">
@@ -217,7 +570,7 @@
     	<c:choose>
     	<c:when test="${!empty pbrDtos.leagueId}">
 		<div id="t-${pbrDtos.leagueId}">
-			<table border=1 id="t-${pbrDtos.leagueId}-table">
+			<table border=1 id="t-${pbrDtos.leagueId}-batting">
 				<thead>
 				<tr>
 					<th>名前</th>
@@ -239,93 +592,9 @@
 	</c:choose>
 </c:forEach>
 </div>
-<%--
-<div id="tab-b">
-    <ul>
-	<c:forEach var="pbrDtos" items="${pbrlList}">
-		<c:choose>
-		<c:when test="${!empty pbrDtos.leagueId}">
-			<li><a href="#t-${pbrDtos.leagueId}">${pbrDtos.title}</a></li>
-		</c:when>
-		</c:choose>
-    </c:forEach>
-    </ul>
-    <c:forEach var="pbrDtos" items="${pbrlList}">
-    	<c:choose>
-    	<c:when test="${!empty pbrDtos.leagueId}">
-		<div id="t-${pbrDtos.leagueId}">
-			<table border=1 class="tablesorter">
-				<thead>
-				<tr>
-					<th>名前</th>
-					<th>試合</th>
-					<th>打席数</th>
-					<th>打数</th>
-					<th>安打</th>
-					<th>HR</th>
-					<th>打点</th>
-					<th>四球</th>
-					<th>三振</th>
-					<th>二塁打</th>
-					<th>打率</th>
-				</tr>
-				</thead>
-			<c:forEach var="tbrDtos" items="${tbrDtos}">
-			<c:choose>
-				<c:when test="${empty tbrDtos.gameDate && empty tbrDtos.gameNumber && empty tbrDtos.leagueId && empty tbrDtos.playerId}">
-				</c:when>
-				<c:when test="${empty tbrDtos.gameDate && empty tbrDtos.gameNumber && empty tbrDtos.leagueId}">
-				</c:when>
-				<c:when test="${empty tbrDtos.gameDate && empty tbrDtos.gameNumber && tbrDtos.leagueId==pbrDtos.leagueId}">
-					<tr>
-						<td><b>${tbrDtos.name}(${tbrDtos.title})</b></td>
-						<td>&nbsp;</td>
-						<td><b>${tbrDtos.tpa}</b></td>
-						<td><b>${tbrDtos.atBats}</b></td>
-						<td><b>${tbrDtos.hit}</b></td>
-						<td><b>${tbrDtos.homerun}</b></td>
-						<td><b>${tbrDtos.rbi}</b></td>
-						<td><b>${tbrDtos.fourBall}</b></td>
-						<td><b>${tbrDtos.strikeOut}</b></td>
-						<td><b>${tbrDtos.twobase}</b></td>
-						<td><b><fmt:formatNumber value="${tbrDtos.average}" pattern="0.0000" /></b></td>
-					</tr>
-				</c:when>
-				<c:when test="${empty tbrDtos.gameNumber && tbrDtos.leagueId==pbrDtos.leagueId}"></c:when>
-				<c:when test="${tbrDtos.leagueId==pbrDtos.leagueId }">
-					<tr>
-						<td><a href="${f:url('/player/show/') }${tbrDtos.playerId}">${tbrDtos.name}</a></td>
-						<td>
-							<a href="${f:url('/gameSummary/show/')}${tbrDtos.gameId}">
-								<fmt:formatDate value="${tbrDtos.gameDate}" pattern="MM/dd" />
-								-${tbrDtos.gameNumber}対${tbrDtos.opponentName}
-								<c:choose>
-									<c:when test="${tbrDtos.teamId!=tbrDtos.myteamId}">(助)</c:when>
-								</c:choose>
-							</a>
-						</td>
-						<td>${tbrDtos.tpa}</td>
-						<td>${tbrDtos.atBats}</td>
-						<td>${tbrDtos.hit}</td>
-						<td>${tbrDtos.homerun}</td>
-						<td>${tbrDtos.rbi}</td>
-						<td>${tbrDtos.fourBall}</td>
-						<td>${tbrDtos.strikeOut}</td>
-						<td>${tbrDtos.twobase}</td>
-						<td><fmt:formatNumber value="${tbrDtos.average}" pattern="0.000" /></td>
-					</tr>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-	</table>
-	</div>
-	</c:when>
-	</c:choose>
-	</c:forEach>
-  </div>
-  --%>
+
 <h2>対球団別打撃成績</h2>
-<table border=1 class="tablesorter" id="battingAll">
+<table border=1 id="battingByOpponent">
 	<thead>
 	<tr>
 		<th>名前</th>
@@ -344,28 +613,9 @@
 		<th>三振率</th>
 	</tr>
 	</thead>
-	<c:forEach var="pbrDtos" items="${pbrgoList}">
-		<tr>
-			<td>v.s.${pbrDtos.opponentName}</td>
-			<td>${pbrDtos.tpa}</td>
-			<td>${pbrDtos.atBats}</td>
-			<td>${pbrDtos.hit}</td>
-			<td>${pbrDtos.homerun}</td>
-			<td>${pbrDtos.rbi}</td>
-			<td>${pbrDtos.fourBall}</td>
-			<td>${pbrDtos.strikeOut}</td>
-			<td>${pbrDtos.twobase}</td>
-			<td><fmt:formatNumber value="${pbrDtos.average}" pattern="0.0000" /></td>
-			<td><fmt:formatNumber value="${pbrDtos.slg}" pattern="0.0000" /></td>
-			<td><fmt:formatNumber value="${pbrDtos.ops}" pattern="0.0000" /></td>
-			<td><fmt:formatNumber value="${pbrDtos.obp}" pattern="0.0000" /></td>
-			<td><fmt:formatNumber value="${pbrDtos.notStrikeOut}" pattern="#0.00" /></td>
-		</tr>
-	</c:forEach>
-
 </table>
 <h2>投球成績</h2>
-<table border=1 class="tablesorter">
+<table border=1  id="pitchingResult">
 	<thead>
 	<tr>
 		<th>名前</th>
@@ -386,56 +636,11 @@
 		<th>援護率</th>
 	</tr>
 	</thead>
-	<c:forEach var="tprDtos" items="${pprList}">
-		<c:choose>
-			<c:when test="${empty tprDtos.leagueId}">
-				<tr>
-					<td><b>${tprDtos.name}(通算)</b></td>
-					<td>${tprDtos.gameCount}</td>
-					<td><fmt:formatNumber value="${tprDtos.inning}" pattern="#0.##" /></td>
-					<td>${tprDtos.hit}</td>
-					<td>${tprDtos.strikeOut}</td>
-					<td>${tprDtos.fourBall}</td>
-					<td>${tprDtos.runs}</td>
-					<td>${tprDtos.complete}</td>
-					<td>${tprDtos.shutout}</td>
-					<td>${tprDtos.win}</td>
-					<td>${tprDtos.lose}</td>
-					<td>${tprDtos.save}</td>
-					<td><fmt:formatNumber value="${tprDtos.era}" pattern="#0.00" /></td>
-					<td><fmt:formatNumber value="${tprDtos.whip}" pattern="#0.00" /></td>
-					<td><fmt:formatNumber value="${tprDtos.strikeAvg}" pattern="#0.00" /></td>
-					<td><!-- <fmt:formatNumber value="${tprDtos.runSupport}" pattern="#0.00" />--></td>
-				</tr>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td>${tprDtos.name}(${tprDtos.title})</td>
-					<td>${tprDtos.gameCount}</td>
-					<td><fmt:formatNumber value="${tprDtos.inning}" pattern="#0.##" /></td>
-					<td>${tprDtos.hit}</td>
-					<td>${tprDtos.strikeOut}</td>
-					<td>${tprDtos.fourBall}</td>
-					<td>${tprDtos.runs}</td>
-					<td>${tprDtos.complete}</td>
-					<td>${tprDtos.shutout}</td>
-					<td>${tprDtos.win}</td>
-					<td>${tprDtos.lose}</td>
-					<td>${tprDtos.save}</td>
-					<td><fmt:formatNumber value="${tprDtos.era}" pattern="#0.00" /></td>
-					<td><fmt:formatNumber value="${tprDtos.whip}" pattern="#0.00" /></td>
-					<td><fmt:formatNumber value="${tprDtos.strikeAvg}" pattern="#0.00" /></td>
-					<td><fmt:formatNumber value="${tprDtos.runSupport}" pattern="#0.00" /></td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
-	</c:forEach>
 </table>
+
 <h2>期毎投球成績</h2>
-<a href="${f:url('/player/detail/')}${player.id}">内訳</a>
-<%--
 <div id="tab-p">
-    <ul>
+<ul>
 	<c:forEach var="pprDtos" items="${pprlList}">
 		<c:choose>
 		<c:when test="${!empty pprDtos.leagueId}">
@@ -443,86 +648,39 @@
 		</c:when>
 		</c:choose>
     </c:forEach>
-    </ul>
-    <c:forEach var="pprDtos" items="${pprlList}">
+</ul>
+<c:forEach var="pprDtos" items="${pprlList}">
     	<c:choose>
     	<c:when test="${!empty pprDtos.leagueId}">
 		<div id="t-${pprDtos.leagueId}">
-			<table border=1 class="tablesorter">
+			<table border=1 id="t-${pprDtos.leagueId}-pitching">
 				<thead>
-						<tr>
-							<th>名前</th>
-							<th>試合</th>
-							<th>投球回</th>
-							<th>被安打</th>
-							<th>奪三振</th>
-							<th>与四球</th>
-							<th>失点</th>
-							<th>完投</th>
-							<th>完封</th>
-							<th>勝ち</th>
-							<th>負け</th>
-							<th>S</th>
-							<th>防御率</th>
-						</tr>
-						</thead>
-			<c:forEach var="tprDtos" items="${tprDtos}">
-			<c:choose>
-				<c:when test="${empty tprDtos.gameDate && empty tprDtos.gameNumber && empty tprDtos.leagueId && empty tprDtos.playerId}">
-				</c:when>
-				<c:when test="${empty tprDtos.gameDate && empty tprDtos.gameNumber && empty tprDtos.leagueId}">
-				</c:when>
-				<c:when test="${empty tprDtos.gameDate && empty tprDtos.gameNumber && tprDtos.leagueId==pprDtos.leagueId}">
-					<tr>
-						<td><b>${tprDtos.name}(${tprDtos.title})</b></td>
-									<td>&nbsp;</td>
-									<td><b><fmt:formatNumber value="${tprDtos.inning}" pattern="#0.##" /></b></td>
-									<td><b>${tprDtos.hit}</b></td>
-									<td><b>${tprDtos.strikeOut}</b></td>
-									<td><b>${tprDtos.fourBall}</b></td>
-									<td><b>${tprDtos.runs}</b></td>
-									<td><b>${tprDtos.complete}</b></td>
-									<td><b>${tprDtos.shutout}</b></td>
-									<td><b>${tprDtos.win}</b></td>
-									<td><b>${tprDtos.lose}</b></td>
-									<td><b>${tprDtos.save}</b></td>
-									<td><b><fmt:formatNumber value="${tprDtos.era}" pattern="#0.00" /></b></td>
-					</tr>
-				</c:when>
-				<c:when test="${empty tprDtos.gameNumber && tprDtos.leagueId==pprDtos.leagueId}"></c:when>
-				<c:when test="${tprDtos.leagueId==pprDtos.leagueId }">
-					<tr>
-						<td><a href="${f:url('/player/show/') }${tprDtos.playerId}">${tprDtos.name}</a></td>
-						<td>
-							<a href="${f:url('/gameSummary/show/')}${tprDtos.gameId}">
-								<fmt:formatDate value="${tprDtos.gameDate}" pattern="MM/dd" />
-								-${tprDtos.gameNumber}対${tprDtos.opponentName}
-							</a>
-						</td>
-						<td><b><fmt:formatNumber value="${tprDtos.inning}" pattern="#0.##" /></b></td>
-									<td><b>${tprDtos.hit}</b></td>
-									<td><b>${tprDtos.strikeOut}</b></td>
-									<td><b>${tprDtos.fourBall}</b></td>
-									<td><b>${tprDtos.runs}</b></td>
-									<td><b>${tprDtos.complete}</b></td>
-									<td><b>${tprDtos.shutout}</b></td>
-									<td><b>${tprDtos.win}</b></td>
-									<td><b>${tprDtos.lose}</b></td>
-									<td><b>${tprDtos.save}</b></td>
-									<td><b><fmt:formatNumber value="${tprDtos.era}" pattern="#0.00" /></b></td>
-					</tr>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-	</table>
-	</div>
+				<tr>
+					<th>名前</th>
+					<th>登板数</th>
+					<th>投球回</th>
+					<th>被安打</th>
+					<th>奪三振</th>
+					<th>与四球</th>
+					<th>失点</th>
+					<th>完投</th>
+					<th>完封</th>
+					<th>勝ち</th>
+					<th>負け</th>
+					<th>S</th>
+					<th>防御率</th>
+				</tr>
+				</thead>
+			</table>
+		</div>
 	</c:when>
 	</c:choose>
-	</c:forEach>
-  </div>
-  --%>
+</c:forEach>
+</div>
+
+
 <h2>対球団別投球成績</h2>
-<table border=1 class="tablesorter" id="pitchingAll">
+<table border=1 id="pitchingByOpponent">
 	<thead>
 	<tr>
 		<th>名前</th>
@@ -538,31 +696,10 @@
 		<th>負け</th>
 		<th>S</th>
 		<th>防御率</th>
-		<th>WHIP</th>
-		<th>奪三振率</th>
 	</tr>
 	</thead>
-	<c:forEach var="pprDtos" items="${pprgoList}">
-		<tr>
-			<td>v.s.${pprDtos.opponentName}</td>
-			<td>${pprDtos.gameCount}</td>
-			<td><fmt:formatNumber value="${pprDtos.inning}" pattern="0.000" /></td>
-			<td>${pprDtos.hit}</td>
-			<td>${pprDtos.strikeOut}</td>
-			<td>${pprDtos.fourBall}</td>
-			<td>${pprDtos.runs}</td>
-			<td>${pprDtos.complete}</td>
-			<td>${pprDtos.shutout}</td>
-			<td>${pprDtos.win}</td>
-			<td>${pprDtos.lose}</td>
-			<td>${pprDtos.save}</td>
-			<td><fmt:formatNumber value="${pprDtos.era}" pattern="0.00" /></td>
-			<td><fmt:formatNumber value="${pprDtos.whip}" pattern="0.00" /></td>
-			<td><fmt:formatNumber value="${pprDtos.strikeAvg}" pattern="0.00" /></td>
-		</tr>
-	</c:forEach>
-
 </table>
+
 <div id="chart_div3" style="width: 80%; height: 300px;"></div>
 <div id="chart_div" style="width: 80%; height: 300px;"></div>
 <div id="chart_div2" style="width: 80%; height: 300px;"></div>

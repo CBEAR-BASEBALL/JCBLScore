@@ -103,7 +103,7 @@ public class PlayerAction {
 			e1.printStackTrace();
 		}
 		long t1=System.currentTimeMillis();
-		player=playerService.findById(Integer.parseInt(playerForm.id));
+		//player=playerService.findById(Integer.parseInt(playerForm.id));
 		List<TeamBattingResultDto> playerBattingResultList = battingSumService.findPBRById(Integer.parseInt(playerForm.id));
 		//タブ用の成績があるシーズンリスト(PersonalBattingResultbyLeagueId)
 		List<TeamBattingResultDto> personalBattingResultList = battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
@@ -113,32 +113,49 @@ public class PlayerAction {
 		List<TeamBattingResultDto> tbrDtos = battingSumService.findPBRDById(Integer.parseInt(playerForm.id));
 		//タブ用の投球成績明細
 		List<TeamPitchingResultDto> tprDtos = pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
-		List<TeamPitchingResultDto> pprlList = pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
-		List<League> leagueList = leagueService.findAllOrderByIdExceptTotal();
+		//List<TeamPitchingResultDto> pprlList = pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
+		//List<League> leagueList = leagueService.findAllOrderByIdExceptTotal();
 		List<PositionDto> posDtos = battingSumService.countDiffensePositionById(Integer.parseInt(playerForm.id));
-		List<TeamHistoryDto> teamHistoryDtoList = teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(playerForm.id));
+		//List<TeamHistoryDto> teamHistoryDtoList = teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(playerForm.id));
 		player=playerService.findById(Integer.parseInt(playerForm.id));
-		List<TeamBattingResultDto> pbrList = battingSumService.findPBRById(Integer.parseInt(playerForm.id));
-		pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
-		pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));
-		tbrDtos=battingSumService.findPBRDById(Integer.parseInt(playerForm.id));
+		//List<TeamBattingResultDto> pbrList = battingSumService.findPBRById(Integer.parseInt(playerForm.id));
+		//pprList=pitchingService.findPPRById(Integer.parseInt(playerForm.id));
+		//pprgoList=pitchingService.findPPRGOById(Integer.parseInt(playerForm.id));
+		//tbrDtos=battingSumService.findPBRDById(Integer.parseInt(playerForm.id));
 		//タブ用の投球成績明細
-		tprDtos=pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
-		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
-		leagueList=leagueService.findAllOrderByIdExceptTotal();
+		//tprDtos=pitchingService.findPPRDById(Integer.parseInt(playerForm.id));
+		//pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
+		//leagueList=leagueService.findAllOrderByIdExceptTotal();
 		//API用にデータ加工
-		HashMap<Integer,List<TeamBattingResultDto>> tmp=new HashMap<Integer,List<TeamBattingResultDto>>();
+		HashMap<Integer,List<TeamBattingResultDto>> battingSeasonMap=new HashMap<Integer,List<TeamBattingResultDto>>();
 		List<TeamBattingResultDto> tbrDtoTmp=new ArrayList<TeamBattingResultDto>();
 		for(int i=0;i<tbrDtos.size();i++){
-			tbrDtoTmp=tmp.get(tbrDtos.get(i).leagueId);
+			tbrDtoTmp=battingSeasonMap.get(tbrDtos.get(i).leagueId);
 			if(tbrDtoTmp!=null){
-				if(tbrDtos.get(i).playerId!=null && tbrDtos.get(i).leagueId!=null && (tbrDtos.get(i).gameNumber!=null || tbrDtos.get(i).gameDate==null)){
+				if(tbrDtos.get(i).playerId!=null && tbrDtos.get(i).leagueId!=null
+						&& (tbrDtos.get(i).gameNumber!=null || tbrDtos.get(i).gameDate==null)){
 					tbrDtoTmp.add(tbrDtos.get(i));
 				}
 			}else{
 				tbrDtoTmp=new ArrayList<TeamBattingResultDto>();
+				tbrDtoTmp.add(tbrDtos.get(i));
 			}
-			tmp.put(tbrDtos.get(i).leagueId, tbrDtoTmp);
+			battingSeasonMap.put(tbrDtos.get(i).leagueId, tbrDtoTmp);
+		}
+		HashMap<Integer,List<TeamPitchingResultDto>> pitchingSeasonMap=new HashMap<Integer,List<TeamPitchingResultDto>>();
+		List<TeamPitchingResultDto> tprDtoTmp=new ArrayList<TeamPitchingResultDto>();
+		for(int i=0;i<tprDtos.size();i++){
+			tprDtoTmp=pitchingSeasonMap.get(tprDtos.get(i).leagueId);
+			if(tprDtoTmp!=null){
+				if(tprDtos.get(i).playerId!=null && tprDtos.get(i).leagueId!=null
+						&& (tprDtos.get(i).gameNumber!=null || tprDtos.get(i).gameDate==null)){
+					tprDtoTmp.add(tprDtos.get(i));
+				}
+			}else{
+				tprDtoTmp=new ArrayList<TeamPitchingResultDto>();
+				tprDtoTmp.add(tprDtos.get(i));
+			}
+			pitchingSeasonMap.put(tprDtos.get(i).leagueId, tprDtoTmp);
 		}
 
 
@@ -148,7 +165,10 @@ public class PlayerAction {
 		map.put("personalBattingResultGroupByOpponent" , personalBattingResultGroupByList);
 		map.put("personalPitchingResultList", pprList);
 		map.put("playerBattingResultList", playerBattingResultList);
-		map.put("tbrDtos", tmp);
+		map.put("tbrDtos", battingSeasonMap);
+		map.put("tprDtos", pitchingSeasonMap);
+		map.put("pprgoList", pprgoList);
+		map.put("posDtos", posDtos);
 		String json=JSON.encode(map);
 		ResponseUtil.write(json);
 		long t2=System.currentTimeMillis();
