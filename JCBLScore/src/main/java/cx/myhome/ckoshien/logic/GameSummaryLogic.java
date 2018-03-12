@@ -1,22 +1,16 @@
 package cx.myhome.ckoshien.logic;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import cx.myhome.ckoshien.dto.GameListDto;
 import cx.myhome.ckoshien.dto.PlayerDto;
 import cx.myhome.ckoshien.entity.BattingSum;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.Pitching;
-import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.form.BattingSumForm;
-import cx.myhome.ckoshien.form.GameForm;
 import cx.myhome.ckoshien.form.GameSummaryForm;
-import cx.myhome.ckoshien.service.BattingSumService;
 
 public class GameSummaryLogic {
 	public GameSummaryForm gameSummaryForm;
@@ -81,6 +75,8 @@ public class GameSummaryLogic {
 		gameSummaryForm.teamId=new ArrayList<String>();
 		gameSummaryForm.gameId=new ArrayList<String>();
 		gameSummaryForm.playerRecordId=new ArrayList<String>();
+		gameSummaryForm.playerName=new ArrayList<String>();
+		gameSummaryForm.p_playerName=new ArrayList<String>();
 		gameSummaryForm.position=new ArrayList<String>();
 		addBattingSumList(gameSummaryForm,firstBattingSumList, game);
 		addBattingSumList(gameSummaryForm,lastBattingSumList, game);
@@ -121,6 +117,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.teamId.add(String.valueOf(list.get(i).teamId));
 				gameSummaryForm.gameId.add(String.valueOf(game.gameId));
 				gameSummaryForm.playerRecordId.add(String.valueOf(list.get(i).id));
+				gameSummaryForm.playerName.add(String.valueOf(list.get(i).player.name));
 				gameSummaryForm.position.add(String.valueOf(list.get(i).position));
 			}else{
 				gameSummaryForm.playerId.add(" ");
@@ -136,6 +133,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.teamId.add("");
 				gameSummaryForm.gameId.add("");
 				gameSummaryForm.playerRecordId.add("");
+				gameSummaryForm.playerName.add("");
 				gameSummaryForm.position.add("");
 			}
 		}
@@ -157,6 +155,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.p_myTeamId.add(String.valueOf(list.get(i).myteamId));
 				gameSummaryForm.p_playerId.add(String.valueOf(list.get(i).playerId));
 				gameSummaryForm.p_strikeOut.add(String.valueOf(list.get(i).strikeOut));
+				gameSummaryForm.p_playerName.add(String.valueOf(list.get(i).player.name));
 				gameSummaryForm.pa.add(String.valueOf(list.get(i).pa));
 				gameSummaryForm.win.add(list.get(i).win.toString());
 				gameSummaryForm.lose.add(list.get(i).lose.toString());
@@ -173,6 +172,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.p_myTeamId.add("");
 				gameSummaryForm.p_playerId.add("");
 				gameSummaryForm.p_strikeOut.add("");
+				gameSummaryForm.p_playerName.add("");
 				gameSummaryForm.pa.add("");
 				//gameSummaryForm.result.add("");
 				gameSummaryForm.win.add("");

@@ -42,6 +42,8 @@ public class GameSummaryForm implements Serializable{
 	//打撃成績関連
 	public List<String> playerRecordId;
 	public List<String> playerId;
+	public List<String> playerName;
+	public List<String> p_playerName;
 	public List<String> position;
 	//打席数
 	public List<String> tpa;

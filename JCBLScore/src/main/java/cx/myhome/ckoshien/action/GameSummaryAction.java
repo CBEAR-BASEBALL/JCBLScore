@@ -109,7 +109,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		teamList=teamService.findAllOrderById();
 		//新規作成時は日付がわからないのでplayerテーブルから引っ張る
 		playerList=playerService.findAllOrderById();
-		return "create.jsp";
+		//return "create.jsp";
+		return "create2.jsp";
 	}
 
 	@Aspect(value="loginConfInterceptor")
@@ -270,7 +271,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		gameSummaryForm=logic.convert2GameSummary(game,firstBattingSumList,lastBattingSumList,gameSummaryForm,firstPitchingList,lastPitchingList);
 		gameDate=game.gameDate.toString().toString().replace("-", "/");
 		MemoryUtil.viewMemoryInfo();
-		return "edit.jsp";
+		//return "edit.jsp";
+		return "edit2.jsp";
 	}
 
 	@Aspect(value="loginConfInterceptor")
