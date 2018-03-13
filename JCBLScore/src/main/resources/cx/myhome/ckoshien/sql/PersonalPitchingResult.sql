@@ -32,7 +32,7 @@ inner join team t
 on pc.team_id=t.team_id
 inner join league l
 on g.league_id=l.id
-inner join(
+left outer join(
 	select
 		league_id,
 		sum(inning),

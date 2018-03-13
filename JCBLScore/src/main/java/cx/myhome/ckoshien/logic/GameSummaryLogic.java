@@ -120,7 +120,7 @@ public class GameSummaryLogic {
 				gameSummaryForm.playerName.add(String.valueOf(list.get(i).player.name));
 				gameSummaryForm.position.add(String.valueOf(list.get(i).position));
 			}else{
-				gameSummaryForm.playerId.add(" ");
+				gameSummaryForm.playerId.add("");
 				gameSummaryForm.tpa.add("");
 				gameSummaryForm.atBats.add("");
 				gameSummaryForm.hit.add("");

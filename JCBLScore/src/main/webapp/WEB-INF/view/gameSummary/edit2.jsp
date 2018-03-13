@@ -93,7 +93,8 @@
 			//$("#id").val(ui.item.label);
 			var index = $('.player').index(this);
 			console.log(index);
-			$('input:hidden[name="playerId"]').eq(index).val(ui.item.id);
+			//console.log($('input:hidden[name="playerId"]').eq(index).val());
+			$('input:hidden[name="playerId['+index+']"]').val(ui.item.id);
 		},
 		autoFocus: true,
 		delay: 1000,
@@ -115,7 +116,7 @@
 				//$("#id").val(ui.item.label);
 				var index = $('.p_player').index(this);
 				console.log(index);
-				$('input:hidden[name="p_playerId"]').eq(index).val(ui.item.id);
+				$('input:hidden[name="p_playerId['+index+']"]').val(ui.item.id);
 			},
 			autoFocus: true,
 			delay: 1000,
@@ -314,7 +315,7 @@
 			<html:text property="save[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />S
 		</td>
 		<td>
-			<html:text property="p_playerName[${i-1}]" />
+			<html:text property="p_playerName[${i-1}]" styleClass="p_player" />
 			<html:hidden property="p_playerId[${i-1}]" />
 			<%--
 			<html:select property="p_playerId[${i-1}]">
@@ -377,7 +378,7 @@
 	<c:forEach var="i" begin="11" end="20">
 	<tr>
 		<td>
-			<html:text property="playerName[${i-1}]"/>
+			<html:text property="playerName[${i-1}]" styleClass="player"/>
 			<html:hidden property="playerId[${i-1}]" />
 			<%--
 			<html:select property="playerId[${i-1}]">
@@ -452,7 +453,7 @@
 			<html:text property="save[${i-1}]" size="2" maxlength="2" errorStyleClass="err"/>S
 		</td>
 		<td>
-			<html:text property="p_playerName[${i-1}]" />
+			<html:text property="p_playerName[${i-1}]" styleClass="p_player" />
 			<html:hidden property="p_playerId[${i-1}]" />
 			<%--
 			<html:option value=""></html:option>
