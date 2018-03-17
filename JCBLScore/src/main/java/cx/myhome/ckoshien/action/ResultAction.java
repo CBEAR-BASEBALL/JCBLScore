@@ -341,62 +341,14 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		for(int i=0;i<tmpResultList.size();i++){
 			resultList.add(tmpResultList.get(i));
 		}
-//		resultList2=resultList;
-//		length=resultList.size();
-//		ResultLogic resultLogic=new ResultLogic();
-//		//打率TOP10
-//		battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
-//		averageTop10=resultLogic.returnAverageTop10(battingResultList,regAtBats);
-//		//HRTOP10
-//		homerunTop10=resultLogic.returnHomerunTop10(battingResultList);
-//		//打点TOP10
-//		rbiTop10=resultLogic.returnRbiTop10(battingResultList);
-//		//安打数TOP10
-//		hitTop10=resultLogic.returnHitTop10(battingResultList);
-//		//防御率TOP10
-//		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
-//		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
-//		//勝利数TOP10
-//		winTop10=resultLogic.returnWinTop10(pitchingResultList);
-//		//セーブTOP10
-//		saveTop10=resultLogic.returnSaveTop10(pitchingResultList);
-//		//奪三振TOP10
-//		strikeOutTop10=resultLogic.returnStrikeOutTop10(pitchingResultList);
-//		//出塁率TOP10
-//
-//		obpTop10=resultLogic.returnObpTop10(battingResultList,regAtBats);
-//		//二塁打TOP10
-//		//twobaseTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"twobase desc");
-//		twobaseTop10=resultLogic.returnTwobaseTop10(battingResultList);
-//		//長打率TOP10
-//		//slgTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"slg desc");
-//
-//		slgTop10=resultLogic.returnSlgTop10(battingResultList,regAtBats);
-//		//最多四球TOP10
-//		fourBallTop10=resultLogic.returnFourBallTop10(battingResultList);
-//		//OPS TOP10
-//		opsTop10=resultLogic.returnOpsTop10(battingResultList,regAtBats);
-//		//三振率TOP10
-//		nsoTop10=resultLogic.returnNsoTop10(battingResultList,regAtBats);
-//		//本塁打率TOP10
-//		avgHRTop10=resultLogic.returnAvgHRTop10(battingResultList,regAtBats);
-//		//打点率
-//		avgRBITop10=resultLogic.returnAvgRBITop10(battingResultList,regAtBats);
-//		//ノンタイトルの行数を決定
-//		if(twobaseTop10.size()>=fourBallTop10.size()){
-//			listSize=twobaseTop10.size();
-//		}else{
-//			listSize=fourBallTop10.size();
-//		}
-//		if(listSize<=10){
-//			listSize=10;
-//		}
 		request=null;
-//		resultLogic=null;
 		tmpResultList=null;
-//		MemoryUtil.viewMemoryInfo();
 		long t2=System.currentTimeMillis();
 		logger.info(t2-t1+"ms");
 		return "ajaxStats.jsp";
+	}
+	@Execute(validator = false)
+	public String overAll(){
+		return "overAll.jsp";
 	}
 }

@@ -509,4 +509,47 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		logger.info("[APIデータ加工] "+ (t2-t3) +"ms");
 		return null;
 	}
+
+	@Execute(validator = false)
+	public String overAll(){
+		long t0=System.currentTimeMillis();
+		//アクセス制限
+		try {
+    		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+//    		System.out.println(ia.getHostName());
+    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+    				&& !request.getRemoteAddr().startsWith("192.168")
+    				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+    				&& !ia.getHostName().equals("127.0.0.1")
+    				&& !ia.getHostName().equals(request.getRemoteAddr())
+    			){
+    			logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    			try {
+					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
+				} catch (IOException e) {
+					logger.error(e);
+				}
+        		return null;
+    		}
+			logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			logger.warn(e1);
+		}
+		long t1=System.currentTimeMillis();
+		logger.info("lookup:"+(t1-t0));
+		battingResultList=battingSumService.findOverAll();
+		pitchingResultList=pitchingService.findOverAll();
+		ResultApiDto res=new ResultApiDto();
+		res.battingResultList=battingResultList;
+		res.pitchingResultList=pitchingResultList;
+		String json=JSON.encode(res);
+		ResponseUtil.write(json,"application/json");
+		MemoryUtil.viewMemoryInfo();
+		long t2=System.currentTimeMillis();
+		logger.info("[API] "+ (t2-t1) +"ms");
+		//logger.info("[APIデータ加工] "+ (t2-t3) +"ms");
+		return null;
+	}
 }

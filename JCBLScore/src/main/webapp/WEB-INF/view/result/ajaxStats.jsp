@@ -1034,6 +1034,7 @@
 	</table>
 <hr>
 <br><a href="${f:url('/statistics/') }">統計</a>
+<br><a href="${f:url('/result/overAll/') }">全期間通算成績</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
 </div>

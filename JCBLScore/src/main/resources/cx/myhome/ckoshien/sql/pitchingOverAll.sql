@@ -34,9 +34,7 @@ SELECT
 	on p.game_id=g.game_id
 	inner join pitching p2
 	on p.game_id=p2.game_id and p.myteam_id!=p2.myteam_id
-	where game_date>=/*beginDate*/ and game_date<=/*endDate*/
 	group by player_id)p3
 	on p3.player_id=p.PLAYER_ID
-WHERE game_date>=/*beginDate*/ and game_date<=/*endDate*/
 group by player_id
-order by /*$order*/;
+order by inning desc

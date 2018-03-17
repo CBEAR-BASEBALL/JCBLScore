@@ -393,6 +393,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(urlPattern="date/{id}",validator=false)
 	public String date(){
+		long t0=System.currentTimeMillis();
 		try {
 			InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
 		    System.out.println(ia.getHostName());
@@ -415,6 +416,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+		long t1=System.currentTimeMillis();
+		logger.info("lookup:"+(t1-t0)+"mS");
 		gameId=Integer.parseInt(gameSummaryForm.id);
 		Date gameDate=gameService.findById(gameId).gameDate;
 		gameList=gameService.findByDateOrderByDate(gameDate);
@@ -458,6 +461,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			}
 			gameListDtos.add(gameListDto);
 		}
+		long t2=System.currentTimeMillis();
+		logger.info((t2-t1)+"ms");
 		logger.info("/gameSummary/date/"+gameSummaryForm.id);
 		MemoryUtil.viewMemoryInfo();
 		return "index2.jsp";

@@ -102,7 +102,7 @@ public class GameSummaryLogic {
 	}
 
 	public void addBattingSumList(GameSummaryForm gameSummaryForm,List<BattingSum> list,Game game){
-		for (int i=0;i<10;i++){
+		for (int i=0;i<20;i++){
 			if(i<list.size()){
 				gameSummaryForm.playerId.add(String.valueOf(list.get(i).playerId));
 				gameSummaryForm.tpa.add(String.valueOf(list.get(i).tpa));
@@ -140,7 +140,7 @@ public class GameSummaryLogic {
 	}
 
 	public void addPitchingList(GameSummaryForm gameSummaryForm,List<Pitching> list){
-		for(int i=0;i<4;i++){
+		for(int i=0;i<8;i++){
 			if (i<list.size()){
 				Double d = new Double(list.get(i).inning);
 				Integer j = new Integer(d.intValue());

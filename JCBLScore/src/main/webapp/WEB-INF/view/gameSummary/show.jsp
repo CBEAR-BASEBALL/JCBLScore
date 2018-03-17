@@ -121,12 +121,7 @@
 	<c:forEach var="i" items="${firstPitchingList}">
 	<tr>
 		<td>
-			<c:choose>
-				<c:when test="${i.win==1}">○</c:when>
-				<c:when test="${i.lose==1}">●</c:when>
-				<c:when test="${i.save==1}">S</c:when>
-				<c:otherwise></c:otherwise>
-			</c:choose>
+			${i.win}勝${i.lose}敗${i.save}S
 		</td>
 		<td>${i.player.name}</td>
 		<td align="right"><fmt:formatNumber value="${i.inning}" pattern="0.00"/></td>
@@ -199,12 +194,7 @@
 	<c:forEach var="i" items="${lastPitchingList}">
 	<tr>
 		<td>
-			<c:choose>
-				<c:when test="${i.win==1}">○</c:when>
-				<c:when test="${i.lose==1}">●</c:when>
-				<c:when test="${i.save==1}">S</c:when>
-				<c:otherwise></c:otherwise>
-			</c:choose>
+			${i.win}勝${i.lose}敗${i.save}S
 		</td>
 		<td>${i.player.name}</td>
 		<td align="right"><fmt:formatNumber value="${i.inning}" pattern="0.00"/></td>
@@ -219,7 +209,7 @@
 	</tr>
 	</c:forEach>
 </table>
-<!--shinobi1-->
+<%--<!--shinobi1-->
 <script type="text/javascript" src="http://x6.karakasa.com/ufo/05087790l"></script>
 <noscript><a href="http://x6.karakasa.com/bin/gg?05087790l" target="_blank">
 <img src="http://x6.karakasa.com/bin/ll?05087790l" border="0"></a>
@@ -227,6 +217,6 @@
 <img style="margin:0;vertical-align:text-bottom;" src="http://img.shinobi.jp/tadaima/fj.gif" width="19" height="11">
 </span>
 </noscript>
-<!--shinobi2-->
+<!--shinobi2-->--%>
 </body>
 </html>

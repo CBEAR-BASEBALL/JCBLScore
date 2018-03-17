@@ -119,4 +119,8 @@ public class PitchingService extends AbstractService<Pitching> {
 		pitchingResultDto=jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.SeasonPitchingResultWithRunSupport.sql",param).getSingleResult();
 		return pitchingResultDto;
 	}
+
+	public List<PitchingResultDto> findOverAll() {
+		return jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.pitchingOverAll.sql").getResultList();
+	}
 }

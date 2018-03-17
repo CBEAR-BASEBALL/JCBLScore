@@ -237,7 +237,7 @@
 		<th>三振</th>
 		<th>二塁打</th>
 	</tr>
-	<c:forEach var="i" begin="1" end="10">
+	<c:forEach var="i" begin="1" end="20">
 	<tr>
 		<td>
 			<html:text property="playerName[${i-1}]" styleClass="player"/>
@@ -307,7 +307,7 @@
 		<th>完投</th>
 		<th>完封</th>
 	</tr>
-	<c:forEach var="i" begin="1" end="4">
+	<c:forEach var="i" begin="1" end="8">
 	<tr>
 		<td>
 			<html:text property="win[${i-1}]" size="2" maxlength="2" errorStyleClass="err" />勝
@@ -375,7 +375,7 @@
 		<th>三振</th>
 		<th>二塁打</th>
 	</tr>
-	<c:forEach var="i" begin="11" end="20">
+	<c:forEach var="i" begin="21" end="40">
 	<tr>
 		<td>
 			<html:text property="playerName[${i-1}]" styleClass="player"/>
@@ -445,7 +445,7 @@
 		<th>完投</th>
 		<th>完封</th>
 	</tr>
-	<c:forEach var="i" begin="5" end="8">
+	<c:forEach var="i" begin="9" end="16">
 	<tr>
 		<td>
 			<html:text property="win[${i-1}]" size="2" maxlength="2" errorStyleClass="err"/>勝
