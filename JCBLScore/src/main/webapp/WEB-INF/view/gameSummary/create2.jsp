@@ -381,12 +381,15 @@
 	<c:forEach var="i" begin="11" end="20">
 	<tr>
 		<td>
-			<html:select property="playerId">
+			<html:text property="playerName" value="" styleClass="player" errorStyleClass="err" />
+			<html:hidden property="playerId" value=""/>
+			<%--<html:select property="playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
 				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
 			</html:select>
+			--%>
 		</td>
 		<td>
 			<html:select property="position">
@@ -459,12 +462,16 @@
 			<html:text property="save" value="0" size="2" maxlength="2"/>S
 		</td>
 		<td>
+			<html:text property="playerName" value="" styleClass="p_player" errorStyleClass="err" />
+			<html:hidden property="p_playerId" value=""/>
+			<%--
 			<html:select property="p_playerId">
 			<html:option value=""></html:option>
 			<c:forEach var="playerList" items="${playerList}">
 				<html:option value="${playerList.id}">${playerList.name}(${playerList.shortName})</html:option>
 			</c:forEach>
 			</html:select>
+			--%>
 		</td>
 		<td>
 			<html:text property="inning1[${i-1}]" value="0" size="1" maxlength="1" errorStyleClass="err" />
