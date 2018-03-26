@@ -456,6 +456,20 @@ private static Logger logger = Logger.getLogger("rootLogger");
 //				tmpMap=new HashMap<Integer,Integer>();
 //			}
 //		}
+		int recordCountTop=0;
+		for(int i=0;i<resultList.size();i++){
+			resultList.get(i).rank=i+1;
+			if(i==0){
+				recordCountTop=resultList.get(0).win-resultList.get(0).lose;
+			}
+			if(i>0){
+				//貯金
+				int recordCount = resultList.get(i).win-resultList.get(i).lose;
+				//ゲーム差
+				resultList.get(i).gameBehind= ((double)recordCountTop-(double)recordCount)/2;
+
+			}
+		}
 		for(int i=0;i<resultList.size();i++){
 			resultList.get(i).opponentMap=new HashMap<Integer,String>();
 			for(int j=0;j<opponentList.size();j++){

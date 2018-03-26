@@ -18,4 +18,5 @@ public class GameResultDto {
 	public Double avg;
 	public Double era;
 	public HashMap<Integer, String> opponentMap;
+	public Double gameBehind;
 }

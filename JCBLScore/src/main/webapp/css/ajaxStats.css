@@ -11,8 +11,15 @@ td.important{
 	background-color:#FC9898;
 }
 th{
+	text-align:center;
 	white-space: nowrap;
 }
 td span.important{
 	background-color:#FC9898;
+}
+table.bat{
+	width: 420px;
+}
+table.pitch{
+	width: 480px;
 }

@@ -519,6 +519,7 @@
 							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
 						},
 						{ data: "points"  },
+						{ data: "gameBehind"  },
 						{ data: "avg",
 							render:function(data,type,row){
 								if(data!=null){
@@ -565,7 +566,7 @@
 								if(row.obpName==null){
 									return null;
 								}
-								return row.obpName+'/'+value.toFixed(3);
+								return row.obpName+'<br>'+value.toFixed(3);
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.obpRank==1 ) {
@@ -579,7 +580,7 @@
 								if(row.twobaseName==null){
 									return null;
 								}
-								return row.twobaseName+'/'+row.twobase+'本';
+								return row.twobaseName+'<br>'+row.twobase+'本';
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.twobaseRank==1 ) {
@@ -594,7 +595,7 @@
 								if(row.slgName==null){
 									return null;
 								}
-								return row.slgName+'/'+value.toFixed(3);
+								return row.slgName+'<br>'+value.toFixed(3);
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.slgRank==1 ) {
@@ -608,7 +609,7 @@
 								if(row.fourballName==null){
 									return null;
 								}
-								return row.fourballName+'/'+row.fourball+'個';
+								return row.fourballName+'<br>'+row.fourball+'個';
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.fourballRank==1 ) {
@@ -623,7 +624,7 @@
 								if(row.opsName==null){
 									return null;
 								}
-								return row.opsName+'/'+value.toFixed(3);
+								return row.opsName+'<br>'+value.toFixed(3);
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.opsRank==1 ) {
@@ -638,7 +639,7 @@
 								if(row.strikeoutName==null){
 									return null;
 								}
-								return row.strikeoutName+'/'+value.toFixed(2);
+								return row.strikeoutName+'<br>'+value.toFixed(2);
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.strikeoutRank==1 ) {
@@ -653,7 +654,7 @@
 								if(row.avgHRName==null){
 									return null;
 								}
-								return row.avgHRName+'/'+value.toFixed(2);
+								return row.avgHRName+'<br>'+value.toFixed(2);
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.avgHRRank==1 ) {
@@ -668,7 +669,7 @@
 								if(row.avgRbiName==null){
 									return null;
 								}
-								return row.avgRbiName+'/'+value.toFixed(3);
+								return row.avgRbiName+'<br>'+value.toFixed(3);
 							},
 							"createdCell": function (td, cellData, rowData, row, col) {
 								if ( rowData.avgRbiRank==1 ) {
@@ -698,6 +699,7 @@
 				$.unblockUI();
 			})
 		});
+
 	</script>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
@@ -715,7 +717,7 @@
 
 <table border=1>
 <tr>
-	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE" >${league.title} チーム成績</font></td>
+	<td bgcolor="#006400" class="name"><font size="+2" COLOR="#EEEEEE" >${league.title} チーム成績</font></td>
 </tr>
 <tr><td>
 <table border=1 id="leagueAll">
@@ -726,11 +728,12 @@
 		<th>試合</th>
 		<th>勝利</th>
 		<th>敗北</th>
-		<th>引き分け</th>
+		<th>引分</th>
 		<th>勝率</th>
 		<th>勝ち点</th>
-		<th>打率</th>
-		<th>防御率</th>
+		<th>ゲーム差</th>
+		<th>T打率</th>
+		<th>T防御率</th>
 		<c:forEach var="resultList" items="${resultList}">
 		<th>対${resultList.shortName}</th>
 		</c:forEach>
@@ -740,51 +743,49 @@
 </td></tr>
 </table>
 <hr>
-<table>
+<table id="result">
 <tr>
-	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:<span id="regBats"></span>打席)</font></td>
+	<td bgcolor="#006400" class="name title"><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:<span id="regBats"></span>打席)</font></td>
 </tr>
 <tr>
 	<td>
-	<table id="averageTop10" border=1>
+	<table id="averageTop10" border=1 class="bat">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
-		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
 		<th>打率</th>
 	</tr>
 	</thead>
 	</table>
 	</td>
 </tr>
-</table>
-<table>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">HR TOP10</font></td>
 </tr>
 <tr>
 	<td>
-	<table id="HRTop10" border=1>
+	<table id="HRTop10" border=1 class="bat">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
-		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
 		<th>打率</th>
 	</tr>
 	</thead>
@@ -798,19 +799,19 @@
 </tr>
 <tr>
 	<td>
-	<table id="RbiTop10" border=1>
+	<table id="RbiTop10" border=1 class="bat">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
-		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
 		<th>打率</th>
 	</tr>
 	</thead>
@@ -824,19 +825,19 @@
 </tr>
 <tr>
 	<td>
-	<table id="hitTop10" border=1>
+	<table id="hitTop10" border=1 class="bat">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
-		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
 		<th>打率</th>
 	</tr>
 	</thead>
@@ -850,21 +851,21 @@
 </tr>
 <tr>
 	<td>
-	<table id="eraTop10" border=1>
+	<table id="eraTop10" border=1 class="pitch">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登板数</th>
-		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
 		<th>S</th>
 		<th>防御率</th>
 	</tr>
@@ -879,21 +880,21 @@
 </tr>
 <tr>
 	<td>
-	<table id="winTop10" border=1>
+	<table id="winTop10" border=1 class="pitch">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登板数</th>
-		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
 		<th>S</th>
 		<th>防御率</th>
 	</tr>
@@ -908,21 +909,21 @@
 </tr>
 <tr>
 	<td>
-	<table id="saveTop10" border=1>
+	<table id="saveTop10" border=1 class="pitch">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登板数</th>
-		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
 		<th>S</th>
 		<th>防御率</th>
 	</tr>
@@ -937,21 +938,21 @@
 </tr>
 <tr>
 	<td>
-	<table id="strikeOutTop10" border=1>
+	<table id="strikeOutTop10" border=1 class="pitch">
 	<thead>
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登板数</th>
-		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
 		<th>S</th>
 		<th>防御率</th>
 	</tr>
@@ -969,9 +970,9 @@
 			<table border=1 id="nonTitle">
 				<thead>
 				<tr>
-					<th bgcolor="#006400"><font color="#EEEEEE">出塁率(OBP)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">出塁率<br>(OBP)</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">最多二塁打</font></th>
-					<th bgcolor="#006400"><font color="#EEEEEE">長打率(SLG)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">長打率<br>(SLG)</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">最多四球</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">OPS</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></th>
