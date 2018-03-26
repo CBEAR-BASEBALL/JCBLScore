@@ -519,7 +519,9 @@
 							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
 						},
 						{ data: "points"  },
-						{ data: "gameBehind"  },
+						{ data: "gameBehind",
+							render: $.fn.dataTable.render.number( ',', '.', 1, '' )
+						},
 						{ data: "avg",
 							render:function(data,type,row){
 								if(data!=null){
@@ -701,6 +703,15 @@
 		});
 
 	</script>
+	<script>
+$(function() {
+  $('#panel > dd').hide();
+  $('#panel > dt')
+    .click(function(e){
+      $('+dd', this).slideToggle(200);
+    })
+});
+</script>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
@@ -743,7 +754,199 @@
 </td></tr>
 </table>
 <hr>
-<table id="result">
+<dl id="panel">
+<dt>打率TOP10(規定打席:<span id="regBats"></span>打席)▼</dt>
+<dd>
+	<table id="averageTop10" border=1 class="bat" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>HR TOP10▼</dt>
+<dd>
+	<table id="HRTop10" border=1 class="bat" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>打点TOP10▼</dt>
+<dd>
+	<table id="RbiTop10" border=1 class="bat" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>安打数TOP10▼</dt>
+<dd>
+	<table id="hitTop10" border=1 class="bat" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
+		<th>打率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>防御率TOP10(規定投球回:<span id="regPitch"></span>回)▼</dt>
+<dd>
+	<table id="eraTop10" border=1 class="pitch" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>勝利数TOP10▼</dt>
+<dd>
+	<table id="winTop10" border=1 class="pitch" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>セーブ数TOP10▼</dt>
+<dd>
+	<table id="saveTop10" border=1 class="pitch" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>奪三振TOP10▼</dt>
+<dd>
+	<table id="strikeOutTop10" border=1 class="pitch" style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登<br>板<br>数</th>
+		<th>投<br>球<br>回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
+		<th>S</th>
+		<th>防御率</th>
+	</tr>
+	</thead>
+	</table>
+</dd>
+<dt>ノンタイトル部門▼</dt>
+<dd>
+	<table border=1 id="nonTitle" style="width:100%">
+				<thead>
+				<tr>
+					<th bgcolor="#006400"><font color="#EEEEEE">出塁率<br>(OBP)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">最多二塁打</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">長打率<br>(SLG)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">最多四球</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">OPS</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">本塁打率<br>(AB/HR)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">打点率<br>(RBI/AB)</font></th>
+				</tr>
+				</thead>
+			</table>
+</dd>
+</dl>
+<%--
+<table>
 <tr>
 	<td bgcolor="#006400" class="name title"><font size="+2" COLOR="#EEEEEE">打率TOP10(規定打席:<span id="regBats"></span>打席)</font></td>
 </tr>
@@ -768,6 +971,9 @@
 	</table>
 	</td>
 </tr>
+</table>
+
+<table>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">HR TOP10</font></td>
 </tr>
@@ -793,6 +999,7 @@
 	</td>
 </tr>
 </table>
+
 <table>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">打点TOP10</font></td>
@@ -819,6 +1026,7 @@
 	</td>
 </tr>
 </table>
+
 <table>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">安打数TOP10</font></td>
@@ -845,6 +1053,7 @@
 	</td>
 </tr>
 </table>
+
 <table>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">防御率TOP10(規定投球回:<span id="regPitch"></span>回)</font></td>
@@ -874,6 +1083,7 @@
 	</td>
 </tr>
 </table>
+
 <table>
 <tr>
 	<td bgcolor="#006400" class=name><font size="+2" COLOR="#EEEEEE">勝利数TOP10</font></td>
@@ -961,6 +1171,7 @@
 	</td>
 </tr>
 </table>
+
 <table>
 	<tr>
 		<td bgcolor="#006400" class=name><font size="+2" color="#EEEEEE">ノンタイトル部門</font></td>
@@ -984,6 +1195,7 @@
 		</td>
 	</tr>
 </table>
+--%>
 <hr>
 <h2>打者全成績</h2>
 <table id="battingAll" border=1>

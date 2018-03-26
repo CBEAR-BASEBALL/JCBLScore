@@ -23,3 +23,24 @@ table.bat{
 table.pitch{
 	width: 480px;
 }
+panel {
+  width: 500px;
+}
+
+#panel > dt {
+  border-bottom: solid 1px white;
+  background-color: #006400;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  /*font-weight: bold;*/
+  font-size:20px;
+  width:480px;
+}
+
+#panel > dd {
+  border: solid 1px Silver;
+  margin: 0px;
+  padding: 10px;
+  width:480px;
+}
