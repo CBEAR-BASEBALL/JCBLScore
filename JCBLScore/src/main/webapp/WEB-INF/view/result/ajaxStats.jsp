@@ -705,10 +705,15 @@
 	</script>
 	<script>
 $(function() {
-  $('#panel > dd').hide();
-  $('#panel > dt')
+	$('#panel > dd').hide();
+	$('#panel > dt')
     .click(function(e){
-      $('+dd', this).slideToggle(200);
+    	$('+dd', this).slideToggle(200);
+    })
+	$('#panel2 > dd').hide();
+	$('#panel2 > dt')
+    .click(function(e){
+		$('+dd', this).slideToggle(200);
     })
 });
 </script>
@@ -927,6 +932,8 @@ $(function() {
 	</thead>
 	</table>
 </dd>
+</dl>
+<dl id=panel2>
 <dt>ノンタイトル部門▼</dt>
 <dd>
 	<table border=1 id="nonTitle" style="width:100%">
@@ -937,12 +944,64 @@ $(function() {
 					<th bgcolor="#006400"><font color="#EEEEEE">長打率<br>(SLG)</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">最多四球</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">OPS</font></th>
-					<th bgcolor="#006400"><font color="#EEEEEE">三振率(AB/K)</font></th>
+					<th bgcolor="#006400"><font color="#EEEEEE">三振率<br>(AB/K)</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">本塁打率<br>(AB/HR)</font></th>
 					<th bgcolor="#006400"><font color="#EEEEEE">打点率<br>(RBI/AB)</font></th>
 				</tr>
 				</thead>
 			</table>
+</dd>
+<dt>打者全成績▼</dt>
+<dd>
+	<table id="battingAll" border=1 style="width:100%">
+	<thead>
+	<tr>
+		<th>選手名</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
+		<th>H<br>R</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
+		<th>打率</th>
+		<th>長打率</th>
+		<th>OPS</th>
+		<th>出塁率</th>
+		<th>三振率</th>
+		<th>RC27</th>
+		<th>本塁打率</th>
+		<th>打点率</th>
+	</tr>
+	</thead>
+</table>
+</dd>
+<dt>投手全成績▼</dt>
+<dd>
+	<table id="pitchingAll" border=1 style="width:100%">
+	<thead>
+	<tr>
+		<th></th>
+		<th>選手名</th>
+		<th>登<br>板<br>数</th>
+		<th>投球回</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
+		<th>S</th>
+		<th>防御率</th>
+		<th>WHIP</th>
+		<th>奪三振率</th>
+		<th>援護率</th>
+	</tr>
+	</thead>
+	</table>
 </dd>
 </dl>
 <%--
@@ -1195,21 +1254,21 @@ $(function() {
 		</td>
 	</tr>
 </table>
---%>
+
 <hr>
 <h2>打者全成績</h2>
 <table id="battingAll" border=1>
 	<thead>
 	<tr>
 		<th>選手名</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
+		<th>打<br>席<br>数</th>
+		<th>打<br>数</th>
+		<th>安<br>打</th>
 		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
+		<th>打<br>点</th>
+		<th>四<br>球</th>
+		<th>三<br>振</th>
+		<th>二<br>塁<br>打</th>
 		<th>打率</th>
 		<th>長打率</th>
 		<th>OPS</th>
@@ -1227,16 +1286,16 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登板数</th>
+		<th>登<br>板<br>数</th>
 		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
+		<th>被<br>安<br>打</th>
+		<th>奪<br>三<br>振</th>
+		<th>与<br>四<br>球</th>
+		<th>失<br>点</th>
+		<th>完<br>投</th>
+		<th>完<br>封</th>
+		<th>勝<br>ち</th>
+		<th>負<br>け</th>
 		<th>S</th>
 		<th>防御率</th>
 		<th>WHIP</th>
@@ -1246,7 +1305,8 @@ $(function() {
 	</thead>
 	</table>
 <hr>
-<br><a href="${f:url('/statistics/') }">統計</a>
+--%>
+<a href="${f:url('/statistics/') }">統計</a>
 <br><a href="${f:url('/result/overAll/') }">全期間通算成績</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_stats.html">スタッツTOPへ</a>
 <br><a href="http://jcbldata.fc2web.com/cbl_index.html" target="_top">HOME</a>
