@@ -715,6 +715,10 @@ $(function() {
     .click(function(e){
 		$('+dd', this).slideToggle(200);
     })
+    $('#allOpen').click(function(){
+    	$('#panel > dd').show();
+    	$('#panel2 > dd').show();
+    })
 });
 </script>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -759,6 +763,7 @@ $(function() {
 </td></tr>
 </table>
 <hr>
+<button id="allOpen" class="btn btn-primary">タブを全て開く</button>
 <dl id="panel">
 <dt>打率TOP10(規定打席:<span id="regBats"></span>打席)▼</dt>
 <dd>
