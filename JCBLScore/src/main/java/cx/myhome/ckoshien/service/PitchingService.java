@@ -123,4 +123,10 @@ public class PitchingService extends AbstractService<Pitching> {
 	public List<PitchingResultDto> findOverAll() {
 		return jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.pitchingOverAll.sql").getResultList();
 	}
+
+	public List<PitchingResultDto> continuePitching(int lastYear) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("lastYear", lastYear);
+		return jdbcManager.selectBySqlFile(PitchingResultDto.class, "cx.myhome.ckoshien.sql.continuePitching.sql",param).getResultList();
+	}
 }

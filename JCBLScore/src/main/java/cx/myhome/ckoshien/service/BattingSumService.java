@@ -148,4 +148,10 @@ public class BattingSumService extends AbstractService<BattingSum> {
 	public List<BattingResultDto> findOverAll(){
 		return jdbcManager.selectBySqlFile(BattingResultDto.class, "cx.myhome.ckoshien.sql.battingOverAll.sql").getResultList();
 	}
+
+	public List<BattingResultDto> continueBatting(int lastYear){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("lastYear", lastYear);
+		return jdbcManager.selectBySqlFile(BattingResultDto.class, "cx.myhome.ckoshien.sql.continueBatting.sql",param).getResultList();
+	}
 }

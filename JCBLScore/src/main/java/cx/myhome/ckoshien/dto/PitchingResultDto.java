@@ -23,4 +23,5 @@ public class PitchingResultDto {
 	public Integer win;
 	public Integer lose;
 	public Integer save;
+	public Integer year;
 }

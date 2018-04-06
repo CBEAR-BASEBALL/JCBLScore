@@ -425,37 +425,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			}
 			nonTitleList.add(ntd);
 		}
-//		List<GameResultDto> opponentList2=new ArrayList<GameResultDto>();
-//		HashMap<HashMap<Integer,Integer>,GameResultDto> map=new HashMap<HashMap<Integer,Integer>,GameResultDto>();
-//		HashMap<Integer,Integer> tmpMap= new HashMap<Integer,Integer>();
-//		for(int i=0;i<opponentList.size();i++){
-//			for(int j=0;j<resultList.size();j++){
-//				if(resultList.get(j).teamId.equals(opponentList.get(i).teamId)){
-//					//tmp_opponentList.add(opponentList.get(i));
-//					tmpMap.put(opponentList.get(i).teamId,opponentList.get(i).opponent);
-//					map.put(tmpMap, opponentList.get(i));
-//					tmpMap=new HashMap<Integer,Integer>();
-//				}
-//			}
-//		}
-//
-//		for(int i=0;i<resultList.size();i++){
-//			for(int j=0;j<resultList.size();j++){
-//				tmpMap.put(resultList.get(i).teamId, resultList.get(j).teamId);
-//				if(map.get(tmpMap)==null){
-//					GameResultDto blankData = new GameResultDto();
-//					blankData.opponent=resultList.get(j).teamId;
-//					blankData.teamId=resultList.get(i).teamId;
-//					blankData.win=0;
-//					blankData.lose=0;
-//					blankData.draw=0;
-//					opponentList2.add(blankData);
-//				}else{
-//					opponentList2.add(map.get(tmpMap));
-//				}
-//				tmpMap=new HashMap<Integer,Integer>();
-//			}
-//		}
+
 		int recordCountTop=0;
 		for(int i=0;i<resultList.size();i++){
 			resultList.get(i).rank=i+1;
@@ -555,15 +525,374 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		logger.info("lookup:"+(t1-t0));
 		battingResultList=battingSumService.findOverAll();
 		pitchingResultList=pitchingService.findOverAll();
-		ResultApiDto res=new ResultApiDto();
-		res.battingResultList=battingResultList;
-		res.pitchingResultList=pitchingResultList;
-		String json=JSON.encode(res);
+
+		//打率TOP10
+		//battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
+		ResultLogic resultLogic=new ResultLogic();
+		regAtBats=100;
+		regAtPitch=36;
+		averageTop10=new ArrayList<BattingResultDto>(battingResultList);
+		for(int i=0;i<averageTop10.size();i++){
+			for(int j=0;j<averageTop10.size();j++){
+				if(averageTop10.get(i).average>averageTop10.get(j).average){
+					BattingResultDto brd=averageTop10.get(i);
+					averageTop10.set(i, averageTop10.get(j));
+					averageTop10.set(j,brd);
+				}
+			}
+		}
+		averageTop10=resultLogic.returnAverageTop10(averageTop10,regAtBats);
+		//HRTOP10
+		//homerunTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"homerun desc,average desc");
+				homerunTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<homerunTop10.size();i++){
+					for(int j=0;j<homerunTop10.size();j++){
+						if(homerunTop10.get(i).homerun>homerunTop10.get(j).homerun){
+							BattingResultDto brd=homerunTop10.get(i);
+							homerunTop10.set(i, homerunTop10.get(j));
+							homerunTop10.set(j,brd);
+						}
+					}
+				}
+				homerunTop10=resultLogic.returnHomerunTop10(homerunTop10);
+				//打点TOP10
+				//rbiTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"rbi desc,average desc");
+				rbiTop10=new ArrayList<BattingResultDto>(battingResultList);;
+				for(int i=0;i<rbiTop10.size();i++){
+					for(int j=0;j<rbiTop10.size();j++){
+						if(rbiTop10.get(i).rbi>rbiTop10.get(j).rbi){
+							BattingResultDto brd=rbiTop10.get(i);
+							rbiTop10.set(i, rbiTop10.get(j));
+							rbiTop10.set(j,brd);
+						}
+					}
+				}
+				rbiTop10=resultLogic.returnRbiTop10(rbiTop10);
+				//安打数TOP10
+				//hitTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"hit desc,average desc");
+				hitTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<hitTop10.size();i++){
+					for(int j=0;j<hitTop10.size();j++){
+						if(hitTop10.get(i).hit>hitTop10.get(j).hit){
+							BattingResultDto brd=hitTop10.get(i);
+							hitTop10.set(i, hitTop10.get(j));
+							hitTop10.set(j,brd);
+						}
+					}
+				}
+				hitTop10=resultLogic.returnHitTop10(hitTop10);
+				//防御率TOP10
+				//pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
+				eraTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
+				for(int i=0;i<eraTop10.size();i++){
+					for(int j=0;j<eraTop10.size();j++){
+						if(eraTop10.get(i).era!=null && eraTop10.get(j).era!=null){
+							if(eraTop10.get(i).era<eraTop10.get(j).era){
+								PitchingResultDto prd=eraTop10.get(i);
+								eraTop10.set(i, eraTop10.get(j));
+								eraTop10.set(j,prd);
+							}
+						}
+					}
+				}
+				eraTop10=resultLogic.returnEraTop10(eraTop10,regAtPitch);
+				//勝利数TOP10
+				//winTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"win desc,era asc");
+				winTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
+				for(int i=0;i<winTop10.size();i++){
+					for(int j=0;j<winTop10.size();j++){
+						if(winTop10.get(i).win>winTop10.get(j).win){
+							PitchingResultDto prd=winTop10.get(i);
+							winTop10.set(i, winTop10.get(j));
+							winTop10.set(j,prd);
+						}
+					}
+				}
+				winTop10=resultLogic.returnWinTop10(winTop10);
+				//セーブTOP10
+				//saveTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"save desc,era asc");
+				saveTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
+				for(int i=0;i<saveTop10.size();i++){
+					for(int j=0;j<saveTop10.size();j++){
+						if(saveTop10.get(i).save>saveTop10.get(j).save){
+							PitchingResultDto prd=saveTop10.get(i);
+							saveTop10.set(i, saveTop10.get(j));
+							saveTop10.set(j,prd);
+						}
+					}
+				}
+				saveTop10=resultLogic.returnSaveTop10(saveTop10);
+				//奪三振TOP10
+				//strikeOutTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"strike_out desc");
+				strikeOutTop10=new ArrayList<PitchingResultDto>(pitchingResultList);
+				for(int i=0;i<strikeOutTop10.size();i++){
+					for(int j=0;j<strikeOutTop10.size();j++){
+						if(strikeOutTop10.get(i).strikeOut>strikeOutTop10.get(j).strikeOut){
+							PitchingResultDto prd=strikeOutTop10.get(i);
+							strikeOutTop10.set(i, strikeOutTop10.get(j));
+							strikeOutTop10.set(j,prd);
+						}
+					}
+				}
+				strikeOutTop10=resultLogic.returnStrikeOutTop10(strikeOutTop10);
+				//出塁率TOP10
+				//obpTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"obp desc");
+				obpTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<obpTop10.size();i++){
+					for(int j=0;j<obpTop10.size();j++){
+						if(obpTop10.get(i).obp>obpTop10.get(j).obp){
+							BattingResultDto brd=obpTop10.get(i);
+							obpTop10.set(i, obpTop10.get(j));
+							obpTop10.set(j,brd);
+						}
+					}
+				}
+				obpTop10=resultLogic.returnObpTop10(obpTop10,regAtBats);
+				//二塁打TOP10
+				//twobaseTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"twobase desc");
+				twobaseTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<twobaseTop10.size();i++){
+					for(int j=0;j<twobaseTop10.size();j++){
+						if(twobaseTop10.get(i).twobase>twobaseTop10.get(j).twobase){
+							BattingResultDto brd=twobaseTop10.get(i);
+							twobaseTop10.set(i, twobaseTop10.get(j));
+							twobaseTop10.set(j,brd);
+						}
+					}
+				}
+				twobaseTop10=resultLogic.returnTwobaseTop10(twobaseTop10);
+				//長打率TOP10
+				//slgTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"slg desc");
+				slgTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<slgTop10.size();i++){
+					for(int j=0;j<slgTop10.size();j++){
+						if(slgTop10.get(i).slg>slgTop10.get(j).slg){
+							BattingResultDto brd=slgTop10.get(i);
+							slgTop10.set(i, slgTop10.get(j));
+							slgTop10.set(j,brd);
+						}
+					}
+				}
+				slgTop10=resultLogic.returnSlgTop10(slgTop10,regAtBats);
+				//最多四球TOP10
+				//fourBallTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"four_ball desc");
+				fourBallTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<fourBallTop10.size();i++){
+					for(int j=0;j<fourBallTop10.size();j++){
+						if(fourBallTop10.get(i).fourBall>fourBallTop10.get(j).fourBall){
+							BattingResultDto brd=fourBallTop10.get(i);
+							fourBallTop10.set(i, fourBallTop10.get(j));
+							fourBallTop10.set(j,brd);
+						}
+					}
+				}
+				fourBallTop10=resultLogic.returnFourBallTop10(fourBallTop10);
+				//OPS TOP10
+				//opsTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"ops desc");
+				opsTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<opsTop10.size();i++){
+					for(int j=0;j<opsTop10.size();j++){
+						if(opsTop10.get(i).ops>opsTop10.get(j).ops){
+							BattingResultDto brd=opsTop10.get(i);
+							opsTop10.set(i, opsTop10.get(j));
+							opsTop10.set(j,brd);
+						}
+					}
+				}
+				opsTop10=resultLogic.returnOpsTop10(opsTop10,regAtBats);
+				//三振率TOP10
+				//nsoTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"not_strike_out desc");
+				nsoTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<nsoTop10.size();i++){
+					for(int j=0;j<nsoTop10.size();j++){
+						if(nsoTop10.get(i).notStrikeOut>nsoTop10.get(j).notStrikeOut){
+							BattingResultDto brd=nsoTop10.get(i);
+							nsoTop10.set(i, nsoTop10.get(j));
+							nsoTop10.set(j,brd);
+						}
+					}
+				}
+				nsoTop10=resultLogic.returnNsoTop10(nsoTop10,regAtBats);
+				//本塁打率TOP10
+				//avgHRTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"avg_homerun asc");
+				avgHRTop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<avgHRTop10.size();i++){
+					for(int j=0;j<avgHRTop10.size();j++){
+						if(avgHRTop10.get(i).avgHomerun<avgHRTop10.get(j).avgHomerun){
+							BattingResultDto brd=avgHRTop10.get(i);
+							avgHRTop10.set(i, avgHRTop10.get(j));
+							avgHRTop10.set(j,brd);
+						}
+					}
+				}
+				avgHRTop10=resultLogic.returnAvgHRTop10(avgHRTop10,regAtBats);
+				//打点率
+				//avgRBITop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"avg_rbi desc");
+				avgRBITop10=new ArrayList<BattingResultDto>(battingResultList);
+				for(int i=0;i<avgRBITop10.size();i++){
+					for(int j=0;j<avgRBITop10.size();j++){
+						if(avgRBITop10.get(i).avgRbi>avgRBITop10.get(j).avgRbi){
+							BattingResultDto brd=avgRBITop10.get(i);
+							avgRBITop10.set(i, avgRBITop10.get(j));
+							avgRBITop10.set(j,brd);
+						}
+					}
+				}
+				avgRBITop10=resultLogic.returnAvgRBITop10(avgRBITop10,regAtBats);
+				//ノンタイトルの行数を決定
+				if(twobaseTop10.size()>=fourBallTop10.size()){
+					listSize=twobaseTop10.size();
+				}else{
+					listSize=fourBallTop10.size();
+				}
+				if(listSize<=10){
+					listSize=10;
+				}
+				long t3=System.currentTimeMillis();
+				//API用にデータ加工
+				List<NonTitleDto> nonTitleList=new ArrayList<NonTitleDto>();
+				for(int i=0;i<listSize;i++){
+					NonTitleDto ntd= new NonTitleDto();
+					if(i<avgHRTop10.size()){
+						ntd.avgHR=avgHRTop10.get(i).avgHomerun;
+						ntd.avgHRName=avgHRTop10.get(i).name;
+						ntd.avgHRRank=avgHRTop10.get(i).rank;
+					}
+					if(i<avgRBITop10.size()){
+						ntd.avgRbi=avgRBITop10.get(i).avgRbi;
+						ntd.avgRbiName=avgRBITop10.get(i).name;
+						ntd.avgRbiRank=avgRBITop10.get(i).rank;
+					}
+					if(i<fourBallTop10.size()){
+						ntd.fourball=fourBallTop10.get(i).fourBall;
+						ntd.fourballName=fourBallTop10.get(i).name;
+						ntd.fourballRank=fourBallTop10.get(i).rank;
+					}
+					if(i<obpTop10.size()){
+						ntd.obp=obpTop10.get(i).obp;
+						ntd.obpName=obpTop10.get(i).name;
+						ntd.obpRank=obpTop10.get(i).rank;
+					}
+					if(i<opsTop10.size()){
+						ntd.ops=opsTop10.get(i).ops;
+						ntd.opsName=opsTop10.get(i).name;
+						ntd.opsRank=opsTop10.get(i).rank;
+					}
+					if(i<slgTop10.size()){
+						ntd.slg=slgTop10.get(i).slg;
+						ntd.slgName=slgTop10.get(i).name;
+						ntd.slgRank=slgTop10.get(i).rank;
+					}
+					if(i<nsoTop10.size()){
+						ntd.strikeout=nsoTop10.get(i).notStrikeOut;
+						ntd.strikeoutName=nsoTop10.get(i).name;
+						ntd.strikeoutRank=nsoTop10.get(i).rank;
+					}
+					if(i<twobaseTop10.size()){
+						ntd.twobase=twobaseTop10.get(i).twobase;
+						ntd.twobaseName=twobaseTop10.get(i).name;
+						ntd.twobaseRank=twobaseTop10.get(i).rank;
+					}
+					nonTitleList.add(ntd);
+				}
+
+				int recordCountTop=0;
+//				for(int i=0;i<resultList.size();i++){
+//					resultList.get(i).rank=i+1;
+//					if(i==0){
+//						recordCountTop=resultList.get(0).win-resultList.get(0).lose;
+//					}
+//					if(i>0){
+//						//貯金
+//						int recordCount = resultList.get(i).win-resultList.get(i).lose;
+//						//ゲーム差
+//						resultList.get(i).gameBehind= ((double)recordCountTop-(double)recordCount)/2;
+//
+//					}
+//				}
+//				for(int i=0;i<resultList.size();i++){
+//					resultList.get(i).opponentMap=new HashMap<Integer,String>();
+//					for(int j=0;j<opponentList.size();j++){
+//						if(resultList.get(i).teamId==opponentList.get(j).teamId){
+//							//HashMap<Integer,String> oMap=new HashMap<Integer,String>();
+//							//oMap.put(resultList.get(i).teamId,opponentList.get(j).win+"-"+opponentList.get(j).lose+"("+opponentList.get(j).draw+")");
+//							resultList.get(i).opponentMap.put(opponentList.get(j).opponent,opponentList.get(j).win+"-"+opponentList.get(j).lose+"("+opponentList.get(j).draw+")");
+//						}
+//					}
+//				}
+
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		map.put("regAtBats", regAtBats);
+		map.put("regAtPitch", regAtPitch);
+		map.put("battingResultList", battingResultList);
+		map.put("pitchingResultList", pitchingResultList);
+		map.put("averageTop10", averageTop10);
+		map.put("homerunTop10", homerunTop10);
+		map.put("rbiTop10", rbiTop10);
+		map.put("hitTop10", hitTop10);
+		map.put("eraTop10", eraTop10);
+		map.put("winTop10", winTop10);
+		map.put("saveTop10", saveTop10);
+		map.put("strikeOutTop10", strikeOutTop10);
+		map.put("nonTitle", nonTitleList);
+//		ResultApiDto res=new ResultApiDto();
+//		res.battingResultList=battingResultList;
+//		res.pitchingResultList=pitchingResultList;
+		String json=JSON.encode(map);
 		ResponseUtil.write(json,"application/json");
+		map=null;
 		MemoryUtil.viewMemoryInfo();
 		long t2=System.currentTimeMillis();
 		logger.info("[API] "+ (t2-t1) +"ms");
 		//logger.info("[APIデータ加工] "+ (t2-t3) +"ms");
+		return null;
+	}
+
+	@Execute(validator = false)
+	public String continuation(){
+		long t0=System.currentTimeMillis();
+		//アクセス制限
+		try {
+    		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
+//    		System.out.println(ia.getHostName());
+    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+    				&& !request.getRemoteAddr().startsWith("192.168")
+    				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+    				&& !ia.getHostName().equals("127.0.0.1")
+    				&& !ia.getHostName().equals(request.getRemoteAddr())
+    			){
+    			logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
+//    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    			try {
+					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
+				} catch (IOException e) {
+					logger.error(e);
+				}
+        		return null;
+    		}
+			logger.info(ia.getHostName()+":"+request.getRemotePort());
+		} catch (Exception e1) {
+			logger.warn(e1);
+		}
+		long t1=System.currentTimeMillis();
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(new Date());
+		logger.info("lookup:"+(t1-t0));
+		battingResultList=battingSumService.continueBatting(cal.get(Calendar.YEAR)-1);
+		pitchingResultList=pitchingService.continuePitching(cal.get(Calendar.YEAR)-1);
+		//API出力処理
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("battingResultList", battingResultList);
+		map.put("pitchingResultList", pitchingResultList);
+
+		String json=JSON.encode(map);
+		ResponseUtil.write(json,"application/json");
+		map=null;
+		battingResultList=null;
+		MemoryUtil.viewMemoryInfo();
+		long t2=System.currentTimeMillis();
+		logger.info("[API] "+ (t2-t1) +"ms");
 		return null;
 	}
 }

@@ -27,6 +27,7 @@ import cx.myhome.ckoshien.service.GameService;
 import cx.myhome.ckoshien.service.LeagueService;
 import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.ResultService;
+import cx.myhome.ckoshien.util.AccessControlUtil;
 import cx.myhome.ckoshien.util.MemoryUtil;
 
 public class ResultAction {
@@ -275,6 +276,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			logger.warn(e1);
 		}
 		long t1=System.currentTimeMillis();
+		AccessControlUtil aUtil=new AccessControlUtil();
+		System.out.println(aUtil.isBlockedAddress(request));
 		try{
 			league=leagueService.findById(Integer.parseInt(resultForm.id));
 		}catch(NumberFormatException e){
@@ -347,8 +350,14 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		logger.info(t2-t1+"ms");
 		return "ajaxStats.jsp";
 	}
+
 	@Execute(validator = false)
 	public String overAll(){
-		return "overAll.jsp";
+		return "overAll2.jsp";
+	}
+
+	@Execute(validator = false)
+	public String continuation(){
+		return "continuation.jsp";
 	}
 }

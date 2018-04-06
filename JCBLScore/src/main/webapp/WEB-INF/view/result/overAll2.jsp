@@ -47,7 +47,7 @@
 	            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
 	        }
 	    	})
-			$.ajax('/JCBLScore/api/v1/result/season/${league.id}',
+			$.ajax('/JCBLScore/api/v1/result/overAll/',
 			{
 				type: 'get',
 				dataType: 'json'
@@ -231,7 +231,9 @@
 							}
 						},
 						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning" ,
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -392,8 +394,9 @@
 				$('#pitchingAll').DataTable({
 					data:data.pitchingResultList,
 					searching: false,
-					//ordering:false,
-					paging: false,
+					ordering:true,
+					paging: true,
+					displayLength:30,
 					columns: [
 						{ data: "rank" },
 						{
@@ -403,7 +406,9 @@
 							}
 						},
 						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -437,15 +442,16 @@
 					],
 					//order: [[ 10, "asc" ]],
 					lengthChange: false,
-					info: false,
+					info: true,
 					responsive: true,
 					processing: true,
 				})
 				$('#battingAll').DataTable({
 					data:data.battingResultList,
-					searching: false,
+					searching: true,
 					ordering:true,
-					paging: false,
+					paging: true,
+					displayLength:30,
 					columns: [
 						{
 							data: "name",
@@ -731,11 +737,7 @@ $(function() {
 <!-- <ons-page>
 <ons-scroller style="height: 200px; width:100%"> -->
 <div id="contents">
-<a href="${f:url('/result/old/')}${league.id}" target=_blank>・JSP版</a>
-<a href="${f:url('/v2/#/result/season/')}${league.id}" target=_blank>・AngularJS版</a>
-<b>・Ajax版</b>
-
-<table border=1>
+<%-- <table border=1>
 <tr>
 	<td bgcolor="#006400" class="name"><font size="+2" COLOR="#EEEEEE" >${league.title} チーム成績</font></td>
 </tr>
@@ -762,6 +764,7 @@ $(function() {
 </table>
 </td></tr>
 </table>
+--%>
 <hr>
 <button id="allOpen" class="btn btn-primary">タブを全て開く</button>
 <dl id="panel">
@@ -970,14 +973,14 @@ $(function() {
 		<th>四<br>球</th>
 		<th>三<br>振</th>
 		<th>二<br>塁<br>打</th>
-		<th>打率</th>
-		<th>長打率</th>
+		<th>打<br>率</th>
+		<th>長<br>打<br>率</th>
 		<th>OPS</th>
-		<th>出塁率</th>
-		<th>三振率</th>
+		<th>出<br>塁<br>率</th>
+		<th>三<br>振<br>率</th>
 		<th>RC27</th>
-		<th>本塁打率</th>
-		<th>打点率</th>
+		<th>本<br>塁<br>打<br>率</th>
+		<th>打<br>点<br>率</th>
 	</tr>
 	</thead>
 </table>
