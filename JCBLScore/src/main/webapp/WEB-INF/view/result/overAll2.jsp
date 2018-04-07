@@ -21,6 +21,7 @@
 	 -->
 	<!--datatables -->
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$(function(){
@@ -276,7 +277,9 @@
 							}
 						},
 						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -319,7 +322,9 @@
 							}
 						},
 						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -362,7 +367,9 @@
 							}
 						},
 						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -498,7 +505,7 @@
 							className:"name"
 						},
 					],
-		        	order: [[ 9, "desc" ]],
+		        	order: [[ 1, "desc" ]],
 					lengthChange: false,
 					info: false,
 					responsive: true,
@@ -765,8 +772,10 @@ $(function() {
 </td></tr>
 </table>
 --%>
+<h2>全期間通算成績</h2>
 <hr>
 <button id="allOpen" class="btn btn-primary">タブを全て開く</button>
+<br>
 <dl id="panel">
 <dt>打率TOP10(規定打席:<span id="regBats"></span>打席)▼</dt>
 <dd>

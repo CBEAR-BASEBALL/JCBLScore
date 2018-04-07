@@ -525,7 +525,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		logger.info("lookup:"+(t1-t0));
 		battingResultList=battingSumService.findOverAll();
 		pitchingResultList=pitchingService.findOverAll();
-
+		long t2=System.currentTimeMillis();
 		//打率TOP10
 		//battingResultList=battingSumService.findByPeriod(league.beginDate, league.endDate,"average desc");
 		ResultLogic resultLogic=new ResultLogic();
@@ -842,9 +842,10 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		ResponseUtil.write(json,"application/json");
 		map=null;
 		MemoryUtil.viewMemoryInfo();
-		long t2=System.currentTimeMillis();
-		logger.info("[API] "+ (t2-t1) +"ms");
-		//logger.info("[APIデータ加工] "+ (t2-t3) +"ms");
+		long t4=System.currentTimeMillis();
+		logger.info("[SQL] "+ (t2-t1) +"ms");
+		logger.info("[API] "+ (t3-t2) +"ms");
+		logger.info("[APIデータ加工] "+ (t4-t3) +"ms");
 		return null;
 	}
 

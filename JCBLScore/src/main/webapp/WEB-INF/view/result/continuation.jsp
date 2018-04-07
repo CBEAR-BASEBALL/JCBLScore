@@ -60,7 +60,7 @@
 				$('#pitchingAll').DataTable({
 					data:data.pitchingResultList,
 					searching: true,
-					ordering:false,
+					ordering:true,
 					//displayLength:30,
 					paging: false,
 					columns: [
@@ -69,11 +69,11 @@
 							data: "name",
 							render: function ( data, type, row ) {
 								if(row.year!=null){
-									return '<a href="../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'('+row.year+')'+'</a>';
+									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'('+row.year+')'+'</a>';
 								}else if(row.year==null && row.playerId==null){
 									return null;
 								}else {
-									return '<a href="../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'"><b>'+data+'(通算)'+'</b></a>';
+									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'"><b>'+data+'(通算)'+'</b></a>';
 								}
 							}
 						},
@@ -118,18 +118,18 @@
 					data:data.battingResultList,
 					searching: true,
 					//displayLength:30,
-					ordering:false,
+					ordering:true,
 					paging: false,
 					columns: [
 						{
 							data: "name",
 							render: function ( data, type, row ) {
 								if(row.year!=null){
-									return '<a href="../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'('+row.year+')'+'</a>';
+									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'('+row.year+')'+'</a>';
 								}else if(row.year==null && row.playerId==null){
 									return null;
 								}else {
-									return '<a href="../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../img/'+row.teamId+'.jpg" title="'+row.teamName+'"><b>'+data+'(通算)'+'</b></a>';
+									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'"><b>'+data+'(通算)'+'</b></a>';
 								}
 							}
 						},
@@ -165,14 +165,19 @@
 						{ data: "avgRbi",
 							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
 						},
+						{ data: "teamId"},
 					],
 					columnDefs: [
 						{
 							targets: [0],
 							className:"name"
 						},
+						{
+							targets: [17],
+							visible:false
+						},
 					],
-		        	//order: [[ 1, "desc" ]],
+		        	order: [[ 17, "asc" ]],
 					lengthChange: false,
 					//info: true,
 					responsive: true,
@@ -237,7 +242,7 @@
 	</tr>
 	</tfoot>
 </table>
-<h2>JCBL継続参加選手打撃通算成績</h2>
+<h2>JCBL継続参加選手投球通算成績</h2>
 <p>昨年度参加しており、かつ2年以上投球成績がある選手です。</p>
 <table id="pitchingAll" border=1>
 	<thead>
