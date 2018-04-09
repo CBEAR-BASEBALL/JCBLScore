@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.seasar.framework.container.annotation.tiger.Aspect;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.struts.annotation.Execute;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
@@ -160,7 +161,7 @@ public class TitleHolderAction {
 		RestClient client = new RestClient();
 		List<TitleHolder> titleHolderList=new ArrayList<TitleHolder>();
 		for(int i=minLeagueId;i<=maxLeagueId;i++){
-			String uri="http://127.0.0.1:8080/JCBLScore/api/v1/result/season/"+i;
+			String uri="http://"+ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP")+"/JCBLScore/api/v1/result/season/"+i;
 			Object entity=null;
 			HashMap<String,String> header=new HashMap<String,String>();
 			ResultApiDto json=client.sendRequest(uri, "GET", entity, ResultApiDto.class,header);

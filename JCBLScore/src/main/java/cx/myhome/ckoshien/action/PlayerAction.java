@@ -308,7 +308,7 @@ public class PlayerAction {
 			}else if(tmpList.get(i).eventType==EVENT_TYPE_WIN){
 				sbWin.append(tmpList.get(i).getYear());
 				sbWin.append(",");
-				titleHolderDto.setEraPlayer(new String(sbWin));
+				titleHolderDto.setWinPlayer(new String(sbWin));
 			}else if(tmpList.get(i).eventType==EVENT_TYPE_SAVE){
 				sbSave.append(tmpList.get(i).getYear());
 				sbSave.append(",");
