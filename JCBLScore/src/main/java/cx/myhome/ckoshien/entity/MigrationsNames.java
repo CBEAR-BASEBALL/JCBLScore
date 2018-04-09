@@ -1,16 +1,14 @@
 package cx.myhome.ckoshien.entity;
 
-import cx.myhome.ckoshien.entity.TScheduleNames._TScheduleNames;
-import java.sql.Date;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 
 /**
- * {@link MSchedule}のプロパティ名の集合です。
+ * {@link Migrations}のプロパティ名の集合です。
  * 
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2018/04/08 16:30:11")
-public class MScheduleNames {
+public class MigrationsNames {
 
     /**
      * idのプロパティ名を返します。
@@ -22,32 +20,32 @@ public class MScheduleNames {
     }
 
     /**
-     * dateのプロパティ名を返します。
+     * migrationのプロパティ名を返します。
      * 
-     * @return dateのプロパティ名
+     * @return migrationのプロパティ名
      */
-    public static PropertyName<Date> date() {
-        return new PropertyName<Date>("date");
+    public static PropertyName<String> migration() {
+        return new PropertyName<String>("migration");
     }
 
     /**
-     * TScheduleListのプロパティ名を返します。
+     * batchのプロパティ名を返します。
      * 
-     * @return TScheduleListのプロパティ名
+     * @return batchのプロパティ名
      */
-    public static _TScheduleNames TScheduleList() {
-        return new _TScheduleNames("TScheduleList");
+    public static PropertyName<Integer> batch() {
+        return new PropertyName<Integer>("batch");
     }
 
     /**
      * @author S2JDBC-Gen
      */
-    public static class _MScheduleNames extends PropertyName<MSchedule> {
+    public static class _MigrationsNames extends PropertyName<Migrations> {
 
         /**
          * インスタンスを構築します。
          */
-        public _MScheduleNames() {
+        public _MigrationsNames() {
         }
 
         /**
@@ -56,7 +54,7 @@ public class MScheduleNames {
          * @param name
          *            名前
          */
-        public _MScheduleNames(final String name) {
+        public _MigrationsNames(final String name) {
             super(name);
         }
 
@@ -68,7 +66,7 @@ public class MScheduleNames {
          * @param name
          *            名前
          */
-        public _MScheduleNames(final PropertyName<?> parent, final String name) {
+        public _MigrationsNames(final PropertyName<?> parent, final String name) {
             super(parent, name);
         }
 
@@ -82,21 +80,21 @@ public class MScheduleNames {
         }
 
         /**
-         * dateのプロパティ名を返します。
+         * migrationのプロパティ名を返します。
          *
-         * @return dateのプロパティ名
+         * @return migrationのプロパティ名
          */
-        public PropertyName<Date> date() {
-            return new PropertyName<Date>(this, "date");
+        public PropertyName<String> migration() {
+            return new PropertyName<String>(this, "migration");
         }
 
         /**
-         * TScheduleListのプロパティ名を返します。
-         * 
-         * @return TScheduleListのプロパティ名
+         * batchのプロパティ名を返します。
+         *
+         * @return batchのプロパティ名
          */
-        public _TScheduleNames TScheduleList() {
-            return new _TScheduleNames(this, "TScheduleList");
+        public PropertyName<Integer> batch() {
+            return new PropertyName<Integer>(this, "batch");
         }
     }
 }

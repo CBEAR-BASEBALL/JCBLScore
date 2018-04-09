@@ -5,12 +5,14 @@ import cx.myhome.ckoshien.entity.BattingSumNames._BattingSumNames;
 import cx.myhome.ckoshien.entity.GameNames._GameNames;
 import cx.myhome.ckoshien.entity.LeagueNames._LeagueNames;
 import cx.myhome.ckoshien.entity.MScheduleNames._MScheduleNames;
+import cx.myhome.ckoshien.entity.MigrationsNames._MigrationsNames;
 import cx.myhome.ckoshien.entity.PitchingNames._PitchingNames;
 import cx.myhome.ckoshien.entity.PlayerNames._PlayerNames;
 import cx.myhome.ckoshien.entity.ResultNames._ResultNames;
 import cx.myhome.ckoshien.entity.TScheduleNames._TScheduleNames;
 import cx.myhome.ckoshien.entity.TeamHistoryNames._TeamHistoryNames;
 import cx.myhome.ckoshien.entity.TeamNames._TeamNames;
+import cx.myhome.ckoshien.entity.TitleHolderNames._TitleHolderNames;
 import cx.myhome.ckoshien.entity.WeatherNames._WeatherNames;
 import javax.annotation.Generated;
 
@@ -18,7 +20,7 @@ import javax.annotation.Generated;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2016/12/03 21:18:45")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2018/04/08 16:30:11")
 public class Names {
 
     /**
@@ -55,6 +57,15 @@ public class Names {
      */
     public static _LeagueNames league() {
         return new _LeagueNames();
+    }
+
+    /**
+     * {@link Migrations}の名前クラスを返します。
+     * 
+     * @return Migrationsの名前クラス
+     */
+    public static _MigrationsNames migrations() {
+        return new _MigrationsNames();
     }
 
     /**
@@ -109,6 +120,15 @@ public class Names {
      */
     public static _TeamHistoryNames teamHistory() {
         return new _TeamHistoryNames();
+    }
+
+    /**
+     * {@link TitleHolder}の名前クラスを返します。
+     * 
+     * @return TitleHolderの名前クラス
+     */
+    public static _TitleHolderNames titleHolder() {
+        return new _TitleHolderNames();
     }
 
     /**

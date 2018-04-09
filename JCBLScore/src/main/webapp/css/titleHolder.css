@@ -1,0 +1,19 @@
+table{
+	width: 600px;
+	border-collapse:separate;
+}
+td{
+	text-align:right;
+	white-space: nowrap;
+	background-color: #006300;
+	color:white;
+}
+
+td.total{
+	background-color:#5DA31E;
+	color:white;
+}
+th{
+	background-color: #006300;
+	color:white;
+}

@@ -224,8 +224,15 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		}
 		hitTop10=resultLogic.returnHitTop10(hitTop10);
 		//防御率TOP10
+		eraTop10=new ArrayList<PitchingResultDto>();
 		pitchingResultList=pitchingService.findByPeriod(league.beginDate, league.endDate,"era asc");
-		eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
+		for(int i=0;i<pitchingResultList.size();i++){
+			if(pitchingResultList.get(i).inning>=regAtPitch){
+				eraTop10.add(pitchingResultList.get(i));
+			}
+		}
+		//eraTop10=resultLogic.returnEraTop10(pitchingResultList,regAtPitch);
+		eraTop10=resultLogic.returnEraTop10(eraTop10,regAtPitch);
 		//勝利数TOP10
 		//winTop10=pitchingService.findByPeriod(league.beginDate, league.endDate,"win desc,era asc");
 		winTop10=new ArrayList<PitchingResultDto>(pitchingResultList);

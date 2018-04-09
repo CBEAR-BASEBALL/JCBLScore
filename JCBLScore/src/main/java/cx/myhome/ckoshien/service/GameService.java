@@ -1,6 +1,7 @@
 package cx.myhome.ckoshien.service;
 
 import cx.myhome.ckoshien.dto.GameListDto;
+import cx.myhome.ckoshien.dto.MinMaxLeagueDto;
 import cx.myhome.ckoshien.entity.Game;
 import cx.myhome.ckoshien.entity.League;
 
@@ -57,6 +58,12 @@ public class GameService extends AbstractService<Game> {
     public List<GameListDto> findAllGroupByGameDate() {
     	return jdbcManager
     	.selectBySqlFile(GameListDto.class, "cx.myhome.ckoshien.sql.GameDate.sql")
+    	.getResultList();
+    }
+
+    public List<MinMaxLeagueDto> findMinMaxLeagueId() {
+    	return jdbcManager
+    	.selectBySqlFile(MinMaxLeagueDto.class, "cx.myhome.ckoshien.sql.MinMaxLeagueId.sql")
     	.getResultList();
     }
 }
