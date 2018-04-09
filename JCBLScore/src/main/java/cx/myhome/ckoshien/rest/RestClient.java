@@ -23,7 +23,7 @@ public class RestClient {
 	public Client getClient() {
 		ClientConfig config = new DefaultClientConfig();
 		config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);//この設定をすることで　JSON　を　POJO　にパースできる
-		config.getProperties().put(ClientConfig.PROPERTY_READ_TIMEOUT , 3000);
+		config.getProperties().put(ClientConfig.PROPERTY_READ_TIMEOUT , 10000);
 		Client client = Client.create(config);
 		return client;
 	}

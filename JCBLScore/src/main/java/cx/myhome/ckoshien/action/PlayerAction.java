@@ -2,6 +2,7 @@ package cx.myhome.ckoshien.action;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,9 +22,11 @@ import cx.myhome.ckoshien.dto.PositionDto;
 import cx.myhome.ckoshien.dto.TeamBattingResultDto;
 import cx.myhome.ckoshien.dto.TeamHistoryDto;
 import cx.myhome.ckoshien.dto.TeamPitchingResultDto;
+import cx.myhome.ckoshien.dto.TitleHolderDto;
 import cx.myhome.ckoshien.entity.League;
 import cx.myhome.ckoshien.entity.Player;
 import cx.myhome.ckoshien.entity.Team;
+import cx.myhome.ckoshien.entity.TitleHolder;
 import cx.myhome.ckoshien.form.PlayerForm;
 import cx.myhome.ckoshien.service.BattingSumService;
 import cx.myhome.ckoshien.service.LeagueService;
@@ -31,11 +34,21 @@ import cx.myhome.ckoshien.service.PitchingService;
 import cx.myhome.ckoshien.service.PlayerService;
 import cx.myhome.ckoshien.service.TeamHistoryService;
 import cx.myhome.ckoshien.service.TeamService;
+import cx.myhome.ckoshien.service.TitleHolderService;
 import cx.myhome.ckoshien.util.MemoryUtil;
 
 
 
 public class PlayerAction {
+
+	private static final int EVENT_TYPE_AVG=1;
+	private static final int EVENT_TYPE_HR=2;
+	private static final int EVENT_TYPE_RBI=3;
+	private static final int EVENT_TYPE_HIT=4;
+	private static final int EVENT_TYPE_ERA=5;
+	private static final int EVENT_TYPE_WIN=6;
+	private static final int EVENT_TYPE_SAVE=7;
+	private static final int EVENT_TYPE_STRIKE=8;
 
 	@Resource
 	protected PlayerService playerService;
@@ -70,7 +83,10 @@ public class PlayerAction {
 	protected HttpServletResponse response;
 	@Resource
 	protected TeamHistoryService teamHistoryService;
+	@Resource
+	protected TitleHolderService titleHolderService;
 	public List<TeamHistoryDto> teamHistoryDtoList;
+	public List<TitleHolderDto> titleHolderList;
 	private static Logger logger = Logger.getLogger("rootLogger");
 
 	@Execute(validator = false)
@@ -257,6 +273,53 @@ public class PlayerAction {
 		pbrlList=battingSumService.findPBRLById(Integer.parseInt(playerForm.id));
 		pprlList=pitchingService.findPPRLById(Integer.parseInt(playerForm.id));
 		teamHistoryDtoList=teamHistoryService.findTeamHistoryWithSeason(Integer.parseInt(playerForm.id));
+		titleHolderList = new ArrayList<TitleHolderDto>();
+		List<TitleHolderDto> tmpList = titleHolderService.findPersonalTitle(Integer.parseInt(playerForm.id));
+		TitleHolderDto titleHolderDto= new TitleHolderDto();
+		StringBuilder sbAvg=new StringBuilder();
+		StringBuilder sbHr=new StringBuilder();
+		StringBuilder sbRbi=new StringBuilder();
+		StringBuilder sbHit=new StringBuilder();
+		StringBuilder sbEra=new StringBuilder();
+		StringBuilder sbWin=new StringBuilder();
+		StringBuilder sbSave=new StringBuilder();
+		StringBuilder sbStrike=new StringBuilder();
+		for(int i=0;i<tmpList.size();i++){
+			if(tmpList.get(i).eventType==EVENT_TYPE_AVG){
+				sbAvg.append(tmpList.get(i).getYear());
+				sbAvg.append(",");
+				titleHolderDto.setAvgPlayer(new String(sbAvg));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_HR){
+				sbHr.append(tmpList.get(i).getYear());
+				sbHr.append(",");
+				titleHolderDto.setHrPlayer(new String(sbHr));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_RBI){
+				sbRbi.append(tmpList.get(i).getYear());
+				sbRbi.append(",");
+				titleHolderDto.setHrPlayer(new String(sbRbi));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_HIT){
+				sbHit.append(tmpList.get(i).getYear());
+				sbHit.append(",");
+				titleHolderDto.setHitPlayer(new String(sbHit));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_ERA){
+				sbEra.append(tmpList.get(i).getYear());
+				sbEra.append(",");
+				titleHolderDto.setEraPlayer(new String(sbEra));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_WIN){
+				sbWin.append(tmpList.get(i).getYear());
+				sbWin.append(",");
+				titleHolderDto.setEraPlayer(new String(sbWin));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_SAVE){
+				sbSave.append(tmpList.get(i).getYear());
+				sbSave.append(",");
+				titleHolderDto.setSavePlayer(new String(sbSave));
+			}else if(tmpList.get(i).eventType==EVENT_TYPE_STRIKE){
+				sbStrike.append(tmpList.get(i).getYear());
+				sbStrike.append(",");
+				titleHolderDto.setStrikePlayer(new String(sbStrike));
+			}
+		}
+		titleHolderList.add(titleHolderDto);
 		logger.info("/player/show/"+playerForm.id+" "+player.name);
 		MemoryUtil.viewMemoryInfo();
 		logger.info("lookup:"+(t2-t1)+"ms");

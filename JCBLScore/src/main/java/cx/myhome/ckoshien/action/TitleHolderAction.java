@@ -23,6 +23,7 @@ import cx.myhome.ckoshien.entity.TitleHolder;
 import cx.myhome.ckoshien.rest.RestClient;
 import cx.myhome.ckoshien.service.GameService;
 import cx.myhome.ckoshien.service.TitleHolderService;
+import cx.myhome.ckoshien.util.MemoryUtil;
 
 public class TitleHolderAction {
 	private static final int EVENT_TYPE_AVG=1;
@@ -144,6 +145,9 @@ public class TitleHolderAction {
 			tHolderDto.setShortTitle(tmpList.get(i).getShortTitle());
 			tHolderDto.setTotalFlg(tmpList.get(i).getTotalFlg());
 		}
+		long t2=System.currentTimeMillis();
+		MemoryUtil.viewMemoryInfo();
+		logger.info("[APIデータ加工] "+ (t2-t1) +"ms");
         return "index.jsp";
 	}
 

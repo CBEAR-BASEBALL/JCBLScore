@@ -548,6 +548,19 @@ $(function() {
 				</c:forEach>
 			</c:when>
 		</c:choose>
+		<c:if test="${!empty titleHolderList}">
+			<b>タイトル：</b><br>
+				<c:forEach var="thList" items="${titleHolderList}">
+						<c:if test="${!empty thList.avgPlayer}">最高打率:<br>${thList.avgPlayer}<br></c:if>
+						<c:if test="${!empty thList.hrPlayer}">最多本塁打:<br>${thList.hrPlayer}<br></c:if>
+						<c:if test="${!empty thList.rbiPlayer}">最多打点:<br>${thList.rbiPlayer}<br></c:if>
+						<c:if test="${!empty thList.hitPlayer}">最多安打:<br>${thList.hitPlayer}<br></c:if>
+						<c:if test="${!empty thList.eraPlayer}">最優秀防御率:<br>${thList.eraPlayer}<br></c:if>
+						<c:if test="${!empty thList.winPlayer}">最多勝:<br>${thList.winPlayer}<br></c:if>
+						<c:if test="${!empty thList.savePlayer}">最多セーブ<br>${thList.savePlayer}<br></c:if>
+						<c:if test="${!empty thList.strikePlayer}">最多奪三振:<br>${thList.strikePlayer}<br></c:if>
+				</c:forEach>
+			</c:if>
 
 		${f:br(player.comment)}</td>
 

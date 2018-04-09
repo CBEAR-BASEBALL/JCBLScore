@@ -3,6 +3,8 @@ package cx.myhome.ckoshien.service;
 import cx.myhome.ckoshien.dto.MinMaxLeagueDto;
 import cx.myhome.ckoshien.dto.TitleHolderDto;
 import cx.myhome.ckoshien.entity.TitleHolder;
+
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Generated;
 
@@ -43,6 +45,14 @@ public class TitleHolderService extends AbstractService<TitleHolder> {
     public List<TitleHolderDto> findAllOrderByLeagueId() {
     	return jdbcManager
     	.selectBySqlFile(TitleHolderDto.class, "cx.myhome.ckoshien.sql.TitleHolderList.sql")
+    	.getResultList();
+    }
+
+    public List<TitleHolderDto> findPersonalTitle(Integer playerId) {
+    	HashMap<String, Integer> params=new HashMap<String, Integer>();
+    	params.put("playerId", playerId);
+    	return jdbcManager
+    	.selectBySqlFile(TitleHolderDto.class, "cx.myhome.ckoshien.sql.PersonalTitle.sql",params)
     	.getResultList();
     }
 }

@@ -23,6 +23,7 @@ public class TitleHolderDto extends TitleHolder{
 	private Integer totalFlg;
 	private String name;
 	private String shortTitle;
+	private Integer year;
 
 	public String getEventTypeStr() {
 		return eventTypeStr;
@@ -143,5 +144,11 @@ public class TitleHolderDto extends TitleHolder{
 	}
 	public void setShortTitle(String shortTitle) {
 		this.shortTitle = shortTitle;
+	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 }
