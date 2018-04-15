@@ -57,7 +57,7 @@ public class TeamAction {
 	//チーム一覧表示
 	@Execute(validator = false)
 	public String index() {
-		teamList=teamService.findAllOrderById();
+		teamList=teamService.findTeamOrderByLastJoinedDate();
 		teamForm.leagueId=leagueService.findTotal().get(0).id.toString();
         return "index.jsp";
 	}
@@ -81,7 +81,7 @@ public class TeamAction {
 	@Aspect(value="loginConfInterceptor")
 	@Execute(urlPattern="update/{teamId}",validator = false)
 	public String update(){
-		teamList=teamService.findAllOrderById();
+		teamList=teamService.findTeamOrderByLastJoinedDate();
 		Team team=teamService.findById(Integer.parseInt(teamForm.teamId));
 		Beans.copy(team, teamForm).execute();
 		return "update.jsp";

@@ -1,0 +1,58 @@
+#team {
+    position: absolute;
+    left: 170px;
+    top: 410px;
+}
+#stats {
+    position: absolute;
+    left: 500px;
+    top: 280px;
+}
+
+#score {
+    position: absolute;
+    left: 550px;
+    top: 410px;
+}
+
+#player {
+    position: absolute;
+    left: 360px;
+    top: 410px;
+}
+
+#login {
+    position: absolute;
+    left: 360px;
+    top: 600px;
+}
+
+#loginNow {
+    position: absolute;
+    left: 360px;
+    top: 600px;
+}
+
+#gameCreate {
+    position: absolute;
+    left: 350px;
+    top: 130px;
+}
+
+#playerCreate {
+    position: absolute;
+    left: 110px;
+    top: 150px;
+}
+
+#teamHistory {
+    position: absolute;
+    left: 550px;
+    top: 150px;
+}
+
+#title {
+    position: absolute;
+    left: 200px;
+    top: 280px;
+}

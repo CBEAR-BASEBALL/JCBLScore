@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>JCBLスコア管理システム</title>
-<link rel="stylesheet" href="${f:url('/css/style.css') }" type="text/css" media="print, projection, screen"/>
+<link rel="stylesheet" href="${f:url('/css/top.css') }" type="text/css" media="print, projection, screen"/>
 	<%-- jquery --%>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<%-- bootstrap --%>
@@ -10,11 +10,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 	<%-- jquery-ui --%>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
-	<%-- highcharts --%>
-	<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
-	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.4/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+	<%-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
+	--%><%-- highcharts --%>
+	<%--<script type="text/javascript" src="https://code.highcharts.com/4.2.2/highcharts.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/2.2/highcharts-more.js"></script>--%>
 </head>
 <body>
 <!--shinobi1-->
@@ -25,32 +24,41 @@
 <!--shinobi2-->
 <hr>
 <h2>JCBLスコア管理システム</h2>
-<a href="${f:url('/team/')}" class="btn btn-success">チーム紹介</a>
+<img src="${f:url('img/field.jpg')}" width=80%>
+<a href="${f:url('/team/')}" class="btn btn-default" id="team">チーム紹介</a>
+<a href="${f:url('/result/')}" class="btn btn-default" id="stats">スタッツ</a>
+<a href="${f:url('/gameSummary/')}" class="btn btn-default" id="score">スコアボード</a>
+<a href="${f:url('/player/')}" class="btn btn-default" id="player">選手一覧</a>
+<a href="${f:url('/titleHolder/')}" class="btn btn-default" id="title">タイトルホルダー</a>
+
+<%-- <a href="${f:url('/team/')}" class="btn btn-success">チーム紹介</a>
 <a href="${f:url('/result/')}" class="btn btn-success">スタッツ</a>
 <a href="${f:url('/gameSummary/')}" class="btn btn-success">スコアボード</a>
 <a href="${f:url('/player/')}" class="btn btn-success">選手一覧</a>
-<br>
+--%><br>
 <br>
 <br>
 <br>
 <br>
 <c:choose>
 	<c:when test="${!empty loginUserDto.authority}">
-		<a href="./gameSummary/create" class="btn btn-warning">新規試合入力</a>
-		<a href="${f:url('./player/') }" class="btn btn-warning">選手新規入力・更新</a>
-		<a href="${f:url('./teamHistory/') }" class="btn btn-warning">チーム履歴新規入力・更新</a>
-		<br><b>(${loginUserDto.name}さんログイン中)</b>
+		<a href="./gameSummary/create" class="btn btn-warning" id="gameCreate">新規試合入力</a>
+		<a href="${f:url('./player/') }" class="btn btn-warning" id="playerCreate">選手新規入力・更新</a>
+		<a href="${f:url('./teamHistory/') }" class="btn btn-warning" id="teamHistory">チーム履歴新規入力・更新</a>
+		<br><span class="btn btn-warning" id="loginNow"><b>(${loginUserDto.name}さんログイン中)</b></span>
 	</c:when>
 	<c:otherwise>
 		<s:form action="login">
-			<input type="submit" value="ログイン" class="btn btn-danger"/>
+			<input type="submit" value="ログイン" class="btn btn-danger" id="login"/>
 		</s:form>
 	</c:otherwise>
 </c:choose>
 <hr>
 <hr>
+
+<%--
 <script src="https://embed.small.chat/T25NYBSGZG8LLE0A9J.js" async></script>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 1 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -60,5 +68,6 @@
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+--%>
 </body>
 </html>
