@@ -230,94 +230,9 @@
 								return '<img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
 							}
 						},
-						{ data: "gameCount"  },
-						{ data: "inning"  },
-						{ data: "hit"  },
-						{ data: "strikeOut"  },
-						{ data: "fourBall"  },
-						{ data: "runs"  },
-						{ data: "complete"  },
-						{ data: "shutout"  },
-						{ data: "win"  },
-						{ data: "lose"  },
-						{ data: "save"  },
-						{ data: "era",
-							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
-						},
-					],
-					columnDefs: [
-						{
-							targets: [1],
-							className:"name"
-						},{
-							targets: [13],
-							className:"important"
-						}
-					],
-		        	order: [[ 13, "asc" ]],
-					lengthChange: false,
-					info: false,
-					responsive: true,
-					processing: true,
-				})
-				$('#winTop10').DataTable({
-					data:data.winTop10,
-					searching: false,
-					ordering:false,
-					paging: false,
-					columns: [
-						{ data: "rank" },
-						{
-							data: "name",
-							render: function ( data, type, row ) {
-								return '<img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
-							}
-						},
-						{ data: "gameCount"  },
-						{ data: "inning"  },
-						{ data: "hit"  },
-						{ data: "strikeOut"  },
-						{ data: "fourBall"  },
-						{ data: "runs"  },
-						{ data: "complete"  },
-						{ data: "shutout"  },
-						{ data: "win"  },
-						{ data: "lose"  },
-						{ data: "save"  },
-						{ data: "era",
-							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
-						},
-					],
-					columnDefs: [
-						{
-							targets: [1],
-							className:"name"
-						},{
-							targets: [10],
-							className:"important"
-						}
-					],
-					//order: [[ 10, "asc" ]],
-					lengthChange: false,
-					info: false,
-					responsive: true,
-					processing: true,
-				})
-				$('#saveTop10').DataTable({
-					data:data.saveTop10,
-					searching: false,
-					ordering:false,
-					paging: false,
-					columns: [
-						{ data: "rank" },
-						{
-							data: "name",
-							render: function ( data, type, row ) {
-								return '<img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
-							}
-						},
-						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -340,6 +255,94 @@
 							className:"important"
 						}
 					],
+		        	order: [[ 12, "asc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
+				$('#winTop10').DataTable({
+					data:data.winTop10,
+					searching: false,
+					ordering:false,
+					paging: false,
+					columns: [
+						{ data: "rank" },
+						{
+							data: "name",
+							render: function ( data, type, row ) {
+								return '<img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
+							}
+						},
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
+						{ data: "hit"  },
+						{ data: "strikeOut"  },
+						{ data: "fourBall"  },
+						{ data: "runs"  },
+						{ data: "complete"  },
+						{ data: "shutout"  },
+						{ data: "win"  },
+						{ data: "lose"  },
+						{ data: "save"  },
+						{ data: "era",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+					],
+					columnDefs: [
+						{
+							targets: [1],
+							className:"name"
+						},{
+							targets: [9],
+							className:"important"
+						}
+					],
+					//order: [[ 10, "asc" ]],
+					lengthChange: false,
+					info: false,
+					responsive: true,
+					processing: true,
+				})
+				$('#saveTop10').DataTable({
+					data:data.saveTop10,
+					searching: false,
+					ordering:false,
+					paging: false,
+					columns: [
+						{ data: "rank" },
+						{
+							data: "name",
+							render: function ( data, type, row ) {
+								return '<img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
+							}
+						},
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
+						{ data: "hit"  },
+						{ data: "strikeOut"  },
+						{ data: "fourBall"  },
+						{ data: "runs"  },
+						{ data: "complete"  },
+						{ data: "shutout"  },
+						{ data: "win"  },
+						{ data: "lose"  },
+						{ data: "save"  },
+						{ data: "era",
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+						},
+					],
+					columnDefs: [
+						{
+							targets: [1],
+							className:"name"
+						},{
+							targets: [11],
+							className:"important"
+						}
+					],
 					//order: [[ 10, "asc" ]],
 					lengthChange: false,
 					info: false,
@@ -359,8 +362,9 @@
 								return '<img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data;
 							}
 						},
-						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -379,7 +383,7 @@
 							targets: [1],
 							className:"name"
 						},{
-							targets: [5],
+							targets: [4],
 							className:"important"
 						}
 					],
@@ -402,8 +406,9 @@
 								return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'</a>';
 							}
 						},
-						{ data: "gameCount"  },
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -852,7 +857,6 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登<br>板<br>数</th>
 		<th>投<br>球<br>回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>
@@ -875,7 +879,6 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登<br>板<br>数</th>
 		<th>投<br>球<br>回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>
@@ -898,7 +901,6 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登<br>板<br>数</th>
 		<th>投<br>球<br>回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>
@@ -921,7 +923,6 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登<br>板<br>数</th>
 		<th>投<br>球<br>回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>
@@ -989,7 +990,6 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登<br>板<br>数</th>
 		<th>投球回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>

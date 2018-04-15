@@ -1,5 +1,5 @@
 SELECT
-	count(*) as game_count,
+	-- count(*) as game_count,
 	player_id,
 	name,
 	p.team_id as team_id,

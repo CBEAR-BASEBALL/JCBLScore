@@ -4,7 +4,7 @@ SELECT
   p.team_id as team_id,
   player_id,
   t.short_name as short_name,
-  count(*) as game_count,
+  -- count(*) as game_count,
   sum(runs)/sum(inning)*5 as era,
   (sum(hit)+sum(four_ball))/sum(inning) as WHIP,
   sum(strike_out)/sum(inning)*5 as strike_avg,

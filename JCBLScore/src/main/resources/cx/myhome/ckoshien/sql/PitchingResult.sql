@@ -3,7 +3,7 @@ SELECT
   name,
   pl.team_id as team_id,
   team_name,
-  count(*) as game_count,
+  -- count(*) as game_count,
   sum(runs)/sum(inning)*5 as era,
   (sum(hit)+sum(four_ball))/sum(inning) as WHIP,
   sum(strike_out)/sum(inning)*5 as strike_avg,

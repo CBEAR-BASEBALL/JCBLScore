@@ -197,7 +197,6 @@
 								return '<b>'+data+'(通算)</b>';
 							}
 						},
-						{ data: "gameCount"  },
 						{ data: "inning",
 							render: $.fn.dataTable.render.number( ',', '.', 2, '' )},
 						{ data: "hit"  },
@@ -245,7 +244,6 @@
 								return 'v.s.'+data;
 							}
 						},
-						{ data: "gameCount"  },
 						{ data: "inning",
 							render: $.fn.dataTable.render.number( ',', '.', 2, '' )},
 						{ data: "hit"  },
@@ -340,7 +338,9 @@
 								}
 							}
 						},
-						{ data: "inning"  },
+						{ data: "inning"
+							,render: $.fn.dataTable.render.number( ',', '.', 2, '' )
+							},
 						{ data: "hit"  },
 						{ data: "strikeOut"  },
 						{ data: "fourBall"  },
@@ -351,7 +351,7 @@
 						{ data: "lose"  },
 						{ data: "save"  },
 						{ data: "era",
-							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
 						},
 					],
 					columnDefs: [
@@ -661,7 +661,6 @@ $(function() {
 	<thead>
 	<tr>
 		<th>名前</th>
-		<th>登<br>板<br>数</th>
 		<th>投<br>球<br>回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>
@@ -700,7 +699,6 @@ $(function() {
 				<thead>
 				<tr>
 					<th>名前</th>
-					<th>登<br>板<br>数</th>
 					<th>投<br>球<br>回</th>
 					<th>被<br>安<br>打</th>
 					<th>奪<br>三<br>振</th>
@@ -727,7 +725,6 @@ $(function() {
 	<thead>
 	<tr>
 		<th>名前</th>
-		<th>登<br>板<br>数</th>
 		<th>投<br>球<br>回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>
@@ -750,172 +747,6 @@ $(function() {
 	<div id="chart_div2" style="width: 80%; height: 300px;"></div>
 </dd>
 </dl>
-<%--
- <h2>打撃成績</h2>
-<table border=1 id="battingResult">
-	<thead>
-	<tr>
-		<th>名前</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
-		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
-		<th>打率</th>
-		<th>長打率</th>
-		<th>OPS</th>
-		<th>出塁率</th>
-		<th>三振率</th>
-	</tr>
-	</thead>
-</table>
-<h2>期毎打撃成績</h2>
-<div id="tab-b">
-<ul>
-	<c:forEach var="pbrDtos" items="${pbrlList}">
-		<c:choose>
-		<c:when test="${!empty pbrDtos.leagueId}">
-			<li><a href="#t-${pbrDtos.leagueId}">${pbrDtos.title}</a></li>
-		</c:when>
-		</c:choose>
-    </c:forEach>
-</ul>
-<c:forEach var="pbrDtos" items="${pbrlList}">
-    	<c:choose>
-    	<c:when test="${!empty pbrDtos.leagueId}">
-		<div id="t-${pbrDtos.leagueId}">
-			<table border=1 id="t-${pbrDtos.leagueId}-batting">
-				<thead>
-				<tr>
-					<th>名前</th>
-					<th>試合</th>
-					<th>打席数</th>
-					<th>打数</th>
-					<th>安打</th>
-					<th>HR</th>
-					<th>打点</th>
-					<th>四球</th>
-					<th>三振</th>
-					<th>二塁打</th>
-					<th>打率</th>
-				</tr>
-				</thead>
-			</table>
-		</div>
-	</c:when>
-	</c:choose>
-</c:forEach>
-</div>
-
-<h2>対球団別打撃成績</h2>
-<table border=1 id="battingByOpponent">
-	<thead>
-	<tr>
-		<th>名前</th>
-		<th>打席数</th>
-		<th>打数</th>
-		<th>安打</th>
-		<th>HR</th>
-		<th>打点</th>
-		<th>四球</th>
-		<th>三振</th>
-		<th>二塁打</th>
-		<th>打率</th>
-		<th>長打率</th>
-		<th>OPS</th>
-		<th>出塁率</th>
-		<th>三振率</th>
-	</tr>
-	</thead>
-</table>
-<h2>投球成績</h2>
-<table border=1  id="pitchingResult">
-	<thead>
-	<tr>
-		<th>名前</th>
-		<th>登板数</th>
-		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
-		<th>S</th>
-		<th>防御率</th>
-		<th>WHIP</th>
-		<th>奪三振率</th>
-		<th>援護率</th>
-	</tr>
-	</thead>
-</table>
-<h2>期毎投球成績</h2>
-<div id="tab-p">
-<ul>
-	<c:forEach var="pprDtos" items="${pprlList}">
-		<c:choose>
-		<c:when test="${!empty pprDtos.leagueId}">
-			<li><a href="#t-${pprDtos.leagueId}">${pprDtos.title}</a></li>
-		</c:when>
-		</c:choose>
-    </c:forEach>
-</ul>
-<c:forEach var="pprDtos" items="${pprlList}">
-    	<c:choose>
-    	<c:when test="${!empty pprDtos.leagueId}">
-		<div id="t-${pprDtos.leagueId}">
-			<table border=1 id="t-${pprDtos.leagueId}-pitching">
-				<thead>
-				<tr>
-					<th>名前</th>
-					<th>登板数</th>
-					<th>投球回</th>
-					<th>被安打</th>
-					<th>奪三振</th>
-					<th>与四球</th>
-					<th>失点</th>
-					<th>完投</th>
-					<th>完封</th>
-					<th>勝ち</th>
-					<th>負け</th>
-					<th>S</th>
-					<th>防御率</th>
-				</tr>
-				</thead>
-			</table>
-		</div>
-	</c:when>
-	</c:choose>
-</c:forEach>
-</div>
-
-
-<h2>対球団別投球成績</h2>
-<table border=1 id="pitchingByOpponent">
-	<thead>
-	<tr>
-		<th>名前</th>
-		<th>登板数</th>
-		<th>投球回</th>
-		<th>被安打</th>
-		<th>奪三振</th>
-		<th>与四球</th>
-		<th>失点</th>
-		<th>完投</th>
-		<th>完封</th>
-		<th>勝ち</th>
-		<th>負け</th>
-		<th>S</th>
-		<th>防御率</th>
-	</tr>
-	</thead>
-</table>
---%>
 <div id="chart_div3" style="width: 80%; height: 300px;"></div>
 <div id="chart_div" style="width: 80%; height: 300px;"></div>
 <div id="chart_div2" style="width: 80%; height: 300px;"></div>
