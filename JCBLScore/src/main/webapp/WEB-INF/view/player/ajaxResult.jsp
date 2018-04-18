@@ -699,6 +699,7 @@ $(function() {
 				<thead>
 				<tr>
 					<th>名前</th>
+					<th>試合</th>
 					<th>投<br>球<br>回</th>
 					<th>被<br>安<br>打</th>
 					<th>奪<br>三<br>振</th>
