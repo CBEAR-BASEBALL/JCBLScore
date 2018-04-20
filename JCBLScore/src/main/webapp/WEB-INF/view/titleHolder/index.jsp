@@ -14,15 +14,15 @@
 	<!-- jquery-ui -->
 	<script type="text/javascript" src="//code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="print, projection, screen"/>
+	<%--
 	<!-- onsenUI -->
-	<!-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-	 -->
-	<%--
 	<!--datatables -->
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1">--%>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	--%>
 </head>
 <body>
 <h2>年度別タイトルホルダー</h2>

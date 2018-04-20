@@ -42,7 +42,7 @@
 			});
 		    //setTimeout($.unblockUI, 500);
 		});
-			$.fn.dataTable.ext.errMode = 'none';
+			//$.fn.dataTable.ext.errMode = 'none';
 			$.extend( $.fn.dataTable.defaults, {
 	        language: {
 	            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
@@ -412,7 +412,7 @@
 								return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'</a>';
 							}
 						},
-						{ data: "gameCount"  },
+						//{ data: "gameCount"  },
 						{ data: "inning",
 							render: $.fn.dataTable.render.number( ',', '.', 2, '' )
 						},
@@ -507,7 +507,7 @@
 					],
 		        	order: [[ 1, "desc" ]],
 					lengthChange: false,
-					info: false,
+					info: true,
 					responsive: true,
 					processing: true,
 				})
@@ -777,7 +777,7 @@ $(function() {
 <button id="allOpen" class="btn btn-primary">タブを全て開く</button>
 <br>
 <dl id="panel">
-<dt>打率TOP10(規定打席:<span id="regBats"></span>打席)▼</dt>
+<dt>打率TOP20(規定打席:<span id="regBats"></span>打席)▼</dt>
 <dd>
 	<table id="averageTop10" border=1 class="bat" style="width:100%">
 	<thead>
@@ -1001,7 +1001,6 @@ $(function() {
 	<tr>
 		<th></th>
 		<th>選手名</th>
-		<th>登<br>板<br>数</th>
 		<th>投球回</th>
 		<th>被<br>安<br>打</th>
 		<th>奪<br>三<br>振</th>

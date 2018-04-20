@@ -103,22 +103,22 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
 //    		System.out.println(ia.getHostName());
-    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
-    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
-    				&& !request.getRemoteAddr().startsWith("192.168")
-    				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
-    				&& !ia.getHostName().equals("127.0.0.1")
-    				&& !ia.getHostName().equals(request.getRemoteAddr())
-    			){
-    			logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
-//    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-    			try {
-					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
-				} catch (IOException e) {
-					logger.error(e);
-				}
-        		return null;
-    		}
+//    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+//    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+//    				&& !request.getRemoteAddr().startsWith("192.168")
+//    				&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+//    				&& !ia.getHostName().equals("127.0.0.1")
+//    				&& !ia.getHostName().equals(request.getRemoteAddr())
+//    			){
+//    			logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
+////    			//response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//    			try {
+//					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
+//				} catch (IOException e) {
+//					logger.error(e);
+//				}
+//        		return null;
+//    		}
 			logger.info(ia.getHostName()+":"+request.getRemotePort());
 		} catch (Exception e1) {
 			logger.warn(e1);
@@ -548,7 +548,7 @@ private static Logger logger = Logger.getLogger("rootLogger");
 				}
 			}
 		}
-		averageTop10=resultLogic.returnAverageTop10(averageTop10,regAtBats);
+		averageTop10=resultLogic.returnAverageTop20(averageTop10,regAtBats);
 		//HRTOP10
 		//homerunTop10=battingSumService.findByPeriod(league.beginDate, league.endDate,"homerun desc,average desc");
 				homerunTop10=new ArrayList<BattingResultDto>(battingResultList);

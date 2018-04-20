@@ -730,4 +730,42 @@ public class ResultLogic {
 		}
 		return strikeOutTop10;
 	}
+
+	public List<BattingResultDto> returnAverageTop20(List<BattingResultDto> battingResultList,int regAtBats){
+		int j=0;
+		int k=0;
+		ArrayList<BattingResultDto> averageTop20 = new ArrayList<BattingResultDto>();
+		List<BattingResultDto> list=new ArrayList<BattingResultDto>();
+		//規定打席数でリスト詰め替え
+		for(int i=0;i<battingResultList.size();i++){
+			if(battingResultList.get(i).tpa>=regAtBats){
+				list.add(battingResultList.get(i));
+			}
+		}
+		battingResultList=list;
+		for(int i=0;i<battingResultList.size();i++){
+			battingResultDto=new BattingResultDto();
+			BattingResultDto battingResult = battingResultList.get(i);
+			BeanUtil.copyProperties(battingResult, battingResultDto);
+			if(battingResultList.get(i).tpa>=regAtBats){
+				j++;
+				if (i==0){
+					battingResultDto.rank=1;
+				}
+				if (i>=1&&!(battingResultList.get(i-1).average.equals(battingResultList.get(i).average))){
+					battingResultDto.rank=j;
+					k=j;
+				}
+				//convert2BattingResultDto(battingResultList,i);
+
+				if (battingResultDto.rank==null||battingResultDto.rank<=20){
+					if (k>=21){
+						break;
+					}
+					averageTop20.add(battingResultDto);
+				}
+			}
+		}
+		return averageTop20;
+	}
 }

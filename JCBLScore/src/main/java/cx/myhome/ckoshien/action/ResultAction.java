@@ -255,29 +255,29 @@ private static Logger logger = Logger.getLogger("rootLogger");
 		try {
     		InetAddress ia=InetAddress.getByName(request.getRemoteAddr());
 //		    		System.out.println(ia.getHostName());
-    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
-    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
-    				&& !request.getRemoteAddr().startsWith("192.168")
-		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
-		    		&& !ia.getHostName().equals("127.0.0.1")
-		    		&& !ia.getHostName().equals(request.getRemoteAddr())
-		    ){
-		    	logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
-//		    	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		    	try {
-					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
-				} catch (IOException e) {
-					logger.error(e);
-				}
-		    	return null;
-    		}
+//    		if(!ia.getHostName().substring(ia.getHostName().length()-3).equals(".jp")
+//    				&& !request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")
+//    				&& !request.getRemoteAddr().startsWith("192.168")
+//		    		&& !ia.getHostName().substring(ia.getHostName().length()-4).equals(".net")
+//		    		&& !ia.getHostName().equals("127.0.0.1")
+//		    		&& !ia.getHostName().equals(request.getRemoteAddr())
+//		    ){
+//		    	logger.info("遮断:"+ia.getHostName()+":"+request.getRemotePort());
+////		    	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//		    	try {
+//					response.sendError(404, "jp、netドメインのみ許可しています。"+ia.getHostName());
+//				} catch (IOException e) {
+//					logger.error(e);
+//				}
+//		    	return null;
+//    		}
 			logger.info(ia.getHostName()+":"+request.getRemotePort());
 		} catch (Exception e1) {
 			logger.warn(e1);
 		}
 		long t1=System.currentTimeMillis();
-		AccessControlUtil aUtil=new AccessControlUtil();
-		System.out.println(aUtil.isBlockedAddress(request));
+//		AccessControlUtil aUtil=new AccessControlUtil();
+//		System.out.println(aUtil.isBlockedAddress(request));
 		try{
 			league=leagueService.findById(Integer.parseInt(resultForm.id));
 		}catch(NumberFormatException e){
