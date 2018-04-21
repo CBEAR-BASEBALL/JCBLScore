@@ -157,7 +157,8 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			if(!gameSummaryForm.p_playerId.get(i).equals("")){
 				GameSummaryLogic logic=new GameSummaryLogic();
 				pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
-
+				logger.info(pitching.inning);
+				logger.info(gameSummaryForm.inning2.get(i));
 				if(gameSummaryForm.p_myTeamId.get(i).equals("0")){
 					pitching.myteamId=Integer.parseInt(gameSummaryForm.firstTeam);
 				}else if(gameSummaryForm.p_myTeamId.get(i).equals("1")){
@@ -333,9 +334,13 @@ private static Logger logger = Logger.getLogger("rootLogger");
 			for(int i=0;i<gameSummaryForm.p_playerId.size();i++){
 				if(!gameSummaryForm.p_playerId.get(i).equals("")){
 					Pitching pitching=pitchingService.findById(Integer.parseInt(gameSummaryForm.p_playerId.get(i)));
-					pitching=new Pitching();
+					if(pitching ==null){
+						pitching=new Pitching();
+					}
 					GameSummaryLogic logic=new GameSummaryLogic();
 					pitching=logic.convert2Pitching(gameSummaryForm,pitching, i);
+					logger.info(pitching.inning);
+					logger.info(gameSummaryForm.inning2.get(i));
 					for(int j=0;j<playerList.size();j++){
 						if(playerList.get(j).id.equals(pitching.playerId)){
 							pitching.teamId=playerList.get(j).teamId;

@@ -351,10 +351,10 @@
 			<html:text property="p_homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="complete[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err"/>
+			<html:text property="complete[${i-1}]" size="3" maxlength="3" errorStyleClass="err"/>
 		</td>
 		<td>
-			<html:text property="shutout[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err"/>
+			<html:text property="shutout[${i-1}]"  size="3" maxlength="3" errorStyleClass="err"/>
 		</td>
 	</tr>
 	<html:hidden property="p_myTeamId[${i-1}]" value="0"/>
@@ -488,10 +488,10 @@
 			<html:text property="p_homerun[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="complete[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err" />
+			<html:text property="complete[${i-1}]" size="3" maxlength="3" errorStyleClass="err" />
 		</td>
 		<td>
-			<html:text property="shutout[${i-1}]" value="0" size="3" maxlength="3" errorStyleClass="err"/>
+			<html:text property="shutout[${i-1}]" size="3" maxlength="3" errorStyleClass="err"/>
 		</td>
 	</tr>
 	<html:hidden property="p_myTeamId[${i-1}]" value="1"/>
