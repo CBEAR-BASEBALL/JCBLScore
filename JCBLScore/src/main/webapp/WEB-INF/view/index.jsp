@@ -24,7 +24,7 @@
 <!--shinobi2-->
 <hr>
 <h2>JCBLスコア管理システム</h2>
-<img src="${f:url('img/field.jpg')}" width=80%>
+<img src="${f:url('img/field.jpg')}" width=800px>
 <a href="${f:url('/team/')}" class="btn btn-default" id="team">チーム紹介</a>
 <a href="${f:url('/result/')}" class="btn btn-default" id="stats">スタッツ</a>
 <a href="${f:url('/gameSummary/')}" class="btn btn-default" id="score">スコアボード</a>

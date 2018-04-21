@@ -254,6 +254,13 @@ public class GameSummaryLogic {
 			gameSummaryForm.inning2.add(i,"0");
 		}
 		pitching.inning=Double.valueOf(gameSummaryForm.inning1.get(i))+Double.valueOf(gameSummaryForm.inning2.get(i))/3;
+		//フォーム空欄時のエラー回避
+		if(gameSummaryForm.pa.get(i).equals("")){
+			gameSummaryForm.pa.add(i, "0");
+		}
+		if(gameSummaryForm.homerun.get(i).equals("")){
+			gameSummaryForm.homerun.add(i, "0");
+		}
 		pitching.pa=Integer.parseInt(gameSummaryForm.pa.get(i));
 		pitching.hit=Integer.parseInt(gameSummaryForm.p_hit.get(i));
 		pitching.homerun=Integer.parseInt(gameSummaryForm.p_homerun.get(i));

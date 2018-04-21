@@ -42,7 +42,7 @@
 			});
 		    //setTimeout($.unblockUI, 500);
 		});
-			$.fn.dataTable.ext.errMode = 'none';
+			//$.fn.dataTable.ext.errMode = 'none';
 			$.extend( $.fn.dataTable.defaults, {
 	        language: {
 	            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
@@ -69,7 +69,7 @@
 							data: "name",
 							render: function ( data, type, row ) {
 								if(row.year!=null){
-									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'('+row.year+')'+'</a>';
+									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'</a>';
 								}else if(row.year==null && row.playerId==null){
 									return null;
 								}else {
@@ -77,7 +77,7 @@
 								}
 							}
 						},
-						//{ data: "gameCount"  },
+						{ data: "year"  },
 						{ data: "inning",
 							render: $.fn.dataTable.render.number( ',', '.', 2, '' )},
 						{ data: "hit"  },
@@ -101,7 +101,7 @@
 					],
 					columnDefs: [
 						{
-							targets: [1],
+							targets: [0],
 							className:"name"
 						},{
 							//targets: [10],
@@ -125,7 +125,7 @@
 							data: "name",
 							render: function ( data, type, row ) {
 								if(row.year!=null){
-									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'('+row.year+')'+'</a>';
+									return '<a href="../../player/show/'+row.playerId+'" class="btn btn-default btn-xs"><img width="15" height="15" src="../../img/'+row.teamId+'.jpg" title="'+row.teamName+'">'+data+'</a>';
 								}else if(row.year==null && row.playerId==null){
 									return null;
 								}else {
@@ -133,6 +133,7 @@
 								}
 							}
 						},
+						{ data: "year"},
 						{ data: "tpa"  },
 						{ data: "atBats"  },
 						{ data: "hit"  },
@@ -173,11 +174,11 @@
 							className:"name"
 						},
 						{
-							targets: [17],
+							targets: [18],
 							visible:false
 						},
 					],
-		        	order: [[ 17, "asc" ]],
+		        	order: [[ 18, "asc" ]],
 					lengthChange: false,
 					//info: true,
 					responsive: true,
@@ -202,6 +203,7 @@
 	<thead>
 	<tr>
 		<th>選手名</th>
+		<th>　</th>
 		<th>打席数</th>
 		<th>打数</th>
 		<th>安打</th>
@@ -223,6 +225,7 @@
 	<tfoot>
 	<tr>
 		<th>選手名</th>
+		<th>　</th>
 		<th>打席数</th>
 		<th>打数</th>
 		<th>安打</th>
@@ -249,6 +252,7 @@
 	<tr>
 		<th></th>
 		<th>選手名</th>
+		<th></th>
 		<th>投球回</th>
 		<th>被安打</th>
 		<th>奪三振</th>
@@ -268,6 +272,7 @@
 	<tr>
 		<th></th>
 		<th>選手名</th>
+		<th></th>
 		<th>投球回</th>
 		<th>被安打</th>
 		<th>奪三振</th>
