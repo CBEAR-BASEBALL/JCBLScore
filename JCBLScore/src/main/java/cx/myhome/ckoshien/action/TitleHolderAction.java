@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.seasar.framework.container.annotation.tiger.Aspect;
 import org.seasar.framework.util.ResourceUtil;
+import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import cx.myhome.ckoshien.dto.BattingResultDto;
@@ -21,6 +22,7 @@ import cx.myhome.ckoshien.dto.PitchingResultDto;
 import cx.myhome.ckoshien.dto.TitleHolderDto;
 import cx.myhome.ckoshien.dto.api.ResultApiDto;
 import cx.myhome.ckoshien.entity.TitleHolder;
+import cx.myhome.ckoshien.form.TitleHolderForm;
 import cx.myhome.ckoshien.rest.RestClient;
 import cx.myhome.ckoshien.service.GameService;
 import cx.myhome.ckoshien.service.TitleHolderService;
@@ -45,6 +47,9 @@ public class TitleHolderAction {
 	@Resource
 	protected HttpServletResponse response;
 	public List<TitleHolderDto> titleHolderList;
+	@Resource
+	@ActionForm
+	protected TitleHolderForm titleHolderForm;
 
 	static Logger logger = Logger.getLogger("rootLogger");
 	@Execute(validator = false)
@@ -153,29 +158,30 @@ public class TitleHolderAction {
 	}
 
 	@Aspect(value="loginConfInterceptor")
-	@Execute(validator = false)
-	public String exec() {
-		List<MinMaxLeagueDto> minMax = gameService.findMinMaxLeagueId();
-		Integer minLeagueId = minMax.get(0).getMin();
-		Integer maxLeagueId = minMax.get(0).getMax();
+	@Execute(validator = false,urlPattern="calc/{id}")
+	public String calc() {
+//		List<MinMaxLeagueDto> minMax = gameService.findMinMaxLeagueId();
+//		Integer minLeagueId = minMax.get(0).getMin();
+//		Integer maxLeagueId = minMax.get(0).getMax();
 		RestClient client = new RestClient();
 		List<TitleHolder> titleHolderList=new ArrayList<TitleHolder>();
-		for(int i=minLeagueId;i<=maxLeagueId;i++){
-			String uri="http://"+ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP")+"/JCBLScore/api/v1/result/season/"+i;
+		//for(int i=minLeagueId;i<=maxLeagueId;i++){
+			//String uri="http://"+ResourceUtil.getProperties("config.properties").getProperty("SERVER_IP")+"/JCBLScore/api/v1/result/season/"+titleHolderForm.id;
+			String uri="http://localhost:8080/JCBLScore/api/v1/result/season/"+titleHolderForm.id;
 			Object entity=null;
 			HashMap<String,String> header=new HashMap<String,String>();
 			ResultApiDto json=client.sendRequest(uri, "GET", entity, ResultApiDto.class,header);
 
-			titleHolderList=bToTHList(i, json.averageTop10, titleHolderList,EVENT_TYPE_AVG);
-			titleHolderList=bToTHList(i, json.homerunTop10, titleHolderList,EVENT_TYPE_HR);
-			titleHolderList=bToTHList(i, json.rbiTop10, titleHolderList,EVENT_TYPE_RBI);
-			titleHolderList=bToTHList(i, json.hitTop10, titleHolderList,EVENT_TYPE_HIT);
-			titleHolderList=pToTHList(i, json.eraTop10, titleHolderList,EVENT_TYPE_ERA);
-			titleHolderList=pToTHList(i, json.winTop10, titleHolderList,EVENT_TYPE_WIN);
-			titleHolderList=pToTHList(i, json.saveTop10, titleHolderList,EVENT_TYPE_SAVE);
-			titleHolderList=pToTHList(i, json.strikeOutTop10, titleHolderList,EVENT_TYPE_STRIKE);
-		}
-		List<TitleHolder> oldList = titleHolderService.findAllOrderById();
+			titleHolderList=bToTHList(titleHolderForm.id, json.averageTop10, titleHolderList,EVENT_TYPE_AVG);
+			titleHolderList=bToTHList(titleHolderForm.id, json.homerunTop10, titleHolderList,EVENT_TYPE_HR);
+			titleHolderList=bToTHList(titleHolderForm.id, json.rbiTop10, titleHolderList,EVENT_TYPE_RBI);
+			titleHolderList=bToTHList(titleHolderForm.id, json.hitTop10, titleHolderList,EVENT_TYPE_HIT);
+			titleHolderList=pToTHList(titleHolderForm.id, json.eraTop10, titleHolderList,EVENT_TYPE_ERA);
+			titleHolderList=pToTHList(titleHolderForm.id, json.winTop10, titleHolderList,EVENT_TYPE_WIN);
+			titleHolderList=pToTHList(titleHolderForm.id, json.saveTop10, titleHolderList,EVENT_TYPE_SAVE);
+			titleHolderList=pToTHList(titleHolderForm.id, json.strikeOutTop10, titleHolderList,EVENT_TYPE_STRIKE);
+		//}
+		List<TitleHolder> oldList = titleHolderService.findSeasonByLeagueId(titleHolderForm.id);
 		for(int j=0;j<oldList.size();j++){
 			//全削除
 			titleHolderService.delete(oldList.get(j));
@@ -185,7 +191,7 @@ public class TitleHolderAction {
 		}
 		System.out.println(titleHolderList);
 		//logger.info(json);
-		return null;
+		return "index&redirect=true";
 	}
 
 	public List<TitleHolder> bToTHList(Integer i,List<BattingResultDto> list,List<TitleHolder> titleHolderList,Integer eventType){

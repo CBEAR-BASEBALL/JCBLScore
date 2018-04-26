@@ -78,7 +78,7 @@
 						{ data: "strikeOut"  },
 						{ data: "twobase"  },
 						{ data: "average",
-							render: $.fn.dataTable.render.number( ',', '.', 3, '' )
+							render: $.fn.dataTable.render.number( ',', '.', 4, '' )
 						},
 					],
 					columnDefs: [

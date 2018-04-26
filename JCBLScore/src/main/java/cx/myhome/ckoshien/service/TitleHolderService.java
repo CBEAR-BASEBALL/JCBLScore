@@ -42,6 +42,10 @@ public class TitleHolderService extends AbstractService<TitleHolder> {
         return select().orderBy(asc(playerId()), asc(leagueId()), asc(eventType())).getResultList();
     }
 
+    public List<TitleHolder> findSeasonByLeagueId(Integer leagueId) {
+        return select().where("leagueId=?",leagueId).getResultList();
+    }
+
     public List<TitleHolderDto> findAllOrderByLeagueId() {
     	return jdbcManager
     	.selectBySqlFile(TitleHolderDto.class, "cx.myhome.ckoshien.sql.TitleHolderList.sql")
